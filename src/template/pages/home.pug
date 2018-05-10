@@ -1,0 +1,163 @@
+extends ../extend/default
+
+block variables
+	- var title = 'Home page';
+
+block main
+	main.content
+
+	//begin screen
+	+b.SECTION.screen
+		+e.container.container
+			+e.inner
+				+e.text
+					+e.title.title
+						h2 Центр изучения иностранных языков
+
+					+e.A.more-link.btn._yellow(href='#!') Узнать подробне
+
+				+e.form-wrap
+					+e.FORM.form(action='#!' method='POST')
+						+e.form-title
+							h3 Начните заниматься прямо сейчас. Получите бесплатное первое занятие просто заполнив форму
+
+						-
+							formList = [
+							'Ваше имя',
+							'Ваш e-mail',
+							'Телефон'
+							]
+						for formText in formList
+							+e.form-field
+								+e.INPUT.form-input.input(type='text' placeholder=`${formText}` name='' required)
+
+						+e.form-field
+							+e.INPUT.form-submit.btn._yellow.submit(type='submit' value='Отправить')
+						+e.form-agree
+							p Нажимая, вы принимаете
+								a(href='#!') условия соглашения
+
+
+				+e.img(style='background-image: url(static/img/bg/screen_pic.png)')
+
+		+e.bg(style='background-image: url(static/img/bg/screen_bg-blured.jpg)')
+	//end screen
+
+	//begin classes-age
+	+b.SECTION.classes-age
+		+e.container.container
+			+b.section-title.classes-age__section-title
+				+e.top
+					h2 Занятия по возрастам
+				+e.back
+					h2 Classes by age
+
+			+e.inner
+				-
+					classesList = [
+					'Для дошкольников',
+					'Для младших школьников',
+					'Для средней школы',
+					'Для взрослых'
+					]
+
+				for classesText, index in classesList
+					+e.item(onclick='' style=`background-image: url(static/img/bg/classes-age_${index + 1}.jpg)`)
+						+e.item-content
+							+e.item-title
+								h4= classesText
+							+e.A.item-btn.btn._white(href='#!') Подробнее
+
+	//end classes-age
+
+	//begin classes-lang
+	+b.SECTION.classes-lang
+		+e.container.container
+			+b.section-title.classes-lang__section-title
+				+e.top
+					h2 Занятия по языкам
+				+e.back
+					h2 Classes by language
+
+			+e.inner
+				-
+					flagList = [{
+					flag: 'eng',
+					title: 'Английский'
+					}, {
+					flag: 'china',
+					title: 'Китайский'
+					}, {
+					flag: 'spain',
+					title: 'Испанский'
+					}, {
+					flag: 'ger',
+					title: 'Немецкий'
+					}, {
+					flag: 'japan',
+					title: 'Японский'
+					}, {
+					flag: 'france',
+					title: 'Французский'
+					}, {
+					flag: 'italy',
+					title: 'Итальянский'
+					}]
+
+				mixin flagItem(item)
+					+e.A.flag(href='#!' style=`background-image: url(static/img/content/${item.flag}-flag.png)`)
+						+e.flag-title
+							h4= `${item.title} язык`
+				each item in flagList
+					+flagItem(item)
+	//end classes-lang
+
+	//begin get-course
+	+b.SECTION.get-course
+		+e.bg(style='background-image: url(static/img/bg/get-course_bg.png)')
+		+e.container.container
+			+b.section-title.get-course__section-title
+				+e.top
+					h2 Давайте мы подберем идеальный курс для вас
+				+e.back
+					h2 Pick up for you
+
+			+e.A.btn.btn._yellow._lg(href='#!') Подобрать курс
+	//end get-course
+
+	//begin about-counts
+	+b.SECTION.about-counts
+		+e.container.container
+			+b.section-title.about-counts__section-title
+				+e.top
+					h2 О нас в цифрах
+				+e.back
+					h2 About us in figures
+
+			+e.inner
+				-
+					aboutCountsList = [{
+					number: '15',
+					descr: 'лет наши преподаватели профессионально обучают иностранным языкам'
+					}, {
+					number: '3 256',
+					descr: 'студентов под руководством наших преподавателей успешно овладели иностранным языком'
+					}, {
+					number: '3 582',
+					descr: 'урока мы провели за 2016 год.'
+					}, {
+					number: '89%',
+					descr: 'новых клиентов приходят к нам по рекомендации наших выпускников'
+					}]
+
+				mixin aboutCountsItem(item)
+					+e.item
+						+e.item-number
+							span= item.number
+							span= item.number
+						+e.item-descr
+							p= item.descr
+				each item in aboutCountsList
+					+aboutCountsItem(item)
+
+	//end about-counts

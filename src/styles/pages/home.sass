@@ -1,0 +1,226 @@
+.screen
+   margin-top: -50px
+   padding: 0 0 65px
+   
+   &__inner
+      position: relative
+      display: flex
+      justify-content: space-between
+      padding: 100px 0 0
+   
+   &__bg
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      height: 537px
+      z-index: -1
+   
+   &__title
+      margin-bottom: 20px
+      font-size: 50px
+   
+   &__text
+      position: relative
+      z-index: 2
+      flex: 0 0 420px
+   
+   &__form
+      padding: 28px 28px
+      box-shadow: 0 6px 21px rgba(0, 0, 0, 0.11)
+      border-radius: 3px
+      border: 1px solid #d7d7d7
+      background-color: rgba($white, .9)
+      
+      &-wrap
+         position: relative
+         z-index: 2
+         flex: 0 0 360px
+      
+      &-title
+         margin-bottom: 15px
+         padding-bottom: 15px
+         border-bottom: 1px solid $gray
+         +f('os', 600, 20, 30)
+      
+      &-field
+         &:not(:last-child)
+            margin-bottom: 20px
+      
+      &-submit
+         width: 100%
+      
+      &-agree
+         +f('os', 600, 12)
+         a
+            +trs
+            .no-touch &:hover
+               color: $orange
+   
+   &__img
+      bottom: 0
+      left: 50%
+      margin-left: -480px
+      width: percentage(680 / 1140)
+      +ratio(680, 473)
+      position: absolute
+      +cover
+
+.classes-age
+   padding: 60px 0
+   
+   &__section-title
+      margin-bottom: 40px
+   
+   &__inner
+      display: flex
+      margin: 0 -15px
+   
+   &__item
+      $parent: &
+      flex: 0 0 calc(25% - 30px)
+      margin: 0 15px
+      width: calc(25% - 30px)
+      height: 263px
+      +cover
+      overflow: hidden
+      border-radius: 3px
+      box-shadow: 0 0 5px rgba($gray, .9)
+      cursor: default
+      +md
+         cursor: pointer
+      .no-touch &:hover
+         #{$parent}-content
+            transform: translateY(0)
+         #{$parent}-content::before
+            opacity: 1
+         #{$parent}-content::after
+            width: 1000%
+            transform: translate(-50%, -40px)
+            background: rgba($yellow, .9)
+      
+      &-content
+         transform: translate3d(0, 60%, 0)
+         position: relative
+         display: flex
+         flex-direction: column
+         align-items: center
+         justify-content: center
+         height: 100%
+         text-align: center
+         transition: .6s ease
+         &::before
+            opacity: 0
+            pointer-events: none
+            position: absolute
+            top: 13px
+            left: 13px
+            right: 13px
+            bottom: 13px
+            border: 1px solid rgba(#292929, .2)
+            content: ''
+            transition: .6s ease
+         &::after
+            position: absolute
+            top: 30px
+            left: 50%
+            transform: translate3d(-50%, 0, 0)
+            z-index: -1
+            width: 150%
+            height: 110%
+            border-radius: 50%
+            background: rgba($white, .8)
+            transition: .6s ease
+            content: ''
+      
+      &-title
+         position: relative
+         margin-bottom: 30px
+         padding-bottom: 15px
+         +f('os', 600, 20)
+         &::after
+            position: absolute
+            bottom: 0
+            left: 50%
+            margin-left: -34px
+            width: 68px
+            height: 1px
+            background: $black
+            content: ''
+      
+      &-btn
+         padding: 13px 42px
+         
+.classes-lang
+   padding: 60px 0
+   background: #f5f5f5
+   &__inner
+      display: flex
+      justify-content: center
+      flex-wrap: wrap
+      
+   &__flag
+      $parent: &
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      flex: 0 0 calc(25% - 30px)
+      width: calc(25% - 30px)
+      margin: 0 15px 30px
+      height: 120px
+      +cover
+      
+      &:hover
+         &::before
+            opacity: 1
+         &::after
+            box-shadow: 0 5px 7px rgba(124, 53, 102, 0.38)
+            background-color: #a06396
+            background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.31) 0%, rgba(164, 34, 143, 0.31) 100%)
+            opacity: 0.9
+         #{$parent}-title
+            color: $white
+         
+      &::before
+         opacity: 0
+         position: absolute
+         top: 9px
+         left: 9px
+         right: 9px
+         bottom: 9px
+         z-index: 1
+         border: 1px solid rgba($white, .2)
+         content: ''
+         transition: .2s ease
+      &::after
+         +coverdiv
+         background: rgba($white, .8)
+         transition: .2s ease
+         content: ''
+         
+      &-title
+         z-index: 1
+         +f('os', 600, 20)
+         color: rgba($black, .5)
+         transition: .2s ease
+         
+.get-course
+   position: relative
+   padding: 90px 0
+   box-shadow: 0 2px 5px rgba(79, 79, 79, 0.15)
+   text-align: center
+   &__bg
+      +coverdiv
+      z-index: -1
+      opacity: .1
+      +cover
+
+   &__section-title
+      max-width: 800px
+      margin: 0 auto
+      
+.about-counts
+   padding: 70px 0
+   background: #f5f5f5
+   
