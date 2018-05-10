@@ -1,0 +1,30 @@
+if cost ? cost : cost = []
+if cost.titleTop ? cost.titleTop : cost.titleTop = 'Стоимость обучения'
+if cost.titleBot ? cost.titleBot : cost.titleBot = 'Cost of education'
+
+//begin cost
++b.SECTION.cost(class= cost.classMod ? cost.classMod : '')
+	+e.container.container
+		+b.section-title.cost__section-title
+			+e.top
+				h2= cost.titleTop
+			+e.back
+				h2= cost.titleBot
+
+		+e.inner
+			mixin costItem(item)
+				+e.item(class= item.classMod)
+					+e.item-title
+						h3= item.title
+					+e.item-price
+						h5= item.price
+					+e.item-list
+						ul
+							each listText in item.listText
+								li= listText
+
+			for item in costList
+				+costItem(item)
+
+		+e.A.price-btn.btn._yellow(href='#!') Посмотреть цены
+//end cost

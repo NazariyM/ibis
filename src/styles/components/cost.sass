@@ -1,0 +1,84 @@
+.cost
+   padding: 65px 0
+   background: #f5f5f5
+   text-align: center
+   
+   &__section-title
+      margin-bottom: 40px
+   
+   &__inner
+      display: flex
+      margin: 0 -15px 30px
+      
+   &__item
+      $parent: &
+      position: relative
+      flex: 0 0 calc(33.33333% - 30px)
+      min-height: 498px
+      margin: 0 15px
+      background: #fff
+      box-shadow: 0 2px 5px rgba(79, 79, 79, 0.36)
+      overflow: hidden
+      +trs
+      &::after
+         position: absolute
+         top: 100%
+         left: 50%
+         margin-top: -11px
+         margin-left: -11px
+         width: 22px
+         height: 22px
+         border-radius: 50%
+         content: ''
+         
+      &_1::after
+         background-color: #3d1275
+      &_2::after
+         background-color: #f07e01
+      &_3::after
+         background-color: #a4228f
+      &:hover
+         box-shadow: 0 22px 35px rgba(69, 69, 69, 0.26)
+      
+      &-title
+         padding: 13px 10px
+         text-align: center
+         color: $white
+         text-transform: uppercase
+         +f('os', 400, 18)
+         #{$parent}_1 &
+            background-color: #3d1275
+         #{$parent}_2 &
+            background-color: #f07e01
+         #{$parent}_3 &
+            background-color: #a4228f
+         
+      &-price
+         padding: 15px 10px
+         text-align: center
+         +f('yes', null, 40, 55)
+         #{$parent}_1 &
+            background: rgba(#3d1275, .2)
+         #{$parent}_2 &
+            background: rgba(#f07e01, .2)
+         #{$parent}_3 &
+            background: rgba(#a4228f, .2)
+         
+      &-list
+         padding: 15px 25px
+         text-align: left
+         ul
+            li
+               position: relative
+               padding-left: 20px
+               &::before
+                  position: absolute
+                  top: 10px
+                  left: 0
+                  width: 7px
+                  height: 7px
+                  border: 1px solid $black
+                  border-radius: 50%
+                  content: ''
+               &:not(:last-child)
+                  margin-bottom: 15px

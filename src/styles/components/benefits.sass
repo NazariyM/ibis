@@ -1,4 +1,75 @@
 .benefits
-   padding: 60px 0
+   position: relative
    background-color: $yellow
    background-image: linear-gradient(45deg, rgba(240, 126, 1, 0.3) 0%, rgba(255, 225, 59, 0.3) 100%)
+   
+   &__section-title
+      pointer-events: none
+      position: absolute
+      top: 50px
+      left: 0
+      right: 0
+      z-index: 1
+      margin-bottom: 30px
+      .section-title__back
+         color: rgba(#ffff00, .2)
+   
+   &__inner
+      display: flex
+      margin: 0 -5px
+      
+   &__item
+      position: relative
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      height: 455px
+      flex: 0 0 (100 / 6 + %)
+      padding: 55px 5px
+      border-right: 1px solid #ffff00
+      cursor: default
+      transition: .4s ease
+      &::after
+         position: absolute
+         top: 100%
+         left: 0
+         right: 0
+         height: 0
+         border-radius: 0 0 100% 100%
+         background: $white
+         box-shadow: 0 4px 5px rgba(79, 79, 79, 0.3)
+         transition: .4s ease
+         content: ''
+      &:first-child
+         border-left: 1px solid #ffff00
+         
+      &:hover
+         background: $white
+         &::after
+            height: 18px
+         svg
+            fill: $yellow
+            transform: scale(2)
+   
+      &-text
+         position: relative
+         text-align: center
+         height: 100px
+         margin-bottom: 25px
+         &::after
+            position: absolute
+            bottom: 0
+            left: 50%
+            width: 30px
+            margin-left: -15px
+            height: 1px
+            background: $black
+            content: ''
+         p
+            +f('os', 600, null, 28)
+            
+      &-icon
+         text-align: center
+         svg
+            transform-origin: 50% 0
+            transition: .4s ease
