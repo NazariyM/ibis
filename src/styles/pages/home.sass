@@ -221,6 +221,84 @@
       margin: 0 auto
       
 .about-counts
+   position: relative
    padding: 70px 0
+   overflow: hidden
    background: #f5f5f5
    
+   &__container
+      z-index: 1
+   
+   &__section-title
+      margin-bottom: 40px
+   
+   &__inner
+      po
+      display: flex
+      z-index: 1
+      flex-wrap: wrap
+      margin: 0 -15px
+   
+   &__item
+      flex: 0 1 50%
+      padding: 0 15px 50px
+      font-size: 0
+      &-number
+         position: relative
+         display: inline-block
+         vertical-align: middle
+         span
+            color: transparent
+            background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.7) 0%, rgba(164, 34, 143, 1) 100%)
+            -webkit-background-clip: text
+            +f('yes', 400, 80, 80)
+            &:nth-child(2)
+               position: absolute
+               top: 80%
+               left: 0
+               min-width: 210px
+               &::after
+                  +coverdiv
+                  background-image: linear-gradient(to top, #f5f5f5 12%, #f5f5f5ad 60%, transparent)
+                  content: ''
+         sup
+            top: -0.1em
+            margin-left: -0.3em
+            font-size: 100%
+            line-height: 1
+            -webkit-background-clip: text
+            background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.7) 0%, rgba(164, 34, 143, 1) 100%)
+               
+      &-descr
+         display: inline-block
+         vertical-align: middle
+         padding-left: 40px
+         width: 60%
+         p
+            font-size: 19px
+            line-height: 35px
+            
+   &__circle
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      border-radius: 50%
+      border: 1px solid rgba($gray, .8)
+      
+      &_1
+         width: 358px
+         height: 358px
+         
+      &_2
+         width: 705px
+         height: 705px
+         border-color: rgba($gray, .6)
+      &_3
+         width: 1088px
+         height: 1088px
+         border-color: rgba($gray, .6)
+      &_4
+         width: 1432px
+         height: 1432px
+         border: 1px dashed rgba($gray, .5)

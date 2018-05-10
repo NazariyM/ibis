@@ -137,27 +137,52 @@ block main
 			+e.inner
 				-
 					aboutCountsList = [{
-					number: '15',
+					number1: '1',
+					number1Sup: '5',
+					number2: '1',
+					number2Sup: '6',
 					descr: 'лет наши преподаватели профессионально обучают иностранным языкам'
 					}, {
-					number: '3 256',
+					number1: '3 25',
+					number1Sup: '6',
+					number2: '3 25',
+					number2Sup: '7',
 					descr: 'студентов под руководством наших преподавателей успешно овладели иностранным языком'
 					}, {
-					number: '3 582',
+					number1: '3 58',
+					number1Sup: '2',
+					number2: '3 58',
+					number2Sup: '3',
 					descr: 'урока мы провели за 2016 год.'
 					}, {
-					number: '89%',
+					number1: '8',
+					number1Sup: '9',
+					number2: '9',
+					number2Sup: '0',
+					nextText: '%',
 					descr: 'новых клиентов приходят к нам по рекомендации наших выпускников'
 					}]
 
 				mixin aboutCountsItem(item)
 					+e.item
 						+e.item-number
-							span= item.number
-							span= item.number
+							span= item.number1
+								sup= item.number1Sup
+								if item.nextText
+									= item.nextText
+							span= item.number2
+								sup= item.number2Sup
+								if item.nextText
+									= item.nextText
 						+e.item-descr
 							p= item.descr
 				each item in aboutCountsList
 					+aboutCountsItem(item)
 
+		+e.circle._1
+		+e.circle._2
+		+e.circle._3
+		+e.circle._4
 	//end about-counts
+
+	include ../components/benefits
