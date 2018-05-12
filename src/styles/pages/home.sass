@@ -25,38 +25,11 @@
       z-index: 2
       flex: 0 0 420px
    
-   &__form
-      padding: 28px 28px
-      box-shadow: 0 6px 21px rgba(0, 0, 0, 0.11)
-      border-radius: 3px
-      border: 1px solid #d7d7d7
-      background-color: rgba($white, .9)
+   &__form-wrap
+      position: relative
+      z-index: 2
+      flex: 0 0 360px
       
-      &-wrap
-         position: relative
-         z-index: 2
-         flex: 0 0 360px
-      
-      &-title
-         margin-bottom: 15px
-         padding-bottom: 15px
-         border-bottom: 1px solid $gray
-         +f('os', 600, 20, 30)
-      
-      &-field
-         &:not(:last-child)
-            margin-bottom: 20px
-      
-      &-submit
-         width: 100%
-      
-      &-agree
-         +f('os', 600, 12)
-         a
-            +trs
-            .no-touch &:hover
-               color: $orange
-   
    &__img
       bottom: 0
       left: 50%
@@ -302,3 +275,46 @@
          width: 1432px
          height: 1432px
          border: 1px dashed rgba($gray, .5)
+         
+.first-step
+   padding: 190px 0 170px
+   +cover
+   &__container
+      display: flex
+      justify-content: space-between
+      align-items: center
+      
+   &__section-title
+      flex: 0 0 630px
+      text-align: left
+   &__form-wrap
+      flex: 0 0 360px
+      .order-form
+         border: 1px solid rgba(#d7d7d7, .5)
+         background: rgba($white, .5)
+         &__input
+            background: rgba($white, .5)
+            
+.reviews
+   padding: 100px 0 0
+   +cover
+   
+.contact
+   position: relative
+   height: 588px
+   &__map
+      +coverdiv
+      &-wrap
+         +coverdiv
+         
+   &__inner
+      max-width: 830px
+      
+   &__section-title
+      text-align: left
+      .section-title__back
+         font-size: 93px
+         color: rgba($black, .1)
+         
+   &__form-wrap
+      max-width: 654px

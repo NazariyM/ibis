@@ -1,34 +1,37 @@
 class ContactMap {
   constructor() {
-    this.$block = $('.contacts');
+    this.block = document.querySelector('.contact');
 
-    if (this.$block.length) this.init();
+    if (!this.block) return;
+
+    this.init();
   }
 
   init() {
-    this.createMap();
+    const ready = new Promise(resolve => {
+      resolve(ymaps.ready());
+    });
+
+    ready.then(() => {
+      ymaps.ready(this.createMap());
+    });
   }
 
   createMap() {
-
-    const map = new google.maps.Map(document.querySelector('.contacts__map'), {
-      center: new google.maps.LatLng(55.769438, 37.627655),
+    const map = new ymaps.Map('contact-map', {
+      center: [55.65642954351157, 37.594330040969844],
       zoom: 17,
-      disableDefaultUI: true,
-      styles: [{
-        stylers: [{
-          saturation: -100
-        }]
-      }]
+      controls: []
     });
 
-    const marker = new google.maps.Marker({
-      position: new google.maps.LatLng(55.769613, 37.626198),
-      icon: 'static/img/other/map-marker.png',
-      map: map
-    });
+    const mapPlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], {
+      balloonContent: 'Азовская улица, 15'
+    }, { iconColor: 'red' });
+
+    map.behaviors.disable('scrollZoom');
+    map.geoObjects.add(mapPlace);
   }
 
 }
 
-export const ContactMapAPI = new ContactMap();
+export default new ContactMap();

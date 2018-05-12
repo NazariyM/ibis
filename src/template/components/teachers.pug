@@ -1,0 +1,29 @@
+if teachers ? teachers : teachers = []
+if teachers.title ? teachers.title : teachers.title = ''
+if teachers.titleTop ? teachers.titleTop : teachers.titleTop = 'Наши преподаватели'
+if teachers.titleBot ? teachers.titleBot : teachers.titleBot = 'Our teachers'
+
+//begin teachers
++b.SECTION.teachers(class= teachers.classMod ? teachers.classMod : '')
+	+e.container.container
+		+b.section-title.teachers__section-title
+			+e.top
+				h2= teachers.titleTop
+			+e.back
+				h2= teachers.titleBot
+
+	+e.slider.swiper-container
+		+e.slider-wrapper.swiper-wrapper
+
+			mixin teachersPerson(person)
+				+e.person.swiper-slide
+					+e.person-img(style=`background-image: url(static/img/content/teacher-${person.img}.jpg)`)
+					+e.person-about
+						+e.person-name
+							a(href='#!')= person.name
+						+e.person-descr
+							p= person.descr
+
+			for person in teachersList
+				+teachersPerson(person)
+//end teachers

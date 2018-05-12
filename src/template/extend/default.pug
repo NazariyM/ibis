@@ -24,11 +24,6 @@ html(lang='ru')
 	block body
 		body
 
-			// SVG
-			block svg
-				div.svg-container(style="position: absolute; width: 0; height: 0; overflow: hidden;")
-					include ../partials/_sprite.svg
-
 			// picture element HTML5 shiv
 			block inlineScripts
 				script.
@@ -46,5 +41,7 @@ html(lang='ru')
 
 			// Scripts
 			block scripts
+				if contactMap
+					//script(src='https://api-maps.yandex.ru/2.1/?lang=ru_RU')
 				script(src='static/js/jquery-3.3.1.min.js')
 				script(src='static/js/index' + suffix + '.js')

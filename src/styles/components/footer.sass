@@ -1,0 +1,91 @@
+.footer
+   &__container
+   
+   &__category
+      padding: 35px 0
+      background: #f5f5f5
+      &-inner
+         display: flex
+         margin: 0 -15px
+         
+      &-list
+         flex: 0 0 (100 / 6 + %)
+         padding: 0 15px
+   
+         &-title
+            pointer-events: none
+            position: relative
+            margin-bottom: 15px
+            padding-bottom: 15px
+            +f('os', 700, 16, 30)
+            border-bottom: 2px solid rgba($gray, .5)
+            +trs
+            &::after
+               pointer-events: none
+               position: absolute
+               bottom: -2px
+               left: 0
+               z-index: 1
+               width: 0
+               height: 2px
+               background: #994e92
+               +trs
+               content: ''
+               
+            .no-touch &:hover
+               color: #994e92
+               &::after
+                  width: 100%
+                  
+            a
+               pointer-events: auto
+               display: block
+               
+         ul
+            li
+               font-size: 14px
+               padding-left: 20px
+               &:not(:last-child)
+                  margin-bottom: 15px
+   &__line
+      padding: 20px 0
+      &-container
+         display: flex
+         justify-content: space-between
+         
+   &__logo
+      display: flex
+      align-items: center
+      flex: 0 0 360px
+      
+      &-link
+         padding-right: 25px
+      
+   &__contacts
+      display: flex
+      align-items: center
+      flex: 0 0 726px
+      margin-right: -28px
+      
+      &-block
+         display: flex
+         align-items: center
+         padding: 0 28px
+         &:first-child
+            border-right: 2px  solid $gray
+         .icon-tel
+            margin-right: 15px
+            
+         a
+            +trs
+            +f('os', 600, 20)
+            .no-touch &:hover
+               color: #a06396
+            
+         &-text
+            display: flex
+            align-items: center
+            margin-right: 4px
+            
+   &__socials
+      margin-left: 20px

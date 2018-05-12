@@ -1,13 +1,11 @@
 import objectFitImages from 'object-fit-images';
-// import fancybox from '@fancyapps/fancybox';
 import './NoTouch';
 
 // import './Anims';
 // import './Header';
-// import './Slider';
+import './Slider';
 import './Dot';
-
-// import './ContactMap';
+import './ContactMap';
 
 export class Common {
   /**

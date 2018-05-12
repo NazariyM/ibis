@@ -1,7 +1,8 @@
 extends ../extend/default
 
 block variables
-	- var title = 'Home page';
+	-title = 'Home page';
+	-contactMap = true;
 
 block main
 	main.content
@@ -17,26 +18,7 @@ block main
 					+e.A.more-link.btn._yellow(href='#!') Узнать подробне
 
 				+e.form-wrap
-					+e.FORM.form(action='#!' method='POST')
-						+e.form-title
-							h3 Начните заниматься прямо сейчас. Получите бесплатное первое занятие просто заполнив форму
-
-						-
-							formList = [
-							'Ваше имя',
-							'Ваш e-mail',
-							'Телефон'
-							]
-						for formText in formList
-							+e.form-field
-								+e.INPUT.form-input.input(type='text' placeholder=`${formText}` name='' required)
-
-						+e.form-field
-							+e.INPUT.form-submit.btn._yellow.submit(type='submit' value='Отправить')
-						+e.form-agree
-							p Нажимая, вы принимаете
-								a(href='#!') условия соглашения
-
+					+order-form(null, 'Начните заниматься прямо сейчас. Получите бесплатное первое занятие просто заполнив форму', 'Ваше имя', 'Ваш e-mail', 'Телефон')
 
 				+e.img(style='background-image: url(static/img/bg/screen_pic.png)')
 
@@ -205,3 +187,88 @@ block main
 		listText: ['Возраст: от 13 лет', '1-2 раза в неделю по 80 минут', 'Группы до 8 человек', 'Методики ведущих российских и мировых университетов', 'Бесплатное тестирование и собеседование с преподавателем', 'Сертификат Центра']
 		}]
 	include ../components/cost
+
+	-
+		teachersList = [{
+		img: 1,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 2,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 3,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 4,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 5,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 6,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 7,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 4,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}, {
+		img: 5,
+		name: 'Павел Савчук',
+		descr: 'Преподаватель актерского мастерства на английском'
+		}]
+	include ../components/teachers
+
+	//begin first-step
+	+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
+		+e.container.container
+			+b.section-title.first-step__section-title
+				+e.top
+					h2 Первый шаг к цели! Бесплатное пробное занятие
+				+e.back
+					h2 First step
+
+			+e.form-wrap
+				+order-form('_first-step', null, 'Ваше имя', 'Ваш e-mail', 'Телефон')
+
+	//end first-step
+
+	//begin reviews
+	+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
+		+e.container.container
+			+b.section-title.reviews__section-title
+				+e.top
+					h2 Отзывы
+				+e.back
+					h2 Reviews
+			
+			+e.img
+				+e.IMG(src='static/img/other/reviews_img.png' alt='image')
+	//end reviews
+
+	//begin contact
+	//+b.SECTION.contact
+		+e.map-wrap
+			+e.map#contact-map
+
+		+e.container.container
+			+e.inner
+				+b.section-title.contact__section-title
+					+e.top
+						h2 Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку
+					+e.back
+						h2 Cost of education
+
+				+e.form-wrap
+					+cost-form(null, 'Узнать стоимость', 'Телефон')
+
+	//end contact
