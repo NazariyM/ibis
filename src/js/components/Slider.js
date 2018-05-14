@@ -20,7 +20,9 @@ class FullSlider {
 
   bindEvents() {
     document.addEventListener('click', (e) => {
-      this.toggleMouseWheel(this.el, this.slider, e);
+      this.clickToSlide(this.slider);
+
+      // this.toggleMouseWheel(this.el, this.slider, e);
     });
   }
 
@@ -28,17 +30,28 @@ class FullSlider {
 
     this.slider = new Swiper(this.el, {
       slidesPerView: this.settings.slidesCount,
-      grabCursor: true,
-      mousewheel: true,
-      loop: true
+      simulateTouch: true,
+      loop: true,
+      centeredSlides: true,
+      speed: 500,
+      initialSlide: 3,
+      loopAdditionalSlides: 8,
+      keyboardControl: true
     });
   }
 
-  toggleMouseWheel(el, slider, event) {
-    const target = event.target.closest('.swiper-container');
-    target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
+  clickToSlide(slider) {
+    slider.on('click', () => {
+      const slideIdx = slider.clickedIndex;
+      slider.slideTo(slideIdx, 500);
+    });
   }
+
+  // toggleMouseWheel(el, slider, event) {
+  //   const target = event.target.closest('.swiper-container');
+  //   target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
+  // }
 
 }
 
-const teachersSlider = new FullSlider('.teachers__slider');
+const teachersSlider = new FullSlider('.teachers__slider', { slidesCount: 7.11 });

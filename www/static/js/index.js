@@ -10926,7 +10926,9 @@ var FullSlider = function () {
       var _this = this;
 
       document.addEventListener('click', function (e) {
-        _this.toggleMouseWheel(_this.el, _this.slider, e);
+        _this.clickToSlide(_this.slider);
+
+        // this.toggleMouseWheel(this.el, this.slider, e);
       });
     }
   }, {
@@ -10935,23 +10937,35 @@ var FullSlider = function () {
 
       this.slider = new _swiper2.default(this.el, {
         slidesPerView: this.settings.slidesCount,
-        grabCursor: true,
-        mousewheel: true,
-        loop: true
+        simulateTouch: true,
+        loop: true,
+        centeredSlides: true,
+        speed: 500,
+        initialSlide: 3,
+        loopAdditionalSlides: 8,
+        keyboardControl: true
       });
     }
   }, {
-    key: 'toggleMouseWheel',
-    value: function toggleMouseWheel(el, slider, event) {
-      var target = event.target.closest('.swiper-container');
-      target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
+    key: 'clickToSlide',
+    value: function clickToSlide(slider) {
+      slider.on('click', function () {
+        var slideIdx = slider.clickedIndex;
+        slider.slideTo(slideIdx, 500);
+      });
     }
+
+    // toggleMouseWheel(el, slider, event) {
+    //   const target = event.target.closest('.swiper-container');
+    //   target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
+    // }
+
   }]);
 
   return FullSlider;
 }();
 
-var teachersSlider = new FullSlider('.teachers__slider');
+var teachersSlider = new FullSlider('.teachers__slider', { slidesCount: 7.11 });
 
 /***/ }),
 /* 335 */
@@ -30720,12 +30734,21 @@ var ContactMap = function () {
         controls: []
       });
 
-      var mapPlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], {
-        balloonContent: 'Азовская улица, 15'
-      }, { iconColor: 'red' });
+      var balloonLayout = ymaps.templateLayoutFactory.createClass('<div class="contact__map-content">\n         <div>\n         <img src="">\n        </div>\n        <p>\u0410\u0437\u043E\u0432\u0441\u043A\u0430\u044F \u0443\u043B\u0438\u0446\u0430, 15</p>\n      </div>');
+
+      var officePlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], { name: 'suka' }, {
+        iconColor: 'red',
+        balloonContentLayout: balloonLayout,
+        balloonShadow: false,
+        balloonPanelMaxMapArea: 0,
+        hideIconOnBalloonOpen: false,
+        balloonCloseButton: false,
+        balloonOffset: [3, -40]
+      });
 
       map.behaviors.disable('scrollZoom');
-      map.geoObjects.add(mapPlace);
+      map.geoObjects.add(officePlace);
+      officePlace.balloon.open();
     }
   }]);
 

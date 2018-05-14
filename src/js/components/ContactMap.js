@@ -24,12 +24,27 @@ class ContactMap {
       controls: []
     });
 
-    const mapPlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], {
-      balloonContent: 'Азовская улица, 15'
-    }, { iconColor: 'red' });
+    const balloonLayout = ymaps.templateLayoutFactory.createClass(
+      `<div class="contact__map-content">
+         <div>
+         <img src="">
+        </div>
+        <p>Азовская улица, 15</p>
+      </div>`);
+
+    const officePlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], {name:'suka'}, {
+      iconColor: 'red',
+      balloonContentLayout: balloonLayout,
+      balloonShadow: false,
+      balloonPanelMaxMapArea: 0,
+      hideIconOnBalloonOpen: false,
+      balloonCloseButton: false,
+      balloonOffset: [3, -40]
+    });
 
     map.behaviors.disable('scrollZoom');
-    map.geoObjects.add(mapPlace);
+    map.geoObjects.add(officePlace);
+    officePlace.balloon.open();
   }
 
 }

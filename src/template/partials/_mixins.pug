@@ -16,9 +16,8 @@ mixin order-form(classMod, title, ...formText)
 
 		+e.field
 			+e.INPUT.submit.btn._yellow.submit(type='submit' value='Отправить')
-		+e.agree
-			p Нажимая, вы принимаете условия
-				a.link-decor(href='#!') соглашения
+		p Нажимая, вы принимаете условия
+			a.link-decor(href='#!') соглашения
 
 mixin cost-form(classMod, btnText, ...formText)
 	+b.FORM.cost-form(class= classMod || '' action='#!' method='POST')

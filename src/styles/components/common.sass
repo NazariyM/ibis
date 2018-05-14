@@ -1,142 +1,147 @@
 // basic styles
 body
-  min-width: 320px
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-  +f('os', 400, 16, 25)
-  color: #000
-  &.is-locked
-    overflow: hidden
-    position: fixed
-    top: 0
-    left: 0
-    right: 0
-    height: 100%
-    
+   min-width: 320px
+   -webkit-font-smoothing: antialiased
+   -moz-osx-font-smoothing: grayscale
+   +f('os', 400, 16, 25)
+   color: #000
+   &.is-locked
+      overflow: hidden
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      height: 100%
+
 .container
-  position: relative
-  max-width: 1170px
-  margin: 0 auto
-  padding: 0 15px
-  
+   position: relative
+   max-width: 1170px
+   margin: 0 auto
+   padding: 0 15px
+
 .link-decor
    color: $black
    border-bottom: 1px solid currentColor
    transition: .2s ease
    .no-touch &:hover
       border-bottom-color: transparent
-    
+
 // titles
 .title
-  +f('yes', 400, 45, 55)
-  
+   +f('yes', 400, 45, 55)
+
 .section-title
-  position: relative
-  text-align: center
-  &::after
-    position: absolute
-    top: 0
-    left: 50%
-    margin-left: -57px
-    width: 114px
-    height: 1px
-    background: #292929
-    content: ''
-    
-  &__top
-    position: absolute
-    left: 0
-    right: 0
-    bottom: 20px
-    z-index: 1
-    +f('yes', 400, 45, 55)
-  &__back
-    +f('yes', 400, 94, 115)
-    color: rgba($black, .07)
-  
+   position: relative
+   text-align: center
+   &::after
+      position: absolute
+      top: 0
+      left: 50%
+      margin-left: -57px
+      width: 114px
+      height: 1px
+      background: #292929
+      content: ''
+   
+   &__top
+      position: absolute
+      left: 0
+      right: 0
+      bottom: 20px
+      z-index: 1
+      +f('yes', 400, 45, 50)
+   &__back
+      padding-top: 5px
+      +f('yes', 400, 94, 115)
+      color: rgba($black, .07)
+
 // buttons
 .btn
-  display: inline-block
-  padding: 13px 30px
-  text-align: center
-  outline: 0
-  cursor: pointer
-  +f('os', 600, 16, 25)
-  text-transform: uppercase
-  border-radius: 3px
-  transition: .3s ease
-  +trs
-  
-  &_yellow
-    color: $black
-    background-color: $yellow
-    .no-touch &:hover
-      background: #FFC107
-      box-shadow: inset 0 0 25px #FF9800
+   display: inline-block
+   padding: 13px 30px
+   text-align: center
+   outline: 0
+   cursor: pointer
+   +f('os', 600, 16, 25)
+   text-transform: uppercase
+   border-radius: 3px
+   transition: .3s ease
+   +trs
+   
+   &_yellow
+      color: $black
+      background-color: $yellow
+      .no-touch &:hover
+         background: #FFC107
+         box-shadow: inset 0 0 25px #FF9800
+   
+   &_white
+      background: $white
+      color: $black
+      .no-touch &:hover
+         box-shadow: inset 0 0 12px rgba($gray, .5)
+   
+   &_lg
+      min-width: 262px
+      padding: 30px 20px 32px
+      font-size: 18px
       
-  &_white
-    background: $white
-    color: $black
-    .no-touch &:hover
-      box-shadow: inset 0 0 10px rgba($gray, .5)
-      
-  &_lg
-    min-width: 262px
-    padding: 30px 20px 32px
-    
-  &.submit
-    padding: 13px 15px
-    border-radius: 3px!important
+   &_long
+      min-width: 300px
+      padding: 13px 25px
+   
+   &.submit
+      padding: 13px 15px
+      border-radius: 3px !important
 
 // slider
 .slider
-  display: none
-  &.slick-initialized
-    display: block
-    
-  &__btn
-    position: absolute
-    top: 50%
-    z-index: 1
-    margin-top: -20px
-    outline: 0
-    border: 0
-    padding: 0
-    .no-touch &:hover svg
-      fill: red
-    &.slick-disabled
-      svg
-        fill: #c5c5c5
+   display: none
+   &.slick-initialized
+      display: block
+   
+   &__btn
+      position: absolute
+      top: 50%
+      z-index: 1
+      margin-top: -20px
+      outline: 0
+      border: 0
+      padding: 0
       .no-touch &:hover svg
-        fill: #c5c5c5
+         fill: red
+      &.slick-disabled
+         svg
+            fill: #c5c5c5
+         .no-touch &:hover svg
+            fill: #c5c5c5
       
-    svg
-      width: 21px
-      height: 40px
-      fill: #000
-      +trs
-    &_prev
-      left: 0
-    &_next
-      right: 0
-      
+      svg
+         width: 21px
+         height: 40px
+         fill: #000
+         +trs
+      &_prev
+         left: 0
+      &_next
+         right: 0
+
 // forms
 .input
-  width: 100%
-  padding: 11px 20px
-  outline: 0
-  border-radius: 3px!important
-  border: 1px solid $gray
-  +placeholder-color($black)
-  +trs
-  +f('os', 400, 16)
-  line-height: 1
-  &:focus
-    border-color: $yellow
-    
+   width: 100%
+   padding: 11px 20px
+   outline: 0
+   border-radius: 3px !important
+   border: 1px solid $gray
+   +placeholder-color($black)
+   +trs
+   +f('os', 400, 16)
+   line-height: 1
+   &:focus
+      border-color: $yellow
 
 ::selection
-  background: $yellow
+   background: $yellow
 
 ::-moz-selection
-  background: $yellow
+   background: $yellow

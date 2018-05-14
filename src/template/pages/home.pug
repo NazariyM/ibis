@@ -1,274 +1,275 @@
 extends ../extend/default
 
 block variables
-	-title = 'Home page';
+	-title = 'Главная';
 	-contactMap = true;
 
 block main
 	main.content
 
-	//begin screen
-	+b.SECTION.screen
-		+e.container.container
-			+e.inner
-				+e.text
-					+e.title.title
-						h2 Центр изучения иностранных языков
+		//begin screen
+		+b.SECTION.screen
+			+e.container.container
+				+e.inner
+					+e.text
+						+e.title.title
+							h2 Центр изучения иностранных языков
 
-					+e.A.more-link.btn._yellow(href='#!') Узнать подробне
+						+e.A.more-link.btn._yellow(href='#!') Узнать подробне
 
-				+e.form-wrap
-					+order-form(null, 'Начните заниматься прямо сейчас. Получите бесплатное первое занятие просто заполнив форму', 'Ваше имя', 'Ваш e-mail', 'Телефон')
+					+e.form-wrap
+						+order-form(null, 'Начните заниматься прямо сейчас. Получите бесплатное первое занятие просто заполнив форму', 'Ваше имя', 'Ваш e-mail', 'Телефон')
 
-				+e.img(style='background-image: url(static/img/bg/screen_pic.png)')
+					+e.img(style='background-image: url(static/img/bg/screen_pic.png)')
 
-		+e.bg(style='background-image: url(static/img/bg/screen_bg-blured.jpg)')
-	//end screen
+			+e.bg(style='background-image: url(static/img/bg/screen_bg-blured.jpg)')
+		//end screen
 
-	//begin classes-age
-	+b.SECTION.classes-age
-		+e.container.container
-			+b.section-title.classes-age__section-title
-				+e.top
-					h2 Занятия по возрастам
-				+e.back
-					h2 Classes by age
-
-			+e.inner
-				-
-					classesList = [
-					'Для дошкольников',
-					'Для младших школьников',
-					'Для средней школы',
-					'Для взрослых'
-					]
-
-				for classesText, index in classesList
-					+e.item(onclick='' style=`background-image: url(static/img/bg/classes-age_${index + 1}.jpg)`)
-						+e.item-content
-							+e.item-title
-								h4= classesText
-							+e.A.item-btn.btn._white(href='#!') Подробнее
-
-	//end classes-age
-
-	//begin classes-lang
-	+b.SECTION.classes-lang
-		+e.container.container
-			+b.section-title.classes-lang__section-title
-				+e.top
-					h2 Занятия по языкам
-				+e.back
-					h2 Classes by language
-
-			+e.inner
-				-
-					flagList = [{
-					flag: 'eng',
-					title: 'Английский'
-					}, {
-					flag: 'china',
-					title: 'Китайский'
-					}, {
-					flag: 'spain',
-					title: 'Испанский'
-					}, {
-					flag: 'ger',
-					title: 'Немецкий'
-					}, {
-					flag: 'japan',
-					title: 'Японский'
-					}, {
-					flag: 'france',
-					title: 'Французский'
-					}, {
-					flag: 'italy',
-					title: 'Итальянский'
-					}]
-
-				mixin flagItem(item)
-					+e.A.flag(href='#!' style=`background-image: url(static/img/content/${item.flag}-flag.png)`)
-						+e.flag-title
-							h4= `${item.title} язык`
-				each item in flagList
-					+flagItem(item)
-	//end classes-lang
-
-	//begin get-course
-	+b.SECTION.get-course
-		+e.bg(style='background-image: url(static/img/bg/get-course_bg.png)')
-		+e.container.container
-			+b.section-title.get-course__section-title
-				+e.top
-					h2 Давайте мы подберем идеальный курс для вас
-				+e.back
-					h2 Pick up for you
-
-			+e.A.btn.btn._yellow._lg(href='#!') Подобрать курс
-	//end get-course
-
-	//begin about-counts
-	+b.SECTION.about-counts
-		+e.container.container
-			+b.section-title.about-counts__section-title
-				+e.top
-					h2 О нас в цифрах
-				+e.back
-					h2 About us in figures
-
-			+e.inner
-				-
-					aboutCountsList = [{
-					number1: '1',
-					number1Sup: '5',
-					number2: '1',
-					number2Sup: '6',
-					descr: 'лет наши преподаватели профессионально обучают иностранным языкам'
-					}, {
-					number1: '3 25',
-					number1Sup: '6',
-					number2: '3 25',
-					number2Sup: '7',
-					descr: 'студентов под руководством наших преподавателей успешно овладели иностранным языком'
-					}, {
-					number1: '3 58',
-					number1Sup: '2',
-					number2: '3 58',
-					number2Sup: '3',
-					descr: 'урока мы провели за 2016 год.'
-					}, {
-					number1: '8',
-					number1Sup: '9',
-					number2: '9',
-					number2Sup: '0',
-					nextText: '%',
-					descr: 'новых клиентов приходят к нам по рекомендации наших выпускников'
-					}]
-
-				mixin aboutCountsItem(item)
-					+e.item
-						+e.item-number
-							span= item.number1
-								sup= item.number1Sup
-								if item.nextText
-									= item.nextText
-							span= item.number2
-								sup= item.number2Sup
-								if item.nextText
-									= item.nextText
-						+e.item-descr
-							p= item.descr
-				each item in aboutCountsList
-					+aboutCountsItem(item)
-
-		+e.circle._1
-		+e.circle._2
-		+e.circle._3
-		+e.circle._4
-	//end about-counts
-
-	include ../components/benefits
-
-	-
-		costList = [{
-		classMod: '_1',
-		title: 'Групповые занятия',
-		price: 'от 520 руб.',
-		listText: ['Группы до 8 человек', '2 раза в неделю по 60-80 минут', 'Коммуникативная методика', 'Возможность занятий с носителем языка', 'Бесплатное пробное занятие в действующей группе', 'Бесплатное тестирование', 'Сертификат Центра']
-		}, {
-		classMod: '_2',
-		title: 'Индивидуальные занятия',
-		price: 'от 1470 руб.',
-		listText: ['Возраст: от 3х лет', 'от 60 минут (1,5 ак.ч.)', 'Коммуникативная методика', 'Индивидуальный график', 'Бесплатное тестирование и собеседование с преподавателем', 'Сертификат Центра']
-		}, {
-		classMod: '_3',
-		title: 'Подготовка к ЕГЭ, ОГЭ',
-		price: 'от 520 руб.',
-		listText: ['Возраст: от 13 лет', '1-2 раза в неделю по 80 минут', 'Группы до 8 человек', 'Методики ведущих российских и мировых университетов', 'Бесплатное тестирование и собеседование с преподавателем', 'Сертификат Центра']
-		}]
-	include ../components/cost
-
-	-
-		teachersList = [{
-		img: 1,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 2,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 3,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 4,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 5,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 6,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 7,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 4,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}, {
-		img: 5,
-		name: 'Павел Савчук',
-		descr: 'Преподаватель актерского мастерства на английском'
-		}]
-	include ../components/teachers
-
-	//begin first-step
-	+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
-		+e.container.container
-			+b.section-title.first-step__section-title
-				+e.top
-					h2 Первый шаг к цели! Бесплатное пробное занятие
-				+e.back
-					h2 First step
-
-			+e.form-wrap
-				+order-form('_first-step', null, 'Ваше имя', 'Ваш e-mail', 'Телефон')
-
-	//end first-step
-
-	//begin reviews
-	+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
-		+e.container.container
-			+b.section-title.reviews__section-title
-				+e.top
-					h2 Отзывы
-				+e.back
-					h2 Reviews
-			
-			+e.img
-				+e.IMG(src='static/img/other/reviews_img.png' alt='image')
-	//end reviews
-
-	//begin contact
-	//+b.SECTION.contact
-		+e.map-wrap
-			+e.map#contact-map
-
-		+e.container.container
-			+e.inner
-				+b.section-title.contact__section-title
+		//begin classes-age
+		+b.SECTION.classes-age
+			+e.container.container
+				+b.section-title.classes-age__section-title
 					+e.top
-						h2 Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку
+						h2 Занятия по возрастам
 					+e.back
-						h2 Cost of education
+						h2 Classes by age
+
+				+e.inner
+					-
+						classesList = [
+						'Для дошкольников',
+						'Для младших школьников',
+						'Для средней школы',
+						'Для взрослых'
+						]
+
+					for classesText, index in classesList
+						+e.item(onclick='' style=`background-image: url(static/img/bg/classes-age_${index + 1}.jpg)`)
+							+e.item-content
+								+e.item-title
+									h4= classesText
+								+e.A.item-btn.btn._white(href='#!') Подробнее
+
+		//end classes-age
+
+		//begin classes-lang
+		+b.SECTION.classes-lang
+			+e.container.container
+				+b.section-title.classes-lang__section-title
+					+e.top
+						h2 Занятия по языкам
+					+e.back
+						h2 Classes by language
+
+				+e.inner
+					-
+						flagList = [{
+						flag: 'eng',
+						title: 'Английский'
+						}, {
+						flag: 'china',
+						title: 'Китайский'
+						}, {
+						flag: 'spain',
+						title: 'Испанский'
+						}, {
+						flag: 'ger',
+						title: 'Немецкий'
+						}, {
+						flag: 'japan',
+						title: 'Японский'
+						}, {
+						flag: 'france',
+						title: 'Французский'
+						}, {
+						flag: 'italy',
+						title: 'Итальянский'
+						}]
+
+					mixin flagItem(item)
+						+e.A.flag(href='#!' style=`background-image: url(static/img/content/${item.flag}-flag.png)`)
+							+e.flag-title
+								h4= `${item.title} язык`
+					each item in flagList
+						+flagItem(item)
+		//end classes-lang
+
+		//begin get-course
+		+b.SECTION.get-course
+			+e.bg(style='background-image: url(static/img/bg/get-course_bg.png)')
+			+e.container.container
+				+b.section-title.get-course__section-title
+					+e.top
+						h2 Давайте мы подберем идеальный курс для вас
+					+e.back
+						h2 Pick up for you
+
+				+e.A.btn.btn._yellow._lg(href='#!') Подобрать курс
+		//end get-course
+
+		//begin about-counts
+		+b.SECTION.about-counts
+			+e.container.container
+				+b.section-title.about-counts__section-title
+					+e.top
+						h2 О нас в цифрах
+					+e.back
+						h2 About us in figures
+
+				+e.inner
+					-
+						aboutCountsList = [{
+						number1: '1',
+						number1Sup: '5',
+						number2: '1',
+						number2Sup: '6',
+						descr: 'лет наши преподаватели профессионально обучают иностранным языкам'
+						}, {
+						number1: '3 25',
+						number1Sup: '6',
+						number2: '3 25',
+						number2Sup: '7',
+						descr: 'студентов под руководством наших преподавателей успешно овладели иностранным языком'
+						}, {
+						number1: '3 58',
+						number1Sup: '2',
+						number2: '3 58',
+						number2Sup: '3',
+						descr: 'урока мы провели за 2016 год.',
+						descrClass: '_sm'
+						}, {
+						number1: '8',
+						number1Sup: '9',
+						number2: '9',
+						number2Sup: '0',
+						nextText: '%',
+						descr: 'новых клиентов приходят к нам по рекомендации наших выпускников',
+						descrClass: '_lg'
+						}]
+
+					mixin aboutCountsItem(item)
+						+e.item
+							+e.item-number
+								span= item.number1
+									sup= item.number1Sup
+									if item.nextText
+										= item.nextText
+								span= item.number2
+									sup= item.number2Sup
+									if item.nextText
+										= item.nextText
+							+e.item-descr(class= item.descrClass || '')
+								p= item.descr
+					each item in aboutCountsList
+						+aboutCountsItem(item)
+
+			+e.circle._1
+			+e.circle._2
+			+e.circle._3
+			+e.circle._4
+		//end about-counts
+
+		include ../components/benefits
+
+		-
+			costList = [{
+			classMod: '_1',
+			title: 'Групповые занятия',
+			price: 'от 520 руб.',
+			listText: ['Группы до 8 человек', '2 раза в неделю по 60-80 минут', 'Коммуникативная методика', 'Возможность занятий с носителем языка', 'Бесплатное пробное занятие в действующей группе', 'Бесплатное тестирование', 'Сертификат Центра']
+			}, {
+			classMod: '_2',
+			title: 'Индивидуальные занятия',
+			price: 'от 1470 руб.',
+			listText: ['Возраст: от 3х лет', 'от 60 минут (1,5 ак.ч.)', 'Коммуникативная методика', 'Индивидуальный график', 'Бесплатное тестирование и собеседование с преподавателем', 'Сертификат Центра']
+			}, {
+			classMod: '_3',
+			title: 'Подготовка к ЕГЭ, ОГЭ',
+			price: 'от 520 руб.',
+			listText: ['Возраст: от 13 лет', '1-2 раза в неделю по 80 минут', 'Группы до 8 человек', 'Методики ведущих российских и мировых университетов', 'Бесплатное тестирование и собеседование с преподавателем', 'Сертификат Центра']
+			}]
+		include ../components/cost
+
+		-
+			teachersList = [{
+			img: 1,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 2,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 3,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 4,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 5,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 6,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 7,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 4,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}, {
+			img: 5,
+			name: 'Павел Савчук',
+			descr: 'Преподаватель актерского мастерства на английском'
+			}]
+		include ../components/teachers
+
+		//begin first-step
+		+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
+			+e.container.container
+				+b.section-title.first-step__section-title
+					+e.top
+						h2 Первый шаг к цели! Бесплатное пробное занятие
+					+e.back
+						h2 First step
 
 				+e.form-wrap
-					+cost-form(null, 'Узнать стоимость', 'Телефон')
+					+order-form('_first-step', null, 'Ваше имя', 'Ваш e-mail', 'Телефон')
 
-	//end contact
+		//end first-step
+
+		//begin reviews
+		+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
+			+e.container.container
+				+b.section-title.reviews__section-title
+					+e.top
+						h2 Отзывы
+					+e.back
+						h2 Reviews
+
+				+e.img
+					+e.IMG(src='static/img/other/reviews_img.png' alt='image')
+		//end reviews
+
+		//begin contact
+		//+b.SECTION.contact
+			+e.map-wrap
+				+e.map#contact-map
+
+			+e.container.container
+				+e.inner
+					+b.section-title.contact__section-title
+						+e.top
+							h2 Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку
+						+e.back
+							h2 Cost of education
+
+					+e.form-wrap
+						+cost-form(null, 'Узнать стоимость', 'Телефон')
+		//end contact

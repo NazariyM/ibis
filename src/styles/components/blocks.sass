@@ -1,27 +1,32 @@
 .order-form
-   padding: 28px 28px
+   $parent: &
+   padding: 27px 30px 30px
    box-shadow: 0 6px 21px rgba(0, 0, 0, 0.11)
    border-radius: 3px
    border: 1px solid #d7d7d7
    background-color: rgba($white, .9)
+   &_first-step
+      padding: 36px 30px 30px
+      
    &__title
-      margin-bottom: 15px
-      padding-bottom: 15px
+      margin: 0 -1px 28px
+      padding-bottom: 21px
       border-bottom: 1px solid $gray
       +f('os', 600, 20, 30)
    
    &__field
-      &:not(:last-child)
+      &:not(:last-of-type)
          margin-bottom: 20px
    
    &__submit
       width: 100%
    
-   &__agree
+   p
+      margin-top: 4px
       +f('os', 600, 12)
       
 .cost-form
-   padding: 40px 30px
+   padding: 35px 30px
    box-shadow: 0 6px 21px rgba(0, 0, 0, 0.11)
    border-radius: 3px
    border: 1px solid rgba(#d7d7d7, .5)
@@ -29,7 +34,7 @@
    &__row
       display: flex
       align-items: center
-      margin: 0 -15px 20px
+      margin: 0 -15px 15px
       
    &__field
       padding: 0 15px
@@ -39,6 +44,7 @@
       width: 100%
    
    &__agree
+      padding-left: 8px
       p
          +f('os', 600, 13)
          color: $black
@@ -47,7 +53,7 @@
    ul
       li
          position: relative
-         padding-left: 20px
+         padding-left: 29px
          &::before
             position: absolute
             top: 10px
@@ -58,7 +64,7 @@
             border-radius: 50%
             content: ''
          &:not(:last-child)
-            margin-bottom: 15px
+            margin-bottom: 16px
             
 .check-box
    position: relative
@@ -95,7 +101,7 @@
          transform: scale(0)
          position: absolute
          top: 3px
-         right: 1px
+         right: 2px
          width: 18px
          height: 18px
          fill: #994e92

@@ -6,17 +6,19 @@
    &__section-title
       pointer-events: none
       position: absolute
-      top: 50px
+      top: 70px
       left: 0
       right: 0
       z-index: 1
       margin-bottom: 30px
       .section-title__back
+         margin-top: -4px
+         padding-top: 0
          color: rgba(#ffff00, .2)
    
    &__inner
       display: flex
-      margin: 0 -5px
+      margin: 0 -15px
       
    &__item
       position: relative
@@ -25,7 +27,7 @@
       justify-content: flex-end
       height: 455px
       flex: 0 0 (100 / 6 + %)
-      padding: 55px 5px
+      padding: 55px 15px 40px
       border-right: 1px solid #ffff00
       cursor: default
       transition: .4s ease
@@ -55,10 +57,10 @@
          position: relative
          text-align: center
          height: 100px
-         margin-bottom: 25px
+         margin-bottom: 48px
          &::after
             position: absolute
-            bottom: 0
+            bottom: -20px
             left: 50%
             width: 30px
             margin-left: -15px
@@ -69,6 +71,8 @@
             +f('os', 600, null, 28)
             
       &-icon
+         position: relative
+         z-index: 1
          text-align: center
          svg
             transform-origin: 50% 0

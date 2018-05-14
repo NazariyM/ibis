@@ -1,0 +1,57 @@
+extends ../extend/default
+
+block variables
+	-title = 'Страница языка';
+	-contactMap = false;
+
+block main
+	main.content
+
+		//begin lang-screen
+		+b.SECTION.lang-screen(style='background-image: url(static/img/bg/lang-screen_bg.jpg)')
+			+e.container.container
+				+e.text
+					+e.title.title
+						h2 Английский язык
+					+e.descr
+						p УВЛЕКАТЕЛЬНЫЕ ЗАНЯТИЯ С НОСИТЕЛЯМИ ЯЗЫКА НА КАЖДОМ УРОВНЕ ПОДГОТОВКИ
+
+			+e.nav
+				+e.nav-container.container
+					-
+						navList = [
+						'Для дошкольников',
+						'Для младших школьников',
+						'Для средней школы',
+						'Для старшей школы',
+						'Для взрослых',
+						'Международные экзамены',
+						'Групповое обучение',
+						'Индивидуальное обучение',
+						'Корпоративное обучение'
+						]
+					ul
+						for navText in navList
+							li: a(href='#!')
+								span= navText
+		//begin lang-screen
+
+		//begin advantage
+		+b.SECTION.advantage(style='background-image: url(static/img/bg/advantage_bg.jpg)')
+			+e.container.container
+				+b.section-title.classes-age__section-title
+					+e.top
+						h2  Какие преимущества дает знание английского языка
+					+e.back
+						h2 Advantages of English
+				+e.inner
+					+e.item
+						+e.item-title
+							+e.item-title-text
+								for advTitle in advTitleList
+									h4= advTitle
+
+						+e.item-descr
+							for advDescr in advDescrList
+								p= advDescr
+		//end advantage

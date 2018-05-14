@@ -1,5 +1,6 @@
 .screen
-   margin-top: -50px
+   position: relative
+   margin-top: -36px
    padding: 0 0 65px
    
    &__inner
@@ -10,20 +11,22 @@
    
    &__bg
       position: absolute
-      top: 0
+      top: -60px
       left: 0
       right: 0
-      height: 537px
+      height: 538px
       z-index: -1
    
    &__title
-      margin-bottom: 20px
+      margin-bottom: 28px
       font-size: 50px
+      line-height: 50px
    
    &__text
       position: relative
       z-index: 2
       flex: 0 0 420px
+      padding: 15px 0 0
    
    &__form-wrap
       position: relative
@@ -31,20 +34,25 @@
       flex: 0 0 360px
       
    &__img
-      bottom: 0
+      bottom: -18px
       left: 50%
-      margin-left: -480px
+      margin-left: -484px
       width: percentage(680 / 1140)
       +ratio(680, 473)
       position: absolute
       +cover
 
 .classes-age
-   padding: 60px 0
+   padding: 0 0 70px
    
    &__section-title
-      margin-bottom: 40px
-   
+      margin-bottom: 25px
+      .section-title__top
+         bottom: 14px
+      .section-title__back
+         padding-top: 7px
+         margin-left: -40px
+         
    &__inner
       display: flex
       margin: 0 -15px
@@ -73,7 +81,7 @@
             background: rgba($yellow, .9)
       
       &-content
-         transform: translate3d(0, 60%, 0)
+         transform: translate3d(0, 57%, 0)
          position: relative
          display: flex
          flex-direction: column
@@ -99,7 +107,7 @@
             left: 50%
             transform: translate3d(-50%, 0, 0)
             z-index: -1
-            width: 150%
+            width: 210%
             height: 110%
             border-radius: 50%
             background: rgba($white, .8)
@@ -109,7 +117,7 @@
       &-title
          position: relative
          margin-bottom: 30px
-         padding-bottom: 15px
+         padding-bottom: 38px
          +f('os', 600, 20)
          &::after
             position: absolute
@@ -125,12 +133,17 @@
          padding: 13px 42px
          
 .classes-lang
-   padding: 60px 0
+   padding: 70px 0 40px
    background: #f5f5f5
+   &__section-title
+      margin-bottom: 23px
+      .section-title__top
+         bottom: 15px
    &__inner
       display: flex
       justify-content: center
       flex-wrap: wrap
+      margin: 0 -15px
       
    &__flag
       $parent: &
@@ -180,7 +193,7 @@
          
 .get-course
    position: relative
-   padding: 90px 0
+   padding: 85px 0 120px
    box-shadow: 0 2px 5px rgba(79, 79, 79, 0.15)
    text-align: center
    &__bg
@@ -191,11 +204,16 @@
 
    &__section-title
       max-width: 800px
-      margin: 0 auto
-      
+      margin: 0 auto 80px
+      .section-title__top
+         bottom: -33px
+      .section-title__back
+         padding-top: 0
+         margin-top: -10px
+         
 .about-counts
    position: relative
-   padding: 70px 0
+   padding: 70px 0 50px
    overflow: hidden
    background: #f5f5f5
    
@@ -203,10 +221,9 @@
       z-index: 1
    
    &__section-title
-      margin-bottom: 40px
+      margin-bottom: 50px
    
    &__inner
-      po
       display: flex
       z-index: 1
       flex-wrap: wrap
@@ -214,7 +231,7 @@
    
    &__item
       flex: 0 1 50%
-      padding: 0 15px 50px
+      padding: 0 15px 100px
       font-size: 0
       &-number
          position: relative
@@ -227,7 +244,7 @@
             +f('yes', 400, 80, 80)
             &:nth-child(2)
                position: absolute
-               top: 80%
+               top: 90%
                left: 0
                min-width: 210px
                &::after
@@ -235,7 +252,7 @@
                   background-image: linear-gradient(to top, #f5f5f5 12%, #f5f5f5ad 60%, transparent)
                   content: ''
          sup
-            top: -0.1em
+            top: -0.2em
             margin-left: -0.3em
             font-size: 100%
             line-height: 1
@@ -245,8 +262,12 @@
       &-descr
          display: inline-block
          vertical-align: middle
-         padding-left: 40px
-         width: 60%
+         padding-left: 36px
+         width: 62%
+         &_sm
+            width: 50%
+         &_lg
+            width: 67%
          p
             font-size: 19px
             line-height: 35px
@@ -277,18 +298,34 @@
          border: 1px dashed rgba($gray, .5)
          
 .first-step
+   margin-top: -120px
    padding: 190px 0 170px
    +cover
    &__container
       display: flex
       justify-content: space-between
-      align-items: center
+      align-items: flex-start
       
    &__section-title
-      flex: 0 0 630px
+      flex: 0 0 640px
       text-align: left
+      &::after
+         top: 5px
+         left: 0
+         margin-left: 0
+         content: ''
+      .section-title__top
+         bottom: -70%
+         font-size: 55px
+         line-height: 60px
+      .section-title__back
+         margin-left: -16px
+         padding-top: 50px
+         font-size: 130px
+   
    &__form-wrap
       flex: 0 0 360px
+      margin-right: 97px
       .order-form
          border: 1px solid rgba(#d7d7d7, .5)
          background: rgba($white, .5)
@@ -296,12 +333,16 @@
             background: rgba($white, .5)
             
 .reviews
-   padding: 100px 0 0
+   padding: 70px 0 0
    +cover
    
 .contact
    position: relative
    height: 588px
+   padding-top: 53px
+   &__container
+      pointer-events: none
+   
    &__map
       +coverdiv
       &-wrap
@@ -311,10 +352,15 @@
       max-width: 830px
       
    &__section-title
+      margin-bottom: 142px
       text-align: left
+      .section-title__top
+         bottom: -102px
       .section-title__back
+         margin-left: -15px
          font-size: 93px
          color: rgba($black, .1)
          
    &__form-wrap
+      pointer-events: auto
       max-width: 654px

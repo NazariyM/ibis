@@ -17,13 +17,17 @@ if teachers.titleBot ? teachers.titleBot : teachers.titleBot = 'Our teachers'
 
 			mixin teachersPerson(person)
 				+e.person.swiper-slide
-					+e.person-img(style=`background-image: url(static/img/content/teacher-${person.img}.jpg)`)
-					+e.person-about
-						+e.person-name
-							a(href='#!')= person.name
-						+e.person-descr
-							p= person.descr
+					+e.person-img-wrap
+						+e.person-img(style=`background-image: url(static/img/content/teacher-${person.img}.jpg)`)
+						+e.person-img-hover(style=`background-image: url(static/img/content/teacher-${person.img}.jpg)`)
+							+e.person-about
+								+e.person-name
+									a(href='#!')= person.name
+								+e.person-descr
+									p= person.descr
 
 			for person in teachersList
 				+teachersPerson(person)
+
+	+e.A.price-btn.btn._yellow._long(href='#!') Все преподаватели
 //end teachers
