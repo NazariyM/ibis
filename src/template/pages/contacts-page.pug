@@ -1,0 +1,21 @@
+extends ../extend/default
+
+block variables
+	-title = 'Страница контактов';
+	-contactMap = true;
+
+block main
+	main.content
+		//begin contacts
+		+b.SECTION.contacts
+			+e.map-wrap
+				+e.map.contact-map#contact-map
+
+			+e.container.container
+				+b.section-title.contacts__section-title
+					+e.top
+						h2 Наши контакты
+					+e.back
+						h2 Our contacts
+
+		//end contacts

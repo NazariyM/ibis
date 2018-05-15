@@ -1,24 +1,70 @@
 .lang-screen
-   margin-top: -90px
+   position: relative
+   margin-top: -100px
+   &__bg
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 50px
+      +cover
    &__container
-      padding: 225px 15px 100px
+      display: flex
+      padding: 95px 0 0
+      height: 420px
+      +md
+         padding: 165px 0 0
+      +sm
+         padding: 110px 0 50px
+         height: auto
+   
    &__text
       display: flex
       align-items: center
       justify-content: space-between
+      padding: 0 30px
       color: $white
+      +md
+         padding: 0 15px
+      +sm
+         flex-direction: column
+         justify-content: center
+         align-items: center
+         
    &__title
+      flex: 0 0 515px
+      padding-left: 25px
       font-size: 50px
       line-height: 50px
+      +md
+         flex: 0 1 410px
+         padding-left: 0
+         font-size: 38px
+         line-height: 38px
+      +sm
+         flex: 0 1 auto
+         margin-bottom: 20px
+         text-align: center
+         
    &__descr
-      flex: 0 0 440px
+      flex: 0 1 440px
       +f('os', 600)
       text-transform: uppercase
-      
+      +md
+         font-size: 15px
+         text-align: right
+      +sm
+         text-align: center
+         flex: 0 1 auto
+   
    &__nav
-      padding: 20px 0 10px
+      position: relative
+      z-index: 1
+      padding: 40px 0 25px
       background-color: rgba($white, .8)
       background-image: linear-gradient(to top, $white 40%, transparent 100%)
+      +sm
+         padding: 30px 0 20px
       &-container
       ul
          display: flex
@@ -40,6 +86,8 @@
                border: 1px solid #a2a2a2
                font-size: 15px
                transition: .4s ease
+               +sm
+                  padding: 8px 5px
                &::after
                   opacity: 0
                   pointer-events: none
@@ -60,44 +108,76 @@
                   z-index: 1
                   
 .advantage
-   padding: 30px 0
+   padding: 67px 0 14px
+   border-top: 10px solid #dcdcdc
    +cover
+   +sm
+      padding: 50px 0 15px
    &__section-title
       max-width: 1060px
-      margin: 0 auto 50px
+      margin: 0 auto 125px
       color: $white
+      +sm
+         margin: 0 auto 40px
       &::after
          background: $white
          content: ''
-      
+      .section-title__top
+         bottom: -35px
+   
    &__inner
       display: flex
       flex-wrap: wrap
       margin: 0 -15px
-      
+      +sm
+         flex-direction: column
+         
    &__item
       flex: 0 1 50%
-      padding: 0 15px 40px
+      padding: 0 15px 55px
+      +sm
+         flex: 0 1 auto
+         width: 100%
+         padding: 0 15px 40px
       &-title
          display: inline-flex
          align-items: center
-         margin-bottom: 15px
-         padding: 0 35px 0 0
+         margin-bottom: 22px
+         padding: 0 40px 0 0
          color: #784288
          +f('os', 600, 20)
          text-transform: uppercase
          background: $white
          border-radius: 3px
-         
+         +sm
+            padding: 0 20px 0 0
+         &_mod
+            padding: 0 40px 0 15px
+            +sm
+               padding: 0 20px 0 10px
+            .advantage__item-title-text
+               padding-left: 45px
          &-text
-            padding-left: 20px
-            
+            padding-left: 27px
+            +sm
+               padding-left: 20px
+            &_mod
+               padding-left: 50px
+               +sm
+                  padding-left: 15px
+   
       &-descr
          p
             color: $white
             
 .schedule
+   padding: 67px 0 0
    background: #f5f5f5
+   +sm
+      display: none
+   
+   &__section-title
+      margin-bottom: 27px
    
    &__table
       margin: 0 -5px 40px
@@ -105,6 +185,8 @@
          display: flex
          justify-content: space-between
          height: 50px
+         +md
+            height: 60px
          &:hover .schedule__table-data
             background-color: #903a8d
             color: $white
@@ -118,14 +200,16 @@
          
          &_title
             margin-bottom: 20px
-            +f('os', 700, 16, 20)
             text-align: center
             &:hover .schedule__table-data
                background: transparent
                color: $black
             .schedule__table-data
                justify-content: center
+               +f('os', 700, 16, 25)
                background: transparent
+               +md
+                  line-height: 18px
       &-data
          display: flex
          align-items: center
@@ -135,6 +219,8 @@
          transition: .15s ease
          cursor: default
          justify-content: center
+         +md
+            padding: 0 10px
          &_1
             justify-content: flex-start
             flex: 0 1 372px
@@ -142,12 +228,20 @@
             flex: 0 1 183px
          &_3
             flex: 0 1 382px
+            +md
+               justify-content: flex-start
          &_4
             flex: 0 1 173px
+            &.schedule__table-data_double
+               +md
+                  align-items: center
             
          &_double
             flex-direction: column
             align-items: center
+            +md
+               align-items: flex-start
+               justify-content: center
             
       &-descr
          text-align: center

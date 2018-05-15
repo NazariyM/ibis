@@ -1,6 +1,6 @@
 class ContactMap {
   constructor() {
-    this.block = document.querySelector('.contact');
+    this.block = document.querySelector('.contact-map');
 
     if (!this.block) return;
 
@@ -25,10 +25,7 @@ class ContactMap {
     });
 
     const balloonLayout = ymaps.templateLayoutFactory.createClass(
-      `<div class="contact__map-content">
-         <div>
-         <img src="">
-        </div>
+      `<div class="contact-map__content">
         <p>Азовская улица, 15</p>
       </div>`);
 
@@ -39,7 +36,7 @@ class ContactMap {
       balloonPanelMaxMapArea: 0,
       hideIconOnBalloonOpen: false,
       balloonCloseButton: false,
-      balloonOffset: [3, -40]
+      balloonOffset: [70, 7]
     });
 
     map.behaviors.disable('scrollZoom');

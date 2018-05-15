@@ -4,6 +4,8 @@
    &__category
       padding: 38px 0 55px
       background: #f5f5f5
+      +md
+         display: none
       &-inner
          display: flex
          margin: 0 -15px
@@ -53,33 +55,59 @@
       &-container
          display: flex
          justify-content: space-between
+         +md
+            flex-wrap: wrap
+            justify-content: center
          
    &__logo
       display: flex
       align-items: center
       flex: 0 0 360px
+      +md
+         margin-bottom: 20px
+      +sm
+         flex: 0 1 auto
       
       &-link
          padding-right: 25px
+         +sm
+            padding-right: 10px
+            
+      &-text
+         +sm
+            font-size: 13px
       
    &__contacts
       display: flex
       align-items: center
       flex: 0 0 726px
       margin-right: -28px
+      +sm
+         flex: 0 1 auto
+         flex-direction: column
+         margin-right: 0
       
       &-block
          display: flex
          align-items: center
          padding: 0 28px
+         +sm
+            padding: 0
          &:first-child
             border-right: 2px  solid $gray
+            +sm
+               border-right: 0
+               margin-bottom: 15px
          .icon-tel
             margin-right: 15px
+            +sm
+               margin-right: 8px
             
          a
             +trs
             +f('os', 600, 20)
+            +sm
+               font-size: 16px
             .no-touch &:hover
                color: #a06396
             
@@ -90,3 +118,5 @@
             
    &__socials
       margin-left: 20px
+      +sm
+         margin-left: 10px

@@ -8,10 +8,11 @@ import Swiper from 'swiper';
 class Benefits {
   constructor() {
     this.block = document.querySelector('.benefits');
+    if (!this.block) return;
+
     this.inner = this.block.querySelector('.benefits__inner');
     this.items = this.block.querySelectorAll('.benefits__item');
 
-    if (!this.block) return;
     this.init();
 
   }
@@ -47,8 +48,7 @@ class Benefits {
       speed: 500,
       breakpoints: {
         767: {
-          slidesPerView: 1,
-          spaceBetween: 0
+          slidesPerView: 1
         }
       }
     });

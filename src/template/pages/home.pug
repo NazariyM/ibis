@@ -231,7 +231,7 @@ block main
 		include ../components/teachers
 
 		//begin first-step
-		//+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
+		+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
 			+e.container.container
 				+b.section-title.first-step__section-title
 					+e.top
@@ -244,7 +244,7 @@ block main
 		//end first-step
 
 		//begin reviews
-		//+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
+		+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
 			+e.container.container
 				+b.section-title.reviews__section-title
 					+e.top
@@ -256,19 +256,19 @@ block main
 					+e.IMG(src='static/img/other/reviews_img.png' alt='image')
 		//end reviews
 
-		//begin contact
-		//+b.SECTION.contact
+		//begin cost-contact
+		+b.SECTION.cost-contact
 			+e.map-wrap
-				+e.map#contact-map
+				+e.map.contact-map#contact-map
 
 			+e.container.container
 				+e.inner
-					+b.section-title.contact__section-title
+					+b.section-title.cost-contact__section-title
 						+e.top
 							h2 Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку
 						+e.back
 							h2 Cost of education
 
 					+e.form-wrap
-						+cost-form(null, 'Узнать стоимость', 'Телефон')
-		//end contact
+						+cost-form('_map', 'Узнать стоимость', 'Телефон')
+		//end cost-contact

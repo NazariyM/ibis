@@ -3,7 +3,7 @@ import './NoTouch';
 
 // import './Anims';
 // import './Header';
-import './Slider';
+import './FullSlider';
 import './Dot';
 import './ContactMap';
 import '../sections/Benefits';

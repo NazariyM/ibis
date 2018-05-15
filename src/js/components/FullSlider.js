@@ -6,9 +6,8 @@ import Swiper from 'swiper';
 
 class FullSlider {
 
-  constructor(el, settings = { slidesCount: 7 }) {
+  constructor(el) {
     this.el = document.querySelector(el);
-    this.settings = settings;
 
     this.init();
   }
@@ -29,14 +28,25 @@ class FullSlider {
   createSlider() {
 
     this.slider = new Swiper(this.el, {
-      slidesPerView: this.settings.slidesCount,
+      slidesPerView: 7.11,
       simulateTouch: true,
       loop: true,
       centeredSlides: true,
       speed: 500,
       initialSlide: 3,
-      loopAdditionalSlides: 8,
-      keyboardControl: true
+      loopAdditionalSlides: 10,
+      keyboardControl: true,
+      breakpoints: {
+        1599: {
+          slidesPerView: 6.11
+        },
+        1199: {
+          slidesPerView: 3.11
+        },
+        767: {
+          slidesPerView: 1
+        }
+      }
     });
   }
 
@@ -54,4 +64,4 @@ class FullSlider {
 
 }
 
-const teachersSlider = new FullSlider('.teachers__slider', { slidesCount: 7.11 });
+const teachersSlider = new FullSlider('.teachers__slider');

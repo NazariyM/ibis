@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 127);
+/******/ 	return __webpack_require__(__webpack_require__.s = 130);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -330,7 +330,7 @@ module.exports = function (NAME, exec) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(46);
+var IObject = __webpack_require__(47);
 var defined = __webpack_require__(23);
 module.exports = function (it) {
   return IObject(defined(it));
@@ -341,7 +341,7 @@ module.exports = function (it) {
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(47);
+var pIE = __webpack_require__(48);
 var createDesc = __webpack_require__(31);
 var toIObject = __webpack_require__(15);
 var toPrimitive = __webpack_require__(22);
@@ -508,7 +508,7 @@ module.exports = function (KEY, exec) {
 // 5 -> Array#find
 // 6 -> Array#findIndex
 var ctx = __webpack_require__(18);
-var IObject = __webpack_require__(46);
+var IObject = __webpack_require__(47);
 var toObject = __webpack_require__(9);
 var toLength = __webpack_require__(8);
 var asc = __webpack_require__(84);
@@ -570,7 +570,7 @@ if (__webpack_require__(6)) {
   var toAbsoluteIndex = __webpack_require__(35);
   var toPrimitive = __webpack_require__(22);
   var has = __webpack_require__(11);
-  var classof = __webpack_require__(48);
+  var classof = __webpack_require__(49);
   var isObject = __webpack_require__(4);
   var toObject = __webpack_require__(9);
   var isArrayIter = __webpack_require__(81);
@@ -1424,54 +1424,6 @@ module.exports = function (it, TYPE) {
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(19);
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(19);
-var TAG = __webpack_require__(5)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
@@ -1871,6 +1823,54 @@ var detectIE = exports.detectIE = function detectIE() {
 	// other browser
 	return false;
 };
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(19);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(19);
+var TAG = __webpack_require__(5)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
 
 /***/ }),
 /* 50 */
@@ -2608,7 +2608,7 @@ module.exports = function (object, index, value) {
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(48);
+var classof = __webpack_require__(49);
 var ITERATOR = __webpack_require__(5)('iterator');
 var Iterators = __webpack_require__(44);
 module.exports = __webpack_require__(21).getIteratorMethod = function (it) {
@@ -2623,7 +2623,7 @@ module.exports = __webpack_require__(21).getIteratorMethod = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 9.4.2.3 ArraySpeciesCreate(originalArray, length)
-var speciesConstructor = __webpack_require__(220);
+var speciesConstructor = __webpack_require__(223);
 
 module.exports = function (original, length) {
   return new (speciesConstructor(original))(length);
@@ -3267,9 +3267,9 @@ module.exports.f = function getOwnPropertyNames(it) {
 // 19.1.2.1 Object.assign(target, source, ...)
 var getKeys = __webpack_require__(34);
 var gOPS = __webpack_require__(52);
-var pIE = __webpack_require__(47);
+var pIE = __webpack_require__(48);
 var toObject = __webpack_require__(9);
-var IObject = __webpack_require__(46);
+var IObject = __webpack_require__(47);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
@@ -3468,7 +3468,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 var aFunction = __webpack_require__(10);
 var toObject = __webpack_require__(9);
-var IObject = __webpack_require__(46);
+var IObject = __webpack_require__(47);
 var toLength = __webpack_require__(8);
 
 module.exports = function (that, callbackfn, aLen, memo, isRight) {
@@ -4042,7 +4042,7 @@ module.exports = function (that, maxLength, fillString, left) {
 
 var getKeys = __webpack_require__(34);
 var toIObject = __webpack_require__(15);
-var isEnum = __webpack_require__(47).f;
+var isEnum = __webpack_require__(48).f;
 module.exports = function (isEntries) {
   return function (it) {
     var O = toIObject(it);
@@ -4063,7 +4063,7 @@ module.exports = function (isEntries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/DavidBruant/Map-Set.prototype.toJSON
-var classof = __webpack_require__(48);
+var classof = __webpack_require__(49);
 var from = __webpack_require__(124);
 module.exports = function (NAME) {
   return function toJSON() {
@@ -4112,6865 +4112,6 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 
 /***/ }),
 /* 126 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
-/**
- * SSR Window 1.0.0
- * Better handling for window object in SSR environment
- * https://github.com/nolimits4web/ssr-window
- *
- * Copyright 2018, Vladimir Kharlampidi
- *
- * Licensed under MIT
- *
- * Released on: February 10, 2018
- */
-var d;
-if (typeof document === 'undefined') {
-  d = {
-    body: {},
-    addEventListener: function addEventListener() {},
-    removeEventListener: function removeEventListener() {},
-    activeElement: {
-      blur: function blur() {},
-      nodeName: '',
-    },
-    querySelector: function querySelector() {
-      return null;
-    },
-    querySelectorAll: function querySelectorAll() {
-      return [];
-    },
-    getElementById: function getElementById() {
-      return null;
-    },
-    createEvent: function createEvent() {
-      return {
-        initEvent: function initEvent() {},
-      };
-    },
-    createElement: function createElement() {
-      return {
-        children: [],
-        childNodes: [],
-        style: {},
-        setAttribute: function setAttribute() {},
-        getElementsByTagName: function getElementsByTagName() {
-          return [];
-        },
-      };
-    },
-    location: { hash: '' },
-  };
-} else {
-  // eslint-disable-next-line
-  d = document;
-}
-
-var doc = d;
-
-var w;
-if (typeof window === 'undefined') {
-  w = {
-    document: doc,
-    navigator: {
-      userAgent: '',
-    },
-    location: {},
-    history: {},
-    CustomEvent: function CustomEvent() {
-      return this;
-    },
-    addEventListener: function addEventListener() {},
-    removeEventListener: function removeEventListener() {},
-    getComputedStyle: function getComputedStyle() {
-      return {
-        getPropertyValue: function getPropertyValue() {
-          return '';
-        },
-      };
-    },
-    Image: function Image() {},
-    Date: function Date() {},
-    screen: {},
-    setTimeout: function setTimeout() {},
-    clearTimeout: function clearTimeout() {},
-  };
-} else {
-  // eslint-disable-next-line
-  w = window;
-}
-
-var win = w;
-
-
-
-
-/***/ }),
-/* 127 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * App entry point.
- *
- * @module App
- */
-
-/** Import initialized-by-default modules/libs */
-
-__webpack_require__(128);
-
-__webpack_require__(330);
-
-__webpack_require__(331);
-
-__webpack_require__(343);
-
-var _Home = __webpack_require__(345);
-
-var _Home2 = _interopRequireDefault(_Home);
-
-var _helpers = __webpack_require__(49);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Run appropriate scripts for each page.
- **/
-
-
-/** Import page controllers */
-switch (_helpers.currentPage) {
-  /** Home page */
-  case 'home':
-    new _Home2.default();break;
-
-  /** No page found */
-
-  // default: console.warn('Undefined page');
-}
-
-/***/ }),
-/* 128 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-__webpack_require__(129);
-
-__webpack_require__(326);
-
-__webpack_require__(327);
-
-if (global._babelPolyfill) {
-  throw new Error("only one instance of babel-polyfill is allowed");
-}
-global._babelPolyfill = true;
-
-var DEFINE_PROPERTY = "defineProperty";
-function define(O, key, value) {
-  O[key] || Object[DEFINE_PROPERTY](O, key, {
-    writable: true,
-    configurable: true,
-    value: value
-  });
-}
-
-define(String.prototype, "padLeft", "".padStart);
-define(String.prototype, "padRight", "".padEnd);
-
-"pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function (key) {
-  [][key] && define(Array, key, Function.call.bind([][key]));
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
-
-/***/ }),
-/* 129 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(130);
-__webpack_require__(132);
-__webpack_require__(133);
-__webpack_require__(134);
-__webpack_require__(135);
-__webpack_require__(136);
-__webpack_require__(137);
-__webpack_require__(138);
-__webpack_require__(139);
-__webpack_require__(140);
-__webpack_require__(141);
-__webpack_require__(142);
-__webpack_require__(143);
-__webpack_require__(144);
-__webpack_require__(145);
-__webpack_require__(146);
-__webpack_require__(148);
-__webpack_require__(149);
-__webpack_require__(150);
-__webpack_require__(151);
-__webpack_require__(152);
-__webpack_require__(153);
-__webpack_require__(154);
-__webpack_require__(155);
-__webpack_require__(156);
-__webpack_require__(157);
-__webpack_require__(158);
-__webpack_require__(159);
-__webpack_require__(160);
-__webpack_require__(161);
-__webpack_require__(162);
-__webpack_require__(163);
-__webpack_require__(164);
-__webpack_require__(165);
-__webpack_require__(166);
-__webpack_require__(167);
-__webpack_require__(168);
-__webpack_require__(169);
-__webpack_require__(170);
-__webpack_require__(171);
-__webpack_require__(172);
-__webpack_require__(173);
-__webpack_require__(174);
-__webpack_require__(175);
-__webpack_require__(176);
-__webpack_require__(177);
-__webpack_require__(178);
-__webpack_require__(179);
-__webpack_require__(180);
-__webpack_require__(181);
-__webpack_require__(182);
-__webpack_require__(183);
-__webpack_require__(184);
-__webpack_require__(185);
-__webpack_require__(186);
-__webpack_require__(187);
-__webpack_require__(188);
-__webpack_require__(189);
-__webpack_require__(190);
-__webpack_require__(191);
-__webpack_require__(192);
-__webpack_require__(193);
-__webpack_require__(194);
-__webpack_require__(195);
-__webpack_require__(196);
-__webpack_require__(197);
-__webpack_require__(198);
-__webpack_require__(199);
-__webpack_require__(200);
-__webpack_require__(201);
-__webpack_require__(202);
-__webpack_require__(203);
-__webpack_require__(204);
-__webpack_require__(205);
-__webpack_require__(206);
-__webpack_require__(207);
-__webpack_require__(208);
-__webpack_require__(210);
-__webpack_require__(211);
-__webpack_require__(213);
-__webpack_require__(214);
-__webpack_require__(215);
-__webpack_require__(216);
-__webpack_require__(217);
-__webpack_require__(218);
-__webpack_require__(219);
-__webpack_require__(221);
-__webpack_require__(222);
-__webpack_require__(223);
-__webpack_require__(224);
-__webpack_require__(225);
-__webpack_require__(226);
-__webpack_require__(227);
-__webpack_require__(228);
-__webpack_require__(229);
-__webpack_require__(230);
-__webpack_require__(231);
-__webpack_require__(232);
-__webpack_require__(233);
-__webpack_require__(86);
-__webpack_require__(234);
-__webpack_require__(235);
-__webpack_require__(110);
-__webpack_require__(236);
-__webpack_require__(237);
-__webpack_require__(238);
-__webpack_require__(239);
-__webpack_require__(240);
-__webpack_require__(113);
-__webpack_require__(115);
-__webpack_require__(116);
-__webpack_require__(241);
-__webpack_require__(242);
-__webpack_require__(243);
-__webpack_require__(244);
-__webpack_require__(245);
-__webpack_require__(246);
-__webpack_require__(247);
-__webpack_require__(248);
-__webpack_require__(249);
-__webpack_require__(250);
-__webpack_require__(251);
-__webpack_require__(252);
-__webpack_require__(253);
-__webpack_require__(254);
-__webpack_require__(255);
-__webpack_require__(256);
-__webpack_require__(257);
-__webpack_require__(258);
-__webpack_require__(259);
-__webpack_require__(260);
-__webpack_require__(261);
-__webpack_require__(262);
-__webpack_require__(263);
-__webpack_require__(264);
-__webpack_require__(265);
-__webpack_require__(266);
-__webpack_require__(267);
-__webpack_require__(268);
-__webpack_require__(269);
-__webpack_require__(270);
-__webpack_require__(271);
-__webpack_require__(272);
-__webpack_require__(273);
-__webpack_require__(274);
-__webpack_require__(275);
-__webpack_require__(276);
-__webpack_require__(277);
-__webpack_require__(278);
-__webpack_require__(279);
-__webpack_require__(280);
-__webpack_require__(281);
-__webpack_require__(282);
-__webpack_require__(283);
-__webpack_require__(284);
-__webpack_require__(285);
-__webpack_require__(286);
-__webpack_require__(287);
-__webpack_require__(288);
-__webpack_require__(289);
-__webpack_require__(290);
-__webpack_require__(291);
-__webpack_require__(292);
-__webpack_require__(293);
-__webpack_require__(294);
-__webpack_require__(295);
-__webpack_require__(296);
-__webpack_require__(297);
-__webpack_require__(298);
-__webpack_require__(299);
-__webpack_require__(300);
-__webpack_require__(301);
-__webpack_require__(302);
-__webpack_require__(303);
-__webpack_require__(304);
-__webpack_require__(305);
-__webpack_require__(306);
-__webpack_require__(307);
-__webpack_require__(308);
-__webpack_require__(309);
-__webpack_require__(310);
-__webpack_require__(311);
-__webpack_require__(312);
-__webpack_require__(313);
-__webpack_require__(314);
-__webpack_require__(315);
-__webpack_require__(316);
-__webpack_require__(317);
-__webpack_require__(318);
-__webpack_require__(319);
-__webpack_require__(320);
-__webpack_require__(321);
-__webpack_require__(322);
-__webpack_require__(323);
-__webpack_require__(324);
-__webpack_require__(325);
-module.exports = __webpack_require__(21);
-
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// ECMAScript 6 symbols shim
-var global = __webpack_require__(2);
-var has = __webpack_require__(11);
-var DESCRIPTORS = __webpack_require__(6);
-var $export = __webpack_require__(0);
-var redefine = __webpack_require__(13);
-var META = __webpack_require__(29).KEY;
-var $fails = __webpack_require__(3);
-var shared = __webpack_require__(50);
-var setToStringTag = __webpack_require__(42);
-var uid = __webpack_require__(32);
-var wks = __webpack_require__(5);
-var wksExt = __webpack_require__(93);
-var wksDefine = __webpack_require__(66);
-var enumKeys = __webpack_require__(131);
-var isArray = __webpack_require__(53);
-var anObject = __webpack_require__(1);
-var isObject = __webpack_require__(4);
-var toIObject = __webpack_require__(15);
-var toPrimitive = __webpack_require__(22);
-var createDesc = __webpack_require__(31);
-var _create = __webpack_require__(36);
-var gOPNExt = __webpack_require__(96);
-var $GOPD = __webpack_require__(16);
-var $DP = __webpack_require__(7);
-var $keys = __webpack_require__(34);
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function';
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  __webpack_require__(37).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(47).f = $propertyIsEnumerable;
-  __webpack_require__(52).f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !__webpack_require__(33)) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(12)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(34);
-var gOPS = __webpack_require__(52);
-var pIE = __webpack_require__(47);
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: __webpack_require__(36) });
-
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(7).f });
-
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-// 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperties: __webpack_require__(95) });
-
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-var toIObject = __webpack_require__(15);
-var $getOwnPropertyDescriptor = __webpack_require__(16).f;
-
-__webpack_require__(25)('getOwnPropertyDescriptor', function () {
-  return function getOwnPropertyDescriptor(it, key) {
-    return $getOwnPropertyDescriptor(toIObject(it), key);
-  };
-});
-
-
-/***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = __webpack_require__(9);
-var $getPrototypeOf = __webpack_require__(17);
-
-__webpack_require__(25)('getPrototypeOf', function () {
-  return function getPrototypeOf(it) {
-    return $getPrototypeOf(toObject(it));
-  };
-});
-
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(9);
-var $keys = __webpack_require__(34);
-
-__webpack_require__(25)('keys', function () {
-  return function keys(it) {
-    return $keys(toObject(it));
-  };
-});
-
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.7 Object.getOwnPropertyNames(O)
-__webpack_require__(25)('getOwnPropertyNames', function () {
-  return __webpack_require__(96).f;
-});
-
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.5 Object.freeze(O)
-var isObject = __webpack_require__(4);
-var meta = __webpack_require__(29).onFreeze;
-
-__webpack_require__(25)('freeze', function ($freeze) {
-  return function freeze(it) {
-    return $freeze && isObject(it) ? $freeze(meta(it)) : it;
-  };
-});
-
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.17 Object.seal(O)
-var isObject = __webpack_require__(4);
-var meta = __webpack_require__(29).onFreeze;
-
-__webpack_require__(25)('seal', function ($seal) {
-  return function seal(it) {
-    return $seal && isObject(it) ? $seal(meta(it)) : it;
-  };
-});
-
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.15 Object.preventExtensions(O)
-var isObject = __webpack_require__(4);
-var meta = __webpack_require__(29).onFreeze;
-
-__webpack_require__(25)('preventExtensions', function ($preventExtensions) {
-  return function preventExtensions(it) {
-    return $preventExtensions && isObject(it) ? $preventExtensions(meta(it)) : it;
-  };
-});
-
-
-/***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.12 Object.isFrozen(O)
-var isObject = __webpack_require__(4);
-
-__webpack_require__(25)('isFrozen', function ($isFrozen) {
-  return function isFrozen(it) {
-    return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
-  };
-});
-
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.13 Object.isSealed(O)
-var isObject = __webpack_require__(4);
-
-__webpack_require__(25)('isSealed', function ($isSealed) {
-  return function isSealed(it) {
-    return isObject(it) ? $isSealed ? $isSealed(it) : false : true;
-  };
-});
-
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.11 Object.isExtensible(O)
-var isObject = __webpack_require__(4);
-
-__webpack_require__(25)('isExtensible', function ($isExtensible) {
-  return function isExtensible(it) {
-    return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
-  };
-});
-
-
-/***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__(0);
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(97) });
-
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.10 Object.is(value1, value2)
-var $export = __webpack_require__(0);
-$export($export.S, 'Object', { is: __webpack_require__(147) });
-
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports) {
-
-// 7.2.9 SameValue(x, y)
-module.exports = Object.is || function is(x, y) {
-  // eslint-disable-next-line no-self-compare
-  return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
-};
-
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __webpack_require__(0);
-$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(70).set });
-
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 19.1.3.6 Object.prototype.toString()
-var classof = __webpack_require__(48);
-var test = {};
-test[__webpack_require__(5)('toStringTag')] = 'z';
-if (test + '' != '[object z]') {
-  __webpack_require__(13)(Object.prototype, 'toString', function toString() {
-    return '[object ' + classof(this) + ']';
-  }, true);
-}
-
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
-var $export = __webpack_require__(0);
-
-$export($export.P, 'Function', { bind: __webpack_require__(98) });
-
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__(7).f;
-var FProto = Function.prototype;
-var nameRE = /^\s*function ([^ (]*)/;
-var NAME = 'name';
-
-// 19.2.4.2 name
-NAME in FProto || __webpack_require__(6) && dP(FProto, NAME, {
-  configurable: true,
-  get: function () {
-    try {
-      return ('' + this).match(nameRE)[1];
-    } catch (e) {
-      return '';
-    }
-  }
-});
-
-
-/***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var isObject = __webpack_require__(4);
-var getPrototypeOf = __webpack_require__(17);
-var HAS_INSTANCE = __webpack_require__(5)('hasInstance');
-var FunctionProto = Function.prototype;
-// 19.2.3.6 Function.prototype[@@hasInstance](V)
-if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(7).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
-  if (typeof this != 'function' || !isObject(O)) return false;
-  if (!isObject(this.prototype)) return O instanceof this;
-  // for environment w/o native `@@hasInstance` logic enough `instanceof`, but add this:
-  while (O = getPrototypeOf(O)) if (this.prototype === O) return true;
-  return false;
-} });
-
-
-/***/ }),
-/* 153 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(100);
-// 18.2.5 parseInt(string, radix)
-$export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
-
-
-/***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(101);
-// 18.2.4 parseFloat(string)
-$export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
-
-
-/***/ }),
-/* 155 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var global = __webpack_require__(2);
-var has = __webpack_require__(11);
-var cof = __webpack_require__(19);
-var inheritIfRequired = __webpack_require__(72);
-var toPrimitive = __webpack_require__(22);
-var fails = __webpack_require__(3);
-var gOPN = __webpack_require__(37).f;
-var gOPD = __webpack_require__(16).f;
-var dP = __webpack_require__(7).f;
-var $trim = __webpack_require__(43).trim;
-var NUMBER = 'Number';
-var $Number = global[NUMBER];
-var Base = $Number;
-var proto = $Number.prototype;
-// Opera ~12 has broken Object#toString
-var BROKEN_COF = cof(__webpack_require__(36)(proto)) == NUMBER;
-var TRIM = 'trim' in String.prototype;
-
-// 7.1.3 ToNumber(argument)
-var toNumber = function (argument) {
-  var it = toPrimitive(argument, false);
-  if (typeof it == 'string' && it.length > 2) {
-    it = TRIM ? it.trim() : $trim(it, 3);
-    var first = it.charCodeAt(0);
-    var third, radix, maxCode;
-    if (first === 43 || first === 45) {
-      third = it.charCodeAt(2);
-      if (third === 88 || third === 120) return NaN; // Number('+0x1') should be NaN, old V8 fix
-    } else if (first === 48) {
-      switch (it.charCodeAt(1)) {
-        case 66: case 98: radix = 2; maxCode = 49; break; // fast equal /^0b[01]+$/i
-        case 79: case 111: radix = 8; maxCode = 55; break; // fast equal /^0o[0-7]+$/i
-        default: return +it;
-      }
-      for (var digits = it.slice(2), i = 0, l = digits.length, code; i < l; i++) {
-        code = digits.charCodeAt(i);
-        // parseInt parses a string to a first unavailable symbol
-        // but ToNumber should return NaN if a string contains unavailable symbols
-        if (code < 48 || code > maxCode) return NaN;
-      } return parseInt(digits, radix);
-    }
-  } return +it;
-};
-
-if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
-  $Number = function Number(value) {
-    var it = arguments.length < 1 ? 0 : value;
-    var that = this;
-    return that instanceof $Number
-      // check on 1..constructor(foo) case
-      && (BROKEN_COF ? fails(function () { proto.valueOf.call(that); }) : cof(that) != NUMBER)
-        ? inheritIfRequired(new Base(toNumber(it)), that, $Number) : toNumber(it);
-  };
-  for (var keys = __webpack_require__(6) ? gOPN(Base) : (
-    // ES3:
-    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
-    // ES6 (in case, if modules with ES6 Number statics required before):
-    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' +
-    'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger'
-  ).split(','), j = 0, key; keys.length > j; j++) {
-    if (has(Base, key = keys[j]) && !has($Number, key)) {
-      dP($Number, key, gOPD(Base, key));
-    }
-  }
-  $Number.prototype = proto;
-  proto.constructor = $Number;
-  __webpack_require__(13)(global, NUMBER, $Number);
-}
-
-
-/***/ }),
-/* 156 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toInteger = __webpack_require__(24);
-var aNumberValue = __webpack_require__(102);
-var repeat = __webpack_require__(73);
-var $toFixed = 1.0.toFixed;
-var floor = Math.floor;
-var data = [0, 0, 0, 0, 0, 0];
-var ERROR = 'Number.toFixed: incorrect invocation!';
-var ZERO = '0';
-
-var multiply = function (n, c) {
-  var i = -1;
-  var c2 = c;
-  while (++i < 6) {
-    c2 += n * data[i];
-    data[i] = c2 % 1e7;
-    c2 = floor(c2 / 1e7);
-  }
-};
-var divide = function (n) {
-  var i = 6;
-  var c = 0;
-  while (--i >= 0) {
-    c += data[i];
-    data[i] = floor(c / n);
-    c = (c % n) * 1e7;
-  }
-};
-var numToString = function () {
-  var i = 6;
-  var s = '';
-  while (--i >= 0) {
-    if (s !== '' || i === 0 || data[i] !== 0) {
-      var t = String(data[i]);
-      s = s === '' ? t : s + repeat.call(ZERO, 7 - t.length) + t;
-    }
-  } return s;
-};
-var pow = function (x, n, acc) {
-  return n === 0 ? acc : n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc);
-};
-var log = function (x) {
-  var n = 0;
-  var x2 = x;
-  while (x2 >= 4096) {
-    n += 12;
-    x2 /= 4096;
-  }
-  while (x2 >= 2) {
-    n += 1;
-    x2 /= 2;
-  } return n;
-};
-
-$export($export.P + $export.F * (!!$toFixed && (
-  0.00008.toFixed(3) !== '0.000' ||
-  0.9.toFixed(0) !== '1' ||
-  1.255.toFixed(2) !== '1.25' ||
-  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
-) || !__webpack_require__(3)(function () {
-  // V8 ~ Android 4.3-
-  $toFixed.call({});
-})), 'Number', {
-  toFixed: function toFixed(fractionDigits) {
-    var x = aNumberValue(this, ERROR);
-    var f = toInteger(fractionDigits);
-    var s = '';
-    var m = ZERO;
-    var e, z, j, k;
-    if (f < 0 || f > 20) throw RangeError(ERROR);
-    // eslint-disable-next-line no-self-compare
-    if (x != x) return 'NaN';
-    if (x <= -1e21 || x >= 1e21) return String(x);
-    if (x < 0) {
-      s = '-';
-      x = -x;
-    }
-    if (x > 1e-21) {
-      e = log(x * pow(2, 69, 1)) - 69;
-      z = e < 0 ? x * pow(2, -e, 1) : x / pow(2, e, 1);
-      z *= 0x10000000000000;
-      e = 52 - e;
-      if (e > 0) {
-        multiply(0, z);
-        j = f;
-        while (j >= 7) {
-          multiply(1e7, 0);
-          j -= 7;
-        }
-        multiply(pow(10, j, 1), 0);
-        j = e - 1;
-        while (j >= 23) {
-          divide(1 << 23);
-          j -= 23;
-        }
-        divide(1 << j);
-        multiply(1, 1);
-        divide(2);
-        m = numToString();
-      } else {
-        multiply(0, z);
-        multiply(1 << -e, 0);
-        m = numToString() + repeat.call(ZERO, f);
-      }
-    }
-    if (f > 0) {
-      k = m.length;
-      m = s + (k <= f ? '0.' + repeat.call(ZERO, f - k) + m : m.slice(0, k - f) + '.' + m.slice(k - f));
-    } else {
-      m = s + m;
-    } return m;
-  }
-});
-
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $fails = __webpack_require__(3);
-var aNumberValue = __webpack_require__(102);
-var $toPrecision = 1.0.toPrecision;
-
-$export($export.P + $export.F * ($fails(function () {
-  // IE7-
-  return $toPrecision.call(1, undefined) !== '1';
-}) || !$fails(function () {
-  // V8 ~ Android 4.3-
-  $toPrecision.call({});
-})), 'Number', {
-  toPrecision: function toPrecision(precision) {
-    var that = aNumberValue(this, 'Number#toPrecision: incorrect invocation!');
-    return precision === undefined ? $toPrecision.call(that) : $toPrecision.call(that, precision);
-  }
-});
-
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.1 Number.EPSILON
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Number', { EPSILON: Math.pow(2, -52) });
-
-
-/***/ }),
-/* 159 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.2 Number.isFinite(number)
-var $export = __webpack_require__(0);
-var _isFinite = __webpack_require__(2).isFinite;
-
-$export($export.S, 'Number', {
-  isFinite: function isFinite(it) {
-    return typeof it == 'number' && _isFinite(it);
-  }
-});
-
-
-/***/ }),
-/* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.3 Number.isInteger(number)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Number', { isInteger: __webpack_require__(103) });
-
-
-/***/ }),
-/* 161 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.4 Number.isNaN(number)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Number', {
-  isNaN: function isNaN(number) {
-    // eslint-disable-next-line no-self-compare
-    return number != number;
-  }
-});
-
-
-/***/ }),
-/* 162 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.5 Number.isSafeInteger(number)
-var $export = __webpack_require__(0);
-var isInteger = __webpack_require__(103);
-var abs = Math.abs;
-
-$export($export.S, 'Number', {
-  isSafeInteger: function isSafeInteger(number) {
-    return isInteger(number) && abs(number) <= 0x1fffffffffffff;
-  }
-});
-
-
-/***/ }),
-/* 163 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.6 Number.MAX_SAFE_INTEGER
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Number', { MAX_SAFE_INTEGER: 0x1fffffffffffff });
-
-
-/***/ }),
-/* 164 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.1.2.10 Number.MIN_SAFE_INTEGER
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Number', { MIN_SAFE_INTEGER: -0x1fffffffffffff });
-
-
-/***/ }),
-/* 165 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var $parseFloat = __webpack_require__(101);
-// 20.1.2.12 Number.parseFloat(string)
-$export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { parseFloat: $parseFloat });
-
-
-/***/ }),
-/* 166 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var $parseInt = __webpack_require__(100);
-// 20.1.2.13 Number.parseInt(string, radix)
-$export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
-
-
-/***/ }),
-/* 167 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.3 Math.acosh(x)
-var $export = __webpack_require__(0);
-var log1p = __webpack_require__(104);
-var sqrt = Math.sqrt;
-var $acosh = Math.acosh;
-
-$export($export.S + $export.F * !($acosh
-  // V8 bug: https://code.google.com/p/v8/issues/detail?id=3509
-  && Math.floor($acosh(Number.MAX_VALUE)) == 710
-  // Tor Browser bug: Math.acosh(Infinity) -> NaN
-  && $acosh(Infinity) == Infinity
-), 'Math', {
-  acosh: function acosh(x) {
-    return (x = +x) < 1 ? NaN : x > 94906265.62425156
-      ? Math.log(x) + Math.LN2
-      : log1p(x - 1 + sqrt(x - 1) * sqrt(x + 1));
-  }
-});
-
-
-/***/ }),
-/* 168 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.5 Math.asinh(x)
-var $export = __webpack_require__(0);
-var $asinh = Math.asinh;
-
-function asinh(x) {
-  return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : Math.log(x + Math.sqrt(x * x + 1));
-}
-
-// Tor Browser bug: Math.asinh(0) -> -0
-$export($export.S + $export.F * !($asinh && 1 / $asinh(0) > 0), 'Math', { asinh: asinh });
-
-
-/***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.7 Math.atanh(x)
-var $export = __webpack_require__(0);
-var $atanh = Math.atanh;
-
-// Tor Browser bug: Math.atanh(-0) -> 0
-$export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
-  atanh: function atanh(x) {
-    return (x = +x) == 0 ? x : Math.log((1 + x) / (1 - x)) / 2;
-  }
-});
-
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.9 Math.cbrt(x)
-var $export = __webpack_require__(0);
-var sign = __webpack_require__(74);
-
-$export($export.S, 'Math', {
-  cbrt: function cbrt(x) {
-    return sign(x = +x) * Math.pow(Math.abs(x), 1 / 3);
-  }
-});
-
-
-/***/ }),
-/* 171 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.11 Math.clz32(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  clz32: function clz32(x) {
-    return (x >>>= 0) ? 31 - Math.floor(Math.log(x + 0.5) * Math.LOG2E) : 32;
-  }
-});
-
-
-/***/ }),
-/* 172 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.12 Math.cosh(x)
-var $export = __webpack_require__(0);
-var exp = Math.exp;
-
-$export($export.S, 'Math', {
-  cosh: function cosh(x) {
-    return (exp(x = +x) + exp(-x)) / 2;
-  }
-});
-
-
-/***/ }),
-/* 173 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.14 Math.expm1(x)
-var $export = __webpack_require__(0);
-var $expm1 = __webpack_require__(75);
-
-$export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 });
-
-
-/***/ }),
-/* 174 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.16 Math.fround(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { fround: __webpack_require__(105) });
-
-
-/***/ }),
-/* 175 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
-var $export = __webpack_require__(0);
-var abs = Math.abs;
-
-$export($export.S, 'Math', {
-  hypot: function hypot(value1, value2) { // eslint-disable-line no-unused-vars
-    var sum = 0;
-    var i = 0;
-    var aLen = arguments.length;
-    var larg = 0;
-    var arg, div;
-    while (i < aLen) {
-      arg = abs(arguments[i++]);
-      if (larg < arg) {
-        div = larg / arg;
-        sum = sum * div * div + 1;
-        larg = arg;
-      } else if (arg > 0) {
-        div = arg / larg;
-        sum += div * div;
-      } else sum += arg;
-    }
-    return larg === Infinity ? Infinity : larg * Math.sqrt(sum);
-  }
-});
-
-
-/***/ }),
-/* 176 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.18 Math.imul(x, y)
-var $export = __webpack_require__(0);
-var $imul = Math.imul;
-
-// some WebKit versions fails with big numbers, some has wrong arity
-$export($export.S + $export.F * __webpack_require__(3)(function () {
-  return $imul(0xffffffff, 5) != -5 || $imul.length != 2;
-}), 'Math', {
-  imul: function imul(x, y) {
-    var UINT16 = 0xffff;
-    var xn = +x;
-    var yn = +y;
-    var xl = UINT16 & xn;
-    var yl = UINT16 & yn;
-    return 0 | xl * yl + ((UINT16 & xn >>> 16) * yl + xl * (UINT16 & yn >>> 16) << 16 >>> 0);
-  }
-});
-
-
-/***/ }),
-/* 177 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.21 Math.log10(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  log10: function log10(x) {
-    return Math.log(x) * Math.LOG10E;
-  }
-});
-
-
-/***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.20 Math.log1p(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { log1p: __webpack_require__(104) });
-
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.22 Math.log2(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  log2: function log2(x) {
-    return Math.log(x) / Math.LN2;
-  }
-});
-
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.28 Math.sign(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { sign: __webpack_require__(74) });
-
-
-/***/ }),
-/* 181 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.30 Math.sinh(x)
-var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(75);
-var exp = Math.exp;
-
-// V8 near Chromium 38 has a problem with very small numbers
-$export($export.S + $export.F * __webpack_require__(3)(function () {
-  return !Math.sinh(-2e-17) != -2e-17;
-}), 'Math', {
-  sinh: function sinh(x) {
-    return Math.abs(x = +x) < 1
-      ? (expm1(x) - expm1(-x)) / 2
-      : (exp(x - 1) - exp(-x - 1)) * (Math.E / 2);
-  }
-});
-
-
-/***/ }),
-/* 182 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.33 Math.tanh(x)
-var $export = __webpack_require__(0);
-var expm1 = __webpack_require__(75);
-var exp = Math.exp;
-
-$export($export.S, 'Math', {
-  tanh: function tanh(x) {
-    var a = expm1(x = +x);
-    var b = expm1(-x);
-    return a == Infinity ? 1 : b == Infinity ? -1 : (a - b) / (exp(x) + exp(-x));
-  }
-});
-
-
-/***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.2.2.34 Math.trunc(x)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  trunc: function trunc(it) {
-    return (it > 0 ? Math.floor : Math.ceil)(it);
-  }
-});
-
-
-/***/ }),
-/* 184 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var toAbsoluteIndex = __webpack_require__(35);
-var fromCharCode = String.fromCharCode;
-var $fromCodePoint = String.fromCodePoint;
-
-// length should be 1, old FF problem
-$export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1), 'String', {
-  // 21.1.2.2 String.fromCodePoint(...codePoints)
-  fromCodePoint: function fromCodePoint(x) { // eslint-disable-line no-unused-vars
-    var res = [];
-    var aLen = arguments.length;
-    var i = 0;
-    var code;
-    while (aLen > i) {
-      code = +arguments[i++];
-      if (toAbsoluteIndex(code, 0x10ffff) !== code) throw RangeError(code + ' is not a valid code point');
-      res.push(code < 0x10000
-        ? fromCharCode(code)
-        : fromCharCode(((code -= 0x10000) >> 10) + 0xd800, code % 0x400 + 0xdc00)
-      );
-    } return res.join('');
-  }
-});
-
-
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(15);
-var toLength = __webpack_require__(8);
-
-$export($export.S, 'String', {
-  // 21.1.2.4 String.raw(callSite, ...substitutions)
-  raw: function raw(callSite) {
-    var tpl = toIObject(callSite.raw);
-    var len = toLength(tpl.length);
-    var aLen = arguments.length;
-    var res = [];
-    var i = 0;
-    while (len > i) {
-      res.push(String(tpl[i++]));
-      if (i < aLen) res.push(String(arguments[i]));
-    } return res.join('');
-  }
-});
-
-
-/***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 21.1.3.25 String.prototype.trim()
-__webpack_require__(43)('trim', function ($trim) {
-  return function trim() {
-    return $trim(this, 3);
-  };
-});
-
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $at = __webpack_require__(76)(true);
-
-// 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(77)(String, 'String', function (iterated) {
-  this._t = String(iterated); // target
-  this._i = 0;                // next index
-// 21.1.5.2.1 %StringIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var index = this._i;
-  var point;
-  if (index >= O.length) return { value: undefined, done: true };
-  point = $at(O, index);
-  this._i += point.length;
-  return { value: point, done: false };
-});
-
-
-/***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $at = __webpack_require__(76)(false);
-$export($export.P, 'String', {
-  // 21.1.3.3 String.prototype.codePointAt(pos)
-  codePointAt: function codePointAt(pos) {
-    return $at(this, pos);
-  }
-});
-
-
-/***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
-
-var $export = __webpack_require__(0);
-var toLength = __webpack_require__(8);
-var context = __webpack_require__(79);
-var ENDS_WITH = 'endsWith';
-var $endsWith = ''[ENDS_WITH];
-
-$export($export.P + $export.F * __webpack_require__(80)(ENDS_WITH), 'String', {
-  endsWith: function endsWith(searchString /* , endPosition = @length */) {
-    var that = context(this, searchString, ENDS_WITH);
-    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
-    var len = toLength(that.length);
-    var end = endPosition === undefined ? len : Math.min(toLength(endPosition), len);
-    var search = String(searchString);
-    return $endsWith
-      ? $endsWith.call(that, search, end)
-      : that.slice(end - search.length, end) === search;
-  }
-});
-
-
-/***/ }),
-/* 190 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// 21.1.3.7 String.prototype.includes(searchString, position = 0)
-
-var $export = __webpack_require__(0);
-var context = __webpack_require__(79);
-var INCLUDES = 'includes';
-
-$export($export.P + $export.F * __webpack_require__(80)(INCLUDES), 'String', {
-  includes: function includes(searchString /* , position = 0 */) {
-    return !!~context(this, searchString, INCLUDES)
-      .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-
-
-/***/ }),
-/* 191 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-
-$export($export.P, 'String', {
-  // 21.1.3.13 String.prototype.repeat(count)
-  repeat: __webpack_require__(73)
-});
-
-
-/***/ }),
-/* 192 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// 21.1.3.18 String.prototype.startsWith(searchString [, position ])
-
-var $export = __webpack_require__(0);
-var toLength = __webpack_require__(8);
-var context = __webpack_require__(79);
-var STARTS_WITH = 'startsWith';
-var $startsWith = ''[STARTS_WITH];
-
-$export($export.P + $export.F * __webpack_require__(80)(STARTS_WITH), 'String', {
-  startsWith: function startsWith(searchString /* , position = 0 */) {
-    var that = context(this, searchString, STARTS_WITH);
-    var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
-    var search = String(searchString);
-    return $startsWith
-      ? $startsWith.call(that, search, index)
-      : that.slice(index, index + search.length) === search;
-  }
-});
-
-
-/***/ }),
-/* 193 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.2 String.prototype.anchor(name)
-__webpack_require__(14)('anchor', function (createHTML) {
-  return function anchor(name) {
-    return createHTML(this, 'a', 'name', name);
-  };
-});
-
-
-/***/ }),
-/* 194 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.3 String.prototype.big()
-__webpack_require__(14)('big', function (createHTML) {
-  return function big() {
-    return createHTML(this, 'big', '', '');
-  };
-});
-
-
-/***/ }),
-/* 195 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.4 String.prototype.blink()
-__webpack_require__(14)('blink', function (createHTML) {
-  return function blink() {
-    return createHTML(this, 'blink', '', '');
-  };
-});
-
-
-/***/ }),
-/* 196 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.5 String.prototype.bold()
-__webpack_require__(14)('bold', function (createHTML) {
-  return function bold() {
-    return createHTML(this, 'b', '', '');
-  };
-});
-
-
-/***/ }),
-/* 197 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.6 String.prototype.fixed()
-__webpack_require__(14)('fixed', function (createHTML) {
-  return function fixed() {
-    return createHTML(this, 'tt', '', '');
-  };
-});
-
-
-/***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.7 String.prototype.fontcolor(color)
-__webpack_require__(14)('fontcolor', function (createHTML) {
-  return function fontcolor(color) {
-    return createHTML(this, 'font', 'color', color);
-  };
-});
-
-
-/***/ }),
-/* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.8 String.prototype.fontsize(size)
-__webpack_require__(14)('fontsize', function (createHTML) {
-  return function fontsize(size) {
-    return createHTML(this, 'font', 'size', size);
-  };
-});
-
-
-/***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.9 String.prototype.italics()
-__webpack_require__(14)('italics', function (createHTML) {
-  return function italics() {
-    return createHTML(this, 'i', '', '');
-  };
-});
-
-
-/***/ }),
-/* 201 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.10 String.prototype.link(url)
-__webpack_require__(14)('link', function (createHTML) {
-  return function link(url) {
-    return createHTML(this, 'a', 'href', url);
-  };
-});
-
-
-/***/ }),
-/* 202 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.11 String.prototype.small()
-__webpack_require__(14)('small', function (createHTML) {
-  return function small() {
-    return createHTML(this, 'small', '', '');
-  };
-});
-
-
-/***/ }),
-/* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.12 String.prototype.strike()
-__webpack_require__(14)('strike', function (createHTML) {
-  return function strike() {
-    return createHTML(this, 'strike', '', '');
-  };
-});
-
-
-/***/ }),
-/* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.13 String.prototype.sub()
-__webpack_require__(14)('sub', function (createHTML) {
-  return function sub() {
-    return createHTML(this, 'sub', '', '');
-  };
-});
-
-
-/***/ }),
-/* 205 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// B.2.3.14 String.prototype.sup()
-__webpack_require__(14)('sup', function (createHTML) {
-  return function sup() {
-    return createHTML(this, 'sup', '', '');
-  };
-});
-
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.3.3.1 / 15.9.4.4 Date.now()
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Date', { now: function () { return new Date().getTime(); } });
-
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var toPrimitive = __webpack_require__(22);
-
-$export($export.P + $export.F * __webpack_require__(3)(function () {
-  return new Date(NaN).toJSON() !== null
-    || Date.prototype.toJSON.call({ toISOString: function () { return 1; } }) !== 1;
-}), 'Date', {
-  // eslint-disable-next-line no-unused-vars
-  toJSON: function toJSON(key) {
-    var O = toObject(this);
-    var pv = toPrimitive(O);
-    return typeof pv == 'number' && !isFinite(pv) ? null : O.toISOString();
-  }
-});
-
-
-/***/ }),
-/* 208 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
-var $export = __webpack_require__(0);
-var toISOString = __webpack_require__(209);
-
-// PhantomJS / old WebKit has a broken implementations
-$export($export.P + $export.F * (Date.prototype.toISOString !== toISOString), 'Date', {
-  toISOString: toISOString
-});
-
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
-var fails = __webpack_require__(3);
-var getTime = Date.prototype.getTime;
-var $toISOString = Date.prototype.toISOString;
-
-var lz = function (num) {
-  return num > 9 ? num : '0' + num;
-};
-
-// PhantomJS / old WebKit has a broken implementations
-module.exports = (fails(function () {
-  return $toISOString.call(new Date(-5e13 - 1)) != '0385-07-25T07:06:39.999Z';
-}) || !fails(function () {
-  $toISOString.call(new Date(NaN));
-})) ? function toISOString() {
-  if (!isFinite(getTime.call(this))) throw RangeError('Invalid time value');
-  var d = this;
-  var y = d.getUTCFullYear();
-  var m = d.getUTCMilliseconds();
-  var s = y < 0 ? '-' : y > 9999 ? '+' : '';
-  return s + ('00000' + Math.abs(y)).slice(s ? -6 : -4) +
-    '-' + lz(d.getUTCMonth() + 1) + '-' + lz(d.getUTCDate()) +
-    'T' + lz(d.getUTCHours()) + ':' + lz(d.getUTCMinutes()) +
-    ':' + lz(d.getUTCSeconds()) + '.' + (m > 99 ? m : '0' + lz(m)) + 'Z';
-} : $toISOString;
-
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var DateProto = Date.prototype;
-var INVALID_DATE = 'Invalid Date';
-var TO_STRING = 'toString';
-var $toString = DateProto[TO_STRING];
-var getTime = DateProto.getTime;
-if (new Date(NaN) + '' != INVALID_DATE) {
-  __webpack_require__(13)(DateProto, TO_STRING, function toString() {
-    var value = getTime.call(this);
-    // eslint-disable-next-line no-self-compare
-    return value === value ? $toString.call(this) : INVALID_DATE;
-  });
-}
-
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var TO_PRIMITIVE = __webpack_require__(5)('toPrimitive');
-var proto = Date.prototype;
-
-if (!(TO_PRIMITIVE in proto)) __webpack_require__(12)(proto, TO_PRIMITIVE, __webpack_require__(212));
-
-
-/***/ }),
-/* 212 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var anObject = __webpack_require__(1);
-var toPrimitive = __webpack_require__(22);
-var NUMBER = 'number';
-
-module.exports = function (hint) {
-  if (hint !== 'string' && hint !== NUMBER && hint !== 'default') throw TypeError('Incorrect hint');
-  return toPrimitive(anObject(this), hint != NUMBER);
-};
-
-
-/***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Array', { isArray: __webpack_require__(53) });
-
-
-/***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var ctx = __webpack_require__(18);
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var call = __webpack_require__(106);
-var isArrayIter = __webpack_require__(81);
-var toLength = __webpack_require__(8);
-var createProperty = __webpack_require__(82);
-var getIterFn = __webpack_require__(83);
-
-$export($export.S + $export.F * !__webpack_require__(55)(function (iter) { Array.from(iter); }), 'Array', {
-  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
-  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
-    var O = toObject(arrayLike);
-    var C = typeof this == 'function' ? this : Array;
-    var aLen = arguments.length;
-    var mapfn = aLen > 1 ? arguments[1] : undefined;
-    var mapping = mapfn !== undefined;
-    var index = 0;
-    var iterFn = getIterFn(O);
-    var length, result, step, iterator;
-    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
-    // if object isn't iterable or it's array with default iterator - use simple case
-    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
-      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
-        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
-      }
-    } else {
-      length = toLength(O.length);
-      for (result = new C(length); length > index; index++) {
-        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
-      }
-    }
-    result.length = index;
-    return result;
-  }
-});
-
-
-/***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var createProperty = __webpack_require__(82);
-
-// WebKit Array.of isn't generic
-$export($export.S + $export.F * __webpack_require__(3)(function () {
-  function F() { /* empty */ }
-  return !(Array.of.call(F) instanceof F);
-}), 'Array', {
-  // 22.1.2.3 Array.of( ...items)
-  of: function of(/* ...args */) {
-    var index = 0;
-    var aLen = arguments.length;
-    var result = new (typeof this == 'function' ? this : Array)(aLen);
-    while (aLen > index) createProperty(result, index, arguments[index++]);
-    result.length = aLen;
-    return result;
-  }
-});
-
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 22.1.3.13 Array.prototype.join(separator)
-var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(15);
-var arrayJoin = [].join;
-
-// fallback for not array-like strings
-$export($export.P + $export.F * (__webpack_require__(46) != Object || !__webpack_require__(20)(arrayJoin)), 'Array', {
-  join: function join(separator) {
-    return arrayJoin.call(toIObject(this), separator === undefined ? ',' : separator);
-  }
-});
-
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var html = __webpack_require__(69);
-var cof = __webpack_require__(19);
-var toAbsoluteIndex = __webpack_require__(35);
-var toLength = __webpack_require__(8);
-var arraySlice = [].slice;
-
-// fallback for not array-like ES3 strings and DOM objects
-$export($export.P + $export.F * __webpack_require__(3)(function () {
-  if (html) arraySlice.call(html);
-}), 'Array', {
-  slice: function slice(begin, end) {
-    var len = toLength(this.length);
-    var klass = cof(this);
-    end = end === undefined ? len : end;
-    if (klass == 'Array') return arraySlice.call(this, begin, end);
-    var start = toAbsoluteIndex(begin, len);
-    var upTo = toAbsoluteIndex(end, len);
-    var size = toLength(upTo - start);
-    var cloned = new Array(size);
-    var i = 0;
-    for (; i < size; i++) cloned[i] = klass == 'String'
-      ? this.charAt(start + i)
-      : this[start + i];
-    return cloned;
-  }
-});
-
-
-/***/ }),
-/* 218 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(10);
-var toObject = __webpack_require__(9);
-var fails = __webpack_require__(3);
-var $sort = [].sort;
-var test = [1, 2, 3];
-
-$export($export.P + $export.F * (fails(function () {
-  // IE8-
-  test.sort(undefined);
-}) || !fails(function () {
-  // V8 bug
-  test.sort(null);
-  // Old WebKit
-}) || !__webpack_require__(20)($sort)), 'Array', {
-  // 22.1.3.25 Array.prototype.sort(comparefn)
-  sort: function sort(comparefn) {
-    return comparefn === undefined
-      ? $sort.call(toObject(this))
-      : $sort.call(toObject(this), aFunction(comparefn));
-  }
-});
-
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $forEach = __webpack_require__(26)(0);
-var STRICT = __webpack_require__(20)([].forEach, true);
-
-$export($export.P + $export.F * !STRICT, 'Array', {
-  // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
-  forEach: function forEach(callbackfn /* , thisArg */) {
-    return $forEach(this, callbackfn, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 220 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(4);
-var isArray = __webpack_require__(53);
-var SPECIES = __webpack_require__(5)('species');
-
-module.exports = function (original) {
-  var C;
-  if (isArray(original)) {
-    C = original.constructor;
-    // cross-realm fallback
-    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
-    if (isObject(C)) {
-      C = C[SPECIES];
-      if (C === null) C = undefined;
-    }
-  } return C === undefined ? Array : C;
-};
-
-
-/***/ }),
-/* 221 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $map = __webpack_require__(26)(1);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].map, true), 'Array', {
-  // 22.1.3.15 / 15.4.4.19 Array.prototype.map(callbackfn [, thisArg])
-  map: function map(callbackfn /* , thisArg */) {
-    return $map(this, callbackfn, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 222 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $filter = __webpack_require__(26)(2);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].filter, true), 'Array', {
-  // 22.1.3.7 / 15.4.4.20 Array.prototype.filter(callbackfn [, thisArg])
-  filter: function filter(callbackfn /* , thisArg */) {
-    return $filter(this, callbackfn, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $some = __webpack_require__(26)(3);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].some, true), 'Array', {
-  // 22.1.3.23 / 15.4.4.17 Array.prototype.some(callbackfn [, thisArg])
-  some: function some(callbackfn /* , thisArg */) {
-    return $some(this, callbackfn, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $every = __webpack_require__(26)(4);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].every, true), 'Array', {
-  // 22.1.3.5 / 15.4.4.16 Array.prototype.every(callbackfn [, thisArg])
-  every: function every(callbackfn /* , thisArg */) {
-    return $every(this, callbackfn, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 225 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(107);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].reduce, true), 'Array', {
-  // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
-  reduce: function reduce(callbackfn /* , initialValue */) {
-    return $reduce(this, callbackfn, arguments.length, arguments[1], false);
-  }
-});
-
-
-/***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $reduce = __webpack_require__(107);
-
-$export($export.P + $export.F * !__webpack_require__(20)([].reduceRight, true), 'Array', {
-  // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
-  reduceRight: function reduceRight(callbackfn /* , initialValue */) {
-    return $reduce(this, callbackfn, arguments.length, arguments[1], true);
-  }
-});
-
-
-/***/ }),
-/* 227 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $indexOf = __webpack_require__(51)(false);
-var $native = [].indexOf;
-var NEGATIVE_ZERO = !!$native && 1 / [1].indexOf(1, -0) < 0;
-
-$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(20)($native)), 'Array', {
-  // 22.1.3.11 / 15.4.4.14 Array.prototype.indexOf(searchElement [, fromIndex])
-  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
-    return NEGATIVE_ZERO
-      // convert -0 to +0
-      ? $native.apply(this, arguments) || 0
-      : $indexOf(this, searchElement, arguments[1]);
-  }
-});
-
-
-/***/ }),
-/* 228 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toIObject = __webpack_require__(15);
-var toInteger = __webpack_require__(24);
-var toLength = __webpack_require__(8);
-var $native = [].lastIndexOf;
-var NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
-
-$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(20)($native)), 'Array', {
-  // 22.1.3.14 / 15.4.4.15 Array.prototype.lastIndexOf(searchElement [, fromIndex])
-  lastIndexOf: function lastIndexOf(searchElement /* , fromIndex = @[*-1] */) {
-    // convert -0 to +0
-    if (NEGATIVE_ZERO) return $native.apply(this, arguments) || 0;
-    var O = toIObject(this);
-    var length = toLength(O.length);
-    var index = length - 1;
-    if (arguments.length > 1) index = Math.min(index, toInteger(arguments[1]));
-    if (index < 0) index = length + index;
-    for (;index >= 0; index--) if (index in O) if (O[index] === searchElement) return index || 0;
-    return -1;
-  }
-});
-
-
-/***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
-var $export = __webpack_require__(0);
-
-$export($export.P, 'Array', { copyWithin: __webpack_require__(108) });
-
-__webpack_require__(30)('copyWithin');
-
-
-/***/ }),
-/* 230 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
-var $export = __webpack_require__(0);
-
-$export($export.P, 'Array', { fill: __webpack_require__(85) });
-
-__webpack_require__(30)('fill');
-
-
-/***/ }),
-/* 231 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
-var $export = __webpack_require__(0);
-var $find = __webpack_require__(26)(5);
-var KEY = 'find';
-var forced = true;
-// Shouldn't skip holes
-if (KEY in []) Array(1)[KEY](function () { forced = false; });
-$export($export.P + $export.F * forced, 'Array', {
-  find: function find(callbackfn /* , that = undefined */) {
-    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-__webpack_require__(30)(KEY);
-
-
-/***/ }),
-/* 232 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 22.1.3.9 Array.prototype.findIndex(predicate, thisArg = undefined)
-var $export = __webpack_require__(0);
-var $find = __webpack_require__(26)(6);
-var KEY = 'findIndex';
-var forced = true;
-// Shouldn't skip holes
-if (KEY in []) Array(1)[KEY](function () { forced = false; });
-$export($export.P + $export.F * forced, 'Array', {
-  findIndex: function findIndex(callbackfn /* , that = undefined */) {
-    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-__webpack_require__(30)(KEY);
-
-
-/***/ }),
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(38)('Array');
-
-
-/***/ }),
-/* 234 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(2);
-var inheritIfRequired = __webpack_require__(72);
-var dP = __webpack_require__(7).f;
-var gOPN = __webpack_require__(37).f;
-var isRegExp = __webpack_require__(54);
-var $flags = __webpack_require__(56);
-var $RegExp = global.RegExp;
-var Base = $RegExp;
-var proto = $RegExp.prototype;
-var re1 = /a/g;
-var re2 = /a/g;
-// "new" creates a new object, old webkit buggy here
-var CORRECT_NEW = new $RegExp(re1) !== re1;
-
-if (__webpack_require__(6) && (!CORRECT_NEW || __webpack_require__(3)(function () {
-  re2[__webpack_require__(5)('match')] = false;
-  // RegExp constructor can alter flags and IsRegExp works correct with @@match
-  return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
-}))) {
-  $RegExp = function RegExp(p, f) {
-    var tiRE = this instanceof $RegExp;
-    var piRE = isRegExp(p);
-    var fiU = f === undefined;
-    return !tiRE && piRE && p.constructor === $RegExp && fiU ? p
-      : inheritIfRequired(CORRECT_NEW
-        ? new Base(piRE && !fiU ? p.source : p, f)
-        : Base((piRE = p instanceof $RegExp) ? p.source : p, piRE && fiU ? $flags.call(p) : f)
-      , tiRE ? this : proto, $RegExp);
-  };
-  var proxy = function (key) {
-    key in $RegExp || dP($RegExp, key, {
-      configurable: true,
-      get: function () { return Base[key]; },
-      set: function (it) { Base[key] = it; }
-    });
-  };
-  for (var keys = gOPN(Base), i = 0; keys.length > i;) proxy(keys[i++]);
-  proto.constructor = $RegExp;
-  $RegExp.prototype = proto;
-  __webpack_require__(13)(global, 'RegExp', $RegExp);
-}
-
-__webpack_require__(38)('RegExp');
-
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-__webpack_require__(110);
-var anObject = __webpack_require__(1);
-var $flags = __webpack_require__(56);
-var DESCRIPTORS = __webpack_require__(6);
-var TO_STRING = 'toString';
-var $toString = /./[TO_STRING];
-
-var define = function (fn) {
-  __webpack_require__(13)(RegExp.prototype, TO_STRING, fn, true);
-};
-
-// 21.2.5.14 RegExp.prototype.toString()
-if (__webpack_require__(3)(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
-  define(function toString() {
-    var R = anObject(this);
-    return '/'.concat(R.source, '/',
-      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
-  });
-// FF44- RegExp#toString has a wrong name
-} else if ($toString.name != TO_STRING) {
-  define(function toString() {
-    return $toString.call(this);
-  });
-}
-
-
-/***/ }),
-/* 236 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// @@match logic
-__webpack_require__(57)('match', 1, function (defined, MATCH, $match) {
-  // 21.1.3.11 String.prototype.match(regexp)
-  return [function match(regexp) {
-    'use strict';
-    var O = defined(this);
-    var fn = regexp == undefined ? undefined : regexp[MATCH];
-    return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
-  }, $match];
-});
-
-
-/***/ }),
-/* 237 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// @@replace logic
-__webpack_require__(57)('replace', 2, function (defined, REPLACE, $replace) {
-  // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
-  return [function replace(searchValue, replaceValue) {
-    'use strict';
-    var O = defined(this);
-    var fn = searchValue == undefined ? undefined : searchValue[REPLACE];
-    return fn !== undefined
-      ? fn.call(searchValue, O, replaceValue)
-      : $replace.call(String(O), searchValue, replaceValue);
-  }, $replace];
-});
-
-
-/***/ }),
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// @@search logic
-__webpack_require__(57)('search', 1, function (defined, SEARCH, $search) {
-  // 21.1.3.15 String.prototype.search(regexp)
-  return [function search(regexp) {
-    'use strict';
-    var O = defined(this);
-    var fn = regexp == undefined ? undefined : regexp[SEARCH];
-    return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[SEARCH](String(O));
-  }, $search];
-});
-
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// @@split logic
-__webpack_require__(57)('split', 2, function (defined, SPLIT, $split) {
-  'use strict';
-  var isRegExp = __webpack_require__(54);
-  var _split = $split;
-  var $push = [].push;
-  var $SPLIT = 'split';
-  var LENGTH = 'length';
-  var LAST_INDEX = 'lastIndex';
-  if (
-    'abbc'[$SPLIT](/(b)*/)[1] == 'c' ||
-    'test'[$SPLIT](/(?:)/, -1)[LENGTH] != 4 ||
-    'ab'[$SPLIT](/(?:ab)*/)[LENGTH] != 2 ||
-    '.'[$SPLIT](/(.?)(.?)/)[LENGTH] != 4 ||
-    '.'[$SPLIT](/()()/)[LENGTH] > 1 ||
-    ''[$SPLIT](/.?/)[LENGTH]
-  ) {
-    var NPCG = /()??/.exec('')[1] === undefined; // nonparticipating capturing group
-    // based on es5-shim implementation, need to rework it
-    $split = function (separator, limit) {
-      var string = String(this);
-      if (separator === undefined && limit === 0) return [];
-      // If `separator` is not a regex, use native split
-      if (!isRegExp(separator)) return _split.call(string, separator, limit);
-      var output = [];
-      var flags = (separator.ignoreCase ? 'i' : '') +
-                  (separator.multiline ? 'm' : '') +
-                  (separator.unicode ? 'u' : '') +
-                  (separator.sticky ? 'y' : '');
-      var lastLastIndex = 0;
-      var splitLimit = limit === undefined ? 4294967295 : limit >>> 0;
-      // Make `global` and avoid `lastIndex` issues by working with a copy
-      var separatorCopy = new RegExp(separator.source, flags + 'g');
-      var separator2, match, lastIndex, lastLength, i;
-      // Doesn't need flags gy, but they don't hurt
-      if (!NPCG) separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
-      while (match = separatorCopy.exec(string)) {
-        // `separatorCopy.lastIndex` is not reliable cross-browser
-        lastIndex = match.index + match[0][LENGTH];
-        if (lastIndex > lastLastIndex) {
-          output.push(string.slice(lastLastIndex, match.index));
-          // Fix browsers whose `exec` methods don't consistently return `undefined` for NPCG
-          // eslint-disable-next-line no-loop-func
-          if (!NPCG && match[LENGTH] > 1) match[0].replace(separator2, function () {
-            for (i = 1; i < arguments[LENGTH] - 2; i++) if (arguments[i] === undefined) match[i] = undefined;
-          });
-          if (match[LENGTH] > 1 && match.index < string[LENGTH]) $push.apply(output, match.slice(1));
-          lastLength = match[0][LENGTH];
-          lastLastIndex = lastIndex;
-          if (output[LENGTH] >= splitLimit) break;
-        }
-        if (separatorCopy[LAST_INDEX] === match.index) separatorCopy[LAST_INDEX]++; // Avoid an infinite loop
-      }
-      if (lastLastIndex === string[LENGTH]) {
-        if (lastLength || !separatorCopy.test('')) output.push('');
-      } else output.push(string.slice(lastLastIndex));
-      return output[LENGTH] > splitLimit ? output.slice(0, splitLimit) : output;
-    };
-  // Chakra, V8
-  } else if ('0'[$SPLIT](undefined, 0)[LENGTH]) {
-    $split = function (separator, limit) {
-      return separator === undefined && limit === 0 ? [] : _split.call(this, separator, limit);
-    };
-  }
-  // 21.1.3.17 String.prototype.split(separator, limit)
-  return [function split(separator, limit) {
-    var O = defined(this);
-    var fn = separator == undefined ? undefined : separator[SPLIT];
-    return fn !== undefined ? fn.call(separator, O, limit) : $split.call(String(O), separator, limit);
-  }, $split];
-});
-
-
-/***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var LIBRARY = __webpack_require__(33);
-var global = __webpack_require__(2);
-var ctx = __webpack_require__(18);
-var classof = __webpack_require__(48);
-var $export = __webpack_require__(0);
-var isObject = __webpack_require__(4);
-var aFunction = __webpack_require__(10);
-var anInstance = __webpack_require__(39);
-var forOf = __webpack_require__(40);
-var speciesConstructor = __webpack_require__(58);
-var task = __webpack_require__(87).set;
-var microtask = __webpack_require__(88)();
-var newPromiseCapabilityModule = __webpack_require__(89);
-var perform = __webpack_require__(111);
-var promiseResolve = __webpack_require__(112);
-var PROMISE = 'Promise';
-var TypeError = global.TypeError;
-var process = global.process;
-var $Promise = global[PROMISE];
-var isNode = classof(process) == 'process';
-var empty = function () { /* empty */ };
-var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
-var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
-
-var USE_NATIVE = !!function () {
-  try {
-    // correct subclassing with @@species support
-    var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[__webpack_require__(5)('species')] = function (exec) {
-      exec(empty, empty);
-    };
-    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
-  } catch (e) { /* empty */ }
-}();
-
-// helpers
-var isThenable = function (it) {
-  var then;
-  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
-};
-var notify = function (promise, isReject) {
-  if (promise._n) return;
-  promise._n = true;
-  var chain = promise._c;
-  microtask(function () {
-    var value = promise._v;
-    var ok = promise._s == 1;
-    var i = 0;
-    var run = function (reaction) {
-      var handler = ok ? reaction.ok : reaction.fail;
-      var resolve = reaction.resolve;
-      var reject = reaction.reject;
-      var domain = reaction.domain;
-      var result, then;
-      try {
-        if (handler) {
-          if (!ok) {
-            if (promise._h == 2) onHandleUnhandled(promise);
-            promise._h = 1;
-          }
-          if (handler === true) result = value;
-          else {
-            if (domain) domain.enter();
-            result = handler(value);
-            if (domain) domain.exit();
-          }
-          if (result === reaction.promise) {
-            reject(TypeError('Promise-chain cycle'));
-          } else if (then = isThenable(result)) {
-            then.call(result, resolve, reject);
-          } else resolve(result);
-        } else reject(value);
-      } catch (e) {
-        reject(e);
-      }
-    };
-    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
-    promise._c = [];
-    promise._n = false;
-    if (isReject && !promise._h) onUnhandled(promise);
-  });
-};
-var onUnhandled = function (promise) {
-  task.call(global, function () {
-    var value = promise._v;
-    var unhandled = isUnhandled(promise);
-    var result, handler, console;
-    if (unhandled) {
-      result = perform(function () {
-        if (isNode) {
-          process.emit('unhandledRejection', value, promise);
-        } else if (handler = global.onunhandledrejection) {
-          handler({ promise: promise, reason: value });
-        } else if ((console = global.console) && console.error) {
-          console.error('Unhandled promise rejection', value);
-        }
-      });
-      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
-      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
-    } promise._a = undefined;
-    if (unhandled && result.e) throw result.v;
-  });
-};
-var isUnhandled = function (promise) {
-  return promise._h !== 1 && (promise._a || promise._c).length === 0;
-};
-var onHandleUnhandled = function (promise) {
-  task.call(global, function () {
-    var handler;
-    if (isNode) {
-      process.emit('rejectionHandled', promise);
-    } else if (handler = global.onrejectionhandled) {
-      handler({ promise: promise, reason: promise._v });
-    }
-  });
-};
-var $reject = function (value) {
-  var promise = this;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  promise._v = value;
-  promise._s = 2;
-  if (!promise._a) promise._a = promise._c.slice();
-  notify(promise, true);
-};
-var $resolve = function (value) {
-  var promise = this;
-  var then;
-  if (promise._d) return;
-  promise._d = true;
-  promise = promise._w || promise; // unwrap
-  try {
-    if (promise === value) throw TypeError("Promise can't be resolved itself");
-    if (then = isThenable(value)) {
-      microtask(function () {
-        var wrapper = { _w: promise, _d: false }; // wrap
-        try {
-          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
-        } catch (e) {
-          $reject.call(wrapper, e);
-        }
-      });
-    } else {
-      promise._v = value;
-      promise._s = 1;
-      notify(promise, false);
-    }
-  } catch (e) {
-    $reject.call({ _w: promise, _d: false }, e); // wrap
-  }
-};
-
-// constructor polyfill
-if (!USE_NATIVE) {
-  // 25.4.3.1 Promise(executor)
-  $Promise = function Promise(executor) {
-    anInstance(this, $Promise, PROMISE, '_h');
-    aFunction(executor);
-    Internal.call(this);
-    try {
-      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
-    } catch (err) {
-      $reject.call(this, err);
-    }
-  };
-  // eslint-disable-next-line no-unused-vars
-  Internal = function Promise(executor) {
-    this._c = [];             // <- awaiting reactions
-    this._a = undefined;      // <- checked in isUnhandled reactions
-    this._s = 0;              // <- state
-    this._d = false;          // <- done
-    this._v = undefined;      // <- value
-    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
-    this._n = false;          // <- notify
-  };
-  Internal.prototype = __webpack_require__(41)($Promise.prototype, {
-    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
-    then: function then(onFulfilled, onRejected) {
-      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
-      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
-      reaction.fail = typeof onRejected == 'function' && onRejected;
-      reaction.domain = isNode ? process.domain : undefined;
-      this._c.push(reaction);
-      if (this._a) this._a.push(reaction);
-      if (this._s) notify(this, false);
-      return reaction.promise;
-    },
-    // 25.4.5.1 Promise.prototype.catch(onRejected)
-    'catch': function (onRejected) {
-      return this.then(undefined, onRejected);
-    }
-  });
-  OwnPromiseCapability = function () {
-    var promise = new Internal();
-    this.promise = promise;
-    this.resolve = ctx($resolve, promise, 1);
-    this.reject = ctx($reject, promise, 1);
-  };
-  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
-    return C === $Promise || C === Wrapper
-      ? new OwnPromiseCapability(C)
-      : newGenericPromiseCapability(C);
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(42)($Promise, PROMISE);
-__webpack_require__(38)(PROMISE);
-Wrapper = __webpack_require__(21)[PROMISE];
-
-// statics
-$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
-  // 25.4.4.5 Promise.reject(r)
-  reject: function reject(r) {
-    var capability = newPromiseCapability(this);
-    var $$reject = capability.reject;
-    $$reject(r);
-    return capability.promise;
-  }
-});
-$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
-  // 25.4.4.6 Promise.resolve(x)
-  resolve: function resolve(x) {
-    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
-  }
-});
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(55)(function (iter) {
-  $Promise.all(iter)['catch'](empty);
-})), PROMISE, {
-  // 25.4.4.1 Promise.all(iterable)
-  all: function all(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var resolve = capability.resolve;
-    var reject = capability.reject;
-    var result = perform(function () {
-      var values = [];
-      var index = 0;
-      var remaining = 1;
-      forOf(iterable, false, function (promise) {
-        var $index = index++;
-        var alreadyCalled = false;
-        values.push(undefined);
-        remaining++;
-        C.resolve(promise).then(function (value) {
-          if (alreadyCalled) return;
-          alreadyCalled = true;
-          values[$index] = value;
-          --remaining || resolve(values);
-        }, reject);
-      });
-      --remaining || resolve(values);
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  },
-  // 25.4.4.4 Promise.race(iterable)
-  race: function race(iterable) {
-    var C = this;
-    var capability = newPromiseCapability(C);
-    var reject = capability.reject;
-    var result = perform(function () {
-      forOf(iterable, false, function (promise) {
-        C.resolve(promise).then(capability.resolve, reject);
-      });
-    });
-    if (result.e) reject(result.v);
-    return capability.promise;
-  }
-});
-
-
-/***/ }),
-/* 241 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var weak = __webpack_require__(117);
-var validate = __webpack_require__(45);
-var WEAK_SET = 'WeakSet';
-
-// 23.4 WeakSet Objects
-__webpack_require__(59)(WEAK_SET, function (get) {
-  return function WeakSet() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
-}, {
-  // 23.4.3.1 WeakSet.prototype.add(value)
-  add: function add(value) {
-    return weak.def(validate(this, WEAK_SET), value, true);
-  }
-}, weak, false, true);
-
-
-/***/ }),
-/* 242 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var $typed = __webpack_require__(60);
-var buffer = __webpack_require__(90);
-var anObject = __webpack_require__(1);
-var toAbsoluteIndex = __webpack_require__(35);
-var toLength = __webpack_require__(8);
-var isObject = __webpack_require__(4);
-var ArrayBuffer = __webpack_require__(2).ArrayBuffer;
-var speciesConstructor = __webpack_require__(58);
-var $ArrayBuffer = buffer.ArrayBuffer;
-var $DataView = buffer.DataView;
-var $isView = $typed.ABV && ArrayBuffer.isView;
-var $slice = $ArrayBuffer.prototype.slice;
-var VIEW = $typed.VIEW;
-var ARRAY_BUFFER = 'ArrayBuffer';
-
-$export($export.G + $export.W + $export.F * (ArrayBuffer !== $ArrayBuffer), { ArrayBuffer: $ArrayBuffer });
-
-$export($export.S + $export.F * !$typed.CONSTR, ARRAY_BUFFER, {
-  // 24.1.3.1 ArrayBuffer.isView(arg)
-  isView: function isView(it) {
-    return $isView && $isView(it) || isObject(it) && VIEW in it;
-  }
-});
-
-$export($export.P + $export.U + $export.F * __webpack_require__(3)(function () {
-  return !new $ArrayBuffer(2).slice(1, undefined).byteLength;
-}), ARRAY_BUFFER, {
-  // 24.1.4.3 ArrayBuffer.prototype.slice(start, end)
-  slice: function slice(start, end) {
-    if ($slice !== undefined && end === undefined) return $slice.call(anObject(this), start); // FF fix
-    var len = anObject(this).byteLength;
-    var first = toAbsoluteIndex(start, len);
-    var final = toAbsoluteIndex(end === undefined ? len : end, len);
-    var result = new (speciesConstructor(this, $ArrayBuffer))(toLength(final - first));
-    var viewS = new $DataView(this);
-    var viewT = new $DataView(result);
-    var index = 0;
-    while (first < final) {
-      viewT.setUint8(index++, viewS.getUint8(first++));
-    } return result;
-  }
-});
-
-__webpack_require__(38)(ARRAY_BUFFER);
-
-
-/***/ }),
-/* 243 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-$export($export.G + $export.W + $export.F * !__webpack_require__(60).ABV, {
-  DataView: __webpack_require__(90).DataView
-});
-
-
-/***/ }),
-/* 244 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Int8', 1, function (init) {
-  return function Int8Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 245 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Uint8', 1, function (init) {
-  return function Uint8Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 246 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Uint8', 1, function (init) {
-  return function Uint8ClampedArray(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-}, true);
-
-
-/***/ }),
-/* 247 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Int16', 2, function (init) {
-  return function Int16Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 248 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Uint16', 2, function (init) {
-  return function Uint16Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 249 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Int32', 4, function (init) {
-  return function Int32Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 250 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Uint32', 4, function (init) {
-  return function Uint32Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 251 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Float32', 4, function (init) {
-  return function Float32Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 252 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(27)('Float64', 8, function (init) {
-  return function Float64Array(data, byteOffset, length) {
-    return init(this, data, byteOffset, length);
-  };
-});
-
-
-/***/ }),
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
-var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(10);
-var anObject = __webpack_require__(1);
-var rApply = (__webpack_require__(2).Reflect || {}).apply;
-var fApply = Function.apply;
-// MS Edge argumentsList argument is optional
-$export($export.S + $export.F * !__webpack_require__(3)(function () {
-  rApply(function () { /* empty */ });
-}), 'Reflect', {
-  apply: function apply(target, thisArgument, argumentsList) {
-    var T = aFunction(target);
-    var L = anObject(argumentsList);
-    return rApply ? rApply(T, thisArgument, L) : fApply.call(T, thisArgument, L);
-  }
-});
-
-
-/***/ }),
-/* 254 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
-var $export = __webpack_require__(0);
-var create = __webpack_require__(36);
-var aFunction = __webpack_require__(10);
-var anObject = __webpack_require__(1);
-var isObject = __webpack_require__(4);
-var fails = __webpack_require__(3);
-var bind = __webpack_require__(98);
-var rConstruct = (__webpack_require__(2).Reflect || {}).construct;
-
-// MS Edge supports only 2 arguments and argumentsList argument is optional
-// FF Nightly sets third argument as `new.target`, but does not create `this` from it
-var NEW_TARGET_BUG = fails(function () {
-  function F() { /* empty */ }
-  return !(rConstruct(function () { /* empty */ }, [], F) instanceof F);
-});
-var ARGS_BUG = !fails(function () {
-  rConstruct(function () { /* empty */ });
-});
-
-$export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
-  construct: function construct(Target, args /* , newTarget */) {
-    aFunction(Target);
-    anObject(args);
-    var newTarget = arguments.length < 3 ? Target : aFunction(arguments[2]);
-    if (ARGS_BUG && !NEW_TARGET_BUG) return rConstruct(Target, args, newTarget);
-    if (Target == newTarget) {
-      // w/o altered newTarget, optimization for 0-4 arguments
-      switch (args.length) {
-        case 0: return new Target();
-        case 1: return new Target(args[0]);
-        case 2: return new Target(args[0], args[1]);
-        case 3: return new Target(args[0], args[1], args[2]);
-        case 4: return new Target(args[0], args[1], args[2], args[3]);
-      }
-      // w/o altered newTarget, lot of arguments case
-      var $args = [null];
-      $args.push.apply($args, args);
-      return new (bind.apply(Target, $args))();
-    }
-    // with altered newTarget, not support built-in constructors
-    var proto = newTarget.prototype;
-    var instance = create(isObject(proto) ? proto : Object.prototype);
-    var result = Function.apply.call(Target, instance, args);
-    return isObject(result) ? result : instance;
-  }
-});
-
-
-/***/ }),
-/* 255 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
-var dP = __webpack_require__(7);
-var $export = __webpack_require__(0);
-var anObject = __webpack_require__(1);
-var toPrimitive = __webpack_require__(22);
-
-// MS Edge has broken Reflect.defineProperty - throwing instead of returning false
-$export($export.S + $export.F * __webpack_require__(3)(function () {
-  // eslint-disable-next-line no-undef
-  Reflect.defineProperty(dP.f({}, 1, { value: 1 }), 1, { value: 2 });
-}), 'Reflect', {
-  defineProperty: function defineProperty(target, propertyKey, attributes) {
-    anObject(target);
-    propertyKey = toPrimitive(propertyKey, true);
-    anObject(attributes);
-    try {
-      dP.f(target, propertyKey, attributes);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-});
-
-
-/***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.4 Reflect.deleteProperty(target, propertyKey)
-var $export = __webpack_require__(0);
-var gOPD = __webpack_require__(16).f;
-var anObject = __webpack_require__(1);
-
-$export($export.S, 'Reflect', {
-  deleteProperty: function deleteProperty(target, propertyKey) {
-    var desc = gOPD(anObject(target), propertyKey);
-    return desc && !desc.configurable ? false : delete target[propertyKey];
-  }
-});
-
-
-/***/ }),
-/* 257 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 26.1.5 Reflect.enumerate(target)
-var $export = __webpack_require__(0);
-var anObject = __webpack_require__(1);
-var Enumerate = function (iterated) {
-  this._t = anObject(iterated); // target
-  this._i = 0;                  // next index
-  var keys = this._k = [];      // keys
-  var key;
-  for (key in iterated) keys.push(key);
-};
-__webpack_require__(78)(Enumerate, 'Object', function () {
-  var that = this;
-  var keys = that._k;
-  var key;
-  do {
-    if (that._i >= keys.length) return { value: undefined, done: true };
-  } while (!((key = keys[that._i++]) in that._t));
-  return { value: key, done: false };
-});
-
-$export($export.S, 'Reflect', {
-  enumerate: function enumerate(target) {
-    return new Enumerate(target);
-  }
-});
-
-
-/***/ }),
-/* 258 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.6 Reflect.get(target, propertyKey [, receiver])
-var gOPD = __webpack_require__(16);
-var getPrototypeOf = __webpack_require__(17);
-var has = __webpack_require__(11);
-var $export = __webpack_require__(0);
-var isObject = __webpack_require__(4);
-var anObject = __webpack_require__(1);
-
-function get(target, propertyKey /* , receiver */) {
-  var receiver = arguments.length < 3 ? target : arguments[2];
-  var desc, proto;
-  if (anObject(target) === receiver) return target[propertyKey];
-  if (desc = gOPD.f(target, propertyKey)) return has(desc, 'value')
-    ? desc.value
-    : desc.get !== undefined
-      ? desc.get.call(receiver)
-      : undefined;
-  if (isObject(proto = getPrototypeOf(target))) return get(proto, propertyKey, receiver);
-}
-
-$export($export.S, 'Reflect', { get: get });
-
-
-/***/ }),
-/* 259 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.7 Reflect.getOwnPropertyDescriptor(target, propertyKey)
-var gOPD = __webpack_require__(16);
-var $export = __webpack_require__(0);
-var anObject = __webpack_require__(1);
-
-$export($export.S, 'Reflect', {
-  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(target, propertyKey) {
-    return gOPD.f(anObject(target), propertyKey);
-  }
-});
-
-
-/***/ }),
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.8 Reflect.getPrototypeOf(target)
-var $export = __webpack_require__(0);
-var getProto = __webpack_require__(17);
-var anObject = __webpack_require__(1);
-
-$export($export.S, 'Reflect', {
-  getPrototypeOf: function getPrototypeOf(target) {
-    return getProto(anObject(target));
-  }
-});
-
-
-/***/ }),
-/* 261 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.9 Reflect.has(target, propertyKey)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Reflect', {
-  has: function has(target, propertyKey) {
-    return propertyKey in target;
-  }
-});
-
-
-/***/ }),
-/* 262 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.10 Reflect.isExtensible(target)
-var $export = __webpack_require__(0);
-var anObject = __webpack_require__(1);
-var $isExtensible = Object.isExtensible;
-
-$export($export.S, 'Reflect', {
-  isExtensible: function isExtensible(target) {
-    anObject(target);
-    return $isExtensible ? $isExtensible(target) : true;
-  }
-});
-
-
-/***/ }),
-/* 263 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.11 Reflect.ownKeys(target)
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Reflect', { ownKeys: __webpack_require__(119) });
-
-
-/***/ }),
-/* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.12 Reflect.preventExtensions(target)
-var $export = __webpack_require__(0);
-var anObject = __webpack_require__(1);
-var $preventExtensions = Object.preventExtensions;
-
-$export($export.S, 'Reflect', {
-  preventExtensions: function preventExtensions(target) {
-    anObject(target);
-    try {
-      if ($preventExtensions) $preventExtensions(target);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-});
-
-
-/***/ }),
-/* 265 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
-var dP = __webpack_require__(7);
-var gOPD = __webpack_require__(16);
-var getPrototypeOf = __webpack_require__(17);
-var has = __webpack_require__(11);
-var $export = __webpack_require__(0);
-var createDesc = __webpack_require__(31);
-var anObject = __webpack_require__(1);
-var isObject = __webpack_require__(4);
-
-function set(target, propertyKey, V /* , receiver */) {
-  var receiver = arguments.length < 4 ? target : arguments[3];
-  var ownDesc = gOPD.f(anObject(target), propertyKey);
-  var existingDescriptor, proto;
-  if (!ownDesc) {
-    if (isObject(proto = getPrototypeOf(target))) {
-      return set(proto, propertyKey, V, receiver);
-    }
-    ownDesc = createDesc(0);
-  }
-  if (has(ownDesc, 'value')) {
-    if (ownDesc.writable === false || !isObject(receiver)) return false;
-    existingDescriptor = gOPD.f(receiver, propertyKey) || createDesc(0);
-    existingDescriptor.value = V;
-    dP.f(receiver, propertyKey, existingDescriptor);
-    return true;
-  }
-  return ownDesc.set === undefined ? false : (ownDesc.set.call(receiver, V), true);
-}
-
-$export($export.S, 'Reflect', { set: set });
-
-
-/***/ }),
-/* 266 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.14 Reflect.setPrototypeOf(target, proto)
-var $export = __webpack_require__(0);
-var setProto = __webpack_require__(70);
-
-if (setProto) $export($export.S, 'Reflect', {
-  setPrototypeOf: function setPrototypeOf(target, proto) {
-    setProto.check(target, proto);
-    try {
-      setProto.set(target, proto);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-});
-
-
-/***/ }),
-/* 267 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/tc39/Array.prototype.includes
-var $export = __webpack_require__(0);
-var $includes = __webpack_require__(51)(true);
-
-$export($export.P, 'Array', {
-  includes: function includes(el /* , fromIndex = 0 */) {
-    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-
-__webpack_require__(30)('includes');
-
-
-/***/ }),
-/* 268 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
-var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(120);
-var toObject = __webpack_require__(9);
-var toLength = __webpack_require__(8);
-var aFunction = __webpack_require__(10);
-var arraySpeciesCreate = __webpack_require__(84);
-
-$export($export.P, 'Array', {
-  flatMap: function flatMap(callbackfn /* , thisArg */) {
-    var O = toObject(this);
-    var sourceLen, A;
-    aFunction(callbackfn);
-    sourceLen = toLength(O.length);
-    A = arraySpeciesCreate(O, 0);
-    flattenIntoArray(A, O, O, sourceLen, 0, 1, callbackfn, arguments[1]);
-    return A;
-  }
-});
-
-__webpack_require__(30)('flatMap');
-
-
-/***/ }),
-/* 269 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
-var $export = __webpack_require__(0);
-var flattenIntoArray = __webpack_require__(120);
-var toObject = __webpack_require__(9);
-var toLength = __webpack_require__(8);
-var toInteger = __webpack_require__(24);
-var arraySpeciesCreate = __webpack_require__(84);
-
-$export($export.P, 'Array', {
-  flatten: function flatten(/* depthArg = 1 */) {
-    var depthArg = arguments[0];
-    var O = toObject(this);
-    var sourceLen = toLength(O.length);
-    var A = arraySpeciesCreate(O, 0);
-    flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));
-    return A;
-  }
-});
-
-__webpack_require__(30)('flatten');
-
-
-/***/ }),
-/* 270 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/mathiasbynens/String.prototype.at
-var $export = __webpack_require__(0);
-var $at = __webpack_require__(76)(true);
-
-$export($export.P, 'String', {
-  at: function at(pos) {
-    return $at(this, pos);
-  }
-});
-
-
-/***/ }),
-/* 271 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/tc39/proposal-string-pad-start-end
-var $export = __webpack_require__(0);
-var $pad = __webpack_require__(121);
-var userAgent = __webpack_require__(91);
-
-// https://github.com/zloirock/core-js/issues/280
-$export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
-  padStart: function padStart(maxLength /* , fillString = ' ' */) {
-    return $pad(this, maxLength, arguments.length > 1 ? arguments[1] : undefined, true);
-  }
-});
-
-
-/***/ }),
-/* 272 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/tc39/proposal-string-pad-start-end
-var $export = __webpack_require__(0);
-var $pad = __webpack_require__(121);
-var userAgent = __webpack_require__(91);
-
-// https://github.com/zloirock/core-js/issues/280
-$export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
-  padEnd: function padEnd(maxLength /* , fillString = ' ' */) {
-    return $pad(this, maxLength, arguments.length > 1 ? arguments[1] : undefined, false);
-  }
-});
-
-
-/***/ }),
-/* 273 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/sebmarkbage/ecmascript-string-left-right-trim
-__webpack_require__(43)('trimLeft', function ($trim) {
-  return function trimLeft() {
-    return $trim(this, 1);
-  };
-}, 'trimStart');
-
-
-/***/ }),
-/* 274 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/sebmarkbage/ecmascript-string-left-right-trim
-__webpack_require__(43)('trimRight', function ($trim) {
-  return function trimRight() {
-    return $trim(this, 2);
-  };
-}, 'trimEnd');
-
-
-/***/ }),
-/* 275 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://tc39.github.io/String.prototype.matchAll/
-var $export = __webpack_require__(0);
-var defined = __webpack_require__(23);
-var toLength = __webpack_require__(8);
-var isRegExp = __webpack_require__(54);
-var getFlags = __webpack_require__(56);
-var RegExpProto = RegExp.prototype;
-
-var $RegExpStringIterator = function (regexp, string) {
-  this._r = regexp;
-  this._s = string;
-};
-
-__webpack_require__(78)($RegExpStringIterator, 'RegExp String', function next() {
-  var match = this._r.exec(this._s);
-  return { value: match, done: match === null };
-});
-
-$export($export.P, 'String', {
-  matchAll: function matchAll(regexp) {
-    defined(this);
-    if (!isRegExp(regexp)) throw TypeError(regexp + ' is not a regexp!');
-    var S = String(this);
-    var flags = 'flags' in RegExpProto ? String(regexp.flags) : getFlags.call(regexp);
-    var rx = new RegExp(regexp.source, ~flags.indexOf('g') ? flags : 'g' + flags);
-    rx.lastIndex = toLength(regexp.lastIndex);
-    return new $RegExpStringIterator(rx, S);
-  }
-});
-
-
-/***/ }),
-/* 276 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(66)('asyncIterator');
-
-
-/***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(66)('observable');
-
-
-/***/ }),
-/* 278 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/tc39/proposal-object-getownpropertydescriptors
-var $export = __webpack_require__(0);
-var ownKeys = __webpack_require__(119);
-var toIObject = __webpack_require__(15);
-var gOPD = __webpack_require__(16);
-var createProperty = __webpack_require__(82);
-
-$export($export.S, 'Object', {
-  getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
-    var O = toIObject(object);
-    var getDesc = gOPD.f;
-    var keys = ownKeys(O);
-    var result = {};
-    var i = 0;
-    var key, desc;
-    while (keys.length > i) {
-      desc = getDesc(O, key = keys[i++]);
-      if (desc !== undefined) createProperty(result, key, desc);
-    }
-    return result;
-  }
-});
-
-
-/***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/tc39/proposal-object-values-entries
-var $export = __webpack_require__(0);
-var $values = __webpack_require__(122)(false);
-
-$export($export.S, 'Object', {
-  values: function values(it) {
-    return $values(it);
-  }
-});
-
-
-/***/ }),
-/* 280 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/tc39/proposal-object-values-entries
-var $export = __webpack_require__(0);
-var $entries = __webpack_require__(122)(true);
-
-$export($export.S, 'Object', {
-  entries: function entries(it) {
-    return $entries(it);
-  }
-});
-
-
-/***/ }),
-/* 281 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var aFunction = __webpack_require__(10);
-var $defineProperty = __webpack_require__(7);
-
-// B.2.2.2 Object.prototype.__defineGetter__(P, getter)
-__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
-  __defineGetter__: function __defineGetter__(P, getter) {
-    $defineProperty.f(toObject(this), P, { get: aFunction(getter), enumerable: true, configurable: true });
-  }
-});
-
-
-/***/ }),
-/* 282 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var aFunction = __webpack_require__(10);
-var $defineProperty = __webpack_require__(7);
-
-// B.2.2.3 Object.prototype.__defineSetter__(P, setter)
-__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
-  __defineSetter__: function __defineSetter__(P, setter) {
-    $defineProperty.f(toObject(this), P, { set: aFunction(setter), enumerable: true, configurable: true });
-  }
-});
-
-
-/***/ }),
-/* 283 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var toPrimitive = __webpack_require__(22);
-var getPrototypeOf = __webpack_require__(17);
-var getOwnPropertyDescriptor = __webpack_require__(16).f;
-
-// B.2.2.4 Object.prototype.__lookupGetter__(P)
-__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
-  __lookupGetter__: function __lookupGetter__(P) {
-    var O = toObject(this);
-    var K = toPrimitive(P, true);
-    var D;
-    do {
-      if (D = getOwnPropertyDescriptor(O, K)) return D.get;
-    } while (O = getPrototypeOf(O));
-  }
-});
-
-
-/***/ }),
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var $export = __webpack_require__(0);
-var toObject = __webpack_require__(9);
-var toPrimitive = __webpack_require__(22);
-var getPrototypeOf = __webpack_require__(17);
-var getOwnPropertyDescriptor = __webpack_require__(16).f;
-
-// B.2.2.5 Object.prototype.__lookupSetter__(P)
-__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
-  __lookupSetter__: function __lookupSetter__(P) {
-    var O = toObject(this);
-    var K = toPrimitive(P, true);
-    var D;
-    do {
-      if (D = getOwnPropertyDescriptor(O, K)) return D.set;
-    } while (O = getPrototypeOf(O));
-  }
-});
-
-
-/***/ }),
-/* 285 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/DavidBruant/Map-Set.prototype.toJSON
-var $export = __webpack_require__(0);
-
-$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(123)('Map') });
-
-
-/***/ }),
-/* 286 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/DavidBruant/Map-Set.prototype.toJSON
-var $export = __webpack_require__(0);
-
-$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(123)('Set') });
-
-
-/***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-map.of
-__webpack_require__(62)('Map');
-
-
-/***/ }),
-/* 288 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
-__webpack_require__(62)('Set');
-
-
-/***/ }),
-/* 289 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.of
-__webpack_require__(62)('WeakMap');
-
-
-/***/ }),
-/* 290 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.of
-__webpack_require__(62)('WeakSet');
-
-
-/***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-map.from
-__webpack_require__(63)('Map');
-
-
-/***/ }),
-/* 292 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
-__webpack_require__(63)('Set');
-
-
-/***/ }),
-/* 293 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.from
-__webpack_require__(63)('WeakMap');
-
-
-/***/ }),
-/* 294 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.from
-__webpack_require__(63)('WeakSet');
-
-
-/***/ }),
-/* 295 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/tc39/proposal-global
-var $export = __webpack_require__(0);
-
-$export($export.G, { global: __webpack_require__(2) });
-
-
-/***/ }),
-/* 296 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/tc39/proposal-global
-var $export = __webpack_require__(0);
-
-$export($export.S, 'System', { global: __webpack_require__(2) });
-
-
-/***/ }),
-/* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/ljharb/proposal-is-error
-var $export = __webpack_require__(0);
-var cof = __webpack_require__(19);
-
-$export($export.S, 'Error', {
-  isError: function isError(it) {
-    return cof(it) === 'Error';
-  }
-});
-
-
-/***/ }),
-/* 298 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  clamp: function clamp(x, lower, upper) {
-    return Math.min(upper, Math.max(lower, x));
-  }
-});
-
-
-/***/ }),
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { DEG_PER_RAD: Math.PI / 180 });
-
-
-/***/ }),
-/* 300 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-var RAD_PER_DEG = 180 / Math.PI;
-
-$export($export.S, 'Math', {
-  degrees: function degrees(radians) {
-    return radians * RAD_PER_DEG;
-  }
-});
-
-
-/***/ }),
-/* 301 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-var scale = __webpack_require__(125);
-var fround = __webpack_require__(105);
-
-$export($export.S, 'Math', {
-  fscale: function fscale(x, inLow, inHigh, outLow, outHigh) {
-    return fround(scale(x, inLow, inHigh, outLow, outHigh));
-  }
-});
-
-
-/***/ }),
-/* 302 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  iaddh: function iaddh(x0, x1, y0, y1) {
-    var $x0 = x0 >>> 0;
-    var $x1 = x1 >>> 0;
-    var $y0 = y0 >>> 0;
-    return $x1 + (y1 >>> 0) + (($x0 & $y0 | ($x0 | $y0) & ~($x0 + $y0 >>> 0)) >>> 31) | 0;
-  }
-});
-
-
-/***/ }),
-/* 303 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  isubh: function isubh(x0, x1, y0, y1) {
-    var $x0 = x0 >>> 0;
-    var $x1 = x1 >>> 0;
-    var $y0 = y0 >>> 0;
-    return $x1 - (y1 >>> 0) - ((~$x0 & $y0 | ~($x0 ^ $y0) & $x0 - $y0 >>> 0) >>> 31) | 0;
-  }
-});
-
-
-/***/ }),
-/* 304 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  imulh: function imulh(u, v) {
-    var UINT16 = 0xffff;
-    var $u = +u;
-    var $v = +v;
-    var u0 = $u & UINT16;
-    var v0 = $v & UINT16;
-    var u1 = $u >> 16;
-    var v1 = $v >> 16;
-    var t = (u1 * v0 >>> 0) + (u0 * v0 >>> 16);
-    return u1 * v1 + (t >> 16) + ((u0 * v1 >>> 0) + (t & UINT16) >> 16);
-  }
-});
-
-
-/***/ }),
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { RAD_PER_DEG: 180 / Math.PI });
-
-
-/***/ }),
-/* 306 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-var DEG_PER_RAD = Math.PI / 180;
-
-$export($export.S, 'Math', {
-  radians: function radians(degrees) {
-    return degrees * DEG_PER_RAD;
-  }
-});
-
-
-/***/ }),
-/* 307 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://rwaldron.github.io/proposal-math-extensions/
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { scale: __webpack_require__(125) });
-
-
-/***/ }),
-/* 308 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', {
-  umulh: function umulh(u, v) {
-    var UINT16 = 0xffff;
-    var $u = +u;
-    var $v = +v;
-    var u0 = $u & UINT16;
-    var v0 = $v & UINT16;
-    var u1 = $u >>> 16;
-    var v1 = $v >>> 16;
-    var t = (u1 * v0 >>> 0) + (u0 * v0 >>> 16);
-    return u1 * v1 + (t >>> 16) + ((u0 * v1 >>> 0) + (t & UINT16) >>> 16);
-  }
-});
-
-
-/***/ }),
-/* 309 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// http://jfbastien.github.io/papers/Math.signbit.html
-var $export = __webpack_require__(0);
-
-$export($export.S, 'Math', { signbit: function signbit(x) {
-  // eslint-disable-next-line no-self-compare
-  return (x = +x) != x ? x : x == 0 ? 1 / x == Infinity : x > 0;
-} });
-
-
-/***/ }),
-/* 310 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// https://github.com/tc39/proposal-promise-finally
-
-var $export = __webpack_require__(0);
-var core = __webpack_require__(21);
-var global = __webpack_require__(2);
-var speciesConstructor = __webpack_require__(58);
-var promiseResolve = __webpack_require__(112);
-
-$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
-  var C = speciesConstructor(this, core.Promise || global.Promise);
-  var isFunction = typeof onFinally == 'function';
-  return this.then(
-    isFunction ? function (x) {
-      return promiseResolve(C, onFinally()).then(function () { return x; });
-    } : onFinally,
-    isFunction ? function (e) {
-      return promiseResolve(C, onFinally()).then(function () { throw e; });
-    } : onFinally
-  );
-} });
-
-
-/***/ }),
-/* 311 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/tc39/proposal-promise-try
-var $export = __webpack_require__(0);
-var newPromiseCapability = __webpack_require__(89);
-var perform = __webpack_require__(111);
-
-$export($export.S, 'Promise', { 'try': function (callbackfn) {
-  var promiseCapability = newPromiseCapability.f(this);
-  var result = perform(callbackfn);
-  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
-  return promiseCapability.promise;
-} });
-
-
-/***/ }),
-/* 312 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var toMetaKey = metadata.key;
-var ordinaryDefineOwnMetadata = metadata.set;
-
-metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValue, target, targetKey) {
-  ordinaryDefineOwnMetadata(metadataKey, metadataValue, anObject(target), toMetaKey(targetKey));
-} });
-
-
-/***/ }),
-/* 313 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var toMetaKey = metadata.key;
-var getOrCreateMetadataMap = metadata.map;
-var store = metadata.store;
-
-metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , targetKey */) {
-  var targetKey = arguments.length < 3 ? undefined : toMetaKey(arguments[2]);
-  var metadataMap = getOrCreateMetadataMap(anObject(target), targetKey, false);
-  if (metadataMap === undefined || !metadataMap['delete'](metadataKey)) return false;
-  if (metadataMap.size) return true;
-  var targetMetadata = store.get(target);
-  targetMetadata['delete'](targetKey);
-  return !!targetMetadata.size || store['delete'](target);
-} });
-
-
-/***/ }),
-/* 314 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var getPrototypeOf = __webpack_require__(17);
-var ordinaryHasOwnMetadata = metadata.has;
-var ordinaryGetOwnMetadata = metadata.get;
-var toMetaKey = metadata.key;
-
-var ordinaryGetMetadata = function (MetadataKey, O, P) {
-  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
-  if (hasOwn) return ordinaryGetOwnMetadata(MetadataKey, O, P);
-  var parent = getPrototypeOf(O);
-  return parent !== null ? ordinaryGetMetadata(MetadataKey, parent, P) : undefined;
-};
-
-metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , targetKey */) {
-  return ordinaryGetMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
-} });
-
-
-/***/ }),
-/* 315 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Set = __webpack_require__(115);
-var from = __webpack_require__(124);
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var getPrototypeOf = __webpack_require__(17);
-var ordinaryOwnMetadataKeys = metadata.keys;
-var toMetaKey = metadata.key;
-
-var ordinaryMetadataKeys = function (O, P) {
-  var oKeys = ordinaryOwnMetadataKeys(O, P);
-  var parent = getPrototypeOf(O);
-  if (parent === null) return oKeys;
-  var pKeys = ordinaryMetadataKeys(parent, P);
-  return pKeys.length ? oKeys.length ? from(new Set(oKeys.concat(pKeys))) : pKeys : oKeys;
-};
-
-metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey */) {
-  return ordinaryMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
-} });
-
-
-/***/ }),
-/* 316 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var ordinaryGetOwnMetadata = metadata.get;
-var toMetaKey = metadata.key;
-
-metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , targetKey */) {
-  return ordinaryGetOwnMetadata(metadataKey, anObject(target)
-    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
-} });
-
-
-/***/ }),
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var ordinaryOwnMetadataKeys = metadata.keys;
-var toMetaKey = metadata.key;
-
-metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targetKey */) {
-  return ordinaryOwnMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
-} });
-
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var getPrototypeOf = __webpack_require__(17);
-var ordinaryHasOwnMetadata = metadata.has;
-var toMetaKey = metadata.key;
-
-var ordinaryHasMetadata = function (MetadataKey, O, P) {
-  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
-  if (hasOwn) return true;
-  var parent = getPrototypeOf(O);
-  return parent !== null ? ordinaryHasMetadata(MetadataKey, parent, P) : false;
-};
-
-metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , targetKey */) {
-  return ordinaryHasMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
-} });
-
-
-/***/ }),
-/* 319 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var ordinaryHasOwnMetadata = metadata.has;
-var toMetaKey = metadata.key;
-
-metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , targetKey */) {
-  return ordinaryHasOwnMetadata(metadataKey, anObject(target)
-    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
-} });
-
-
-/***/ }),
-/* 320 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $metadata = __webpack_require__(28);
-var anObject = __webpack_require__(1);
-var aFunction = __webpack_require__(10);
-var toMetaKey = $metadata.key;
-var ordinaryDefineOwnMetadata = $metadata.set;
-
-$metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
-  return function decorator(target, targetKey) {
-    ordinaryDefineOwnMetadata(
-      metadataKey, metadataValue,
-      (targetKey !== undefined ? anObject : aFunction)(target),
-      toMetaKey(targetKey)
-    );
-  };
-} });
-
-
-/***/ }),
-/* 321 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#510-globalasap-for-enqueuing-a-microtask
-var $export = __webpack_require__(0);
-var microtask = __webpack_require__(88)();
-var process = __webpack_require__(2).process;
-var isNode = __webpack_require__(19)(process) == 'process';
-
-$export($export.G, {
-  asap: function asap(fn) {
-    var domain = isNode && process.domain;
-    microtask(domain ? domain.bind(fn) : fn);
-  }
-});
-
-
-/***/ }),
-/* 322 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/zenparsing/es-observable
-var $export = __webpack_require__(0);
-var global = __webpack_require__(2);
-var core = __webpack_require__(21);
-var microtask = __webpack_require__(88)();
-var OBSERVABLE = __webpack_require__(5)('observable');
-var aFunction = __webpack_require__(10);
-var anObject = __webpack_require__(1);
-var anInstance = __webpack_require__(39);
-var redefineAll = __webpack_require__(41);
-var hide = __webpack_require__(12);
-var forOf = __webpack_require__(40);
-var RETURN = forOf.RETURN;
-
-var getMethod = function (fn) {
-  return fn == null ? undefined : aFunction(fn);
-};
-
-var cleanupSubscription = function (subscription) {
-  var cleanup = subscription._c;
-  if (cleanup) {
-    subscription._c = undefined;
-    cleanup();
-  }
-};
-
-var subscriptionClosed = function (subscription) {
-  return subscription._o === undefined;
-};
-
-var closeSubscription = function (subscription) {
-  if (!subscriptionClosed(subscription)) {
-    subscription._o = undefined;
-    cleanupSubscription(subscription);
-  }
-};
-
-var Subscription = function (observer, subscriber) {
-  anObject(observer);
-  this._c = undefined;
-  this._o = observer;
-  observer = new SubscriptionObserver(this);
-  try {
-    var cleanup = subscriber(observer);
-    var subscription = cleanup;
-    if (cleanup != null) {
-      if (typeof cleanup.unsubscribe === 'function') cleanup = function () { subscription.unsubscribe(); };
-      else aFunction(cleanup);
-      this._c = cleanup;
-    }
-  } catch (e) {
-    observer.error(e);
-    return;
-  } if (subscriptionClosed(this)) cleanupSubscription(this);
-};
-
-Subscription.prototype = redefineAll({}, {
-  unsubscribe: function unsubscribe() { closeSubscription(this); }
-});
-
-var SubscriptionObserver = function (subscription) {
-  this._s = subscription;
-};
-
-SubscriptionObserver.prototype = redefineAll({}, {
-  next: function next(value) {
-    var subscription = this._s;
-    if (!subscriptionClosed(subscription)) {
-      var observer = subscription._o;
-      try {
-        var m = getMethod(observer.next);
-        if (m) return m.call(observer, value);
-      } catch (e) {
-        try {
-          closeSubscription(subscription);
-        } finally {
-          throw e;
-        }
-      }
-    }
-  },
-  error: function error(value) {
-    var subscription = this._s;
-    if (subscriptionClosed(subscription)) throw value;
-    var observer = subscription._o;
-    subscription._o = undefined;
-    try {
-      var m = getMethod(observer.error);
-      if (!m) throw value;
-      value = m.call(observer, value);
-    } catch (e) {
-      try {
-        cleanupSubscription(subscription);
-      } finally {
-        throw e;
-      }
-    } cleanupSubscription(subscription);
-    return value;
-  },
-  complete: function complete(value) {
-    var subscription = this._s;
-    if (!subscriptionClosed(subscription)) {
-      var observer = subscription._o;
-      subscription._o = undefined;
-      try {
-        var m = getMethod(observer.complete);
-        value = m ? m.call(observer, value) : undefined;
-      } catch (e) {
-        try {
-          cleanupSubscription(subscription);
-        } finally {
-          throw e;
-        }
-      } cleanupSubscription(subscription);
-      return value;
-    }
-  }
-});
-
-var $Observable = function Observable(subscriber) {
-  anInstance(this, $Observable, 'Observable', '_f')._f = aFunction(subscriber);
-};
-
-redefineAll($Observable.prototype, {
-  subscribe: function subscribe(observer) {
-    return new Subscription(observer, this._f);
-  },
-  forEach: function forEach(fn) {
-    var that = this;
-    return new (core.Promise || global.Promise)(function (resolve, reject) {
-      aFunction(fn);
-      var subscription = that.subscribe({
-        next: function (value) {
-          try {
-            return fn(value);
-          } catch (e) {
-            reject(e);
-            subscription.unsubscribe();
-          }
-        },
-        error: reject,
-        complete: resolve
-      });
-    });
-  }
-});
-
-redefineAll($Observable, {
-  from: function from(x) {
-    var C = typeof this === 'function' ? this : $Observable;
-    var method = getMethod(anObject(x)[OBSERVABLE]);
-    if (method) {
-      var observable = anObject(method.call(x));
-      return observable.constructor === C ? observable : new C(function (observer) {
-        return observable.subscribe(observer);
-      });
-    }
-    return new C(function (observer) {
-      var done = false;
-      microtask(function () {
-        if (!done) {
-          try {
-            if (forOf(x, false, function (it) {
-              observer.next(it);
-              if (done) return RETURN;
-            }) === RETURN) return;
-          } catch (e) {
-            if (done) throw e;
-            observer.error(e);
-            return;
-          } observer.complete();
-        }
-      });
-      return function () { done = true; };
-    });
-  },
-  of: function of() {
-    for (var i = 0, l = arguments.length, items = new Array(l); i < l;) items[i] = arguments[i++];
-    return new (typeof this === 'function' ? this : $Observable)(function (observer) {
-      var done = false;
-      microtask(function () {
-        if (!done) {
-          for (var j = 0; j < items.length; ++j) {
-            observer.next(items[j]);
-            if (done) return;
-          } observer.complete();
-        }
-      });
-      return function () { done = true; };
-    });
-  }
-});
-
-hide($Observable.prototype, OBSERVABLE, function () { return this; });
-
-$export($export.G, { Observable: $Observable });
-
-__webpack_require__(38)('Observable');
-
-
-/***/ }),
-/* 323 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// ie9- setTimeout & setInterval additional parameters fix
-var global = __webpack_require__(2);
-var $export = __webpack_require__(0);
-var userAgent = __webpack_require__(91);
-var slice = [].slice;
-var MSIE = /MSIE .\./.test(userAgent); // <- dirty ie9- check
-var wrap = function (set) {
-  return function (fn, time /* , ...args */) {
-    var boundArgs = arguments.length > 2;
-    var args = boundArgs ? slice.call(arguments, 2) : false;
-    return set(boundArgs ? function () {
-      // eslint-disable-next-line no-new-func
-      (typeof fn == 'function' ? fn : Function(fn)).apply(this, args);
-    } : fn, time);
-  };
-};
-$export($export.G + $export.B + $export.F * MSIE, {
-  setTimeout: wrap(global.setTimeout),
-  setInterval: wrap(global.setInterval)
-});
-
-
-/***/ }),
-/* 324 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $export = __webpack_require__(0);
-var $task = __webpack_require__(87);
-$export($export.G + $export.B, {
-  setImmediate: $task.set,
-  clearImmediate: $task.clear
-});
-
-
-/***/ }),
-/* 325 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var $iterators = __webpack_require__(86);
-var getKeys = __webpack_require__(34);
-var redefine = __webpack_require__(13);
-var global = __webpack_require__(2);
-var hide = __webpack_require__(12);
-var Iterators = __webpack_require__(44);
-var wks = __webpack_require__(5);
-var ITERATOR = wks('iterator');
-var TO_STRING_TAG = wks('toStringTag');
-var ArrayValues = Iterators.Array;
-
-var DOMIterables = {
-  CSSRuleList: true, // TODO: Not spec compliant, should be false.
-  CSSStyleDeclaration: false,
-  CSSValueList: false,
-  ClientRectList: false,
-  DOMRectList: false,
-  DOMStringList: false,
-  DOMTokenList: true,
-  DataTransferItemList: false,
-  FileList: false,
-  HTMLAllCollection: false,
-  HTMLCollection: false,
-  HTMLFormElement: false,
-  HTMLSelectElement: false,
-  MediaList: true, // TODO: Not spec compliant, should be false.
-  MimeTypeArray: false,
-  NamedNodeMap: false,
-  NodeList: true,
-  PaintRequestList: false,
-  Plugin: false,
-  PluginArray: false,
-  SVGLengthList: false,
-  SVGNumberList: false,
-  SVGPathSegList: false,
-  SVGPointList: false,
-  SVGStringList: false,
-  SVGTransformList: false,
-  SourceBufferList: false,
-  StyleSheetList: true, // TODO: Not spec compliant, should be false.
-  TextTrackCueList: false,
-  TextTrackList: false,
-  TouchList: false
-};
-
-for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
-  var NAME = collections[i];
-  var explicit = DOMIterables[NAME];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  var key;
-  if (proto) {
-    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
-    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-    Iterators[NAME] = ArrayValues;
-    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
-  }
-}
-
-
-/***/ }),
-/* 326 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * https://raw.github.com/facebook/regenerator/master/LICENSE file. An
- * additional grant of patent rights can be found in the PATENTS file in
- * the same directory.
- */
-
-!(function(global) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = typeof module === "object";
-  var runtime = global.regeneratorRuntime;
-  if (runtime) {
-    if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
-      // make the exports object identical to regeneratorRuntime.
-      module.exports = runtime;
-    }
-    // Don't bother evaluating the rest of this file if the runtime was
-    // already defined globally.
-    return;
-  }
-
-  // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  runtime.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      prototype[method] = function(arg) {
-        return this._invoke(method, arg);
-      };
-    });
-  }
-
-  runtime.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  runtime.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  runtime.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return Promise.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration. If the Promise is rejected, however, the
-          // result for this iteration will be rejected with the same
-          // reason. Note that rejections of yielded Promises are not
-          // thrown back into the generator function, as is the case
-          // when an awaited Promise is rejected. This difference in
-          // behavior between yield and await is important, because it
-          // allows the consumer to decide what to do with the yielded
-          // rejection (swallow it and continue, manually .throw it back
-          // into the generator, abandon iteration, whatever). With
-          // await, by contrast, there is no opportunity to examine the
-          // rejection reason outside the generator function, so the
-          // only option is to throw it from the await expression, and
-          // let the generator function handle the exception.
-          result.value = unwrapped;
-          resolve(result);
-        }, reject);
-      }
-    }
-
-    if (typeof global.process === "object" && global.process.domain) {
-      invoke = global.process.domain.bind(invoke);
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new Promise(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList)
-    );
-
-    return runtime.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  runtime.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  runtime.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-})(
-  // Among the various tricks for obtaining a reference to the global
-  // object, this seems to be the most reliable technique that does not
-  // use indirect eval (which violates Content Security Policy).
-  typeof global === "object" ? global :
-  typeof window === "object" ? window :
-  typeof self === "object" ? self : this
-);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
-
-/***/ }),
-/* 327 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(328);
-module.exports = __webpack_require__(21).RegExp.escape;
-
-
-/***/ }),
-/* 328 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// https://github.com/benjamingr/RexExp.escape
-var $export = __webpack_require__(0);
-var $re = __webpack_require__(329)(/[\\^$*+?.()|[\]{}]/g, '\\$&');
-
-$export($export.S, 'RegExp', { escape: function escape(it) { return $re(it); } });
-
-
-/***/ }),
-/* 329 */
-/***/ (function(module, exports) {
-
-module.exports = function (regExp, replace) {
-  var replacer = replace === Object(replace) ? function (part) {
-    return replace[part];
-  } : replace;
-  return function (it) {
-    return String(it).replace(regExp, replacer);
-  };
-};
-
-
-/***/ }),
-/* 330 */
-/***/ (function(module, exports) {
-
-/*!
-Copyright (C) 2013-2015 by Andrea Giammarchi - @WebReflection
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-*/
-(function(window){'use strict';
-  /* jshint loopfunc: true, noempty: false*/
-  // http://www.w3.org/TR/dom/#element
-
-  function createDocumentFragment() {
-    return document.createDocumentFragment();
-  }
-
-  function createElement(nodeName) {
-    return document.createElement(nodeName);
-  }
-
-  function enoughArguments(length, name) {
-    if (!length) throw new Error(
-      'Failed to construct ' +
-        name +
-      ': 1 argument required, but only 0 present.'
-    );
-  }
-
-  function mutationMacro(nodes) {
-    if (nodes.length === 1) {
-      return textNodeIfString(nodes[0]);
-    }
-    for (var
-      fragment = createDocumentFragment(),
-      list = slice.call(nodes),
-      i = 0; i < nodes.length; i++
-    ) {
-      fragment.appendChild(textNodeIfString(list[i]));
-    }
-    return fragment;
-  }
-
-  function textNodeIfString(node) {
-    return typeof node === 'string' ? document.createTextNode(node) : node;
-  }
-
-  for(var
-    head,
-    property,
-    TemporaryPrototype,
-    TemporaryTokenList,
-    wrapVerifyToken,
-    document = window.document,
-    hOP = Object.prototype.hasOwnProperty,
-    defineProperty = Object.defineProperty || function (object, property, descriptor) {
-      if (hOP.call(descriptor, 'value')) {
-        object[property] = descriptor.value;
-      } else {
-        if (hOP.call(descriptor, 'get'))
-          object.__defineGetter__(property, descriptor.get);
-        if (hOP.call(descriptor, 'set'))
-          object.__defineSetter__(property, descriptor.set);
-      }
-      return object;
-    },
-    indexOf = [].indexOf || function indexOf(value){
-      var length = this.length;
-      while(length--) {
-        if (this[length] === value) {
-          break;
-        }
-      }
-      return length;
-    },
-    // http://www.w3.org/TR/domcore/#domtokenlist
-    verifyToken = function (token) {
-      if (!token) {
-        throw 'SyntaxError';
-      } else if (spaces.test(token)) {
-        throw 'InvalidCharacterError';
-      }
-      return token;
-    },
-    DOMTokenList = function (node) {
-      var
-        noClassName = typeof node.className === 'undefined',
-        className = noClassName ?
-          (node.getAttribute('class') || '') : node.className,
-        isSVG = noClassName || typeof className === 'object',
-        value = (isSVG ?
-          (noClassName ? className : className.baseVal) :
-          className
-        ).replace(trim, '')
-      ;
-      if (value.length) {
-        properties.push.apply(
-          this,
-          value.split(spaces)
-        );
-      }
-      this._isSVG = isSVG;
-      this._ = node;
-    },
-    classListDescriptor = {
-      get: function get() {
-        return new DOMTokenList(this);
-      },
-      set: function(){}
-    },
-    trim = /^\s+|\s+$/g,
-    spaces = /\s+/,
-    SPACE = '\x20',
-    CLASS_LIST = 'classList',
-    toggle = function toggle(token, force) {
-      if (this.contains(token)) {
-        if (!force) {
-          // force is not true (either false or omitted)
-          this.remove(token);
-        }
-      } else if(force === undefined || force) {
-        force = true;
-        this.add(token);
-      }
-      return !!force;
-    },
-    DocumentFragmentPrototype = window.DocumentFragment && DocumentFragment.prototype,
-    Node = window.Node,
-    NodePrototype = (Node || Element).prototype,
-    CharacterData = window.CharacterData || Node,
-    CharacterDataPrototype = CharacterData && CharacterData.prototype,
-    DocumentType = window.DocumentType,
-    DocumentTypePrototype = DocumentType && DocumentType.prototype,
-    ElementPrototype = (window.Element || Node || window.HTMLElement).prototype,
-    HTMLSelectElement = window.HTMLSelectElement || createElement('select').constructor,
-    selectRemove = HTMLSelectElement.prototype.remove,
-    SVGElement = window.SVGElement,
-    properties = [
-      'matches', (
-        ElementPrototype.matchesSelector ||
-        ElementPrototype.webkitMatchesSelector ||
-        ElementPrototype.khtmlMatchesSelector ||
-        ElementPrototype.mozMatchesSelector ||
-        ElementPrototype.msMatchesSelector ||
-        ElementPrototype.oMatchesSelector ||
-        function matches(selector) {
-          var parentNode = this.parentNode;
-          return !!parentNode && -1 < indexOf.call(
-            parentNode.querySelectorAll(selector),
-            this
-          );
-        }
-      ),
-      'closest', function closest(selector) {
-        var parentNode = this, matches;
-        while (
-          // document has no .matches
-          (matches = parentNode && parentNode.matches) &&
-          !parentNode.matches(selector)
-        ) {
-          parentNode = parentNode.parentNode;
-        }
-        return matches ? parentNode : null;
-      },
-      'prepend', function prepend() {
-        var firstChild = this.firstChild,
-            node = mutationMacro(arguments);
-        if (firstChild) {
-          this.insertBefore(node, firstChild);
-        } else {
-          this.appendChild(node);
-        }
-      },
-      'append', function append() {
-        this.appendChild(mutationMacro(arguments));
-      },
-      'before', function before() {
-        var parentNode = this.parentNode;
-        if (parentNode) {
-          parentNode.insertBefore(
-            mutationMacro(arguments), this
-          );
-        }
-      },
-      'after', function after() {
-        var parentNode = this.parentNode,
-            nextSibling = this.nextSibling,
-            node = mutationMacro(arguments);
-        if (parentNode) {
-          if (nextSibling) {
-            parentNode.insertBefore(node, nextSibling);
-          } else {
-            parentNode.appendChild(node);
-          }
-        }
-      },
-      // WARNING - DEPRECATED - use .replaceWith() instead
-      'replace', function replace() {
-        this.replaceWith.apply(this, arguments);
-      },
-      'replaceWith', function replaceWith() {
-        var parentNode = this.parentNode;
-        if (parentNode) {
-          parentNode.replaceChild(
-            mutationMacro(arguments),
-            this
-          );
-        }
-      },
-      'remove', function remove() {
-        var parentNode = this.parentNode;
-        if (parentNode) {
-          parentNode.removeChild(this);
-        }
-      }
-    ],
-    slice = properties.slice,
-    i = properties.length; i; i -= 2
-  ) {
-    property = properties[i - 2];
-    if (!(property in ElementPrototype)) {
-      ElementPrototype[property] = properties[i - 1];
-    }
-    if (property === 'remove') {
-      // see https://github.com/WebReflection/dom4/issues/19
-      HTMLSelectElement.prototype[property] = function () {
-        return 0 < arguments.length ?
-          selectRemove.apply(this, arguments) :
-          ElementPrototype.remove.call(this);
-      };
-    }
-    // see https://github.com/WebReflection/dom4/issues/18
-    if (/^(?:before|after|replace|replaceWith|remove)$/.test(property)) {
-      if (CharacterData && !(property in CharacterDataPrototype)) {
-        CharacterDataPrototype[property] = properties[i - 1];
-      }
-      if (DocumentType && !(property in DocumentTypePrototype)) {
-        DocumentTypePrototype[property] = properties[i - 1];
-      }
-    }
-    // see https://github.com/WebReflection/dom4/pull/26
-    if (/^(?:append|prepend)$/.test(property)) {
-      if (DocumentFragmentPrototype) {
-        if (!(property in DocumentFragmentPrototype)) {
-          DocumentFragmentPrototype[property] = properties[i - 1];
-        }
-      } else {
-        try {
-          createDocumentFragment().constructor.prototype[property] = properties[i - 1];
-        } catch(o_O) {}
-      }
-    }
-  }
-
-  // most likely an IE9 only issue
-  // see https://github.com/WebReflection/dom4/issues/6
-  if (!createElement('a').matches('a')) {
-    ElementPrototype[property] = function(matches){
-      return function (selector) {
-        return matches.call(
-          this.parentNode ?
-            this :
-            createDocumentFragment().appendChild(this),
-          selector
-        );
-      };
-    }(ElementPrototype[property]);
-  }
-
-  // used to fix both old webkit and SVG
-  DOMTokenList.prototype = {
-    length: 0,
-    add: function add() {
-      for(var j = 0, token; j < arguments.length; j++) {
-        token = arguments[j];
-        if(!this.contains(token)) {
-          properties.push.call(this, property);
-        }
-      }
-      if (this._isSVG) {
-        this._.setAttribute('class', '' + this);
-      } else {
-        this._.className = '' + this;
-      }
-    },
-    contains: (function(indexOf){
-      return function contains(token) {
-        i = indexOf.call(this, property = verifyToken(token));
-        return -1 < i;
-      };
-    }([].indexOf || function (token) {
-      i = this.length;
-      while(i-- && this[i] !== token){}
-      return i;
-    })),
-    item: function item(i) {
-      return this[i] || null;
-    },
-    remove: function remove() {
-      for(var j = 0, token; j < arguments.length; j++) {
-        token = arguments[j];
-        if(this.contains(token)) {
-          properties.splice.call(this, i, 1);
-        }
-      }
-      if (this._isSVG) {
-        this._.setAttribute('class', '' + this);
-      } else {
-        this._.className = '' + this;
-      }
-    },
-    toggle: toggle,
-    toString: function toString() {
-      return properties.join.call(this, SPACE);
-    }
-  };
-
-  if (SVGElement && !(CLASS_LIST in SVGElement.prototype)) {
-    defineProperty(SVGElement.prototype, CLASS_LIST, classListDescriptor);
-  }
-
-  // http://www.w3.org/TR/dom/#domtokenlist
-  // iOS 5.1 has completely screwed this property
-  // classList in ElementPrototype is false
-  // but it's actually there as getter
-  if (!(CLASS_LIST in document.documentElement)) {
-    defineProperty(ElementPrototype, CLASS_LIST, classListDescriptor);
-  } else {
-    // iOS 5.1 and Nokia ASHA do not support multiple add or remove
-    // trying to detect and fix that in here
-    TemporaryTokenList = createElement('div')[CLASS_LIST];
-    TemporaryTokenList.add('a', 'b', 'a');
-    if ('a\x20b' != TemporaryTokenList) {
-      // no other way to reach original methods in iOS 5.1
-      TemporaryPrototype = TemporaryTokenList.constructor.prototype;
-      if (!('add' in TemporaryPrototype)) {
-        // ASHA double fails in here
-        TemporaryPrototype = window.TemporaryTokenList.prototype;
-      }
-      wrapVerifyToken = function (original) {
-        return function () {
-          var i = 0;
-          while (i < arguments.length) {
-            original.call(this, arguments[i++]);
-          }
-        };
-      };
-      TemporaryPrototype.add = wrapVerifyToken(TemporaryPrototype.add);
-      TemporaryPrototype.remove = wrapVerifyToken(TemporaryPrototype.remove);
-      // toggle is broken too ^_^ ... let's fix it
-      TemporaryPrototype.toggle = toggle;
-    }
-  }
-
-  if (!('contains' in NodePrototype)) {
-    defineProperty(NodePrototype, 'contains', {
-      value: function (el) {
-        while (el && el !== this) el = el.parentNode;
-        return this === el;
-      }
-    });
-  }
-
-  if (!('head' in document)) {
-    defineProperty(document, 'head', {
-      get: function () {
-        return head || (
-          head = document.getElementsByTagName('head')[0]
-        );
-      }
-    });
-  }
-
-  // requestAnimationFrame partial polyfill
-  (function () {
-    for (var
-      raf,
-      rAF = window.requestAnimationFrame,
-      cAF = window.cancelAnimationFrame,
-      prefixes = ['o', 'ms', 'moz', 'webkit'],
-      i = prefixes.length;
-      !cAF && i--;
-    ) {
-      rAF = rAF || window[prefixes[i] + 'RequestAnimationFrame'];
-      cAF = window[prefixes[i] + 'CancelAnimationFrame'] ||
-            window[prefixes[i] + 'CancelRequestAnimationFrame'];
-    }
-    if (!cAF) {
-      // some FF apparently implemented rAF but no cAF 
-      if (rAF) {
-        raf = rAF;
-        rAF = function (callback) {
-          var goOn = true;
-          raf(function () {
-            if (goOn) callback.apply(this, arguments);
-          });
-          return function () {
-            goOn = false;
-          };
-        };
-        cAF = function (id) {
-          id();
-        };
-      } else {
-        rAF = function (callback) {
-          return setTimeout(callback, 15, 15);
-        };
-        cAF = function (id) {
-          clearTimeout(id);
-        };
-      }
-    }
-    window.requestAnimationFrame = rAF;
-    window.cancelAnimationFrame = cAF;
-  }());
-
-  // http://www.w3.org/TR/dom/#customevent
-  try{new window.CustomEvent('?');}catch(o_O){
-    window.CustomEvent = function(
-      eventName,
-      defaultInitDict
-    ){
-
-      // the infamous substitute
-      function CustomEvent(type, eventInitDict) {
-        /*jshint eqnull:true */
-        var event = document.createEvent(eventName);
-        if (typeof type != 'string') {
-          throw new Error('An event name must be provided');
-        }
-        if (eventName == 'Event') {
-          event.initCustomEvent = initCustomEvent;
-        }
-        if (eventInitDict == null) {
-          eventInitDict = defaultInitDict;
-        }
-        event.initCustomEvent(
-          type,
-          eventInitDict.bubbles,
-          eventInitDict.cancelable,
-          eventInitDict.detail
-        );
-        return event;
-      }
-
-      // attached at runtime
-      function initCustomEvent(
-        type, bubbles, cancelable, detail
-      ) {
-        /*jshint validthis:true*/
-        this.initEvent(type, bubbles, cancelable);
-        this.detail = detail;
-      }
-
-      // that's it
-      return CustomEvent;
-    }(
-      // is this IE9 or IE10 ?
-      // where CustomEvent is there
-      // but not usable as construtor ?
-      window.CustomEvent ?
-        // use the CustomEvent interface in such case
-        'CustomEvent' : 'Event',
-        // otherwise the common compatible one
-      {
-        bubbles: false,
-        cancelable: false,
-        detail: null
-      }
-    );
-  }
-
-  // window.Event as constructor
-  try { new Event('_'); } catch (o_O) {
-    /* jshint -W022 */
-    o_O = (function ($Event) {
-      function Event(type, init) {
-        enoughArguments(arguments.length, 'Event');
-        var out = document.createEvent('Event');
-        if (!init) init = {};
-        out.initEvent(
-          type,
-          !!init.bubbles,
-          !!init.cancelable
-        );
-        return out;
-      }
-      Event.prototype = $Event.prototype;
-      return Event;
-    }(window.Event || function Event() {}));
-    defineProperty(window, 'Event', {value: o_O});
-    // Android 4 gotcha
-    if (Event !== o_O) Event = o_O;
-  }
-
-  // window.KeyboardEvent as constructor
-  try { new KeyboardEvent('_', {}); } catch (o_O) {
-    /* jshint -W022 */
-    o_O = (function ($KeyboardEvent) {
-      // code inspired by https://gist.github.com/termi/4654819
-      var
-        initType = 0,
-        defaults = {
-          char: '',
-          key: '',
-          location: 0,
-          ctrlKey: false,
-          shiftKey: false,
-          altKey: false,
-          metaKey: false,
-          altGraphKey: false,
-          repeat: false,
-          locale: navigator.language,
-          detail: 0,
-          bubbles: false,
-          cancelable: false,
-          keyCode: 0,
-          charCode: 0,
-          which: 0
-        },
-        eventType
-      ;
-      try {
-        var e = document.createEvent('KeyboardEvent');
-        e.initKeyboardEvent(
-          'keyup', false, false, window, '+', 3,
-          true, false, true, false, false
-        );
-        initType = (
-          (e.keyIdentifier || e.key) == '+' &&
-          (e.keyLocation || e.location) == 3
-        ) && (
-          e.ctrlKey ? e.altKey ? 1 : 3 : e.shiftKey ? 2 : 4
-        ) || 9;
-      } catch(o_O) {}
-      eventType = 0 < initType ? 'KeyboardEvent' : 'Event';
-
-      function getModifier(init) {
-        for (var
-          out = [],
-          keys = [
-            'ctrlKey',
-            'Control',
-            'shiftKey',
-            'Shift',
-            'altKey',
-            'Alt',
-            'metaKey',
-            'Meta',
-            'altGraphKey',
-            'AltGraph'
-          ],
-          i = 0; i < keys.length; i += 2
-        ) {
-          if (init[keys[i]])
-            out.push(keys[i + 1]);
-        }
-        return out.join(' ');
-      }
-
-      function withDefaults(target, source) {
-        for (var key in source) {
-          if (
-            source.hasOwnProperty(key) &&
-            !source.hasOwnProperty.call(target, key)
-          ) target[key] = source[key];
-        }
-        return target;
-      }
-
-      function withInitValues(key, out, init) {
-        try {
-          out[key] = init[key];
-        } catch(o_O) {}
-      }
-
-      function KeyboardEvent(type, init) {
-        enoughArguments(arguments.length, 'KeyboardEvent');
-        init = withDefaults(init || {}, defaults);
-        var
-          out = document.createEvent(eventType),
-          ctrlKey = init.ctrlKey,
-          shiftKey = init.shiftKey,
-          altKey = init.altKey,
-          metaKey = init.metaKey,
-          altGraphKey = init.altGraphKey,
-          modifiers = initType > 3 ? getModifier(init) : null,
-          key = String(init.key),
-          chr = String(init.char),
-          location = init.location,
-          keyCode = init.keyCode || (
-            (init.keyCode = key) &&
-            key.charCodeAt(0)
-          ) || 0,
-          charCode = init.charCode || (
-            (init.charCode = chr) &&
-            chr.charCodeAt(0)
-          ) || 0,
-          bubbles = init.bubbles,
-          cancelable = init.cancelable,
-          repeat = init.repeat,
-          locale = init.locale,
-          view = init.view || window,
-          args
-        ;
-        if (!init.which) init.which = init.keyCode;
-        if ('initKeyEvent' in out) {
-          out.initKeyEvent(
-            type, bubbles, cancelable, view,
-            ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode
-          );
-        } else if (0 < initType && 'initKeyboardEvent' in out) {
-          args = [type, bubbles, cancelable, view];
-          switch (initType) {
-            case 1:
-              args.push(key, location, ctrlKey, shiftKey, altKey, metaKey, altGraphKey);
-              break;
-            case 2:
-              args.push(ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode);
-              break;
-            case 3:
-              args.push(key, location, ctrlKey, altKey, shiftKey, metaKey, altGraphKey);
-              break;
-            case 4:
-              args.push(key, location, modifiers, repeat, locale);
-              break;
-            default:
-              args.push(char, key, location, modifiers, repeat, locale);
-          }
-          out.initKeyboardEvent.apply(out, args);
-        } else {
-          out.initEvent(type, bubbles, cancelable);
-        }
-        for (key in out) {
-          if (defaults.hasOwnProperty(key) && out[key] !== init[key]) {
-            withInitValues(key, out, init);
-          }
-        }
-        return out;
-      }
-      KeyboardEvent.prototype = $KeyboardEvent.prototype;
-      return KeyboardEvent;
-    }(window.KeyboardEvent || function KeyboardEvent() {}));
-    defineProperty(window, 'KeyboardEvent', {value: o_O});
-    // Android 4 gotcha
-    if (KeyboardEvent !== o_O) KeyboardEvent = o_O;
-  }
-
-  // window.MouseEvent as constructor
-  try { new MouseEvent('_', {}); } catch (o_O) {
-    /* jshint -W022 */
-    o_O = (function ($MouseEvent) {
-      function MouseEvent(type, init) {
-        enoughArguments(arguments.length, 'MouseEvent');
-        var out = document.createEvent('MouseEvent');
-        if (!init) init = {};
-        out.initMouseEvent(
-          type,
-          !!init.bubbles,
-          !!init.cancelable,
-          init.view || window,
-          init.detail || 1,
-          init.screenX || 0,
-          init.screenY || 0,
-          init.clientX || 0,
-          init.clientY || 0,
-          !!init.ctrlKey,
-          !!init.altKey,
-          !!init.shiftKey,
-          !!init.metaKey,
-          init.button || 0,
-          init.relatedTarget || null
-        );
-        return out;
-      }
-      MouseEvent.prototype = $MouseEvent.prototype;
-      return MouseEvent;
-    }(window.MouseEvent || function MouseEvent() {}));
-    defineProperty(window, 'MouseEvent', {value: o_O});
-    // Android 4 gotcha
-    if (MouseEvent !== o_O) MouseEvent = o_O;
-  }
-
-  if (!document.querySelectorAll('*').forEach) {
-    (function () {
-      function patch(what) {
-        var querySelectorAll = what.querySelectorAll;
-        what.querySelectorAll = function qSA(css) {
-          var result = querySelectorAll.call(this, css);
-          result.forEach = Array.prototype.forEach;
-          return result;
-        };
-      }
-      patch(document);
-      patch(Element.prototype);
-    }());
-  }
-
-  try {
-    // https://drafts.csswg.org/selectors-4/#the-scope-pseudo
-    document.querySelector(':scope *');
-  } catch(o_O) {
-    (function () {
-      var dataScope = 'data-scope-' + (Math.random() * 1e9 >>> 0);
-      var proto = Element.prototype;
-      var querySelector = proto.querySelector;
-      var querySelectorAll = proto.querySelectorAll;
-      proto.querySelector = function qS(css) {
-        return find(this, querySelector, css);
-      };
-      proto.querySelectorAll = function qSA(css) {
-        return find(this, querySelectorAll, css);
-      };
-      function find(node, method, css) {
-        node.setAttribute(dataScope, null);
-        var result = method.call(
-          node,
-          css.replace(
-            /(^|,\s*)(:scope([ >]|$))/g,
-            function ($0, $1, $2, $3) {
-              return $1 + '[' + dataScope + ']' + ($3 || ' ');
-            }
-          )
-        );
-        node.removeAttribute(dataScope);
-        return result;
-      }
-    }());
-  }
-}(window));(function (global){'use strict';
-
-  // a WeakMap fallback for DOM nodes only used as key
-  var DOMMap = global.WeakMap || (function () {
-
-    var
-      counter = 0,
-      dispatched = false,
-      drop = false,
-      value
-    ;
-
-    function dispatch(key, ce, shouldDrop) {
-      drop = shouldDrop;
-      dispatched = false;
-      value = undefined;
-      key.dispatchEvent(ce);
-    }
-
-    function Handler(value) {
-      this.value = value;
-    }
-
-    Handler.prototype.handleEvent = function handleEvent(e) {
-      dispatched = true;
-      if (drop) {
-        e.currentTarget.removeEventListener(e.type, this, false);
-      } else {
-        value = this.value;
-      }
-    };
-
-    function DOMMap() {
-      counter++;  // make id clashing highly improbable
-      this.__ce__ = new Event(('@DOMMap:' + counter) + Math.random());
-    }
-
-    DOMMap.prototype = {
-      'constructor': DOMMap,
-      'delete': function del(key) {
-        return dispatch(key, this.__ce__, true), dispatched;
-      },
-      'get': function get(key) {
-        dispatch(key, this.__ce__, false);
-        var v = value;
-        value = undefined;
-        return v;
-      },
-      'has': function has(key) {
-        return dispatch(key, this.__ce__, false), dispatched;
-      },
-      'set': function set(key, value) {
-        dispatch(key, this.__ce__, true);
-        key.addEventListener(this.__ce__.type, new Handler(value), false);
-        return this;
-      },
-    };
-
-    return DOMMap;
-
-  }());
-
-  function Dict() {}
-  Dict.prototype = (Object.create || Object)(null);
-
-  // https://dom.spec.whatwg.org/#interface-eventtarget
-
-  function createEventListener(type, callback, options) {
-    function eventListener(e) {
-      if (eventListener.once) {
-        e.currentTarget.removeEventListener(
-          e.type,
-          callback,
-          eventListener
-        );
-        eventListener.removed = true;
-      }
-      if (eventListener.passive) {
-        e.preventDefault = createEventListener.preventDefault;
-      }
-      if (typeof eventListener.callback === 'function') {
-        /* jshint validthis: true */
-        eventListener.callback.call(this, e);
-      } else if (eventListener.callback) {
-        eventListener.callback.handleEvent(e);
-      }
-      if (eventListener.passive) {
-        delete e.preventDefault;
-      }
-    }
-    eventListener.type = type;
-    eventListener.callback = callback;
-    eventListener.capture = !!options.capture;
-    eventListener.passive = !!options.passive;
-    eventListener.once = !!options.once;
-    // currently pointless but specs say to use it, so ...
-    eventListener.removed = false;
-    return eventListener;
-  }
-
-  createEventListener.preventDefault = function preventDefault() {};
-
-  var
-    Event = global.CustomEvent,
-    dE = global.dispatchEvent,
-    aEL = global.addEventListener,
-    rEL = global.removeEventListener,
-    counter = 0,
-    increment = function () { counter++; },
-    indexOf = [].indexOf || function indexOf(value){
-      var length = this.length;
-      while(length--) {
-        if (this[length] === value) {
-          break;
-        }
-      }
-      return length;
-    },
-    getListenerKey = function (options) {
-      return ''.concat(
-        options.capture ? '1' : '0',
-        options.passive ? '1' : '0',
-        options.once ? '1' : '0'
-      );
-    },
-    augment
-  ;
-
-  try {
-    aEL('_', increment, {once: true});
-    dE(new Event('_'));
-    dE(new Event('_'));
-    rEL('_', increment, {once: true});
-  } catch(o_O) {}
-
-  if (counter !== 1) {
-    (function () {
-      var dm = new DOMMap();
-      function createAEL(aEL) {
-        return function addEventListener(type, handler, options) {
-          if (options && typeof options !== 'boolean') {
-            var
-              info = dm.get(this),
-              key = getListenerKey(options),
-              i, tmp, wrap
-            ;
-            if (!info) dm.set(this, (info = new Dict()));
-            if (!(type in info)) info[type] = {
-              handler: [],
-              wrap: []
-            };
-            tmp = info[type];
-            i = indexOf.call(tmp.handler, handler);
-            if (i < 0) {
-              i = tmp.handler.push(handler) - 1;
-              tmp.wrap[i] = (wrap = new Dict());
-            } else {
-              wrap = tmp.wrap[i];
-            }
-            if (!(key in wrap)) {
-              wrap[key] = createEventListener(type, handler, options);
-              aEL.call(this, type, wrap[key], wrap[key].capture);
-            }
-          } else {
-            aEL.call(this, type, handler, options);
-          }
-        };
-      }
-      function createREL(rEL) {
-        return function removeEventListener(type, handler, options) {
-          if (options && typeof options !== 'boolean') {
-            var
-              info = dm.get(this),
-              key, i, tmp, wrap
-            ;
-            if (info && (type in info)) {
-              tmp = info[type];
-              i = indexOf.call(tmp.handler, handler);
-              if (-1 < i) {
-                key = getListenerKey(options);
-                wrap = tmp.wrap[i];
-                if (key in wrap) {
-                  rEL.call(this, type, wrap[key], wrap[key].capture);
-                  delete wrap[key];
-                  // return if there are other wraps
-                  for (key in wrap) return;
-                  // otherwise remove all the things
-                  tmp.handler.splice(i, 1);
-                  tmp.wrap.splice(i, 1);
-                  // if there are no other handlers
-                  if (tmp.handler.length === 0)
-                    // drop the info[type] entirely
-                    delete info[type];
-                }
-              }
-            }
-          } else {
-            rEL.call(this, type, handler, options);
-          }
-        };
-      }
-
-      augment = function (Constructor) {
-        if (!Constructor) return;
-        var proto = Constructor.prototype;
-        proto.addEventListener = createAEL(proto.addEventListener);
-        proto.removeEventListener = createREL(proto.removeEventListener);
-      };
-
-      if (global.EventTarget) {
-        augment(EventTarget);
-      } else {
-        augment(global.Text);
-        augment(global.Element || global.HTMLElement);
-        augment(global.HTMLDocument);
-        augment(global.Window || {prototype:global});
-        augment(global.XMLHttpRequest);
-      }
-
-    }());
-  }
-
-}(self));
-
-
-/***/ }),
-/* 331 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Common = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-// import './Anims';
-// import './Header';
-
-
-var _objectFitImages = __webpack_require__(332);
-
-var _objectFitImages2 = _interopRequireDefault(_objectFitImages);
-
-__webpack_require__(333);
-
-__webpack_require__(334);
-
-__webpack_require__(340);
-
-__webpack_require__(342);
-
-__webpack_require__(347);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Common = exports.Common = function () {
-  /**
-   * Cache data, make preparations and initialize common scripts.
-   */
-  function Common() {
-    _classCallCheck(this, Common);
-
-    this.init();
-  }
-  /**
-   * Initialize common scripts.
-   */
-
-
-  _createClass(Common, [{
-    key: 'init',
-    value: function init() {
-      (0, _objectFitImages2.default)();
-    }
-  }]);
-
-  return Common;
-}();
-
-/** Export initialized common scripts by default */
-
-
-exports.default = new Common();
-
-/***/ }),
-/* 332 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*! npm.im/object-fit-images 3.2.3 */
-
-
-var OFI = 'bfred-it:object-fit-images';
-var propRegex = /(object-fit|object-position)\s*:\s*([-\w\s%]+)/g;
-var testImg = typeof Image === 'undefined' ? {style: {'object-position': 1}} : new Image();
-var supportsObjectFit = 'object-fit' in testImg.style;
-var supportsObjectPosition = 'object-position' in testImg.style;
-var supportsOFI = 'background-size' in testImg.style;
-var supportsCurrentSrc = typeof testImg.currentSrc === 'string';
-var nativeGetAttribute = testImg.getAttribute;
-var nativeSetAttribute = testImg.setAttribute;
-var autoModeEnabled = false;
-
-function createPlaceholder(w, h) {
-	return ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'%3E%3C/svg%3E");
-}
-
-function polyfillCurrentSrc(el) {
-	if (el.srcset && !supportsCurrentSrc && window.picturefill) {
-		var pf = window.picturefill._;
-		// parse srcset with picturefill where currentSrc isn't available
-		if (!el[pf.ns] || !el[pf.ns].evaled) {
-			// force synchronous srcset parsing
-			pf.fillImg(el, {reselect: true});
-		}
-
-		if (!el[pf.ns].curSrc) {
-			// force picturefill to parse srcset
-			el[pf.ns].supported = false;
-			pf.fillImg(el, {reselect: true});
-		}
-
-		// retrieve parsed currentSrc, if any
-		el.currentSrc = el[pf.ns].curSrc || el.src;
-	}
-}
-
-function getStyle(el) {
-	var style = getComputedStyle(el).fontFamily;
-	var parsed;
-	var props = {};
-	while ((parsed = propRegex.exec(style)) !== null) {
-		props[parsed[1]] = parsed[2];
-	}
-	return props;
-}
-
-function setPlaceholder(img, width, height) {
-	// Default: fill width, no height
-	var placeholder = createPlaceholder(width || 1, height || 0);
-
-	// Only set placeholder if it's different
-	if (nativeGetAttribute.call(img, 'src') !== placeholder) {
-		nativeSetAttribute.call(img, 'src', placeholder);
-	}
-}
-
-function onImageReady(img, callback) {
-	// naturalWidth is only available when the image headers are loaded,
-	// this loop will poll it every 100ms.
-	if (img.naturalWidth) {
-		callback(img);
-	} else {
-		setTimeout(onImageReady, 100, img, callback);
-	}
-}
-
-function fixOne(el) {
-	var style = getStyle(el);
-	var ofi = el[OFI];
-	style['object-fit'] = style['object-fit'] || 'fill'; // default value
-
-	// Avoid running where unnecessary, unless OFI had already done its deed
-	if (!ofi.img) {
-		// fill is the default behavior so no action is necessary
-		if (style['object-fit'] === 'fill') {
-			return;
-		}
-
-		// Where object-fit is supported and object-position isn't (Safari < 10)
-		if (
-			!ofi.skipTest && // unless user wants to apply regardless of browser support
-			supportsObjectFit && // if browser already supports object-fit
-			!style['object-position'] // unless object-position is used
-		) {
-			return;
-		}
-	}
-
-	// keep a clone in memory while resetting the original to a blank
-	if (!ofi.img) {
-		ofi.img = new Image(el.width, el.height);
-		ofi.img.srcset = nativeGetAttribute.call(el, "data-ofi-srcset") || el.srcset;
-		ofi.img.src = nativeGetAttribute.call(el, "data-ofi-src") || el.src;
-
-		// preserve for any future cloneNode calls
-		// https://github.com/bfred-it/object-fit-images/issues/53
-		nativeSetAttribute.call(el, "data-ofi-src", el.src);
-		if (el.srcset) {
-			nativeSetAttribute.call(el, "data-ofi-srcset", el.srcset);
-		}
-
-		setPlaceholder(el, el.naturalWidth || el.width, el.naturalHeight || el.height);
-
-		// remove srcset because it overrides src
-		if (el.srcset) {
-			el.srcset = '';
-		}
-		try {
-			keepSrcUsable(el);
-		} catch (err) {
-			if (window.console) {
-				console.warn('https://bit.ly/ofi-old-browser');
-			}
-		}
-	}
-
-	polyfillCurrentSrc(ofi.img);
-
-	el.style.backgroundImage = "url(\"" + ((ofi.img.currentSrc || ofi.img.src).replace(/"/g, '\\"')) + "\")";
-	el.style.backgroundPosition = style['object-position'] || 'center';
-	el.style.backgroundRepeat = 'no-repeat';
-	el.style.backgroundOrigin = 'content-box';
-
-	if (/scale-down/.test(style['object-fit'])) {
-		onImageReady(ofi.img, function () {
-			if (ofi.img.naturalWidth > el.width || ofi.img.naturalHeight > el.height) {
-				el.style.backgroundSize = 'contain';
-			} else {
-				el.style.backgroundSize = 'auto';
-			}
-		});
-	} else {
-		el.style.backgroundSize = style['object-fit'].replace('none', 'auto').replace('fill', '100% 100%');
-	}
-
-	onImageReady(ofi.img, function (img) {
-		setPlaceholder(el, img.naturalWidth, img.naturalHeight);
-	});
-}
-
-function keepSrcUsable(el) {
-	var descriptors = {
-		get: function get(prop) {
-			return el[OFI].img[prop ? prop : 'src'];
-		},
-		set: function set(value, prop) {
-			el[OFI].img[prop ? prop : 'src'] = value;
-			nativeSetAttribute.call(el, ("data-ofi-" + prop), value); // preserve for any future cloneNode
-			fixOne(el);
-			return value;
-		}
-	};
-	Object.defineProperty(el, 'src', descriptors);
-	Object.defineProperty(el, 'currentSrc', {
-		get: function () { return descriptors.get('currentSrc'); }
-	});
-	Object.defineProperty(el, 'srcset', {
-		get: function () { return descriptors.get('srcset'); },
-		set: function (ss) { return descriptors.set(ss, 'srcset'); }
-	});
-}
-
-function hijackAttributes() {
-	function getOfiImageMaybe(el, name) {
-		return el[OFI] && el[OFI].img && (name === 'src' || name === 'srcset') ? el[OFI].img : el;
-	}
-	if (!supportsObjectPosition) {
-		HTMLImageElement.prototype.getAttribute = function (name) {
-			return nativeGetAttribute.call(getOfiImageMaybe(this, name), name);
-		};
-
-		HTMLImageElement.prototype.setAttribute = function (name, value) {
-			return nativeSetAttribute.call(getOfiImageMaybe(this, name), name, String(value));
-		};
-	}
-}
-
-function fix(imgs, opts) {
-	var startAutoMode = !autoModeEnabled && !imgs;
-	opts = opts || {};
-	imgs = imgs || 'img';
-
-	if ((supportsObjectPosition && !opts.skipTest) || !supportsOFI) {
-		return false;
-	}
-
-	// use imgs as a selector or just select all images
-	if (imgs === 'img') {
-		imgs = document.getElementsByTagName('img');
-	} else if (typeof imgs === 'string') {
-		imgs = document.querySelectorAll(imgs);
-	} else if (!('length' in imgs)) {
-		imgs = [imgs];
-	}
-
-	// apply fix to all
-	for (var i = 0; i < imgs.length; i++) {
-		imgs[i][OFI] = imgs[i][OFI] || {
-			skipTest: opts.skipTest
-		};
-		fixOne(imgs[i]);
-	}
-
-	if (startAutoMode) {
-		document.body.addEventListener('load', function (e) {
-			if (e.target.tagName === 'IMG') {
-				fix(e.target, {
-					skipTest: opts.skipTest
-				});
-			}
-		}, true);
-		autoModeEnabled = true;
-		imgs = 'img'; // reset to a generic selector for watchMQ
-	}
-
-	// if requested, watch media queries for object-fit change
-	if (opts.watchMQ) {
-		window.addEventListener('resize', fix.bind(null, imgs, {
-			skipTest: opts.skipTest
-		}));
-	}
-}
-
-fix.supportsObjectFit = supportsObjectFit;
-fix.supportsObjectPosition = supportsObjectPosition;
-
-hijackAttributes();
-
-module.exports = fix;
-
-
-/***/ }),
-/* 333 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _helpers = __webpack_require__(49);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NoTouch = function () {
-  function NoTouch() {
-    _classCallCheck(this, NoTouch);
-
-    NoTouch.init();
-  }
-
-  _createClass(NoTouch, null, [{
-    key: 'init',
-    value: function init() {
-      var toggleNoTouch = function toggleNoTouch() {
-        if (_helpers.Resp.isDesk) {
-          _helpers.$body.addClass(_helpers.css.noTouch);
-        } else {
-          _helpers.$body.removeClass(_helpers.css.noTouch);
-        }
-      };
-
-      toggleNoTouch();
-      _helpers.$window.on('resize', (0, _helpers.debounce)(toggleNoTouch, this, 250));
-    }
-  }]);
-
-  return NoTouch;
-}();
-
-exports.default = new NoTouch();
-
-/***/ }),
-/* 334 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _scrollAnim = __webpack_require__(335);
-
-var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
-
-var _gsap = __webpack_require__(337);
-
-var _swiper = __webpack_require__(338);
-
-var _swiper2 = _interopRequireDefault(_swiper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var FullSlider = function () {
-  function FullSlider(el) {
-    var settings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { slidesCount: 7 };
-
-    _classCallCheck(this, FullSlider);
-
-    this.el = document.querySelector(el);
-    this.settings = settings;
-
-    this.init();
-  }
-
-  _createClass(FullSlider, [{
-    key: 'init',
-    value: function init() {
-      this.createSlider();
-      this.bindEvents();
-    }
-  }, {
-    key: 'bindEvents',
-    value: function bindEvents() {
-      var _this = this;
-
-      document.addEventListener('click', function (e) {
-        _this.clickToSlide(_this.slider);
-
-        // this.toggleMouseWheel(this.el, this.slider, e);
-      });
-    }
-  }, {
-    key: 'createSlider',
-    value: function createSlider() {
-
-      this.slider = new _swiper2.default(this.el, {
-        slidesPerView: this.settings.slidesCount,
-        simulateTouch: true,
-        loop: true,
-        centeredSlides: true,
-        speed: 500,
-        initialSlide: 3,
-        loopAdditionalSlides: 8,
-        keyboardControl: true
-      });
-    }
-  }, {
-    key: 'clickToSlide',
-    value: function clickToSlide(slider) {
-      slider.on('click', function () {
-        var slideIdx = slider.clickedIndex;
-        slider.slideTo(slideIdx, 500);
-      });
-    }
-
-    // toggleMouseWheel(el, slider, event) {
-    //   const target = event.target.closest('.swiper-container');
-    //   target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
-    // }
-
-  }]);
-
-  return FullSlider;
-}();
-
-var teachersSlider = new FullSlider('.teachers__slider', { slidesCount: 7.11 });
-
-/***/ }),
-/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10982,11 +4123,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Scrollmagic = __webpack_require__(336);
+var _Scrollmagic = __webpack_require__(338);
 
 var _Scrollmagic2 = _interopRequireDefault(_Scrollmagic);
 
-var _helpers = __webpack_require__(49);
+var _helpers = __webpack_require__(46);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11106,2796 +4247,7 @@ var ScrollAnim = function () {
 exports.default = ScrollAnim;
 
 /***/ }),
-/* 336 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * ScrollMagic v2.0.5 (2015-04-29)
- * The javascript library for magical scroll interactions.
- * (c) 2015 Jan Paepke (@janpaepke)
- * Project Website: http://scrollmagic.io
- * 
- * @version 2.0.5
- * @license Dual licensed under MIT license and GPL.
- * @author Jan Paepke - e-mail@janpaepke.de
- *
- * @file ScrollMagic main library.
- */
-/**
- * @namespace ScrollMagic
- */
-(function (root, factory) {
-	if (true) {
-		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		module.exports = factory();
-	} else {
-		// Browser global
-		root.ScrollMagic = factory();
-	}
-}(this, function () {
-	"use strict";
-
-	var ScrollMagic = function () {
-		_util.log(2, '(COMPATIBILITY NOTICE) -> As of ScrollMagic 2.0.0 you need to use \'new ScrollMagic.Controller()\' to create a new controller instance. Use \'new ScrollMagic.Scene()\' to instance a scene.');
-	};
-
-	ScrollMagic.version = "2.0.5";
-
-	// TODO: temporary workaround for chrome's scroll jitter bug
-	window.addEventListener("mousewheel", function () {});
-
-	// global const
-	var PIN_SPACER_ATTRIBUTE = "data-scrollmagic-pin-spacer";
-
-	/**
-	 * The main class that is needed once per scroll container.
-	 *
-	 * @class
-	 *
-	 * @example
-	 * // basic initialization
-	 * var controller = new ScrollMagic.Controller();
-	 *
-	 * // passing options
-	 * var controller = new ScrollMagic.Controller({container: "#myContainer", loglevel: 3});
-	 *
-	 * @param {object} [options] - An object containing one or more options for the controller.
-	 * @param {(string|object)} [options.container=window] - A selector, DOM object that references the main container for scrolling.
-	 * @param {boolean} [options.vertical=true] - Sets the scroll mode to vertical (`true`) or horizontal (`false`) scrolling.
-	 * @param {object} [options.globalSceneOptions={}] - These options will be passed to every Scene that is added to the controller using the addScene method. For more information on Scene options see {@link ScrollMagic.Scene}.
-	 * @param {number} [options.loglevel=2] Loglevel for debugging. Note that logging is disabled in the minified version of ScrollMagic.
-	 ** `0` => silent
-	 ** `1` => errors
-	 ** `2` => errors, warnings
-	 ** `3` => errors, warnings, debuginfo
-	 * @param {boolean} [options.refreshInterval=100] - Some changes don't call events by default, like changing the container size or moving a scene trigger element.  
-	 This interval polls these parameters to fire the necessary events.  
-	 If you don't use custom containers, trigger elements or have static layouts, where the positions of the trigger elements don't change, you can set this to 0 disable interval checking and improve performance.
-	 *
-	 */
-	ScrollMagic.Controller = function (options) {
-/*
-	 * ----------------------------------------------------------------
-	 * settings
-	 * ----------------------------------------------------------------
-	 */
-		var
-		NAMESPACE = 'ScrollMagic.Controller',
-			SCROLL_DIRECTION_FORWARD = 'FORWARD',
-			SCROLL_DIRECTION_REVERSE = 'REVERSE',
-			SCROLL_DIRECTION_PAUSED = 'PAUSED',
-			DEFAULT_OPTIONS = CONTROLLER_OPTIONS.defaults;
-
-/*
-	 * ----------------------------------------------------------------
-	 * private vars
-	 * ----------------------------------------------------------------
-	 */
-		var
-		Controller = this,
-			_options = _util.extend({}, DEFAULT_OPTIONS, options),
-			_sceneObjects = [],
-			_updateScenesOnNextCycle = false,
-			// can be boolean (true => all scenes) or an array of scenes to be updated
-			_scrollPos = 0,
-			_scrollDirection = SCROLL_DIRECTION_PAUSED,
-			_isDocument = true,
-			_viewPortSize = 0,
-			_enabled = true,
-			_updateTimeout, _refreshTimeout;
-
-/*
-	 * ----------------------------------------------------------------
-	 * private functions
-	 * ----------------------------------------------------------------
-	 */
-
-		/**
-		 * Internal constructor function of the ScrollMagic Controller
-		 * @private
-		 */
-		var construct = function () {
-			for (var key in _options) {
-				if (!DEFAULT_OPTIONS.hasOwnProperty(key)) {
-					log(2, "WARNING: Unknown option \"" + key + "\"");
-					delete _options[key];
-				}
-			}
-			_options.container = _util.get.elements(_options.container)[0];
-			// check ScrollContainer
-			if (!_options.container) {
-				log(1, "ERROR creating object " + NAMESPACE + ": No valid scroll container supplied");
-				throw NAMESPACE + " init failed."; // cancel
-			}
-			_isDocument = _options.container === window || _options.container === document.body || !document.body.contains(_options.container);
-			// normalize to window
-			if (_isDocument) {
-				_options.container = window;
-			}
-			// update container size immediately
-			_viewPortSize = getViewportSize();
-			// set event handlers
-			_options.container.addEventListener("resize", onChange);
-			_options.container.addEventListener("scroll", onChange);
-
-			_options.refreshInterval = parseInt(_options.refreshInterval) || DEFAULT_OPTIONS.refreshInterval;
-			scheduleRefresh();
-
-			log(3, "added new " + NAMESPACE + " controller (v" + ScrollMagic.version + ")");
-		};
-
-		/**
-		 * Schedule the next execution of the refresh function
-		 * @private
-		 */
-		var scheduleRefresh = function () {
-			if (_options.refreshInterval > 0) {
-				_refreshTimeout = window.setTimeout(refresh, _options.refreshInterval);
-			}
-		};
-
-		/**
-		 * Default function to get scroll pos - overwriteable using `Controller.scrollPos(newFunction)`
-		 * @private
-		 */
-		var getScrollPos = function () {
-			return _options.vertical ? _util.get.scrollTop(_options.container) : _util.get.scrollLeft(_options.container);
-		};
-
-		/**
-		 * Returns the current viewport Size (width vor horizontal, height for vertical)
-		 * @private
-		 */
-		var getViewportSize = function () {
-			return _options.vertical ? _util.get.height(_options.container) : _util.get.width(_options.container);
-		};
-
-		/**
-		 * Default function to set scroll pos - overwriteable using `Controller.scrollTo(newFunction)`
-		 * Make available publicly for pinned mousewheel workaround.
-		 * @private
-		 */
-		var setScrollPos = this._setScrollPos = function (pos) {
-			if (_options.vertical) {
-				if (_isDocument) {
-					window.scrollTo(_util.get.scrollLeft(), pos);
-				} else {
-					_options.container.scrollTop = pos;
-				}
-			} else {
-				if (_isDocument) {
-					window.scrollTo(pos, _util.get.scrollTop());
-				} else {
-					_options.container.scrollLeft = pos;
-				}
-			}
-		};
-
-		/**
-		 * Handle updates in cycles instead of on scroll (performance)
-		 * @private
-		 */
-		var updateScenes = function () {
-			if (_enabled && _updateScenesOnNextCycle) {
-				// determine scenes to update
-				var scenesToUpdate = _util.type.Array(_updateScenesOnNextCycle) ? _updateScenesOnNextCycle : _sceneObjects.slice(0);
-				// reset scenes
-				_updateScenesOnNextCycle = false;
-				var oldScrollPos = _scrollPos;
-				// update scroll pos now instead of onChange, as it might have changed since scheduling (i.e. in-browser smooth scroll)
-				_scrollPos = Controller.scrollPos();
-				var deltaScroll = _scrollPos - oldScrollPos;
-				if (deltaScroll !== 0) { // scroll position changed?
-					_scrollDirection = (deltaScroll > 0) ? SCROLL_DIRECTION_FORWARD : SCROLL_DIRECTION_REVERSE;
-				}
-				// reverse order of scenes if scrolling reverse
-				if (_scrollDirection === SCROLL_DIRECTION_REVERSE) {
-					scenesToUpdate.reverse();
-				}
-				// update scenes
-				scenesToUpdate.forEach(function (scene, index) {
-					log(3, "updating Scene " + (index + 1) + "/" + scenesToUpdate.length + " (" + _sceneObjects.length + " total)");
-					scene.update(true);
-				});
-				if (scenesToUpdate.length === 0 && _options.loglevel >= 3) {
-					log(3, "updating 0 Scenes (nothing added to controller)");
-				}
-			}
-		};
-
-		/**
-		 * Initializes rAF callback
-		 * @private
-		 */
-		var debounceUpdate = function () {
-			_updateTimeout = _util.rAF(updateScenes);
-		};
-
-		/**
-		 * Handles Container changes
-		 * @private
-		 */
-		var onChange = function (e) {
-			log(3, "event fired causing an update:", e.type);
-			if (e.type == "resize") {
-				// resize
-				_viewPortSize = getViewportSize();
-				_scrollDirection = SCROLL_DIRECTION_PAUSED;
-			}
-			// schedule update
-			if (_updateScenesOnNextCycle !== true) {
-				_updateScenesOnNextCycle = true;
-				debounceUpdate();
-			}
-		};
-
-		var refresh = function () {
-			if (!_isDocument) {
-				// simulate resize event. Only works for viewport relevant param (performance)
-				if (_viewPortSize != getViewportSize()) {
-					var resizeEvent;
-					try {
-						resizeEvent = new Event('resize', {
-							bubbles: false,
-							cancelable: false
-						});
-					} catch (e) { // stupid IE
-						resizeEvent = document.createEvent("Event");
-						resizeEvent.initEvent("resize", false, false);
-					}
-					_options.container.dispatchEvent(resizeEvent);
-				}
-			}
-			_sceneObjects.forEach(function (scene, index) { // refresh all scenes
-				scene.refresh();
-			});
-			scheduleRefresh();
-		};
-
-		/**
-		 * Send a debug message to the console.
-		 * provided publicly with _log for plugins
-		 * @private
-		 *
-		 * @param {number} loglevel - The loglevel required to initiate output for the message.
-		 * @param {...mixed} output - One or more variables that should be passed to the console.
-		 */
-		var log = this._log = function (loglevel, output) {
-			if (_options.loglevel >= loglevel) {
-				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ") ->");
-				_util.log.apply(window, arguments);
-			}
-		};
-		// for scenes we have getters for each option, but for the controller we don't, so we need to make it available externally for plugins
-		this._options = _options;
-
-		/**
-		 * Sort scenes in ascending order of their start offset.
-		 * @private
-		 *
-		 * @param {array} ScenesArray - an array of ScrollMagic Scenes that should be sorted
-		 * @return {array} The sorted array of Scenes.
-		 */
-		var sortScenes = function (ScenesArray) {
-			if (ScenesArray.length <= 1) {
-				return ScenesArray;
-			} else {
-				var scenes = ScenesArray.slice(0);
-				scenes.sort(function (a, b) {
-					return a.scrollOffset() > b.scrollOffset() ? 1 : -1;
-				});
-				return scenes;
-			}
-		};
-
-		/**
-		 * ----------------------------------------------------------------
-		 * public functions
-		 * ----------------------------------------------------------------
-		 */
-
-		/**
-		 * Add one ore more scene(s) to the controller.  
-		 * This is the equivalent to `Scene.addTo(controller)`.
-		 * @public
-		 * @example
-		 * // with a previously defined scene
-		 * controller.addScene(scene);
-		 *
-		 * // with a newly created scene.
-		 * controller.addScene(new ScrollMagic.Scene({duration : 0}));
-		 *
-		 * // adding multiple scenes
-		 * controller.addScene([scene, scene2, new ScrollMagic.Scene({duration : 0})]);
-		 *
-		 * @param {(ScrollMagic.Scene|array)} newScene - ScrollMagic Scene or Array of Scenes to be added to the controller.
-		 * @return {Controller} Parent object for chaining.
-		 */
-		this.addScene = function (newScene) {
-			if (_util.type.Array(newScene)) {
-				newScene.forEach(function (scene, index) {
-					Controller.addScene(scene);
-				});
-			} else if (newScene instanceof ScrollMagic.Scene) {
-				if (newScene.controller() !== Controller) {
-					newScene.addTo(Controller);
-				} else if (_sceneObjects.indexOf(newScene) < 0) {
-					// new scene
-					_sceneObjects.push(newScene); // add to array
-					_sceneObjects = sortScenes(_sceneObjects); // sort
-					newScene.on("shift.controller_sort", function () { // resort whenever scene moves
-						_sceneObjects = sortScenes(_sceneObjects);
-					});
-					// insert Global defaults.
-					for (var key in _options.globalSceneOptions) {
-						if (newScene[key]) {
-							newScene[key].call(newScene, _options.globalSceneOptions[key]);
-						}
-					}
-					log(3, "adding Scene (now " + _sceneObjects.length + " total)");
-				}
-			} else {
-				log(1, "ERROR: invalid argument supplied for '.addScene()'");
-			}
-			return Controller;
-		};
-
-		/**
-		 * Remove one ore more scene(s) from the controller.  
-		 * This is the equivalent to `Scene.remove()`.
-		 * @public
-		 * @example
-		 * // remove a scene from the controller
-		 * controller.removeScene(scene);
-		 *
-		 * // remove multiple scenes from the controller
-		 * controller.removeScene([scene, scene2, scene3]);
-		 *
-		 * @param {(ScrollMagic.Scene|array)} Scene - ScrollMagic Scene or Array of Scenes to be removed from the controller.
-		 * @returns {Controller} Parent object for chaining.
-		 */
-		this.removeScene = function (Scene) {
-			if (_util.type.Array(Scene)) {
-				Scene.forEach(function (scene, index) {
-					Controller.removeScene(scene);
-				});
-			} else {
-				var index = _sceneObjects.indexOf(Scene);
-				if (index > -1) {
-					Scene.off("shift.controller_sort");
-					_sceneObjects.splice(index, 1);
-					log(3, "removing Scene (now " + _sceneObjects.length + " left)");
-					Scene.remove();
-				}
-			}
-			return Controller;
-		};
-
-		/**
-		 * Update one ore more scene(s) according to the scroll position of the container.  
-		 * This is the equivalent to `Scene.update()`.  
-		 * The update method calculates the scene's start and end position (based on the trigger element, trigger hook, duration and offset) and checks it against the current scroll position of the container.  
-		 * It then updates the current scene state accordingly (or does nothing, if the state is already correct) – Pins will be set to their correct position and tweens will be updated to their correct progress.  
-		 * _**Note:** This method gets called constantly whenever Controller detects a change. The only application for you is if you change something outside of the realm of ScrollMagic, like moving the trigger or changing tween parameters._
-		 * @public
-		 * @example
-		 * // update a specific scene on next cycle
-		 * controller.updateScene(scene);
-		 *
-		 * // update a specific scene immediately
-		 * controller.updateScene(scene, true);
-		 *
-		 * // update multiple scenes scene on next cycle
-		 * controller.updateScene([scene1, scene2, scene3]);
-		 *
-		 * @param {ScrollMagic.Scene} Scene - ScrollMagic Scene or Array of Scenes that is/are supposed to be updated.
-		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle.  
-		 This is useful when changing multiple properties of the scene - this way it will only be updated once all new properties are set (updateScenes).
-		 * @return {Controller} Parent object for chaining.
-		 */
-		this.updateScene = function (Scene, immediately) {
-			if (_util.type.Array(Scene)) {
-				Scene.forEach(function (scene, index) {
-					Controller.updateScene(scene, immediately);
-				});
-			} else {
-				if (immediately) {
-					Scene.update(true);
-				} else if (_updateScenesOnNextCycle !== true && Scene instanceof ScrollMagic.Scene) { // if _updateScenesOnNextCycle is true, all connected scenes are already scheduled for update
-					// prep array for next update cycle
-					_updateScenesOnNextCycle = _updateScenesOnNextCycle || [];
-					if (_updateScenesOnNextCycle.indexOf(Scene) == -1) {
-						_updateScenesOnNextCycle.push(Scene);
-					}
-					_updateScenesOnNextCycle = sortScenes(_updateScenesOnNextCycle); // sort
-					debounceUpdate();
-				}
-			}
-			return Controller;
-		};
-
-		/**
-		 * Updates the controller params and calls updateScene on every scene, that is attached to the controller.  
-		 * See `Controller.updateScene()` for more information about what this means.  
-		 * In most cases you will not need this function, as it is called constantly, whenever ScrollMagic detects a state change event, like resize or scroll.  
-		 * The only application for this method is when ScrollMagic fails to detect these events.  
-		 * One application is with some external scroll libraries (like iScroll) that move an internal container to a negative offset instead of actually scrolling. In this case the update on the controller needs to be called whenever the child container's position changes.
-		 * For this case there will also be the need to provide a custom function to calculate the correct scroll position. See `Controller.scrollPos()` for details.
-		 * @public
-		 * @example
-		 * // update the controller on next cycle (saves performance due to elimination of redundant updates)
-		 * controller.update();
-		 *
-		 * // update the controller immediately
-		 * controller.update(true);
-		 *
-		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle (better performance)
-		 * @return {Controller} Parent object for chaining.
-		 */
-		this.update = function (immediately) {
-			onChange({
-				type: "resize"
-			}); // will update size and set _updateScenesOnNextCycle to true
-			if (immediately) {
-				updateScenes();
-			}
-			return Controller;
-		};
-
-		/**
-		 * Scroll to a numeric scroll offset, a DOM element, the start of a scene or provide an alternate method for scrolling.  
-		 * For vertical controllers it will change the top scroll offset and for horizontal applications it will change the left offset.
-		 * @public
-		 *
-		 * @since 1.1.0
-		 * @example
-		 * // scroll to an offset of 100
-		 * controller.scrollTo(100);
-		 *
-		 * // scroll to a DOM element
-		 * controller.scrollTo("#anchor");
-		 *
-		 * // scroll to the beginning of a scene
-		 * var scene = new ScrollMagic.Scene({offset: 200});
-		 * controller.scrollTo(scene);
-		 *
-		 * // define a new scroll position modification function (jQuery animate instead of jump)
-		 * controller.scrollTo(function (newScrollPos) {
-		 *	$("html, body").animate({scrollTop: newScrollPos});
-		 * });
-		 * controller.scrollTo(100); // call as usual, but the new function will be used instead
-		 *
-		 * // define a new scroll function with an additional parameter
-		 * controller.scrollTo(function (newScrollPos, message) {
-		 *  console.log(message);
-		 *	$(this).animate({scrollTop: newScrollPos});
-		 * });
-		 * // call as usual, but supply an extra parameter to the defined custom function
-		 * controller.scrollTo(100, "my message");
-		 *
-		 * // define a new scroll function with an additional parameter containing multiple variables
-		 * controller.scrollTo(function (newScrollPos, options) {
-		 *  someGlobalVar = options.a + options.b;
-		 *	$(this).animate({scrollTop: newScrollPos});
-		 * });
-		 * // call as usual, but supply an extra parameter containing multiple options
-		 * controller.scrollTo(100, {a: 1, b: 2});
-		 *
-		 * // define a new scroll function with a callback supplied as an additional parameter
-		 * controller.scrollTo(function (newScrollPos, callback) {
-		 *	$(this).animate({scrollTop: newScrollPos}, 400, "swing", callback);
-		 * });
-		 * // call as usual, but supply an extra parameter, which is used as a callback in the previously defined custom scroll function
-		 * controller.scrollTo(100, function() {
-		 *	console.log("scroll has finished.");
-		 * });
-		 *
-		 * @param {mixed} scrollTarget - The supplied argument can be one of these types:
-		 * 1. `number` -> The container will scroll to this new scroll offset.
-		 * 2. `string` or `object` -> Can be a selector or a DOM object.  
-		 *  The container will scroll to the position of this element.
-		 * 3. `ScrollMagic Scene` -> The container will scroll to the start of this scene.
-		 * 4. `function` -> This function will be used for future scroll position modifications.  
-		 *  This provides a way for you to change the behaviour of scrolling and adding new behaviour like animation. The function receives the new scroll position as a parameter and a reference to the container element using `this`.  
-		 *  It may also optionally receive an optional additional parameter (see below)  
-		 *  _**NOTE:**  
-		 *  All other options will still work as expected, using the new function to scroll._
-		 * @param {mixed} [additionalParameter] - If a custom scroll function was defined (see above 4.), you may want to supply additional parameters to it, when calling it. You can do this using this parameter – see examples for details. Please note, that this parameter will have no effect, if you use the default scrolling function.
-		 * @returns {Controller} Parent object for chaining.
-		 */
-		this.scrollTo = function (scrollTarget, additionalParameter) {
-			if (_util.type.Number(scrollTarget)) { // excecute
-				setScrollPos.call(_options.container, scrollTarget, additionalParameter);
-			} else if (scrollTarget instanceof ScrollMagic.Scene) { // scroll to scene
-				if (scrollTarget.controller() === Controller) { // check if the controller is associated with this scene
-					Controller.scrollTo(scrollTarget.scrollOffset(), additionalParameter);
-				} else {
-					log(2, "scrollTo(): The supplied scene does not belong to this controller. Scroll cancelled.", scrollTarget);
-				}
-			} else if (_util.type.Function(scrollTarget)) { // assign new scroll function
-				setScrollPos = scrollTarget;
-			} else { // scroll to element
-				var elem = _util.get.elements(scrollTarget)[0];
-				if (elem) {
-					// if parent is pin spacer, use spacer position instead so correct start position is returned for pinned elements.
-					while (elem.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) {
-						elem = elem.parentNode;
-					}
-
-					var
-					param = _options.vertical ? "top" : "left",
-						// which param is of interest ?
-						containerOffset = _util.get.offset(_options.container),
-						// container position is needed because element offset is returned in relation to document, not in relation to container.
-						elementOffset = _util.get.offset(elem);
-
-					if (!_isDocument) { // container is not the document root, so substract scroll Position to get correct trigger element position relative to scrollcontent
-						containerOffset[param] -= Controller.scrollPos();
-					}
-
-					Controller.scrollTo(elementOffset[param] - containerOffset[param], additionalParameter);
-				} else {
-					log(2, "scrollTo(): The supplied argument is invalid. Scroll cancelled.", scrollTarget);
-				}
-			}
-			return Controller;
-		};
-
-		/**
-		 * **Get** the current scrollPosition or **Set** a new method to calculate it.  
-		 * -> **GET**:
-		 * When used as a getter this function will return the current scroll position.  
-		 * To get a cached value use Controller.info("scrollPos"), which will be updated in the update cycle.  
-		 * For vertical controllers it will return the top scroll offset and for horizontal applications it will return the left offset.
-		 *
-		 * -> **SET**:
-		 * When used as a setter this method prodes a way to permanently overwrite the controller's scroll position calculation.  
-		 * A typical usecase is when the scroll position is not reflected by the containers scrollTop or scrollLeft values, but for example by the inner offset of a child container.  
-		 * Moving a child container inside a parent is a commonly used method for several scrolling frameworks, including iScroll.  
-		 * By providing an alternate calculation function you can make sure ScrollMagic receives the correct scroll position.  
-		 * Please also bear in mind that your function should return y values for vertical scrolls an x for horizontals.
-		 *
-		 * To change the current scroll position please use `Controller.scrollTo()`.
-		 * @public
-		 *
-		 * @example
-		 * // get the current scroll Position
-		 * var scrollPos = controller.scrollPos();
-		 *
-		 * // set a new scroll position calculation method
-		 * controller.scrollPos(function () {
-		 *	return this.info("vertical") ? -mychildcontainer.y : -mychildcontainer.x
-		 * });
-		 *
-		 * @param {function} [scrollPosMethod] - The function to be used for the scroll position calculation of the container.
-		 * @returns {(number|Controller)} Current scroll position or parent object for chaining.
-		 */
-		this.scrollPos = function (scrollPosMethod) {
-			if (!arguments.length) { // get
-				return getScrollPos.call(Controller);
-			} else { // set
-				if (_util.type.Function(scrollPosMethod)) {
-					getScrollPos = scrollPosMethod;
-				} else {
-					log(2, "Provided value for method 'scrollPos' is not a function. To change the current scroll position use 'scrollTo()'.");
-				}
-			}
-			return Controller;
-		};
-
-		/**
-		 * **Get** all infos or one in particular about the controller.
-		 * @public
-		 * @example
-		 * // returns the current scroll position (number)
-		 * var scrollPos = controller.info("scrollPos");
-		 *
-		 * // returns all infos as an object
-		 * var infos = controller.info();
-		 *
-		 * @param {string} [about] - If passed only this info will be returned instead of an object containing all.  
-		 Valid options are:
-		 ** `"size"` => the current viewport size of the container
-		 ** `"vertical"` => true if vertical scrolling, otherwise false
-		 ** `"scrollPos"` => the current scroll position
-		 ** `"scrollDirection"` => the last known direction of the scroll
-		 ** `"container"` => the container element
-		 ** `"isDocument"` => true if container element is the document.
-		 * @returns {(mixed|object)} The requested info(s).
-		 */
-		this.info = function (about) {
-			var values = {
-				size: _viewPortSize,
-				// contains height or width (in regard to orientation);
-				vertical: _options.vertical,
-				scrollPos: _scrollPos,
-				scrollDirection: _scrollDirection,
-				container: _options.container,
-				isDocument: _isDocument
-			};
-			if (!arguments.length) { // get all as an object
-				return values;
-			} else if (values[about] !== undefined) {
-				return values[about];
-			} else {
-				log(1, "ERROR: option \"" + about + "\" is not available");
-				return;
-			}
-		};
-
-		/**
-		 * **Get** or **Set** the current loglevel option value.
-		 * @public
-		 *
-		 * @example
-		 * // get the current value
-		 * var loglevel = controller.loglevel();
-		 *
-		 * // set a new value
-		 * controller.loglevel(3);
-		 *
-		 * @param {number} [newLoglevel] - The new loglevel setting of the Controller. `[0-3]`
-		 * @returns {(number|Controller)} Current loglevel or parent object for chaining.
-		 */
-		this.loglevel = function (newLoglevel) {
-			if (!arguments.length) { // get
-				return _options.loglevel;
-			} else if (_options.loglevel != newLoglevel) { // set
-				_options.loglevel = newLoglevel;
-			}
-			return Controller;
-		};
-
-		/**
-		 * **Get** or **Set** the current enabled state of the controller.  
-		 * This can be used to disable all Scenes connected to the controller without destroying or removing them.
-		 * @public
-		 *
-		 * @example
-		 * // get the current value
-		 * var enabled = controller.enabled();
-		 *
-		 * // disable the controller
-		 * controller.enabled(false);
-		 *
-		 * @param {boolean} [newState] - The new enabled state of the controller `true` or `false`.
-		 * @returns {(boolean|Controller)} Current enabled state or parent object for chaining.
-		 */
-		this.enabled = function (newState) {
-			if (!arguments.length) { // get
-				return _enabled;
-			} else if (_enabled != newState) { // set
-				_enabled = !! newState;
-				Controller.updateScene(_sceneObjects, true);
-			}
-			return Controller;
-		};
-
-		/**
-		 * Destroy the Controller, all Scenes and everything.
-		 * @public
-		 *
-		 * @example
-		 * // without resetting the scenes
-		 * controller = controller.destroy();
-		 *
-		 * // with scene reset
-		 * controller = controller.destroy(true);
-		 *
-		 * @param {boolean} [resetScenes=false] - If `true` the pins and tweens (if existent) of all scenes will be reset.
-		 * @returns {null} Null to unset handler variables.
-		 */
-		this.destroy = function (resetScenes) {
-			window.clearTimeout(_refreshTimeout);
-			var i = _sceneObjects.length;
-			while (i--) {
-				_sceneObjects[i].destroy(resetScenes);
-			}
-			_options.container.removeEventListener("resize", onChange);
-			_options.container.removeEventListener("scroll", onChange);
-			_util.cAF(_updateTimeout);
-			log(3, "destroyed " + NAMESPACE + " (reset: " + (resetScenes ? "true" : "false") + ")");
-			return null;
-		};
-
-		// INIT
-		construct();
-		return Controller;
-	};
-
-	// store pagewide controller options
-	var CONTROLLER_OPTIONS = {
-		defaults: {
-			container: window,
-			vertical: true,
-			globalSceneOptions: {},
-			loglevel: 2,
-			refreshInterval: 100
-		}
-	};
-/*
- * method used to add an option to ScrollMagic Scenes.
- */
-	ScrollMagic.Controller.addOption = function (name, defaultValue) {
-		CONTROLLER_OPTIONS.defaults[name] = defaultValue;
-	};
-	// instance extension function for plugins
-	ScrollMagic.Controller.extend = function (extension) {
-		var oldClass = this;
-		ScrollMagic.Controller = function () {
-			oldClass.apply(this, arguments);
-			this.$super = _util.extend({}, this); // copy parent state
-			return extension.apply(this, arguments) || this;
-		};
-		_util.extend(ScrollMagic.Controller, oldClass); // copy properties
-		ScrollMagic.Controller.prototype = oldClass.prototype; // copy prototype
-		ScrollMagic.Controller.prototype.constructor = ScrollMagic.Controller; // restore constructor
-	};
-
-
-	/**
-	 * A Scene defines where the controller should react and how.
-	 *
-	 * @class
-	 *
-	 * @example
-	 * // create a standard scene and add it to a controller
-	 * new ScrollMagic.Scene()
-	 *		.addTo(controller);
-	 *
-	 * // create a scene with custom options and assign a handler to it.
-	 * var scene = new ScrollMagic.Scene({
-	 * 		duration: 100,
-	 *		offset: 200,
-	 *		triggerHook: "onEnter",
-	 *		reverse: false
-	 * });
-	 *
-	 * @param {object} [options] - Options for the Scene. The options can be updated at any time.  
-	 Instead of setting the options for each scene individually you can also set them globally in the controller as the controllers `globalSceneOptions` option. The object accepts the same properties as the ones below.  
-	 When a scene is added to the controller the options defined using the Scene constructor will be overwritten by those set in `globalSceneOptions`.
-	 * @param {(number|function)} [options.duration=0] - The duration of the scene. 
-	 If `0` tweens will auto-play when reaching the scene start point, pins will be pinned indefinetly starting at the start position.  
-	 A function retuning the duration value is also supported. Please see `Scene.duration()` for details.
-	 * @param {number} [options.offset=0] - Offset Value for the Trigger Position. If no triggerElement is defined this will be the scroll distance from the start of the page, after which the scene will start.
-	 * @param {(string|object)} [options.triggerElement=null] - Selector or DOM object that defines the start of the scene. If undefined the scene will start right at the start of the page (unless an offset is set).
-	 * @param {(number|string)} [options.triggerHook="onCenter"] - Can be a number between 0 and 1 defining the position of the trigger Hook in relation to the viewport.  
-	 Can also be defined using a string:
-	 ** `"onEnter"` => `1`
-	 ** `"onCenter"` => `0.5`
-	 ** `"onLeave"` => `0`
-	 * @param {boolean} [options.reverse=true] - Should the scene reverse, when scrolling up?
-	 * @param {number} [options.loglevel=2] - Loglevel for debugging. Note that logging is disabled in the minified version of ScrollMagic.
-	 ** `0` => silent
-	 ** `1` => errors
-	 ** `2` => errors, warnings
-	 ** `3` => errors, warnings, debuginfo
-	 * 
-	 */
-	ScrollMagic.Scene = function (options) {
-
-/*
-	 * ----------------------------------------------------------------
-	 * settings
-	 * ----------------------------------------------------------------
-	 */
-
-		var
-		NAMESPACE = 'ScrollMagic.Scene',
-			SCENE_STATE_BEFORE = 'BEFORE',
-			SCENE_STATE_DURING = 'DURING',
-			SCENE_STATE_AFTER = 'AFTER',
-			DEFAULT_OPTIONS = SCENE_OPTIONS.defaults;
-
-/*
-	 * ----------------------------------------------------------------
-	 * private vars
-	 * ----------------------------------------------------------------
-	 */
-
-		var
-		Scene = this,
-			_options = _util.extend({}, DEFAULT_OPTIONS, options),
-			_state = SCENE_STATE_BEFORE,
-			_progress = 0,
-			_scrollOffset = {
-				start: 0,
-				end: 0
-			},
-			// reflects the controllers's scroll position for the start and end of the scene respectively
-			_triggerPos = 0,
-			_enabled = true,
-			_durationUpdateMethod, _controller;
-
-		/**
-		 * Internal constructor function of the ScrollMagic Scene
-		 * @private
-		 */
-		var construct = function () {
-			for (var key in _options) { // check supplied options
-				if (!DEFAULT_OPTIONS.hasOwnProperty(key)) {
-					log(2, "WARNING: Unknown option \"" + key + "\"");
-					delete _options[key];
-				}
-			}
-			// add getters/setters for all possible options
-			for (var optionName in DEFAULT_OPTIONS) {
-				addSceneOption(optionName);
-			}
-			// validate all options
-			validateOption();
-		};
-
-/*
- * ----------------------------------------------------------------
- * Event Management
- * ----------------------------------------------------------------
- */
-
-		var _listeners = {};
-		/**
-		 * Scene start event.  
-		 * Fires whenever the scroll position its the starting point of the scene.  
-		 * It will also fire when scrolling back up going over the start position of the scene. If you want something to happen only when scrolling down/right, use the scrollDirection parameter passed to the callback.
-		 *
-		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
-		 *
-		 * @event ScrollMagic.Scene#start
-		 *
-		 * @example
-		 * scene.on("start", function (event) {
-		 * 	console.log("Hit start point of scene.");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.progress - Reflects the current progress of the scene
-		 * @property {string} event.state - The current state of the scene `"BEFORE"` or `"DURING"`
-		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
-		 */
-		/**
-		 * Scene end event.  
-		 * Fires whenever the scroll position its the ending point of the scene.  
-		 * It will also fire when scrolling back up from after the scene and going over its end position. If you want something to happen only when scrolling down/right, use the scrollDirection parameter passed to the callback.
-		 *
-		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
-		 *
-		 * @event ScrollMagic.Scene#end
-		 *
-		 * @example
-		 * scene.on("end", function (event) {
-		 * 	console.log("Hit end point of scene.");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.progress - Reflects the current progress of the scene
-		 * @property {string} event.state - The current state of the scene `"DURING"` or `"AFTER"`
-		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
-		 */
-		/**
-		 * Scene enter event.  
-		 * Fires whenever the scene enters the "DURING" state.  
-		 * Keep in mind that it doesn't matter if the scene plays forward or backward: This event always fires when the scene enters its active scroll timeframe, regardless of the scroll-direction.
-		 *
-		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
-		 *
-		 * @event ScrollMagic.Scene#enter
-		 *
-		 * @example
-		 * scene.on("enter", function (event) {
-		 * 	console.log("Scene entered.");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.progress - Reflects the current progress of the scene
-		 * @property {string} event.state - The current state of the scene - always `"DURING"`
-		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
-		 */
-		/**
-		 * Scene leave event.  
-		 * Fires whenever the scene's state goes from "DURING" to either "BEFORE" or "AFTER".  
-		 * Keep in mind that it doesn't matter if the scene plays forward or backward: This event always fires when the scene leaves its active scroll timeframe, regardless of the scroll-direction.
-		 *
-		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
-		 *
-		 * @event ScrollMagic.Scene#leave
-		 *
-		 * @example
-		 * scene.on("leave", function (event) {
-		 * 	console.log("Scene left.");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.progress - Reflects the current progress of the scene
-		 * @property {string} event.state - The current state of the scene `"BEFORE"` or `"AFTER"`
-		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
-		 */
-		/**
-		 * Scene update event.  
-		 * Fires whenever the scene is updated (but not necessarily changes the progress).
-		 *
-		 * @event ScrollMagic.Scene#update
-		 *
-		 * @example
-		 * scene.on("update", function (event) {
-		 * 	console.log("Scene updated.");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.startPos - The starting position of the scene (in relation to the conainer)
-		 * @property {number} event.endPos - The ending position of the scene (in relation to the conainer)
-		 * @property {number} event.scrollPos - The current scroll position of the container
-		 */
-		/**
-		 * Scene progress event.  
-		 * Fires whenever the progress of the scene changes.
-		 *
-		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
-		 *
-		 * @event ScrollMagic.Scene#progress
-		 *
-		 * @example
-		 * scene.on("progress", function (event) {
-		 * 	console.log("Scene progress changed to " + event.progress);
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {number} event.progress - Reflects the current progress of the scene
-		 * @property {string} event.state - The current state of the scene `"BEFORE"`, `"DURING"` or `"AFTER"`
-		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
-		 */
-		/**
-		 * Scene change event.  
-		 * Fires whenvever a property of the scene is changed.
-		 *
-		 * @event ScrollMagic.Scene#change
-		 *
-		 * @example
-		 * scene.on("change", function (event) {
-		 * 	console.log("Scene Property \"" + event.what + "\" changed to " + event.newval);
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {string} event.what - Indicates what value has been changed
-		 * @property {mixed} event.newval - The new value of the changed property
-		 */
-		/**
-		 * Scene shift event.  
-		 * Fires whenvever the start or end **scroll offset** of the scene change.
-		 * This happens explicitely, when one of these values change: `offset`, `duration` or `triggerHook`.
-		 * It will fire implicitly when the `triggerElement` changes, if the new element has a different position (most cases).
-		 * It will also fire implicitly when the size of the container changes and the triggerHook is anything other than `onLeave`.
-		 *
-		 * @event ScrollMagic.Scene#shift
-		 * @since 1.1.0
-		 *
-		 * @example
-		 * scene.on("shift", function (event) {
-		 * 	console.log("Scene moved, because the " + event.reason + " has changed.)");
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {string} event.reason - Indicates why the scene has shifted
-		 */
-		/**
-		 * Scene destroy event.  
-		 * Fires whenvever the scene is destroyed.
-		 * This can be used to tidy up custom behaviour used in events.
-		 *
-		 * @event ScrollMagic.Scene#destroy
-		 * @since 1.1.0
-		 *
-		 * @example
-		 * scene.on("enter", function (event) {
-		 *        // add custom action
-		 *        $("#my-elem").left("200");
-		 *      })
-		 *      .on("destroy", function (event) {
-		 *        // reset my element to start position
-		 *        if (event.reset) {
-		 *          $("#my-elem").left("0");
-		 *        }
-		 *      });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {boolean} event.reset - Indicates if the destroy method was called with reset `true` or `false`.
-		 */
-		/**
-		 * Scene add event.  
-		 * Fires when the scene is added to a controller.
-		 * This is mostly used by plugins to know that change might be due.
-		 *
-		 * @event ScrollMagic.Scene#add
-		 * @since 2.0.0
-		 *
-		 * @example
-		 * scene.on("add", function (event) {
-		 * 	console.log('Scene was added to a new controller.');
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 * @property {boolean} event.controller - The controller object the scene was added to.
-		 */
-		/**
-		 * Scene remove event.  
-		 * Fires when the scene is removed from a controller.
-		 * This is mostly used by plugins to know that change might be due.
-		 *
-		 * @event ScrollMagic.Scene#remove
-		 * @since 2.0.0
-		 *
-		 * @example
-		 * scene.on("remove", function (event) {
-		 * 	console.log('Scene was removed from its controller.');
-		 * });
-		 *
-		 * @property {object} event - The event Object passed to each callback
-		 * @property {string} event.type - The name of the event
-		 * @property {Scene} event.target - The Scene object that triggered this event
-		 */
-
-		/**
-		 * Add one ore more event listener.  
-		 * The callback function will be fired at the respective event, and an object containing relevant data will be passed to the callback.
-		 * @method ScrollMagic.Scene#on
-		 *
-		 * @example
-		 * function callback (event) {
-		 * 		console.log("Event fired! (" + event.type + ")");
-		 * }
-		 * // add listeners
-		 * scene.on("change update progress start end enter leave", callback);
-		 *
-		 * @param {string} names - The name or names of the event the callback should be attached to.
-		 * @param {function} callback - A function that should be executed, when the event is dispatched. An event object will be passed to the callback.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.on = function (names, callback) {
-			if (_util.type.Function(callback)) {
-				names = names.trim().split(' ');
-				names.forEach(function (fullname) {
-					var
-					nameparts = fullname.split('.'),
-						eventname = nameparts[0],
-						namespace = nameparts[1];
-					if (eventname != "*") { // disallow wildcards
-						if (!_listeners[eventname]) {
-							_listeners[eventname] = [];
-						}
-						_listeners[eventname].push({
-							namespace: namespace || '',
-							callback: callback
-						});
-					}
-				});
-			} else {
-				log(1, "ERROR when calling '.on()': Supplied callback for '" + names + "' is not a valid function!");
-			}
-			return Scene;
-		};
-
-		/**
-		 * Remove one or more event listener.
-		 * @method ScrollMagic.Scene#off
-		 *
-		 * @example
-		 * function callback (event) {
-		 * 		console.log("Event fired! (" + event.type + ")");
-		 * }
-		 * // add listeners
-		 * scene.on("change update", callback);
-		 * // remove listeners
-		 * scene.off("change update", callback);
-		 *
-		 * @param {string} names - The name or names of the event that should be removed.
-		 * @param {function} [callback] - A specific callback function that should be removed. If none is passed all callbacks to the event listener will be removed.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.off = function (names, callback) {
-			if (!names) {
-				log(1, "ERROR: Invalid event name supplied.");
-				return Scene;
-			}
-			names = names.trim().split(' ');
-			names.forEach(function (fullname, key) {
-				var
-				nameparts = fullname.split('.'),
-					eventname = nameparts[0],
-					namespace = nameparts[1] || '',
-					removeList = eventname === '*' ? Object.keys(_listeners) : [eventname];
-				removeList.forEach(function (remove) {
-					var
-					list = _listeners[remove] || [],
-						i = list.length;
-					while (i--) {
-						var listener = list[i];
-						if (listener && (namespace === listener.namespace || namespace === '*') && (!callback || callback == listener.callback)) {
-							list.splice(i, 1);
-						}
-					}
-					if (!list.length) {
-						delete _listeners[remove];
-					}
-				});
-			});
-			return Scene;
-		};
-
-		/**
-		 * Trigger an event.
-		 * @method ScrollMagic.Scene#trigger
-		 *
-		 * @example
-		 * this.trigger("change");
-		 *
-		 * @param {string} name - The name of the event that should be triggered.
-		 * @param {object} [vars] - An object containing info that should be passed to the callback.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.trigger = function (name, vars) {
-			if (name) {
-				var
-				nameparts = name.trim().split('.'),
-					eventname = nameparts[0],
-					namespace = nameparts[1],
-					listeners = _listeners[eventname];
-				log(3, 'event fired:', eventname, vars ? "->" : '', vars || '');
-				if (listeners) {
-					listeners.forEach(function (listener, key) {
-						if (!namespace || namespace === listener.namespace) {
-							listener.callback.call(Scene, new ScrollMagic.Event(eventname, listener.namespace, Scene, vars));
-						}
-					});
-				}
-			} else {
-				log(1, "ERROR: Invalid event name supplied.");
-			}
-			return Scene;
-		};
-
-		// set event listeners
-		Scene.on("change.internal", function (e) {
-			if (e.what !== "loglevel" && e.what !== "tweenChanges") { // no need for a scene update scene with these options...
-				if (e.what === "triggerElement") {
-					updateTriggerElementPosition();
-				} else if (e.what === "reverse") { // the only property left that may have an impact on the current scene state. Everything else is handled by the shift event.
-					Scene.update();
-				}
-			}
-		}).on("shift.internal", function (e) {
-			updateScrollOffset();
-			Scene.update(); // update scene to reflect new position
-		});
-
-		/**
-		 * Send a debug message to the console.
-		 * @private
-		 * but provided publicly with _log for plugins
-		 *
-		 * @param {number} loglevel - The loglevel required to initiate output for the message.
-		 * @param {...mixed} output - One or more variables that should be passed to the console.
-		 */
-		var log = this._log = function (loglevel, output) {
-			if (_options.loglevel >= loglevel) {
-				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ") ->");
-				_util.log.apply(window, arguments);
-			}
-		};
-
-		/**
-		 * Add the scene to a controller.  
-		 * This is the equivalent to `Controller.addScene(scene)`.
-		 * @method ScrollMagic.Scene#addTo
-		 *
-		 * @example
-		 * // add a scene to a ScrollMagic Controller
-		 * scene.addTo(controller);
-		 *
-		 * @param {ScrollMagic.Controller} controller - The controller to which the scene should be added.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.addTo = function (controller) {
-			if (!(controller instanceof ScrollMagic.Controller)) {
-				log(1, "ERROR: supplied argument of 'addTo()' is not a valid ScrollMagic Controller");
-			} else if (_controller != controller) {
-				// new controller
-				if (_controller) { // was associated to a different controller before, so remove it...
-					_controller.removeScene(Scene);
-				}
-				_controller = controller;
-				validateOption();
-				updateDuration(true);
-				updateTriggerElementPosition(true);
-				updateScrollOffset();
-				_controller.info("container").addEventListener('resize', onContainerResize);
-				controller.addScene(Scene);
-				Scene.trigger("add", {
-					controller: _controller
-				});
-				log(3, "added " + NAMESPACE + " to controller");
-				Scene.update();
-			}
-			return Scene;
-		};
-
-		/**
-		 * **Get** or **Set** the current enabled state of the scene.  
-		 * This can be used to disable this scene without removing or destroying it.
-		 * @method ScrollMagic.Scene#enabled
-		 *
-		 * @example
-		 * // get the current value
-		 * var enabled = scene.enabled();
-		 *
-		 * // disable the scene
-		 * scene.enabled(false);
-		 *
-		 * @param {boolean} [newState] - The new enabled state of the scene `true` or `false`.
-		 * @returns {(boolean|Scene)} Current enabled state or parent object for chaining.
-		 */
-		this.enabled = function (newState) {
-			if (!arguments.length) { // get
-				return _enabled;
-			} else if (_enabled != newState) { // set
-				_enabled = !! newState;
-				Scene.update(true);
-			}
-			return Scene;
-		};
-
-		/**
-		 * Remove the scene from the controller.  
-		 * This is the equivalent to `Controller.removeScene(scene)`.
-		 * The scene will not be updated anymore until you readd it to a controller.
-		 * To remove the pin or the tween you need to call removeTween() or removePin() respectively.
-		 * @method ScrollMagic.Scene#remove
-		 * @example
-		 * // remove the scene from its controller
-		 * scene.remove();
-		 *
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.remove = function () {
-			if (_controller) {
-				_controller.info("container").removeEventListener('resize', onContainerResize);
-				var tmpParent = _controller;
-				_controller = undefined;
-				tmpParent.removeScene(Scene);
-				Scene.trigger("remove");
-				log(3, "removed " + NAMESPACE + " from controller");
-			}
-			return Scene;
-		};
-
-		/**
-		 * Destroy the scene and everything.
-		 * @method ScrollMagic.Scene#destroy
-		 * @example
-		 * // destroy the scene without resetting the pin and tween to their initial positions
-		 * scene = scene.destroy();
-		 *
-		 * // destroy the scene and reset the pin and tween
-		 * scene = scene.destroy(true);
-		 *
-		 * @param {boolean} [reset=false] - If `true` the pin and tween (if existent) will be reset.
-		 * @returns {null} Null to unset handler variables.
-		 */
-		this.destroy = function (reset) {
-			Scene.trigger("destroy", {
-				reset: reset
-			});
-			Scene.remove();
-			Scene.off("*.*");
-			log(3, "destroyed " + NAMESPACE + " (reset: " + (reset ? "true" : "false") + ")");
-			return null;
-		};
-
-
-		/**
-		 * Updates the Scene to reflect the current state.  
-		 * This is the equivalent to `Controller.updateScene(scene, immediately)`.  
-		 * The update method calculates the scene's start and end position (based on the trigger element, trigger hook, duration and offset) and checks it against the current scroll position of the container.  
-		 * It then updates the current scene state accordingly (or does nothing, if the state is already correct) – Pins will be set to their correct position and tweens will be updated to their correct progress.
-		 * This means an update doesn't necessarily result in a progress change. The `progress` event will be fired if the progress has indeed changed between this update and the last.  
-		 * _**NOTE:** This method gets called constantly whenever ScrollMagic detects a change. The only application for you is if you change something outside of the realm of ScrollMagic, like moving the trigger or changing tween parameters._
-		 * @method ScrollMagic.Scene#update
-		 * @example
-		 * // update the scene on next tick
-		 * scene.update();
-		 *
-		 * // update the scene immediately
-		 * scene.update(true);
-		 *
-		 * @fires Scene.update
-		 *
-		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle (better performance).
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.update = function (immediately) {
-			if (_controller) {
-				if (immediately) {
-					if (_controller.enabled() && _enabled) {
-						var
-						scrollPos = _controller.info("scrollPos"),
-							newProgress;
-
-						if (_options.duration > 0) {
-							newProgress = (scrollPos - _scrollOffset.start) / (_scrollOffset.end - _scrollOffset.start);
-						} else {
-							newProgress = scrollPos >= _scrollOffset.start ? 1 : 0;
-						}
-
-						Scene.trigger("update", {
-							startPos: _scrollOffset.start,
-							endPos: _scrollOffset.end,
-							scrollPos: scrollPos
-						});
-
-						Scene.progress(newProgress);
-					} else if (_pin && _state === SCENE_STATE_DURING) {
-						updatePinState(true); // unpin in position
-					}
-				} else {
-					_controller.updateScene(Scene, false);
-				}
-			}
-			return Scene;
-		};
-
-		/**
-		 * Updates dynamic scene variables like the trigger element position or the duration.
-		 * This method is automatically called in regular intervals from the controller. See {@link ScrollMagic.Controller} option `refreshInterval`.
-		 * 
-		 * You can call it to minimize lag, for example when you intentionally change the position of the triggerElement.
-		 * If you don't it will simply be updated in the next refresh interval of the container, which is usually sufficient.
-		 *
-		 * @method ScrollMagic.Scene#refresh
-		 * @since 1.1.0
-		 * @example
-		 * scene = new ScrollMagic.Scene({triggerElement: "#trigger"});
-		 * 
-		 * // change the position of the trigger
-		 * $("#trigger").css("top", 500);
-		 * // immediately let the scene know of this change
-		 * scene.refresh();
-		 *
-		 * @fires {@link Scene.shift}, if the trigger element position or the duration changed
-		 * @fires {@link Scene.change}, if the duration changed
-		 *
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.refresh = function () {
-			updateDuration();
-			updateTriggerElementPosition();
-			// update trigger element position
-			return Scene;
-		};
-
-		/**
-		 * **Get** or **Set** the scene's progress.  
-		 * Usually it shouldn't be necessary to use this as a setter, as it is set automatically by scene.update().  
-		 * The order in which the events are fired depends on the duration of the scene:
-		 *  1. Scenes with `duration == 0`:  
-		 *  Scenes that have no duration by definition have no ending. Thus the `end` event will never be fired.  
-		 *  When the trigger position of the scene is passed the events are always fired in this order:  
-		 *  `enter`, `start`, `progress` when scrolling forward  
-		 *  and  
-		 *  `progress`, `start`, `leave` when scrolling in reverse
-		 *  2. Scenes with `duration > 0`:  
-		 *  Scenes with a set duration have a defined start and end point.  
-		 *  When scrolling past the start position of the scene it will fire these events in this order:  
-		 *  `enter`, `start`, `progress`  
-		 *  When continuing to scroll and passing the end point it will fire these events:  
-		 *  `progress`, `end`, `leave`  
-		 *  When reversing through the end point these events are fired:  
-		 *  `enter`, `end`, `progress`  
-		 *  And when continuing to scroll past the start position in reverse it will fire:  
-		 *  `progress`, `start`, `leave`  
-		 *  In between start and end the `progress` event will be called constantly, whenever the progress changes.
-		 * 
-		 * In short:  
-		 * `enter` events will always trigger **before** the progress update and `leave` envents will trigger **after** the progress update.  
-		 * `start` and `end` will always trigger at their respective position.
-		 * 
-		 * Please review the event descriptions for details on the events and the event object that is passed to the callback.
-		 * 
-		 * @method ScrollMagic.Scene#progress
-		 * @example
-		 * // get the current scene progress
-		 * var progress = scene.progress();
-		 *
-		 * // set new scene progress
-		 * scene.progress(0.3);
-		 *
-		 * @fires {@link Scene.enter}, when used as setter
-		 * @fires {@link Scene.start}, when used as setter
-		 * @fires {@link Scene.progress}, when used as setter
-		 * @fires {@link Scene.end}, when used as setter
-		 * @fires {@link Scene.leave}, when used as setter
-		 *
-		 * @param {number} [progress] - The new progress value of the scene `[0-1]`.
-		 * @returns {number} `get` -  Current scene progress.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-		this.progress = function (progress) {
-			if (!arguments.length) { // get
-				return _progress;
-			} else { // set
-				var
-				doUpdate = false,
-					oldState = _state,
-					scrollDirection = _controller ? _controller.info("scrollDirection") : 'PAUSED',
-					reverseOrForward = _options.reverse || progress >= _progress;
-				if (_options.duration === 0) {
-					// zero duration scenes
-					doUpdate = _progress != progress;
-					_progress = progress < 1 && reverseOrForward ? 0 : 1;
-					_state = _progress === 0 ? SCENE_STATE_BEFORE : SCENE_STATE_DURING;
-				} else {
-					// scenes with start and end
-					if (progress < 0 && _state !== SCENE_STATE_BEFORE && reverseOrForward) {
-						// go back to initial state
-						_progress = 0;
-						_state = SCENE_STATE_BEFORE;
-						doUpdate = true;
-					} else if (progress >= 0 && progress < 1 && reverseOrForward) {
-						_progress = progress;
-						_state = SCENE_STATE_DURING;
-						doUpdate = true;
-					} else if (progress >= 1 && _state !== SCENE_STATE_AFTER) {
-						_progress = 1;
-						_state = SCENE_STATE_AFTER;
-						doUpdate = true;
-					} else if (_state === SCENE_STATE_DURING && !reverseOrForward) {
-						updatePinState(); // in case we scrolled backwards mid-scene and reverse is disabled => update the pin position, so it doesn't move back as well.
-					}
-				}
-				if (doUpdate) {
-					// fire events
-					var
-					eventVars = {
-						progress: _progress,
-						state: _state,
-						scrollDirection: scrollDirection
-					},
-						stateChanged = _state != oldState;
-
-					var trigger = function (eventName) { // tmp helper to simplify code
-						Scene.trigger(eventName, eventVars);
-					};
-
-					if (stateChanged) { // enter events
-						if (oldState !== SCENE_STATE_DURING) {
-							trigger("enter");
-							trigger(oldState === SCENE_STATE_BEFORE ? "start" : "end");
-						}
-					}
-					trigger("progress");
-					if (stateChanged) { // leave events
-						if (_state !== SCENE_STATE_DURING) {
-							trigger(_state === SCENE_STATE_BEFORE ? "start" : "end");
-							trigger("leave");
-						}
-					}
-				}
-
-				return Scene;
-			}
-		};
-
-
-		/**
-		 * Update the start and end scrollOffset of the container.
-		 * The positions reflect what the controller's scroll position will be at the start and end respectively.
-		 * Is called, when:
-		 *   - Scene event "change" is called with: offset, triggerHook, duration 
-		 *   - scroll container event "resize" is called
-		 *   - the position of the triggerElement changes
-		 *   - the controller changes -> addTo()
-		 * @private
-		 */
-		var updateScrollOffset = function () {
-			_scrollOffset = {
-				start: _triggerPos + _options.offset
-			};
-			if (_controller && _options.triggerElement) {
-				// take away triggerHook portion to get relative to top
-				_scrollOffset.start -= _controller.info("size") * _options.triggerHook;
-			}
-			_scrollOffset.end = _scrollOffset.start + _options.duration;
-		};
-
-		/**
-		 * Updates the duration if set to a dynamic function.
-		 * This method is called when the scene is added to a controller and in regular intervals from the controller through scene.refresh().
-		 * 
-		 * @fires {@link Scene.change}, if the duration changed
-		 * @fires {@link Scene.shift}, if the duration changed
-		 *
-		 * @param {boolean} [suppressEvents=false] - If true the shift event will be suppressed.
-		 * @private
-		 */
-		var updateDuration = function (suppressEvents) {
-			// update duration
-			if (_durationUpdateMethod) {
-				var varname = "duration";
-				if (changeOption(varname, _durationUpdateMethod.call(Scene)) && !suppressEvents) { // set
-					Scene.trigger("change", {
-						what: varname,
-						newval: _options[varname]
-					});
-					Scene.trigger("shift", {
-						reason: varname
-					});
-				}
-			}
-		};
-
-		/**
-		 * Updates the position of the triggerElement, if present.
-		 * This method is called ...
-		 *  - ... when the triggerElement is changed
-		 *  - ... when the scene is added to a (new) controller
-		 *  - ... in regular intervals from the controller through scene.refresh().
-		 * 
-		 * @fires {@link Scene.shift}, if the position changed
-		 *
-		 * @param {boolean} [suppressEvents=false] - If true the shift event will be suppressed.
-		 * @private
-		 */
-		var updateTriggerElementPosition = function (suppressEvents) {
-			var
-			elementPos = 0,
-				telem = _options.triggerElement;
-			if (_controller && telem) {
-				var
-				controllerInfo = _controller.info(),
-					containerOffset = _util.get.offset(controllerInfo.container),
-					// container position is needed because element offset is returned in relation to document, not in relation to container.
-					param = controllerInfo.vertical ? "top" : "left"; // which param is of interest ?
-				// if parent is spacer, use spacer position instead so correct start position is returned for pinned elements.
-				while (telem.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) {
-					telem = telem.parentNode;
-				}
-
-				var elementOffset = _util.get.offset(telem);
-
-				if (!controllerInfo.isDocument) { // container is not the document root, so substract scroll Position to get correct trigger element position relative to scrollcontent
-					containerOffset[param] -= _controller.scrollPos();
-				}
-
-				elementPos = elementOffset[param] - containerOffset[param];
-			}
-			var changed = elementPos != _triggerPos;
-			_triggerPos = elementPos;
-			if (changed && !suppressEvents) {
-				Scene.trigger("shift", {
-					reason: "triggerElementPosition"
-				});
-			}
-		};
-
-		/**
-		 * Trigger a shift event, when the container is resized and the triggerHook is > 1.
-		 * @private
-		 */
-		var onContainerResize = function (e) {
-			if (_options.triggerHook > 0) {
-				Scene.trigger("shift", {
-					reason: "containerResize"
-				});
-			}
-		};
-
-		var _validate = _util.extend(SCENE_OPTIONS.validate, {
-			// validation for duration handled internally for reference to private var _durationMethod
-			duration: function (val) {
-				if (_util.type.String(val) && val.match(/^(\.|\d)*\d+%$/)) {
-					// percentage value
-					var perc = parseFloat(val) / 100;
-					val = function () {
-						return _controller ? _controller.info("size") * perc : 0;
-					};
-				}
-				if (_util.type.Function(val)) {
-					// function
-					_durationUpdateMethod = val;
-					try {
-						val = parseFloat(_durationUpdateMethod());
-					} catch (e) {
-						val = -1; // will cause error below
-					}
-				}
-				// val has to be float
-				val = parseFloat(val);
-				if (!_util.type.Number(val) || val < 0) {
-					if (_durationUpdateMethod) {
-						_durationUpdateMethod = undefined;
-						throw ["Invalid return value of supplied function for option \"duration\":", val];
-					} else {
-						throw ["Invalid value for option \"duration\":", val];
-					}
-				}
-				return val;
-			}
-		});
-
-		/**
-		 * Checks the validity of a specific or all options and reset to default if neccessary.
-		 * @private
-		 */
-		var validateOption = function (check) {
-			check = arguments.length ? [check] : Object.keys(_validate);
-			check.forEach(function (optionName, key) {
-				var value;
-				if (_validate[optionName]) { // there is a validation method for this option
-					try { // validate value
-						value = _validate[optionName](_options[optionName]);
-					} catch (e) { // validation failed -> reset to default
-						value = DEFAULT_OPTIONS[optionName];
-						var logMSG = _util.type.String(e) ? [e] : e;
-						if (_util.type.Array(logMSG)) {
-							logMSG[0] = "ERROR: " + logMSG[0];
-							logMSG.unshift(1); // loglevel 1 for error msg
-							log.apply(this, logMSG);
-						} else {
-							log(1, "ERROR: Problem executing validation callback for option '" + optionName + "':", e.message);
-						}
-					} finally {
-						_options[optionName] = value;
-					}
-				}
-			});
-		};
-
-		/**
-		 * Helper used by the setter/getters for scene options
-		 * @private
-		 */
-		var changeOption = function (varname, newval) {
-			var
-			changed = false,
-				oldval = _options[varname];
-			if (_options[varname] != newval) {
-				_options[varname] = newval;
-				validateOption(varname); // resets to default if necessary
-				changed = oldval != _options[varname];
-			}
-			return changed;
-		};
-
-		// generate getters/setters for all options
-		var addSceneOption = function (optionName) {
-			if (!Scene[optionName]) {
-				Scene[optionName] = function (newVal) {
-					if (!arguments.length) { // get
-						return _options[optionName];
-					} else {
-						if (optionName === "duration") { // new duration is set, so any previously set function must be unset
-							_durationUpdateMethod = undefined;
-						}
-						if (changeOption(optionName, newVal)) { // set
-							Scene.trigger("change", {
-								what: optionName,
-								newval: _options[optionName]
-							});
-							if (SCENE_OPTIONS.shifts.indexOf(optionName) > -1) {
-								Scene.trigger("shift", {
-									reason: optionName
-								});
-							}
-						}
-					}
-					return Scene;
-				};
-			}
-		};
-
-		/**
-		 * **Get** or **Set** the duration option value.
-		 * As a setter it also accepts a function returning a numeric value.  
-		 * This is particularly useful for responsive setups.
-		 *
-		 * The duration is updated using the supplied function every time `Scene.refresh()` is called, which happens periodically from the controller (see ScrollMagic.Controller option `refreshInterval`).  
-		 * _**NOTE:** Be aware that it's an easy way to kill performance, if you supply a function that has high CPU demand.  
-		 * Even for size and position calculations it is recommended to use a variable to cache the value. (see example)  
-		 * This counts double if you use the same function for multiple scenes._
-		 *
-		 * @method ScrollMagic.Scene#duration
-		 * @example
-		 * // get the current duration value
-		 * var duration = scene.duration();
-		 *
-		 * // set a new duration
-		 * scene.duration(300);
-		 *
-		 * // use a function to automatically adjust the duration to the window height.
-		 * var durationValueCache;
-		 * function getDuration () {
-		 *   return durationValueCache;
-		 * }
-		 * function updateDuration (e) {
-		 *   durationValueCache = window.innerHeight;
-		 * }
-		 * $(window).on("resize", updateDuration); // update the duration when the window size changes
-		 * $(window).triggerHandler("resize"); // set to initial value
-		 * scene.duration(getDuration); // supply duration method
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @fires {@link Scene.shift}, when used as setter
-		 * @param {(number|function)} [newDuration] - The new duration of the scene.
-		 * @returns {number} `get` -  Current scene duration.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** or **Set** the offset option value.
-		 * @method ScrollMagic.Scene#offset
-		 * @example
-		 * // get the current offset
-		 * var offset = scene.offset();
-		 *
-		 * // set a new offset
-		 * scene.offset(100);
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @fires {@link Scene.shift}, when used as setter
-		 * @param {number} [newOffset] - The new offset of the scene.
-		 * @returns {number} `get` -  Current scene offset.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** or **Set** the triggerElement option value.
-		 * Does **not** fire `Scene.shift`, because changing the trigger Element doesn't necessarily mean the start position changes. This will be determined in `Scene.refresh()`, which is automatically triggered.
-		 * @method ScrollMagic.Scene#triggerElement
-		 * @example
-		 * // get the current triggerElement
-		 * var triggerElement = scene.triggerElement();
-		 *
-		 * // set a new triggerElement using a selector
-		 * scene.triggerElement("#trigger");
-		 * // set a new triggerElement using a DOM object
-		 * scene.triggerElement(document.getElementById("trigger"));
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @param {(string|object)} [newTriggerElement] - The new trigger element for the scene.
-		 * @returns {(string|object)} `get` -  Current triggerElement.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** or **Set** the triggerHook option value.
-		 * @method ScrollMagic.Scene#triggerHook
-		 * @example
-		 * // get the current triggerHook value
-		 * var triggerHook = scene.triggerHook();
-		 *
-		 * // set a new triggerHook using a string
-		 * scene.triggerHook("onLeave");
-		 * // set a new triggerHook using a number
-		 * scene.triggerHook(0.7);
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @fires {@link Scene.shift}, when used as setter
-		 * @param {(number|string)} [newTriggerHook] - The new triggerHook of the scene. See {@link Scene} parameter description for value options.
-		 * @returns {number} `get` -  Current triggerHook (ALWAYS numerical).
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** or **Set** the reverse option value.
-		 * @method ScrollMagic.Scene#reverse
-		 * @example
-		 * // get the current reverse option
-		 * var reverse = scene.reverse();
-		 *
-		 * // set new reverse option
-		 * scene.reverse(false);
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @param {boolean} [newReverse] - The new reverse setting of the scene.
-		 * @returns {boolean} `get` -  Current reverse option value.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** or **Set** the loglevel option value.
-		 * @method ScrollMagic.Scene#loglevel
-		 * @example
-		 * // get the current loglevel
-		 * var loglevel = scene.loglevel();
-		 *
-		 * // set new loglevel
-		 * scene.loglevel(3);
-		 *
-		 * @fires {@link Scene.change}, when used as setter
-		 * @param {number} [newLoglevel] - The new loglevel setting of the scene. `[0-3]`
-		 * @returns {number} `get` -  Current loglevel.
-		 * @returns {Scene} `set` -  Parent object for chaining.
-		 */
-
-		/**
-		 * **Get** the associated controller.
-		 * @method ScrollMagic.Scene#controller
-		 * @example
-		 * // get the controller of a scene
-		 * var controller = scene.controller();
-		 *
-		 * @returns {ScrollMagic.Controller} Parent controller or `undefined`
-		 */
-		this.controller = function () {
-			return _controller;
-		};
-
-		/**
-		 * **Get** the current state.
-		 * @method ScrollMagic.Scene#state
-		 * @example
-		 * // get the current state
-		 * var state = scene.state();
-		 *
-		 * @returns {string} `"BEFORE"`, `"DURING"` or `"AFTER"`
-		 */
-		this.state = function () {
-			return _state;
-		};
-
-		/**
-		 * **Get** the current scroll offset for the start of the scene.  
-		 * Mind, that the scrollOffset is related to the size of the container, if `triggerHook` is bigger than `0` (or `"onLeave"`).  
-		 * This means, that resizing the container or changing the `triggerHook` will influence the scene's start offset.
-		 * @method ScrollMagic.Scene#scrollOffset
-		 * @example
-		 * // get the current scroll offset for the start and end of the scene.
-		 * var start = scene.scrollOffset();
-		 * var end = scene.scrollOffset() + scene.duration();
-		 * console.log("the scene starts at", start, "and ends at", end);
-		 *
-		 * @returns {number} The scroll offset (of the container) at which the scene will trigger. Y value for vertical and X value for horizontal scrolls.
-		 */
-		this.scrollOffset = function () {
-			return _scrollOffset.start;
-		};
-
-		/**
-		 * **Get** the trigger position of the scene (including the value of the `offset` option).  
-		 * @method ScrollMagic.Scene#triggerPosition
-		 * @example
-		 * // get the scene's trigger position
-		 * var triggerPosition = scene.triggerPosition();
-		 *
-		 * @returns {number} Start position of the scene. Top position value for vertical and left position value for horizontal scrolls.
-		 */
-		this.triggerPosition = function () {
-			var pos = _options.offset; // the offset is the basis
-			if (_controller) {
-				// get the trigger position
-				if (_options.triggerElement) {
-					// Element as trigger
-					pos += _triggerPos;
-				} else {
-					// return the height of the triggerHook to start at the beginning
-					pos += _controller.info("size") * Scene.triggerHook();
-				}
-			}
-			return pos;
-		};
-
-		var
-		_pin, _pinOptions;
-
-		Scene.on("shift.internal", function (e) {
-			var durationChanged = e.reason === "duration";
-			if ((_state === SCENE_STATE_AFTER && durationChanged) || (_state === SCENE_STATE_DURING && _options.duration === 0)) {
-				// if [duration changed after a scene (inside scene progress updates pin position)] or [duration is 0, we are in pin phase and some other value changed].
-				updatePinState();
-			}
-			if (durationChanged) {
-				updatePinDimensions();
-			}
-		}).on("progress.internal", function (e) {
-			updatePinState();
-		}).on("add.internal", function (e) {
-			updatePinDimensions();
-		}).on("destroy.internal", function (e) {
-			Scene.removePin(e.reset);
-		});
-		/**
-		 * Update the pin state.
-		 * @private
-		 */
-		var updatePinState = function (forceUnpin) {
-			if (_pin && _controller) {
-				var
-				containerInfo = _controller.info(),
-					pinTarget = _pinOptions.spacer.firstChild; // may be pin element or another spacer, if cascading pins
-				if (!forceUnpin && _state === SCENE_STATE_DURING) { // during scene or if duration is 0 and we are past the trigger
-					// pinned state
-					if (_util.css(pinTarget, "position") != "fixed") {
-						// change state before updating pin spacer (position changes due to fixed collapsing might occur.)
-						_util.css(pinTarget, {
-							"position": "fixed"
-						});
-						// update pin spacer
-						updatePinDimensions();
-					}
-
-					var
-					fixedPos = _util.get.offset(_pinOptions.spacer, true),
-						// get viewport position of spacer
-						scrollDistance = _options.reverse || _options.duration === 0 ? containerInfo.scrollPos - _scrollOffset.start // quicker
-						: Math.round(_progress * _options.duration * 10) / 10; // if no reverse and during pin the position needs to be recalculated using the progress
-					// add scrollDistance
-					fixedPos[containerInfo.vertical ? "top" : "left"] += scrollDistance;
-
-					// set new values
-					_util.css(_pinOptions.spacer.firstChild, {
-						top: fixedPos.top,
-						left: fixedPos.left
-					});
-				} else {
-					// unpinned state
-					var
-					newCSS = {
-						position: _pinOptions.inFlow ? "relative" : "absolute",
-						top: 0,
-						left: 0
-					},
-						change = _util.css(pinTarget, "position") != newCSS.position;
-
-					if (!_pinOptions.pushFollowers) {
-						newCSS[containerInfo.vertical ? "top" : "left"] = _options.duration * _progress;
-					} else if (_options.duration > 0) { // only concerns scenes with duration
-						if (_state === SCENE_STATE_AFTER && parseFloat(_util.css(_pinOptions.spacer, "padding-top")) === 0) {
-							change = true; // if in after state but havent updated spacer yet (jumped past pin)
-						} else if (_state === SCENE_STATE_BEFORE && parseFloat(_util.css(_pinOptions.spacer, "padding-bottom")) === 0) { // before
-							change = true; // jumped past fixed state upward direction
-						}
-					}
-					// set new values
-					_util.css(pinTarget, newCSS);
-					if (change) {
-						// update pin spacer if state changed
-						updatePinDimensions();
-					}
-				}
-			}
-		};
-
-		/**
-		 * Update the pin spacer and/or element size.
-		 * The size of the spacer needs to be updated whenever the duration of the scene changes, if it is to push down following elements.
-		 * @private
-		 */
-		var updatePinDimensions = function () {
-			if (_pin && _controller && _pinOptions.inFlow) { // no spacerresize, if original position is absolute
-				var
-				after = (_state === SCENE_STATE_AFTER),
-					before = (_state === SCENE_STATE_BEFORE),
-					during = (_state === SCENE_STATE_DURING),
-					vertical = _controller.info("vertical"),
-					pinTarget = _pinOptions.spacer.firstChild,
-					// usually the pined element but can also be another spacer (cascaded pins)
-					marginCollapse = _util.isMarginCollapseType(_util.css(_pinOptions.spacer, "display")),
-					css = {};
-
-				// set new size
-				// if relsize: spacer -> pin | else: pin -> spacer
-				if (_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) {
-					if (during) {
-						_util.css(_pin, {
-							"width": _util.get.width(_pinOptions.spacer)
-						});
-					} else {
-						_util.css(_pin, {
-							"width": "100%"
-						});
-					}
-				} else {
-					// minwidth is needed for cascaded pins.
-					css["min-width"] = _util.get.width(vertical ? _pin : pinTarget, true, true);
-					css.width = during ? css["min-width"] : "auto";
-				}
-				if (_pinOptions.relSize.height) {
-					if (during) {
-						// the only padding the spacer should ever include is the duration (if pushFollowers = true), so we need to substract that.
-						_util.css(_pin, {
-							"height": _util.get.height(_pinOptions.spacer) - (_pinOptions.pushFollowers ? _options.duration : 0)
-						});
-					} else {
-						_util.css(_pin, {
-							"height": "100%"
-						});
-					}
-				} else {
-					// margin is only included if it's a cascaded pin to resolve an IE9 bug
-					css["min-height"] = _util.get.height(vertical ? pinTarget : _pin, true, !marginCollapse); // needed for cascading pins
-					css.height = during ? css["min-height"] : "auto";
-				}
-
-				// add space for duration if pushFollowers is true
-				if (_pinOptions.pushFollowers) {
-					css["padding" + (vertical ? "Top" : "Left")] = _options.duration * _progress;
-					css["padding" + (vertical ? "Bottom" : "Right")] = _options.duration * (1 - _progress);
-				}
-				_util.css(_pinOptions.spacer, css);
-			}
-		};
-
-		/**
-		 * Updates the Pin state (in certain scenarios)
-		 * If the controller container is not the document and we are mid-pin-phase scrolling or resizing the main document can result to wrong pin positions.
-		 * So this function is called on resize and scroll of the document.
-		 * @private
-		 */
-		var updatePinInContainer = function () {
-			if (_controller && _pin && _state === SCENE_STATE_DURING && !_controller.info("isDocument")) {
-				updatePinState();
-			}
-		};
-
-		/**
-		 * Updates the Pin spacer size state (in certain scenarios)
-		 * If container is resized during pin and relatively sized the size of the pin might need to be updated...
-		 * So this function is called on resize of the container.
-		 * @private
-		 */
-		var updateRelativePinSpacer = function () {
-			if (_controller && _pin && // well, duh
-			_state === SCENE_STATE_DURING && // element in pinned state?
-			( // is width or height relatively sized, but not in relation to body? then we need to recalc.
-			((_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) && _util.get.width(window) != _util.get.width(_pinOptions.spacer.parentNode)) || (_pinOptions.relSize.height && _util.get.height(window) != _util.get.height(_pinOptions.spacer.parentNode)))) {
-				updatePinDimensions();
-			}
-		};
-
-		/**
-		 * Is called, when the mousewhel is used while over a pinned element inside a div container.
-		 * If the scene is in fixed state scroll events would be counted towards the body. This forwards the event to the scroll container.
-		 * @private
-		 */
-		var onMousewheelOverPin = function (e) {
-			if (_controller && _pin && _state === SCENE_STATE_DURING && !_controller.info("isDocument")) { // in pin state
-				e.preventDefault();
-				_controller._setScrollPos(_controller.info("scrollPos") - ((e.wheelDelta || e[_controller.info("vertical") ? "wheelDeltaY" : "wheelDeltaX"]) / 3 || -e.detail * 30));
-			}
-		};
-
-		/**
-		 * Pin an element for the duration of the tween.  
-		 * If the scene duration is 0 the element will only be unpinned, if the user scrolls back past the start position.  
-		 * Make sure only one pin is applied to an element at the same time.
-		 * An element can be pinned multiple times, but only successively.
-		 * _**NOTE:** The option `pushFollowers` has no effect, when the scene duration is 0._
-		 * @method ScrollMagic.Scene#setPin
-		 * @example
-		 * // pin element and push all following elements down by the amount of the pin duration.
-		 * scene.setPin("#pin");
-		 *
-		 * // pin element and keeping all following elements in their place. The pinned element will move past them.
-		 * scene.setPin("#pin", {pushFollowers: false});
-		 *
-		 * @param {(string|object)} element - A Selector targeting an element or a DOM object that is supposed to be pinned.
-		 * @param {object} [settings] - settings for the pin
-		 * @param {boolean} [settings.pushFollowers=true] - If `true` following elements will be "pushed" down for the duration of the pin, if `false` the pinned element will just scroll past them.  
-		 Ignored, when duration is `0`.
-		 * @param {string} [settings.spacerClass="scrollmagic-pin-spacer"] - Classname of the pin spacer element, which is used to replace the element.
-		 *
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.setPin = function (element, settings) {
-			var
-			defaultSettings = {
-				pushFollowers: true,
-				spacerClass: "scrollmagic-pin-spacer"
-			};
-			settings = _util.extend({}, defaultSettings, settings);
-
-			// validate Element
-			element = _util.get.elements(element)[0];
-			if (!element) {
-				log(1, "ERROR calling method 'setPin()': Invalid pin element supplied.");
-				return Scene; // cancel
-			} else if (_util.css(element, "position") === "fixed") {
-				log(1, "ERROR calling method 'setPin()': Pin does not work with elements that are positioned 'fixed'.");
-				return Scene; // cancel
-			}
-
-			if (_pin) { // preexisting pin?
-				if (_pin === element) {
-					// same pin we already have -> do nothing
-					return Scene; // cancel
-				} else {
-					// kill old pin
-					Scene.removePin();
-				}
-
-			}
-			_pin = element;
-
-			var
-			parentDisplay = _pin.parentNode.style.display,
-				boundsParams = ["top", "left", "bottom", "right", "margin", "marginLeft", "marginRight", "marginTop", "marginBottom"];
-
-			_pin.parentNode.style.display = 'none'; // hack start to force css to return stylesheet values instead of calculated px values.
-			var
-			inFlow = _util.css(_pin, "position") != "absolute",
-				pinCSS = _util.css(_pin, boundsParams.concat(["display"])),
-				sizeCSS = _util.css(_pin, ["width", "height"]);
-			_pin.parentNode.style.display = parentDisplay; // hack end.
-			if (!inFlow && settings.pushFollowers) {
-				log(2, "WARNING: If the pinned element is positioned absolutely pushFollowers will be disabled.");
-				settings.pushFollowers = false;
-			}
-			window.setTimeout(function () { // wait until all finished, because with responsive duration it will only be set after scene is added to controller
-				if (_pin && _options.duration === 0 && settings.pushFollowers) {
-					log(2, "WARNING: pushFollowers =", true, "has no effect, when scene duration is 0.");
-				}
-			}, 0);
-
-			// create spacer and insert
-			var
-			spacer = _pin.parentNode.insertBefore(document.createElement('div'), _pin),
-				spacerCSS = _util.extend(pinCSS, {
-					position: inFlow ? "relative" : "absolute",
-					boxSizing: "content-box",
-					mozBoxSizing: "content-box",
-					webkitBoxSizing: "content-box"
-				});
-
-			if (!inFlow) { // copy size if positioned absolutely, to work for bottom/right positioned elements.
-				_util.extend(spacerCSS, _util.css(_pin, ["width", "height"]));
-			}
-
-			_util.css(spacer, spacerCSS);
-			spacer.setAttribute(PIN_SPACER_ATTRIBUTE, "");
-			_util.addClass(spacer, settings.spacerClass);
-
-			// set the pin Options
-			_pinOptions = {
-				spacer: spacer,
-				relSize: { // save if size is defined using % values. if so, handle spacer resize differently...
-					width: sizeCSS.width.slice(-1) === "%",
-					height: sizeCSS.height.slice(-1) === "%",
-					autoFullWidth: sizeCSS.width === "auto" && inFlow && _util.isMarginCollapseType(pinCSS.display)
-				},
-				pushFollowers: settings.pushFollowers,
-				inFlow: inFlow,
-				// stores if the element takes up space in the document flow
-			};
-
-			if (!_pin.___origStyle) {
-				_pin.___origStyle = {};
-				var
-				pinInlineCSS = _pin.style,
-					copyStyles = boundsParams.concat(["width", "height", "position", "boxSizing", "mozBoxSizing", "webkitBoxSizing"]);
-				copyStyles.forEach(function (val) {
-					_pin.___origStyle[val] = pinInlineCSS[val] || "";
-				});
-			}
-
-			// if relative size, transfer it to spacer and make pin calculate it...
-			if (_pinOptions.relSize.width) {
-				_util.css(spacer, {
-					width: sizeCSS.width
-				});
-			}
-			if (_pinOptions.relSize.height) {
-				_util.css(spacer, {
-					height: sizeCSS.height
-				});
-			}
-
-			// now place the pin element inside the spacer	
-			spacer.appendChild(_pin);
-			// and set new css
-			_util.css(_pin, {
-				position: inFlow ? "relative" : "absolute",
-				margin: "auto",
-				top: "auto",
-				left: "auto",
-				bottom: "auto",
-				right: "auto"
-			});
-
-			if (_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) {
-				_util.css(_pin, {
-					boxSizing: "border-box",
-					mozBoxSizing: "border-box",
-					webkitBoxSizing: "border-box"
-				});
-			}
-
-			// add listener to document to update pin position in case controller is not the document.
-			window.addEventListener('scroll', updatePinInContainer);
-			window.addEventListener('resize', updatePinInContainer);
-			window.addEventListener('resize', updateRelativePinSpacer);
-			// add mousewheel listener to catch scrolls over fixed elements
-			_pin.addEventListener("mousewheel", onMousewheelOverPin);
-			_pin.addEventListener("DOMMouseScroll", onMousewheelOverPin);
-
-			log(3, "added pin");
-
-			// finally update the pin to init
-			updatePinState();
-
-			return Scene;
-		};
-
-		/**
-		 * Remove the pin from the scene.
-		 * @method ScrollMagic.Scene#removePin
-		 * @example
-		 * // remove the pin from the scene without resetting it (the spacer is not removed)
-		 * scene.removePin();
-		 *
-		 * // remove the pin from the scene and reset the pin element to its initial position (spacer is removed)
-		 * scene.removePin(true);
-		 *
-		 * @param {boolean} [reset=false] - If `false` the spacer will not be removed and the element's position will not be reset.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.removePin = function (reset) {
-			if (_pin) {
-				if (_state === SCENE_STATE_DURING) {
-					updatePinState(true); // force unpin at position
-				}
-				if (reset || !_controller) { // if there's no controller no progress was made anyway...
-					var pinTarget = _pinOptions.spacer.firstChild; // usually the pin element, but may be another spacer (cascaded pins)...
-					if (pinTarget.hasAttribute(PIN_SPACER_ATTRIBUTE)) { // copy margins to child spacer
-						var
-						style = _pinOptions.spacer.style,
-							values = ["margin", "marginLeft", "marginRight", "marginTop", "marginBottom"];
-						margins = {};
-						values.forEach(function (val) {
-							margins[val] = style[val] || "";
-						});
-						_util.css(pinTarget, margins);
-					}
-					_pinOptions.spacer.parentNode.insertBefore(pinTarget, _pinOptions.spacer);
-					_pinOptions.spacer.parentNode.removeChild(_pinOptions.spacer);
-					if (!_pin.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) { // if it's the last pin for this element -> restore inline styles
-						// TODO: only correctly set for first pin (when cascading) - how to fix?
-						_util.css(_pin, _pin.___origStyle);
-						delete _pin.___origStyle;
-					}
-				}
-				window.removeEventListener('scroll', updatePinInContainer);
-				window.removeEventListener('resize', updatePinInContainer);
-				window.removeEventListener('resize', updateRelativePinSpacer);
-				_pin.removeEventListener("mousewheel", onMousewheelOverPin);
-				_pin.removeEventListener("DOMMouseScroll", onMousewheelOverPin);
-				_pin = undefined;
-				log(3, "removed pin (reset: " + (reset ? "true" : "false") + ")");
-			}
-			return Scene;
-		};
-
-
-		var
-		_cssClasses, _cssClassElems = [];
-
-		Scene.on("destroy.internal", function (e) {
-			Scene.removeClassToggle(e.reset);
-		});
-		/**
-		 * Define a css class modification while the scene is active.  
-		 * When the scene triggers the classes will be added to the supplied element and removed, when the scene is over.
-		 * If the scene duration is 0 the classes will only be removed if the user scrolls back past the start position.
-		 * @method ScrollMagic.Scene#setClassToggle
-		 * @example
-		 * // add the class 'myclass' to the element with the id 'my-elem' for the duration of the scene
-		 * scene.setClassToggle("#my-elem", "myclass");
-		 *
-		 * // add multiple classes to multiple elements defined by the selector '.classChange'
-		 * scene.setClassToggle(".classChange", "class1 class2 class3");
-		 *
-		 * @param {(string|object)} element - A Selector targeting one or more elements or a DOM object that is supposed to be modified.
-		 * @param {string} classes - One or more Classnames (separated by space) that should be added to the element during the scene.
-		 *
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.setClassToggle = function (element, classes) {
-			var elems = _util.get.elements(element);
-			if (elems.length === 0 || !_util.type.String(classes)) {
-				log(1, "ERROR calling method 'setClassToggle()': Invalid " + (elems.length === 0 ? "element" : "classes") + " supplied.");
-				return Scene;
-			}
-			if (_cssClassElems.length > 0) {
-				// remove old ones
-				Scene.removeClassToggle();
-			}
-			_cssClasses = classes;
-			_cssClassElems = elems;
-			Scene.on("enter.internal_class leave.internal_class", function (e) {
-				var toggle = e.type === "enter" ? _util.addClass : _util.removeClass;
-				_cssClassElems.forEach(function (elem, key) {
-					toggle(elem, _cssClasses);
-				});
-			});
-			return Scene;
-		};
-
-		/**
-		 * Remove the class binding from the scene.
-		 * @method ScrollMagic.Scene#removeClassToggle
-		 * @example
-		 * // remove class binding from the scene without reset
-		 * scene.removeClassToggle();
-		 *
-		 * // remove class binding and remove the changes it caused
-		 * scene.removeClassToggle(true);
-		 *
-		 * @param {boolean} [reset=false] - If `false` and the classes are currently active, they will remain on the element. If `true` they will be removed.
-		 * @returns {Scene} Parent object for chaining.
-		 */
-		this.removeClassToggle = function (reset) {
-			if (reset) {
-				_cssClassElems.forEach(function (elem, key) {
-					_util.removeClass(elem, _cssClasses);
-				});
-			}
-			Scene.off("start.internal_class end.internal_class");
-			_cssClasses = undefined;
-			_cssClassElems = [];
-			return Scene;
-		};
-
-		// INIT
-		construct();
-		return Scene;
-	};
-
-	// store pagewide scene options
-	var SCENE_OPTIONS = {
-		defaults: {
-			duration: 0,
-			offset: 0,
-			triggerElement: undefined,
-			triggerHook: 0.5,
-			reverse: true,
-			loglevel: 2
-		},
-		validate: {
-			offset: function (val) {
-				val = parseFloat(val);
-				if (!_util.type.Number(val)) {
-					throw ["Invalid value for option \"offset\":", val];
-				}
-				return val;
-			},
-			triggerElement: function (val) {
-				val = val || undefined;
-				if (val) {
-					var elem = _util.get.elements(val)[0];
-					if (elem) {
-						val = elem;
-					} else {
-						throw ["Element defined in option \"triggerElement\" was not found:", val];
-					}
-				}
-				return val;
-			},
-			triggerHook: function (val) {
-				var translate = {
-					"onCenter": 0.5,
-					"onEnter": 1,
-					"onLeave": 0
-				};
-				if (_util.type.Number(val)) {
-					val = Math.max(0, Math.min(parseFloat(val), 1)); //  make sure its betweeen 0 and 1
-				} else if (val in translate) {
-					val = translate[val];
-				} else {
-					throw ["Invalid value for option \"triggerHook\": ", val];
-				}
-				return val;
-			},
-			reverse: function (val) {
-				return !!val; // force boolean
-			},
-			loglevel: function (val) {
-				val = parseInt(val);
-				if (!_util.type.Number(val) || val < 0 || val > 3) {
-					throw ["Invalid value for option \"loglevel\":", val];
-				}
-				return val;
-			}
-		},
-		// holder for  validation methods. duration validation is handled in 'getters-setters.js'
-		shifts: ["duration", "offset", "triggerHook"],
-		// list of options that trigger a `shift` event
-	};
-/*
- * method used to add an option to ScrollMagic Scenes.
- * TODO: DOC (private for dev)
- */
-	ScrollMagic.Scene.addOption = function (name, defaultValue, validationCallback, shifts) {
-		if (!(name in SCENE_OPTIONS.defaults)) {
-			SCENE_OPTIONS.defaults[name] = defaultValue;
-			SCENE_OPTIONS.validate[name] = validationCallback;
-			if (shifts) {
-				SCENE_OPTIONS.shifts.push(name);
-			}
-		} else {
-			ScrollMagic._util.log(1, "[static] ScrollMagic.Scene -> Cannot add Scene option '" + name + "', because it already exists.");
-		}
-	};
-	// instance extension function for plugins
-	// TODO: DOC (private for dev)
-	ScrollMagic.Scene.extend = function (extension) {
-		var oldClass = this;
-		ScrollMagic.Scene = function () {
-			oldClass.apply(this, arguments);
-			this.$super = _util.extend({}, this); // copy parent state
-			return extension.apply(this, arguments) || this;
-		};
-		_util.extend(ScrollMagic.Scene, oldClass); // copy properties
-		ScrollMagic.Scene.prototype = oldClass.prototype; // copy prototype
-		ScrollMagic.Scene.prototype.constructor = ScrollMagic.Scene; // restore constructor
-	};
-
-
-	/**
-	 * TODO: DOCS (private for dev)
-	 * @class
-	 * @private
-	 */
-
-	ScrollMagic.Event = function (type, namespace, target, vars) {
-		vars = vars || {};
-		for (var key in vars) {
-			this[key] = vars[key];
-		}
-		this.type = type;
-		this.target = this.currentTarget = target;
-		this.namespace = namespace || '';
-		this.timeStamp = this.timestamp = Date.now();
-		return this;
-	};
-
-/*
- * TODO: DOCS (private for dev)
- */
-
-	var _util = ScrollMagic._util = (function (window) {
-		var U = {},
-			i;
-
-		/**
-		 * ------------------------------
-		 * internal helpers
-		 * ------------------------------
-		 */
-
-		// parse float and fall back to 0.
-		var floatval = function (number) {
-			return parseFloat(number) || 0;
-		};
-		// get current style IE safe (otherwise IE would return calculated values for 'auto')
-		var _getComputedStyle = function (elem) {
-			return elem.currentStyle ? elem.currentStyle : window.getComputedStyle(elem);
-		};
-
-		// get element dimension (width or height)
-		var _dimension = function (which, elem, outer, includeMargin) {
-			elem = (elem === document) ? window : elem;
-			if (elem === window) {
-				includeMargin = false;
-			} else if (!_type.DomElement(elem)) {
-				return 0;
-			}
-			which = which.charAt(0).toUpperCase() + which.substr(1).toLowerCase();
-			var dimension = (outer ? elem['offset' + which] || elem['outer' + which] : elem['client' + which] || elem['inner' + which]) || 0;
-			if (outer && includeMargin) {
-				var style = _getComputedStyle(elem);
-				dimension += which === 'Height' ? floatval(style.marginTop) + floatval(style.marginBottom) : floatval(style.marginLeft) + floatval(style.marginRight);
-			}
-			return dimension;
-		};
-		// converts 'margin-top' into 'marginTop'
-		var _camelCase = function (str) {
-			return str.replace(/^[^a-z]+([a-z])/g, '$1').replace(/-([a-z])/g, function (g) {
-				return g[1].toUpperCase();
-			});
-		};
-
-		/**
-		 * ------------------------------
-		 * external helpers
-		 * ------------------------------
-		 */
-
-		// extend obj – same as jQuery.extend({}, objA, objB)
-		U.extend = function (obj) {
-			obj = obj || {};
-			for (i = 1; i < arguments.length; i++) {
-				if (!arguments[i]) {
-					continue;
-				}
-				for (var key in arguments[i]) {
-					if (arguments[i].hasOwnProperty(key)) {
-						obj[key] = arguments[i][key];
-					}
-				}
-			}
-			return obj;
-		};
-
-		// check if a css display type results in margin-collapse or not
-		U.isMarginCollapseType = function (str) {
-			return ["block", "flex", "list-item", "table", "-webkit-box"].indexOf(str) > -1;
-		};
-
-		// implementation of requestAnimationFrame
-		// based on https://gist.github.com/paulirish/1579671
-		var
-		lastTime = 0,
-			vendors = ['ms', 'moz', 'webkit', 'o'];
-		var _requestAnimationFrame = window.requestAnimationFrame;
-		var _cancelAnimationFrame = window.cancelAnimationFrame;
-		// try vendor prefixes if the above doesn't work
-		for (i = 0; !_requestAnimationFrame && i < vendors.length; ++i) {
-			_requestAnimationFrame = window[vendors[i] + 'RequestAnimationFrame'];
-			_cancelAnimationFrame = window[vendors[i] + 'CancelAnimationFrame'] || window[vendors[i] + 'CancelRequestAnimationFrame'];
-		}
-
-		// fallbacks
-		if (!_requestAnimationFrame) {
-			_requestAnimationFrame = function (callback) {
-				var
-				currTime = new Date().getTime(),
-					timeToCall = Math.max(0, 16 - (currTime - lastTime)),
-					id = window.setTimeout(function () {
-						callback(currTime + timeToCall);
-					}, timeToCall);
-				lastTime = currTime + timeToCall;
-				return id;
-			};
-		}
-		if (!_cancelAnimationFrame) {
-			_cancelAnimationFrame = function (id) {
-				window.clearTimeout(id);
-			};
-		}
-		U.rAF = _requestAnimationFrame.bind(window);
-		U.cAF = _cancelAnimationFrame.bind(window);
-
-		var
-		loglevels = ["error", "warn", "log"],
-			console = window.console || {};
-
-		console.log = console.log ||
-		function () {}; // no console log, well - do nothing then...
-		// make sure methods for all levels exist.
-		for (i = 0; i < loglevels.length; i++) {
-			var method = loglevels[i];
-			if (!console[method]) {
-				console[method] = console.log; // prefer .log over nothing
-			}
-		}
-		U.log = function (loglevel) {
-			if (loglevel > loglevels.length || loglevel <= 0) loglevel = loglevels.length;
-			var now = new Date(),
-				time = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + ":" + ("00" + now.getMilliseconds()).slice(-3),
-				method = loglevels[loglevel - 1],
-				args = Array.prototype.splice.call(arguments, 1),
-				func = Function.prototype.bind.call(console[method], console);
-			args.unshift(time);
-			func.apply(console, args);
-		};
-
-		/**
-		 * ------------------------------
-		 * type testing
-		 * ------------------------------
-		 */
-
-		var _type = U.type = function (v) {
-			return Object.prototype.toString.call(v).replace(/^\[object (.+)\]$/, "$1").toLowerCase();
-		};
-		_type.String = function (v) {
-			return _type(v) === 'string';
-		};
-		_type.Function = function (v) {
-			return _type(v) === 'function';
-		};
-		_type.Array = function (v) {
-			return Array.isArray(v);
-		};
-		_type.Number = function (v) {
-			return !_type.Array(v) && (v - parseFloat(v) + 1) >= 0;
-		};
-		_type.DomElement = function (o) {
-			return (
-			typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-			o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string");
-		};
-
-		/**
-		 * ------------------------------
-		 * DOM Element info
-		 * ------------------------------
-		 */
-		// always returns a list of matching DOM elements, from a selector, a DOM element or an list of elements or even an array of selectors
-		var _get = U.get = {};
-		_get.elements = function (selector) {
-			var arr = [];
-			if (_type.String(selector)) {
-				try {
-					selector = document.querySelectorAll(selector);
-				} catch (e) { // invalid selector
-					return arr;
-				}
-			}
-			if (_type(selector) === 'nodelist' || _type.Array(selector)) {
-				for (var i = 0, ref = arr.length = selector.length; i < ref; i++) { // list of elements
-					var elem = selector[i];
-					arr[i] = _type.DomElement(elem) ? elem : _get.elements(elem); // if not an element, try to resolve recursively
-				}
-			} else if (_type.DomElement(selector) || selector === document || selector === window) {
-				arr = [selector]; // only the element
-			}
-			return arr;
-		};
-		// get scroll top value
-		_get.scrollTop = function (elem) {
-			return (elem && typeof elem.scrollTop === 'number') ? elem.scrollTop : window.pageYOffset || 0;
-		};
-		// get scroll left value
-		_get.scrollLeft = function (elem) {
-			return (elem && typeof elem.scrollLeft === 'number') ? elem.scrollLeft : window.pageXOffset || 0;
-		};
-		// get element height
-		_get.width = function (elem, outer, includeMargin) {
-			return _dimension('width', elem, outer, includeMargin);
-		};
-		// get element width
-		_get.height = function (elem, outer, includeMargin) {
-			return _dimension('height', elem, outer, includeMargin);
-		};
-
-		// get element position (optionally relative to viewport)
-		_get.offset = function (elem, relativeToViewport) {
-			var offset = {
-				top: 0,
-				left: 0
-			};
-			if (elem && elem.getBoundingClientRect) { // check if available
-				var rect = elem.getBoundingClientRect();
-				offset.top = rect.top;
-				offset.left = rect.left;
-				if (!relativeToViewport) { // clientRect is by default relative to viewport...
-					offset.top += _get.scrollTop();
-					offset.left += _get.scrollLeft();
-				}
-			}
-			return offset;
-		};
-
-		/**
-		 * ------------------------------
-		 * DOM Element manipulation
-		 * ------------------------------
-		 */
-
-		U.addClass = function (elem, classname) {
-			if (classname) {
-				if (elem.classList) elem.classList.add(classname);
-				else elem.className += ' ' + classname;
-			}
-		};
-		U.removeClass = function (elem, classname) {
-			if (classname) {
-				if (elem.classList) elem.classList.remove(classname);
-				else elem.className = elem.className.replace(new RegExp('(^|\\b)' + classname.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-			}
-		};
-		// if options is string -> returns css value
-		// if options is array -> returns object with css value pairs
-		// if options is object -> set new css values
-		U.css = function (elem, options) {
-			if (_type.String(options)) {
-				return _getComputedStyle(elem)[_camelCase(options)];
-			} else if (_type.Array(options)) {
-				var
-				obj = {},
-					style = _getComputedStyle(elem);
-				options.forEach(function (option, key) {
-					obj[option] = style[_camelCase(option)];
-				});
-				return obj;
-			} else {
-				for (var option in options) {
-					var val = options[option];
-					if (val == parseFloat(val)) { // assume pixel for seemingly numerical values
-						val += 'px';
-					}
-					elem.style[_camelCase(option)] = val;
-				}
-			}
-		};
-
-		return U;
-	}(window || {}));
-
-	ScrollMagic.Scene.prototype.addIndicators = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling addIndicators() due to missing Plugin \'debug.addIndicators\'. Please make sure to include plugins/debug.addIndicators.js');
-		return this;
-	}
-	ScrollMagic.Scene.prototype.removeIndicators = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeIndicators() due to missing Plugin \'debug.addIndicators\'. Please make sure to include plugins/debug.addIndicators.js');
-		return this;
-	}
-	ScrollMagic.Scene.prototype.setTween = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling setTween() due to missing Plugin \'animation.gsap\'. Please make sure to include plugins/animation.gsap.js');
-		return this;
-	}
-	ScrollMagic.Scene.prototype.removeTween = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeTween() due to missing Plugin \'animation.gsap\'. Please make sure to include plugins/animation.gsap.js');
-		return this;
-	}
-	ScrollMagic.Scene.prototype.setVelocity = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling setVelocity() due to missing Plugin \'animation.velocity\'. Please make sure to include plugins/animation.velocity.js');
-		return this;
-	}
-	ScrollMagic.Scene.prototype.removeVelocity = function () {
-		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeVelocity() due to missing Plugin \'animation.velocity\'. Please make sure to include plugins/animation.velocity.js');
-		return this;
-	}
-
-	return ScrollMagic;
-}));
-
-/***/ }),
-/* 337 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21879,13 +12231,13 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
 
 /***/ }),
-/* 338 */
+/* 128 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(129);
 /**
  * Swiper 4.2.6
  * Most modern mobile touch slider and framework with hardware accelerated transitions
@@ -28511,6 +18863,9662 @@ Swiper.use(components);
 
 
 /***/ }),
+/* 129 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return win; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return doc; });
+/**
+ * SSR Window 1.0.0
+ * Better handling for window object in SSR environment
+ * https://github.com/nolimits4web/ssr-window
+ *
+ * Copyright 2018, Vladimir Kharlampidi
+ *
+ * Licensed under MIT
+ *
+ * Released on: February 10, 2018
+ */
+var d;
+if (typeof document === 'undefined') {
+  d = {
+    body: {},
+    addEventListener: function addEventListener() {},
+    removeEventListener: function removeEventListener() {},
+    activeElement: {
+      blur: function blur() {},
+      nodeName: '',
+    },
+    querySelector: function querySelector() {
+      return null;
+    },
+    querySelectorAll: function querySelectorAll() {
+      return [];
+    },
+    getElementById: function getElementById() {
+      return null;
+    },
+    createEvent: function createEvent() {
+      return {
+        initEvent: function initEvent() {},
+      };
+    },
+    createElement: function createElement() {
+      return {
+        children: [],
+        childNodes: [],
+        style: {},
+        setAttribute: function setAttribute() {},
+        getElementsByTagName: function getElementsByTagName() {
+          return [];
+        },
+      };
+    },
+    location: { hash: '' },
+  };
+} else {
+  // eslint-disable-next-line
+  d = document;
+}
+
+var doc = d;
+
+var w;
+if (typeof window === 'undefined') {
+  w = {
+    document: doc,
+    navigator: {
+      userAgent: '',
+    },
+    location: {},
+    history: {},
+    CustomEvent: function CustomEvent() {
+      return this;
+    },
+    addEventListener: function addEventListener() {},
+    removeEventListener: function removeEventListener() {},
+    getComputedStyle: function getComputedStyle() {
+      return {
+        getPropertyValue: function getPropertyValue() {
+          return '';
+        },
+      };
+    },
+    Image: function Image() {},
+    Date: function Date() {},
+    screen: {},
+    setTimeout: function setTimeout() {},
+    clearTimeout: function clearTimeout() {},
+  };
+} else {
+  // eslint-disable-next-line
+  w = window;
+}
+
+var win = w;
+
+
+
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * App entry point.
+ *
+ * @module App
+ */
+
+/** Import initialized-by-default modules/libs */
+
+__webpack_require__(131);
+
+__webpack_require__(333);
+
+__webpack_require__(334);
+
+__webpack_require__(344);
+
+var _Home = __webpack_require__(346);
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _helpers = __webpack_require__(46);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Run appropriate scripts for each page.
+ **/
+
+
+/** Import page controllers */
+switch (_helpers.currentPage) {
+  /** Home page */
+  case 'home':
+    new _Home2.default();break;
+
+  /** No page found */
+
+  // default: console.warn('Undefined page');
+}
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+__webpack_require__(132);
+
+__webpack_require__(329);
+
+__webpack_require__(330);
+
+if (global._babelPolyfill) {
+  throw new Error("only one instance of babel-polyfill is allowed");
+}
+global._babelPolyfill = true;
+
+var DEFINE_PROPERTY = "defineProperty";
+function define(O, key, value) {
+  O[key] || Object[DEFINE_PROPERTY](O, key, {
+    writable: true,
+    configurable: true,
+    value: value
+  });
+}
+
+define(String.prototype, "padLeft", "".padStart);
+define(String.prototype, "padRight", "".padEnd);
+
+"pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function (key) {
+  [][key] && define(Array, key, Function.call.bind([][key]));
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(133);
+__webpack_require__(135);
+__webpack_require__(136);
+__webpack_require__(137);
+__webpack_require__(138);
+__webpack_require__(139);
+__webpack_require__(140);
+__webpack_require__(141);
+__webpack_require__(142);
+__webpack_require__(143);
+__webpack_require__(144);
+__webpack_require__(145);
+__webpack_require__(146);
+__webpack_require__(147);
+__webpack_require__(148);
+__webpack_require__(149);
+__webpack_require__(151);
+__webpack_require__(152);
+__webpack_require__(153);
+__webpack_require__(154);
+__webpack_require__(155);
+__webpack_require__(156);
+__webpack_require__(157);
+__webpack_require__(158);
+__webpack_require__(159);
+__webpack_require__(160);
+__webpack_require__(161);
+__webpack_require__(162);
+__webpack_require__(163);
+__webpack_require__(164);
+__webpack_require__(165);
+__webpack_require__(166);
+__webpack_require__(167);
+__webpack_require__(168);
+__webpack_require__(169);
+__webpack_require__(170);
+__webpack_require__(171);
+__webpack_require__(172);
+__webpack_require__(173);
+__webpack_require__(174);
+__webpack_require__(175);
+__webpack_require__(176);
+__webpack_require__(177);
+__webpack_require__(178);
+__webpack_require__(179);
+__webpack_require__(180);
+__webpack_require__(181);
+__webpack_require__(182);
+__webpack_require__(183);
+__webpack_require__(184);
+__webpack_require__(185);
+__webpack_require__(186);
+__webpack_require__(187);
+__webpack_require__(188);
+__webpack_require__(189);
+__webpack_require__(190);
+__webpack_require__(191);
+__webpack_require__(192);
+__webpack_require__(193);
+__webpack_require__(194);
+__webpack_require__(195);
+__webpack_require__(196);
+__webpack_require__(197);
+__webpack_require__(198);
+__webpack_require__(199);
+__webpack_require__(200);
+__webpack_require__(201);
+__webpack_require__(202);
+__webpack_require__(203);
+__webpack_require__(204);
+__webpack_require__(205);
+__webpack_require__(206);
+__webpack_require__(207);
+__webpack_require__(208);
+__webpack_require__(209);
+__webpack_require__(210);
+__webpack_require__(211);
+__webpack_require__(213);
+__webpack_require__(214);
+__webpack_require__(216);
+__webpack_require__(217);
+__webpack_require__(218);
+__webpack_require__(219);
+__webpack_require__(220);
+__webpack_require__(221);
+__webpack_require__(222);
+__webpack_require__(224);
+__webpack_require__(225);
+__webpack_require__(226);
+__webpack_require__(227);
+__webpack_require__(228);
+__webpack_require__(229);
+__webpack_require__(230);
+__webpack_require__(231);
+__webpack_require__(232);
+__webpack_require__(233);
+__webpack_require__(234);
+__webpack_require__(235);
+__webpack_require__(236);
+__webpack_require__(86);
+__webpack_require__(237);
+__webpack_require__(238);
+__webpack_require__(110);
+__webpack_require__(239);
+__webpack_require__(240);
+__webpack_require__(241);
+__webpack_require__(242);
+__webpack_require__(243);
+__webpack_require__(113);
+__webpack_require__(115);
+__webpack_require__(116);
+__webpack_require__(244);
+__webpack_require__(245);
+__webpack_require__(246);
+__webpack_require__(247);
+__webpack_require__(248);
+__webpack_require__(249);
+__webpack_require__(250);
+__webpack_require__(251);
+__webpack_require__(252);
+__webpack_require__(253);
+__webpack_require__(254);
+__webpack_require__(255);
+__webpack_require__(256);
+__webpack_require__(257);
+__webpack_require__(258);
+__webpack_require__(259);
+__webpack_require__(260);
+__webpack_require__(261);
+__webpack_require__(262);
+__webpack_require__(263);
+__webpack_require__(264);
+__webpack_require__(265);
+__webpack_require__(266);
+__webpack_require__(267);
+__webpack_require__(268);
+__webpack_require__(269);
+__webpack_require__(270);
+__webpack_require__(271);
+__webpack_require__(272);
+__webpack_require__(273);
+__webpack_require__(274);
+__webpack_require__(275);
+__webpack_require__(276);
+__webpack_require__(277);
+__webpack_require__(278);
+__webpack_require__(279);
+__webpack_require__(280);
+__webpack_require__(281);
+__webpack_require__(282);
+__webpack_require__(283);
+__webpack_require__(284);
+__webpack_require__(285);
+__webpack_require__(286);
+__webpack_require__(287);
+__webpack_require__(288);
+__webpack_require__(289);
+__webpack_require__(290);
+__webpack_require__(291);
+__webpack_require__(292);
+__webpack_require__(293);
+__webpack_require__(294);
+__webpack_require__(295);
+__webpack_require__(296);
+__webpack_require__(297);
+__webpack_require__(298);
+__webpack_require__(299);
+__webpack_require__(300);
+__webpack_require__(301);
+__webpack_require__(302);
+__webpack_require__(303);
+__webpack_require__(304);
+__webpack_require__(305);
+__webpack_require__(306);
+__webpack_require__(307);
+__webpack_require__(308);
+__webpack_require__(309);
+__webpack_require__(310);
+__webpack_require__(311);
+__webpack_require__(312);
+__webpack_require__(313);
+__webpack_require__(314);
+__webpack_require__(315);
+__webpack_require__(316);
+__webpack_require__(317);
+__webpack_require__(318);
+__webpack_require__(319);
+__webpack_require__(320);
+__webpack_require__(321);
+__webpack_require__(322);
+__webpack_require__(323);
+__webpack_require__(324);
+__webpack_require__(325);
+__webpack_require__(326);
+__webpack_require__(327);
+__webpack_require__(328);
+module.exports = __webpack_require__(21);
+
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// ECMAScript 6 symbols shim
+var global = __webpack_require__(2);
+var has = __webpack_require__(11);
+var DESCRIPTORS = __webpack_require__(6);
+var $export = __webpack_require__(0);
+var redefine = __webpack_require__(13);
+var META = __webpack_require__(29).KEY;
+var $fails = __webpack_require__(3);
+var shared = __webpack_require__(50);
+var setToStringTag = __webpack_require__(42);
+var uid = __webpack_require__(32);
+var wks = __webpack_require__(5);
+var wksExt = __webpack_require__(93);
+var wksDefine = __webpack_require__(66);
+var enumKeys = __webpack_require__(134);
+var isArray = __webpack_require__(53);
+var anObject = __webpack_require__(1);
+var isObject = __webpack_require__(4);
+var toIObject = __webpack_require__(15);
+var toPrimitive = __webpack_require__(22);
+var createDesc = __webpack_require__(31);
+var _create = __webpack_require__(36);
+var gOPNExt = __webpack_require__(96);
+var $GOPD = __webpack_require__(16);
+var $DP = __webpack_require__(7);
+var $keys = __webpack_require__(34);
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function';
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  __webpack_require__(37).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(48).f = $propertyIsEnumerable;
+  __webpack_require__(52).f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !__webpack_require__(33)) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(12)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// all enumerable object keys, includes symbols
+var getKeys = __webpack_require__(34);
+var gOPS = __webpack_require__(52);
+var pIE = __webpack_require__(48);
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+$export($export.S, 'Object', { create: __webpack_require__(36) });
+
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperty: __webpack_require__(7).f });
+
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+// 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
+$export($export.S + $export.F * !__webpack_require__(6), 'Object', { defineProperties: __webpack_require__(95) });
+
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+var toIObject = __webpack_require__(15);
+var $getOwnPropertyDescriptor = __webpack_require__(16).f;
+
+__webpack_require__(25)('getOwnPropertyDescriptor', function () {
+  return function getOwnPropertyDescriptor(it, key) {
+    return $getOwnPropertyDescriptor(toIObject(it), key);
+  };
+});
+
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 Object.getPrototypeOf(O)
+var toObject = __webpack_require__(9);
+var $getPrototypeOf = __webpack_require__(17);
+
+__webpack_require__(25)('getPrototypeOf', function () {
+  return function getPrototypeOf(it) {
+    return $getPrototypeOf(toObject(it));
+  };
+});
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 Object.keys(O)
+var toObject = __webpack_require__(9);
+var $keys = __webpack_require__(34);
+
+__webpack_require__(25)('keys', function () {
+  return function keys(it) {
+    return $keys(toObject(it));
+  };
+});
+
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 Object.getOwnPropertyNames(O)
+__webpack_require__(25)('getOwnPropertyNames', function () {
+  return __webpack_require__(96).f;
+});
+
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.5 Object.freeze(O)
+var isObject = __webpack_require__(4);
+var meta = __webpack_require__(29).onFreeze;
+
+__webpack_require__(25)('freeze', function ($freeze) {
+  return function freeze(it) {
+    return $freeze && isObject(it) ? $freeze(meta(it)) : it;
+  };
+});
+
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.17 Object.seal(O)
+var isObject = __webpack_require__(4);
+var meta = __webpack_require__(29).onFreeze;
+
+__webpack_require__(25)('seal', function ($seal) {
+  return function seal(it) {
+    return $seal && isObject(it) ? $seal(meta(it)) : it;
+  };
+});
+
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.15 Object.preventExtensions(O)
+var isObject = __webpack_require__(4);
+var meta = __webpack_require__(29).onFreeze;
+
+__webpack_require__(25)('preventExtensions', function ($preventExtensions) {
+  return function preventExtensions(it) {
+    return $preventExtensions && isObject(it) ? $preventExtensions(meta(it)) : it;
+  };
+});
+
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.12 Object.isFrozen(O)
+var isObject = __webpack_require__(4);
+
+__webpack_require__(25)('isFrozen', function ($isFrozen) {
+  return function isFrozen(it) {
+    return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
+  };
+});
+
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.13 Object.isSealed(O)
+var isObject = __webpack_require__(4);
+
+__webpack_require__(25)('isSealed', function ($isSealed) {
+  return function isSealed(it) {
+    return isObject(it) ? $isSealed ? $isSealed(it) : false : true;
+  };
+});
+
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.11 Object.isExtensible(O)
+var isObject = __webpack_require__(4);
+
+__webpack_require__(25)('isExtensible', function ($isExtensible) {
+  return function isExtensible(it) {
+    return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
+  };
+});
+
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__(0);
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(97) });
+
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.10 Object.is(value1, value2)
+var $export = __webpack_require__(0);
+$export($export.S, 'Object', { is: __webpack_require__(150) });
+
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports) {
+
+// 7.2.9 SameValue(x, y)
+module.exports = Object.is || function is(x, y) {
+  // eslint-disable-next-line no-self-compare
+  return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
+};
+
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = __webpack_require__(0);
+$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(70).set });
+
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.3.6 Object.prototype.toString()
+var classof = __webpack_require__(49);
+var test = {};
+test[__webpack_require__(5)('toStringTag')] = 'z';
+if (test + '' != '[object z]') {
+  __webpack_require__(13)(Object.prototype, 'toString', function toString() {
+    return '[object ' + classof(this) + ']';
+  }, true);
+}
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.2.3.2 / 15.3.4.5 Function.prototype.bind(thisArg, args...)
+var $export = __webpack_require__(0);
+
+$export($export.P, 'Function', { bind: __webpack_require__(98) });
+
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(7).f;
+var FProto = Function.prototype;
+var nameRE = /^\s*function ([^ (]*)/;
+var NAME = 'name';
+
+// 19.2.4.2 name
+NAME in FProto || __webpack_require__(6) && dP(FProto, NAME, {
+  configurable: true,
+  get: function () {
+    try {
+      return ('' + this).match(nameRE)[1];
+    } catch (e) {
+      return '';
+    }
+  }
+});
+
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var isObject = __webpack_require__(4);
+var getPrototypeOf = __webpack_require__(17);
+var HAS_INSTANCE = __webpack_require__(5)('hasInstance');
+var FunctionProto = Function.prototype;
+// 19.2.3.6 Function.prototype[@@hasInstance](V)
+if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(7).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
+  if (typeof this != 'function' || !isObject(O)) return false;
+  if (!isObject(this.prototype)) return O instanceof this;
+  // for environment w/o native `@@hasInstance` logic enough `instanceof`, but add this:
+  while (O = getPrototypeOf(O)) if (this.prototype === O) return true;
+  return false;
+} });
+
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var $parseInt = __webpack_require__(100);
+// 18.2.5 parseInt(string, radix)
+$export($export.G + $export.F * (parseInt != $parseInt), { parseInt: $parseInt });
+
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var $parseFloat = __webpack_require__(101);
+// 18.2.4 parseFloat(string)
+$export($export.G + $export.F * (parseFloat != $parseFloat), { parseFloat: $parseFloat });
+
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(2);
+var has = __webpack_require__(11);
+var cof = __webpack_require__(19);
+var inheritIfRequired = __webpack_require__(72);
+var toPrimitive = __webpack_require__(22);
+var fails = __webpack_require__(3);
+var gOPN = __webpack_require__(37).f;
+var gOPD = __webpack_require__(16).f;
+var dP = __webpack_require__(7).f;
+var $trim = __webpack_require__(43).trim;
+var NUMBER = 'Number';
+var $Number = global[NUMBER];
+var Base = $Number;
+var proto = $Number.prototype;
+// Opera ~12 has broken Object#toString
+var BROKEN_COF = cof(__webpack_require__(36)(proto)) == NUMBER;
+var TRIM = 'trim' in String.prototype;
+
+// 7.1.3 ToNumber(argument)
+var toNumber = function (argument) {
+  var it = toPrimitive(argument, false);
+  if (typeof it == 'string' && it.length > 2) {
+    it = TRIM ? it.trim() : $trim(it, 3);
+    var first = it.charCodeAt(0);
+    var third, radix, maxCode;
+    if (first === 43 || first === 45) {
+      third = it.charCodeAt(2);
+      if (third === 88 || third === 120) return NaN; // Number('+0x1') should be NaN, old V8 fix
+    } else if (first === 48) {
+      switch (it.charCodeAt(1)) {
+        case 66: case 98: radix = 2; maxCode = 49; break; // fast equal /^0b[01]+$/i
+        case 79: case 111: radix = 8; maxCode = 55; break; // fast equal /^0o[0-7]+$/i
+        default: return +it;
+      }
+      for (var digits = it.slice(2), i = 0, l = digits.length, code; i < l; i++) {
+        code = digits.charCodeAt(i);
+        // parseInt parses a string to a first unavailable symbol
+        // but ToNumber should return NaN if a string contains unavailable symbols
+        if (code < 48 || code > maxCode) return NaN;
+      } return parseInt(digits, radix);
+    }
+  } return +it;
+};
+
+if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
+  $Number = function Number(value) {
+    var it = arguments.length < 1 ? 0 : value;
+    var that = this;
+    return that instanceof $Number
+      // check on 1..constructor(foo) case
+      && (BROKEN_COF ? fails(function () { proto.valueOf.call(that); }) : cof(that) != NUMBER)
+        ? inheritIfRequired(new Base(toNumber(it)), that, $Number) : toNumber(it);
+  };
+  for (var keys = __webpack_require__(6) ? gOPN(Base) : (
+    // ES3:
+    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
+    // ES6 (in case, if modules with ES6 Number statics required before):
+    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' +
+    'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger'
+  ).split(','), j = 0, key; keys.length > j; j++) {
+    if (has(Base, key = keys[j]) && !has($Number, key)) {
+      dP($Number, key, gOPD(Base, key));
+    }
+  }
+  $Number.prototype = proto;
+  proto.constructor = $Number;
+  __webpack_require__(13)(global, NUMBER, $Number);
+}
+
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toInteger = __webpack_require__(24);
+var aNumberValue = __webpack_require__(102);
+var repeat = __webpack_require__(73);
+var $toFixed = 1.0.toFixed;
+var floor = Math.floor;
+var data = [0, 0, 0, 0, 0, 0];
+var ERROR = 'Number.toFixed: incorrect invocation!';
+var ZERO = '0';
+
+var multiply = function (n, c) {
+  var i = -1;
+  var c2 = c;
+  while (++i < 6) {
+    c2 += n * data[i];
+    data[i] = c2 % 1e7;
+    c2 = floor(c2 / 1e7);
+  }
+};
+var divide = function (n) {
+  var i = 6;
+  var c = 0;
+  while (--i >= 0) {
+    c += data[i];
+    data[i] = floor(c / n);
+    c = (c % n) * 1e7;
+  }
+};
+var numToString = function () {
+  var i = 6;
+  var s = '';
+  while (--i >= 0) {
+    if (s !== '' || i === 0 || data[i] !== 0) {
+      var t = String(data[i]);
+      s = s === '' ? t : s + repeat.call(ZERO, 7 - t.length) + t;
+    }
+  } return s;
+};
+var pow = function (x, n, acc) {
+  return n === 0 ? acc : n % 2 === 1 ? pow(x, n - 1, acc * x) : pow(x * x, n / 2, acc);
+};
+var log = function (x) {
+  var n = 0;
+  var x2 = x;
+  while (x2 >= 4096) {
+    n += 12;
+    x2 /= 4096;
+  }
+  while (x2 >= 2) {
+    n += 1;
+    x2 /= 2;
+  } return n;
+};
+
+$export($export.P + $export.F * (!!$toFixed && (
+  0.00008.toFixed(3) !== '0.000' ||
+  0.9.toFixed(0) !== '1' ||
+  1.255.toFixed(2) !== '1.25' ||
+  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
+) || !__webpack_require__(3)(function () {
+  // V8 ~ Android 4.3-
+  $toFixed.call({});
+})), 'Number', {
+  toFixed: function toFixed(fractionDigits) {
+    var x = aNumberValue(this, ERROR);
+    var f = toInteger(fractionDigits);
+    var s = '';
+    var m = ZERO;
+    var e, z, j, k;
+    if (f < 0 || f > 20) throw RangeError(ERROR);
+    // eslint-disable-next-line no-self-compare
+    if (x != x) return 'NaN';
+    if (x <= -1e21 || x >= 1e21) return String(x);
+    if (x < 0) {
+      s = '-';
+      x = -x;
+    }
+    if (x > 1e-21) {
+      e = log(x * pow(2, 69, 1)) - 69;
+      z = e < 0 ? x * pow(2, -e, 1) : x / pow(2, e, 1);
+      z *= 0x10000000000000;
+      e = 52 - e;
+      if (e > 0) {
+        multiply(0, z);
+        j = f;
+        while (j >= 7) {
+          multiply(1e7, 0);
+          j -= 7;
+        }
+        multiply(pow(10, j, 1), 0);
+        j = e - 1;
+        while (j >= 23) {
+          divide(1 << 23);
+          j -= 23;
+        }
+        divide(1 << j);
+        multiply(1, 1);
+        divide(2);
+        m = numToString();
+      } else {
+        multiply(0, z);
+        multiply(1 << -e, 0);
+        m = numToString() + repeat.call(ZERO, f);
+      }
+    }
+    if (f > 0) {
+      k = m.length;
+      m = s + (k <= f ? '0.' + repeat.call(ZERO, f - k) + m : m.slice(0, k - f) + '.' + m.slice(k - f));
+    } else {
+      m = s + m;
+    } return m;
+  }
+});
+
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $fails = __webpack_require__(3);
+var aNumberValue = __webpack_require__(102);
+var $toPrecision = 1.0.toPrecision;
+
+$export($export.P + $export.F * ($fails(function () {
+  // IE7-
+  return $toPrecision.call(1, undefined) !== '1';
+}) || !$fails(function () {
+  // V8 ~ Android 4.3-
+  $toPrecision.call({});
+})), 'Number', {
+  toPrecision: function toPrecision(precision) {
+    var that = aNumberValue(this, 'Number#toPrecision: incorrect invocation!');
+    return precision === undefined ? $toPrecision.call(that) : $toPrecision.call(that, precision);
+  }
+});
+
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.1 Number.EPSILON
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Number', { EPSILON: Math.pow(2, -52) });
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.2 Number.isFinite(number)
+var $export = __webpack_require__(0);
+var _isFinite = __webpack_require__(2).isFinite;
+
+$export($export.S, 'Number', {
+  isFinite: function isFinite(it) {
+    return typeof it == 'number' && _isFinite(it);
+  }
+});
+
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.3 Number.isInteger(number)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Number', { isInteger: __webpack_require__(103) });
+
+
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.4 Number.isNaN(number)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Number', {
+  isNaN: function isNaN(number) {
+    // eslint-disable-next-line no-self-compare
+    return number != number;
+  }
+});
+
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.5 Number.isSafeInteger(number)
+var $export = __webpack_require__(0);
+var isInteger = __webpack_require__(103);
+var abs = Math.abs;
+
+$export($export.S, 'Number', {
+  isSafeInteger: function isSafeInteger(number) {
+    return isInteger(number) && abs(number) <= 0x1fffffffffffff;
+  }
+});
+
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.6 Number.MAX_SAFE_INTEGER
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Number', { MAX_SAFE_INTEGER: 0x1fffffffffffff });
+
+
+/***/ }),
+/* 167 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.10 Number.MIN_SAFE_INTEGER
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Number', { MIN_SAFE_INTEGER: -0x1fffffffffffff });
+
+
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var $parseFloat = __webpack_require__(101);
+// 20.1.2.12 Number.parseFloat(string)
+$export($export.S + $export.F * (Number.parseFloat != $parseFloat), 'Number', { parseFloat: $parseFloat });
+
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var $parseInt = __webpack_require__(100);
+// 20.1.2.13 Number.parseInt(string, radix)
+$export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
+
+
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.3 Math.acosh(x)
+var $export = __webpack_require__(0);
+var log1p = __webpack_require__(104);
+var sqrt = Math.sqrt;
+var $acosh = Math.acosh;
+
+$export($export.S + $export.F * !($acosh
+  // V8 bug: https://code.google.com/p/v8/issues/detail?id=3509
+  && Math.floor($acosh(Number.MAX_VALUE)) == 710
+  // Tor Browser bug: Math.acosh(Infinity) -> NaN
+  && $acosh(Infinity) == Infinity
+), 'Math', {
+  acosh: function acosh(x) {
+    return (x = +x) < 1 ? NaN : x > 94906265.62425156
+      ? Math.log(x) + Math.LN2
+      : log1p(x - 1 + sqrt(x - 1) * sqrt(x + 1));
+  }
+});
+
+
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.5 Math.asinh(x)
+var $export = __webpack_require__(0);
+var $asinh = Math.asinh;
+
+function asinh(x) {
+  return !isFinite(x = +x) || x == 0 ? x : x < 0 ? -asinh(-x) : Math.log(x + Math.sqrt(x * x + 1));
+}
+
+// Tor Browser bug: Math.asinh(0) -> -0
+$export($export.S + $export.F * !($asinh && 1 / $asinh(0) > 0), 'Math', { asinh: asinh });
+
+
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.7 Math.atanh(x)
+var $export = __webpack_require__(0);
+var $atanh = Math.atanh;
+
+// Tor Browser bug: Math.atanh(-0) -> 0
+$export($export.S + $export.F * !($atanh && 1 / $atanh(-0) < 0), 'Math', {
+  atanh: function atanh(x) {
+    return (x = +x) == 0 ? x : Math.log((1 + x) / (1 - x)) / 2;
+  }
+});
+
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.9 Math.cbrt(x)
+var $export = __webpack_require__(0);
+var sign = __webpack_require__(74);
+
+$export($export.S, 'Math', {
+  cbrt: function cbrt(x) {
+    return sign(x = +x) * Math.pow(Math.abs(x), 1 / 3);
+  }
+});
+
+
+/***/ }),
+/* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.11 Math.clz32(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  clz32: function clz32(x) {
+    return (x >>>= 0) ? 31 - Math.floor(Math.log(x + 0.5) * Math.LOG2E) : 32;
+  }
+});
+
+
+/***/ }),
+/* 175 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.12 Math.cosh(x)
+var $export = __webpack_require__(0);
+var exp = Math.exp;
+
+$export($export.S, 'Math', {
+  cosh: function cosh(x) {
+    return (exp(x = +x) + exp(-x)) / 2;
+  }
+});
+
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.14 Math.expm1(x)
+var $export = __webpack_require__(0);
+var $expm1 = __webpack_require__(75);
+
+$export($export.S + $export.F * ($expm1 != Math.expm1), 'Math', { expm1: $expm1 });
+
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.16 Math.fround(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { fround: __webpack_require__(105) });
+
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.17 Math.hypot([value1[, value2[, … ]]])
+var $export = __webpack_require__(0);
+var abs = Math.abs;
+
+$export($export.S, 'Math', {
+  hypot: function hypot(value1, value2) { // eslint-disable-line no-unused-vars
+    var sum = 0;
+    var i = 0;
+    var aLen = arguments.length;
+    var larg = 0;
+    var arg, div;
+    while (i < aLen) {
+      arg = abs(arguments[i++]);
+      if (larg < arg) {
+        div = larg / arg;
+        sum = sum * div * div + 1;
+        larg = arg;
+      } else if (arg > 0) {
+        div = arg / larg;
+        sum += div * div;
+      } else sum += arg;
+    }
+    return larg === Infinity ? Infinity : larg * Math.sqrt(sum);
+  }
+});
+
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.18 Math.imul(x, y)
+var $export = __webpack_require__(0);
+var $imul = Math.imul;
+
+// some WebKit versions fails with big numbers, some has wrong arity
+$export($export.S + $export.F * __webpack_require__(3)(function () {
+  return $imul(0xffffffff, 5) != -5 || $imul.length != 2;
+}), 'Math', {
+  imul: function imul(x, y) {
+    var UINT16 = 0xffff;
+    var xn = +x;
+    var yn = +y;
+    var xl = UINT16 & xn;
+    var yl = UINT16 & yn;
+    return 0 | xl * yl + ((UINT16 & xn >>> 16) * yl + xl * (UINT16 & yn >>> 16) << 16 >>> 0);
+  }
+});
+
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.21 Math.log10(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  log10: function log10(x) {
+    return Math.log(x) * Math.LOG10E;
+  }
+});
+
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.20 Math.log1p(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { log1p: __webpack_require__(104) });
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.22 Math.log2(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  log2: function log2(x) {
+    return Math.log(x) / Math.LN2;
+  }
+});
+
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.28 Math.sign(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { sign: __webpack_require__(74) });
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.30 Math.sinh(x)
+var $export = __webpack_require__(0);
+var expm1 = __webpack_require__(75);
+var exp = Math.exp;
+
+// V8 near Chromium 38 has a problem with very small numbers
+$export($export.S + $export.F * __webpack_require__(3)(function () {
+  return !Math.sinh(-2e-17) != -2e-17;
+}), 'Math', {
+  sinh: function sinh(x) {
+    return Math.abs(x = +x) < 1
+      ? (expm1(x) - expm1(-x)) / 2
+      : (exp(x - 1) - exp(-x - 1)) * (Math.E / 2);
+  }
+});
+
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.33 Math.tanh(x)
+var $export = __webpack_require__(0);
+var expm1 = __webpack_require__(75);
+var exp = Math.exp;
+
+$export($export.S, 'Math', {
+  tanh: function tanh(x) {
+    var a = expm1(x = +x);
+    var b = expm1(-x);
+    return a == Infinity ? 1 : b == Infinity ? -1 : (a - b) / (exp(x) + exp(-x));
+  }
+});
+
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.2.2.34 Math.trunc(x)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  trunc: function trunc(it) {
+    return (it > 0 ? Math.floor : Math.ceil)(it);
+  }
+});
+
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var toAbsoluteIndex = __webpack_require__(35);
+var fromCharCode = String.fromCharCode;
+var $fromCodePoint = String.fromCodePoint;
+
+// length should be 1, old FF problem
+$export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1), 'String', {
+  // 21.1.2.2 String.fromCodePoint(...codePoints)
+  fromCodePoint: function fromCodePoint(x) { // eslint-disable-line no-unused-vars
+    var res = [];
+    var aLen = arguments.length;
+    var i = 0;
+    var code;
+    while (aLen > i) {
+      code = +arguments[i++];
+      if (toAbsoluteIndex(code, 0x10ffff) !== code) throw RangeError(code + ' is not a valid code point');
+      res.push(code < 0x10000
+        ? fromCharCode(code)
+        : fromCharCode(((code -= 0x10000) >> 10) + 0xd800, code % 0x400 + 0xdc00)
+      );
+    } return res.join('');
+  }
+});
+
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var toIObject = __webpack_require__(15);
+var toLength = __webpack_require__(8);
+
+$export($export.S, 'String', {
+  // 21.1.2.4 String.raw(callSite, ...substitutions)
+  raw: function raw(callSite) {
+    var tpl = toIObject(callSite.raw);
+    var len = toLength(tpl.length);
+    var aLen = arguments.length;
+    var res = [];
+    var i = 0;
+    while (len > i) {
+      res.push(String(tpl[i++]));
+      if (i < aLen) res.push(String(arguments[i]));
+    } return res.join('');
+  }
+});
+
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 21.1.3.25 String.prototype.trim()
+__webpack_require__(43)('trim', function ($trim) {
+  return function trim() {
+    return $trim(this, 3);
+  };
+});
+
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $at = __webpack_require__(76)(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__(77)(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $at = __webpack_require__(76)(false);
+$export($export.P, 'String', {
+  // 21.1.3.3 String.prototype.codePointAt(pos)
+  codePointAt: function codePointAt(pos) {
+    return $at(this, pos);
+  }
+});
+
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
+
+var $export = __webpack_require__(0);
+var toLength = __webpack_require__(8);
+var context = __webpack_require__(79);
+var ENDS_WITH = 'endsWith';
+var $endsWith = ''[ENDS_WITH];
+
+$export($export.P + $export.F * __webpack_require__(80)(ENDS_WITH), 'String', {
+  endsWith: function endsWith(searchString /* , endPosition = @length */) {
+    var that = context(this, searchString, ENDS_WITH);
+    var endPosition = arguments.length > 1 ? arguments[1] : undefined;
+    var len = toLength(that.length);
+    var end = endPosition === undefined ? len : Math.min(toLength(endPosition), len);
+    var search = String(searchString);
+    return $endsWith
+      ? $endsWith.call(that, search, end)
+      : that.slice(end - search.length, end) === search;
+  }
+});
+
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// 21.1.3.7 String.prototype.includes(searchString, position = 0)
+
+var $export = __webpack_require__(0);
+var context = __webpack_require__(79);
+var INCLUDES = 'includes';
+
+$export($export.P + $export.F * __webpack_require__(80)(INCLUDES), 'String', {
+  includes: function includes(searchString /* , position = 0 */) {
+    return !!~context(this, searchString, INCLUDES)
+      .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+
+$export($export.P, 'String', {
+  // 21.1.3.13 String.prototype.repeat(count)
+  repeat: __webpack_require__(73)
+});
+
+
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// 21.1.3.18 String.prototype.startsWith(searchString [, position ])
+
+var $export = __webpack_require__(0);
+var toLength = __webpack_require__(8);
+var context = __webpack_require__(79);
+var STARTS_WITH = 'startsWith';
+var $startsWith = ''[STARTS_WITH];
+
+$export($export.P + $export.F * __webpack_require__(80)(STARTS_WITH), 'String', {
+  startsWith: function startsWith(searchString /* , position = 0 */) {
+    var that = context(this, searchString, STARTS_WITH);
+    var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
+    var search = String(searchString);
+    return $startsWith
+      ? $startsWith.call(that, search, index)
+      : that.slice(index, index + search.length) === search;
+  }
+});
+
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.2 String.prototype.anchor(name)
+__webpack_require__(14)('anchor', function (createHTML) {
+  return function anchor(name) {
+    return createHTML(this, 'a', 'name', name);
+  };
+});
+
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.3 String.prototype.big()
+__webpack_require__(14)('big', function (createHTML) {
+  return function big() {
+    return createHTML(this, 'big', '', '');
+  };
+});
+
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.4 String.prototype.blink()
+__webpack_require__(14)('blink', function (createHTML) {
+  return function blink() {
+    return createHTML(this, 'blink', '', '');
+  };
+});
+
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.5 String.prototype.bold()
+__webpack_require__(14)('bold', function (createHTML) {
+  return function bold() {
+    return createHTML(this, 'b', '', '');
+  };
+});
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.6 String.prototype.fixed()
+__webpack_require__(14)('fixed', function (createHTML) {
+  return function fixed() {
+    return createHTML(this, 'tt', '', '');
+  };
+});
+
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.7 String.prototype.fontcolor(color)
+__webpack_require__(14)('fontcolor', function (createHTML) {
+  return function fontcolor(color) {
+    return createHTML(this, 'font', 'color', color);
+  };
+});
+
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.8 String.prototype.fontsize(size)
+__webpack_require__(14)('fontsize', function (createHTML) {
+  return function fontsize(size) {
+    return createHTML(this, 'font', 'size', size);
+  };
+});
+
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.9 String.prototype.italics()
+__webpack_require__(14)('italics', function (createHTML) {
+  return function italics() {
+    return createHTML(this, 'i', '', '');
+  };
+});
+
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.10 String.prototype.link(url)
+__webpack_require__(14)('link', function (createHTML) {
+  return function link(url) {
+    return createHTML(this, 'a', 'href', url);
+  };
+});
+
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.11 String.prototype.small()
+__webpack_require__(14)('small', function (createHTML) {
+  return function small() {
+    return createHTML(this, 'small', '', '');
+  };
+});
+
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.12 String.prototype.strike()
+__webpack_require__(14)('strike', function (createHTML) {
+  return function strike() {
+    return createHTML(this, 'strike', '', '');
+  };
+});
+
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.13 String.prototype.sub()
+__webpack_require__(14)('sub', function (createHTML) {
+  return function sub() {
+    return createHTML(this, 'sub', '', '');
+  };
+});
+
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// B.2.3.14 String.prototype.sup()
+__webpack_require__(14)('sup', function (createHTML) {
+  return function sup() {
+    return createHTML(this, 'sup', '', '');
+  };
+});
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.3.3.1 / 15.9.4.4 Date.now()
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Date', { now: function () { return new Date().getTime(); } });
+
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var toPrimitive = __webpack_require__(22);
+
+$export($export.P + $export.F * __webpack_require__(3)(function () {
+  return new Date(NaN).toJSON() !== null
+    || Date.prototype.toJSON.call({ toISOString: function () { return 1; } }) !== 1;
+}), 'Date', {
+  // eslint-disable-next-line no-unused-vars
+  toJSON: function toJSON(key) {
+    var O = toObject(this);
+    var pv = toPrimitive(O);
+    return typeof pv == 'number' && !isFinite(pv) ? null : O.toISOString();
+  }
+});
+
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
+var $export = __webpack_require__(0);
+var toISOString = __webpack_require__(212);
+
+// PhantomJS / old WebKit has a broken implementations
+$export($export.P + $export.F * (Date.prototype.toISOString !== toISOString), 'Date', {
+  toISOString: toISOString
+});
+
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
+var fails = __webpack_require__(3);
+var getTime = Date.prototype.getTime;
+var $toISOString = Date.prototype.toISOString;
+
+var lz = function (num) {
+  return num > 9 ? num : '0' + num;
+};
+
+// PhantomJS / old WebKit has a broken implementations
+module.exports = (fails(function () {
+  return $toISOString.call(new Date(-5e13 - 1)) != '0385-07-25T07:06:39.999Z';
+}) || !fails(function () {
+  $toISOString.call(new Date(NaN));
+})) ? function toISOString() {
+  if (!isFinite(getTime.call(this))) throw RangeError('Invalid time value');
+  var d = this;
+  var y = d.getUTCFullYear();
+  var m = d.getUTCMilliseconds();
+  var s = y < 0 ? '-' : y > 9999 ? '+' : '';
+  return s + ('00000' + Math.abs(y)).slice(s ? -6 : -4) +
+    '-' + lz(d.getUTCMonth() + 1) + '-' + lz(d.getUTCDate()) +
+    'T' + lz(d.getUTCHours()) + ':' + lz(d.getUTCMinutes()) +
+    ':' + lz(d.getUTCSeconds()) + '.' + (m > 99 ? m : '0' + lz(m)) + 'Z';
+} : $toISOString;
+
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DateProto = Date.prototype;
+var INVALID_DATE = 'Invalid Date';
+var TO_STRING = 'toString';
+var $toString = DateProto[TO_STRING];
+var getTime = DateProto.getTime;
+if (new Date(NaN) + '' != INVALID_DATE) {
+  __webpack_require__(13)(DateProto, TO_STRING, function toString() {
+    var value = getTime.call(this);
+    // eslint-disable-next-line no-self-compare
+    return value === value ? $toString.call(this) : INVALID_DATE;
+  });
+}
+
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var TO_PRIMITIVE = __webpack_require__(5)('toPrimitive');
+var proto = Date.prototype;
+
+if (!(TO_PRIMITIVE in proto)) __webpack_require__(12)(proto, TO_PRIMITIVE, __webpack_require__(215));
+
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var anObject = __webpack_require__(1);
+var toPrimitive = __webpack_require__(22);
+var NUMBER = 'number';
+
+module.exports = function (hint) {
+  if (hint !== 'string' && hint !== NUMBER && hint !== 'default') throw TypeError('Incorrect hint');
+  return toPrimitive(anObject(this), hint != NUMBER);
+};
+
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.2.2 / 15.4.3.2 Array.isArray(arg)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Array', { isArray: __webpack_require__(53) });
+
+
+/***/ }),
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ctx = __webpack_require__(18);
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var call = __webpack_require__(106);
+var isArrayIter = __webpack_require__(81);
+var toLength = __webpack_require__(8);
+var createProperty = __webpack_require__(82);
+var getIterFn = __webpack_require__(83);
+
+$export($export.S + $export.F * !__webpack_require__(55)(function (iter) { Array.from(iter); }), 'Array', {
+  // 22.1.2.1 Array.from(arrayLike, mapfn = undefined, thisArg = undefined)
+  from: function from(arrayLike /* , mapfn = undefined, thisArg = undefined */) {
+    var O = toObject(arrayLike);
+    var C = typeof this == 'function' ? this : Array;
+    var aLen = arguments.length;
+    var mapfn = aLen > 1 ? arguments[1] : undefined;
+    var mapping = mapfn !== undefined;
+    var index = 0;
+    var iterFn = getIterFn(O);
+    var length, result, step, iterator;
+    if (mapping) mapfn = ctx(mapfn, aLen > 2 ? arguments[2] : undefined, 2);
+    // if object isn't iterable or it's array with default iterator - use simple case
+    if (iterFn != undefined && !(C == Array && isArrayIter(iterFn))) {
+      for (iterator = iterFn.call(O), result = new C(); !(step = iterator.next()).done; index++) {
+        createProperty(result, index, mapping ? call(iterator, mapfn, [step.value, index], true) : step.value);
+      }
+    } else {
+      length = toLength(O.length);
+      for (result = new C(length); length > index; index++) {
+        createProperty(result, index, mapping ? mapfn(O[index], index) : O[index]);
+      }
+    }
+    result.length = index;
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var createProperty = __webpack_require__(82);
+
+// WebKit Array.of isn't generic
+$export($export.S + $export.F * __webpack_require__(3)(function () {
+  function F() { /* empty */ }
+  return !(Array.of.call(F) instanceof F);
+}), 'Array', {
+  // 22.1.2.3 Array.of( ...items)
+  of: function of(/* ...args */) {
+    var index = 0;
+    var aLen = arguments.length;
+    var result = new (typeof this == 'function' ? this : Array)(aLen);
+    while (aLen > index) createProperty(result, index, arguments[index++]);
+    result.length = aLen;
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 22.1.3.13 Array.prototype.join(separator)
+var $export = __webpack_require__(0);
+var toIObject = __webpack_require__(15);
+var arrayJoin = [].join;
+
+// fallback for not array-like strings
+$export($export.P + $export.F * (__webpack_require__(47) != Object || !__webpack_require__(20)(arrayJoin)), 'Array', {
+  join: function join(separator) {
+    return arrayJoin.call(toIObject(this), separator === undefined ? ',' : separator);
+  }
+});
+
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var html = __webpack_require__(69);
+var cof = __webpack_require__(19);
+var toAbsoluteIndex = __webpack_require__(35);
+var toLength = __webpack_require__(8);
+var arraySlice = [].slice;
+
+// fallback for not array-like ES3 strings and DOM objects
+$export($export.P + $export.F * __webpack_require__(3)(function () {
+  if (html) arraySlice.call(html);
+}), 'Array', {
+  slice: function slice(begin, end) {
+    var len = toLength(this.length);
+    var klass = cof(this);
+    end = end === undefined ? len : end;
+    if (klass == 'Array') return arraySlice.call(this, begin, end);
+    var start = toAbsoluteIndex(begin, len);
+    var upTo = toAbsoluteIndex(end, len);
+    var size = toLength(upTo - start);
+    var cloned = new Array(size);
+    var i = 0;
+    for (; i < size; i++) cloned[i] = klass == 'String'
+      ? this.charAt(start + i)
+      : this[start + i];
+    return cloned;
+  }
+});
+
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var aFunction = __webpack_require__(10);
+var toObject = __webpack_require__(9);
+var fails = __webpack_require__(3);
+var $sort = [].sort;
+var test = [1, 2, 3];
+
+$export($export.P + $export.F * (fails(function () {
+  // IE8-
+  test.sort(undefined);
+}) || !fails(function () {
+  // V8 bug
+  test.sort(null);
+  // Old WebKit
+}) || !__webpack_require__(20)($sort)), 'Array', {
+  // 22.1.3.25 Array.prototype.sort(comparefn)
+  sort: function sort(comparefn) {
+    return comparefn === undefined
+      ? $sort.call(toObject(this))
+      : $sort.call(toObject(this), aFunction(comparefn));
+  }
+});
+
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $forEach = __webpack_require__(26)(0);
+var STRICT = __webpack_require__(20)([].forEach, true);
+
+$export($export.P + $export.F * !STRICT, 'Array', {
+  // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
+  forEach: function forEach(callbackfn /* , thisArg */) {
+    return $forEach(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 223 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(4);
+var isArray = __webpack_require__(53);
+var SPECIES = __webpack_require__(5)('species');
+
+module.exports = function (original) {
+  var C;
+  if (isArray(original)) {
+    C = original.constructor;
+    // cross-realm fallback
+    if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = undefined;
+    if (isObject(C)) {
+      C = C[SPECIES];
+      if (C === null) C = undefined;
+    }
+  } return C === undefined ? Array : C;
+};
+
+
+/***/ }),
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $map = __webpack_require__(26)(1);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].map, true), 'Array', {
+  // 22.1.3.15 / 15.4.4.19 Array.prototype.map(callbackfn [, thisArg])
+  map: function map(callbackfn /* , thisArg */) {
+    return $map(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $filter = __webpack_require__(26)(2);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].filter, true), 'Array', {
+  // 22.1.3.7 / 15.4.4.20 Array.prototype.filter(callbackfn [, thisArg])
+  filter: function filter(callbackfn /* , thisArg */) {
+    return $filter(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $some = __webpack_require__(26)(3);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].some, true), 'Array', {
+  // 22.1.3.23 / 15.4.4.17 Array.prototype.some(callbackfn [, thisArg])
+  some: function some(callbackfn /* , thisArg */) {
+    return $some(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $every = __webpack_require__(26)(4);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].every, true), 'Array', {
+  // 22.1.3.5 / 15.4.4.16 Array.prototype.every(callbackfn [, thisArg])
+  every: function every(callbackfn /* , thisArg */) {
+    return $every(this, callbackfn, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $reduce = __webpack_require__(107);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].reduce, true), 'Array', {
+  // 22.1.3.18 / 15.4.4.21 Array.prototype.reduce(callbackfn [, initialValue])
+  reduce: function reduce(callbackfn /* , initialValue */) {
+    return $reduce(this, callbackfn, arguments.length, arguments[1], false);
+  }
+});
+
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $reduce = __webpack_require__(107);
+
+$export($export.P + $export.F * !__webpack_require__(20)([].reduceRight, true), 'Array', {
+  // 22.1.3.19 / 15.4.4.22 Array.prototype.reduceRight(callbackfn [, initialValue])
+  reduceRight: function reduceRight(callbackfn /* , initialValue */) {
+    return $reduce(this, callbackfn, arguments.length, arguments[1], true);
+  }
+});
+
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $indexOf = __webpack_require__(51)(false);
+var $native = [].indexOf;
+var NEGATIVE_ZERO = !!$native && 1 / [1].indexOf(1, -0) < 0;
+
+$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(20)($native)), 'Array', {
+  // 22.1.3.11 / 15.4.4.14 Array.prototype.indexOf(searchElement [, fromIndex])
+  indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+    return NEGATIVE_ZERO
+      // convert -0 to +0
+      ? $native.apply(this, arguments) || 0
+      : $indexOf(this, searchElement, arguments[1]);
+  }
+});
+
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toIObject = __webpack_require__(15);
+var toInteger = __webpack_require__(24);
+var toLength = __webpack_require__(8);
+var $native = [].lastIndexOf;
+var NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
+
+$export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(20)($native)), 'Array', {
+  // 22.1.3.14 / 15.4.4.15 Array.prototype.lastIndexOf(searchElement [, fromIndex])
+  lastIndexOf: function lastIndexOf(searchElement /* , fromIndex = @[*-1] */) {
+    // convert -0 to +0
+    if (NEGATIVE_ZERO) return $native.apply(this, arguments) || 0;
+    var O = toIObject(this);
+    var length = toLength(O.length);
+    var index = length - 1;
+    if (arguments.length > 1) index = Math.min(index, toInteger(arguments[1]));
+    if (index < 0) index = length + index;
+    for (;index >= 0; index--) if (index in O) if (O[index] === searchElement) return index || 0;
+    return -1;
+  }
+});
+
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.3.3 Array.prototype.copyWithin(target, start, end = this.length)
+var $export = __webpack_require__(0);
+
+$export($export.P, 'Array', { copyWithin: __webpack_require__(108) });
+
+__webpack_require__(30)('copyWithin');
+
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
+var $export = __webpack_require__(0);
+
+$export($export.P, 'Array', { fill: __webpack_require__(85) });
+
+__webpack_require__(30)('fill');
+
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 22.1.3.8 Array.prototype.find(predicate, thisArg = undefined)
+var $export = __webpack_require__(0);
+var $find = __webpack_require__(26)(5);
+var KEY = 'find';
+var forced = true;
+// Shouldn't skip holes
+if (KEY in []) Array(1)[KEY](function () { forced = false; });
+$export($export.P + $export.F * forced, 'Array', {
+  find: function find(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+__webpack_require__(30)(KEY);
+
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 22.1.3.9 Array.prototype.findIndex(predicate, thisArg = undefined)
+var $export = __webpack_require__(0);
+var $find = __webpack_require__(26)(6);
+var KEY = 'findIndex';
+var forced = true;
+// Shouldn't skip holes
+if (KEY in []) Array(1)[KEY](function () { forced = false; });
+$export($export.P + $export.F * forced, 'Array', {
+  findIndex: function findIndex(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+__webpack_require__(30)(KEY);
+
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(38)('Array');
+
+
+/***/ }),
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(2);
+var inheritIfRequired = __webpack_require__(72);
+var dP = __webpack_require__(7).f;
+var gOPN = __webpack_require__(37).f;
+var isRegExp = __webpack_require__(54);
+var $flags = __webpack_require__(56);
+var $RegExp = global.RegExp;
+var Base = $RegExp;
+var proto = $RegExp.prototype;
+var re1 = /a/g;
+var re2 = /a/g;
+// "new" creates a new object, old webkit buggy here
+var CORRECT_NEW = new $RegExp(re1) !== re1;
+
+if (__webpack_require__(6) && (!CORRECT_NEW || __webpack_require__(3)(function () {
+  re2[__webpack_require__(5)('match')] = false;
+  // RegExp constructor can alter flags and IsRegExp works correct with @@match
+  return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
+}))) {
+  $RegExp = function RegExp(p, f) {
+    var tiRE = this instanceof $RegExp;
+    var piRE = isRegExp(p);
+    var fiU = f === undefined;
+    return !tiRE && piRE && p.constructor === $RegExp && fiU ? p
+      : inheritIfRequired(CORRECT_NEW
+        ? new Base(piRE && !fiU ? p.source : p, f)
+        : Base((piRE = p instanceof $RegExp) ? p.source : p, piRE && fiU ? $flags.call(p) : f)
+      , tiRE ? this : proto, $RegExp);
+  };
+  var proxy = function (key) {
+    key in $RegExp || dP($RegExp, key, {
+      configurable: true,
+      get: function () { return Base[key]; },
+      set: function (it) { Base[key] = it; }
+    });
+  };
+  for (var keys = gOPN(Base), i = 0; keys.length > i;) proxy(keys[i++]);
+  proto.constructor = $RegExp;
+  $RegExp.prototype = proto;
+  __webpack_require__(13)(global, 'RegExp', $RegExp);
+}
+
+__webpack_require__(38)('RegExp');
+
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+__webpack_require__(110);
+var anObject = __webpack_require__(1);
+var $flags = __webpack_require__(56);
+var DESCRIPTORS = __webpack_require__(6);
+var TO_STRING = 'toString';
+var $toString = /./[TO_STRING];
+
+var define = function (fn) {
+  __webpack_require__(13)(RegExp.prototype, TO_STRING, fn, true);
+};
+
+// 21.2.5.14 RegExp.prototype.toString()
+if (__webpack_require__(3)(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
+  define(function toString() {
+    var R = anObject(this);
+    return '/'.concat(R.source, '/',
+      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
+  });
+// FF44- RegExp#toString has a wrong name
+} else if ($toString.name != TO_STRING) {
+  define(function toString() {
+    return $toString.call(this);
+  });
+}
+
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@match logic
+__webpack_require__(57)('match', 1, function (defined, MATCH, $match) {
+  // 21.1.3.11 String.prototype.match(regexp)
+  return [function match(regexp) {
+    'use strict';
+    var O = defined(this);
+    var fn = regexp == undefined ? undefined : regexp[MATCH];
+    return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
+  }, $match];
+});
+
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@replace logic
+__webpack_require__(57)('replace', 2, function (defined, REPLACE, $replace) {
+  // 21.1.3.14 String.prototype.replace(searchValue, replaceValue)
+  return [function replace(searchValue, replaceValue) {
+    'use strict';
+    var O = defined(this);
+    var fn = searchValue == undefined ? undefined : searchValue[REPLACE];
+    return fn !== undefined
+      ? fn.call(searchValue, O, replaceValue)
+      : $replace.call(String(O), searchValue, replaceValue);
+  }, $replace];
+});
+
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@search logic
+__webpack_require__(57)('search', 1, function (defined, SEARCH, $search) {
+  // 21.1.3.15 String.prototype.search(regexp)
+  return [function search(regexp) {
+    'use strict';
+    var O = defined(this);
+    var fn = regexp == undefined ? undefined : regexp[SEARCH];
+    return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[SEARCH](String(O));
+  }, $search];
+});
+
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@split logic
+__webpack_require__(57)('split', 2, function (defined, SPLIT, $split) {
+  'use strict';
+  var isRegExp = __webpack_require__(54);
+  var _split = $split;
+  var $push = [].push;
+  var $SPLIT = 'split';
+  var LENGTH = 'length';
+  var LAST_INDEX = 'lastIndex';
+  if (
+    'abbc'[$SPLIT](/(b)*/)[1] == 'c' ||
+    'test'[$SPLIT](/(?:)/, -1)[LENGTH] != 4 ||
+    'ab'[$SPLIT](/(?:ab)*/)[LENGTH] != 2 ||
+    '.'[$SPLIT](/(.?)(.?)/)[LENGTH] != 4 ||
+    '.'[$SPLIT](/()()/)[LENGTH] > 1 ||
+    ''[$SPLIT](/.?/)[LENGTH]
+  ) {
+    var NPCG = /()??/.exec('')[1] === undefined; // nonparticipating capturing group
+    // based on es5-shim implementation, need to rework it
+    $split = function (separator, limit) {
+      var string = String(this);
+      if (separator === undefined && limit === 0) return [];
+      // If `separator` is not a regex, use native split
+      if (!isRegExp(separator)) return _split.call(string, separator, limit);
+      var output = [];
+      var flags = (separator.ignoreCase ? 'i' : '') +
+                  (separator.multiline ? 'm' : '') +
+                  (separator.unicode ? 'u' : '') +
+                  (separator.sticky ? 'y' : '');
+      var lastLastIndex = 0;
+      var splitLimit = limit === undefined ? 4294967295 : limit >>> 0;
+      // Make `global` and avoid `lastIndex` issues by working with a copy
+      var separatorCopy = new RegExp(separator.source, flags + 'g');
+      var separator2, match, lastIndex, lastLength, i;
+      // Doesn't need flags gy, but they don't hurt
+      if (!NPCG) separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
+      while (match = separatorCopy.exec(string)) {
+        // `separatorCopy.lastIndex` is not reliable cross-browser
+        lastIndex = match.index + match[0][LENGTH];
+        if (lastIndex > lastLastIndex) {
+          output.push(string.slice(lastLastIndex, match.index));
+          // Fix browsers whose `exec` methods don't consistently return `undefined` for NPCG
+          // eslint-disable-next-line no-loop-func
+          if (!NPCG && match[LENGTH] > 1) match[0].replace(separator2, function () {
+            for (i = 1; i < arguments[LENGTH] - 2; i++) if (arguments[i] === undefined) match[i] = undefined;
+          });
+          if (match[LENGTH] > 1 && match.index < string[LENGTH]) $push.apply(output, match.slice(1));
+          lastLength = match[0][LENGTH];
+          lastLastIndex = lastIndex;
+          if (output[LENGTH] >= splitLimit) break;
+        }
+        if (separatorCopy[LAST_INDEX] === match.index) separatorCopy[LAST_INDEX]++; // Avoid an infinite loop
+      }
+      if (lastLastIndex === string[LENGTH]) {
+        if (lastLength || !separatorCopy.test('')) output.push('');
+      } else output.push(string.slice(lastLastIndex));
+      return output[LENGTH] > splitLimit ? output.slice(0, splitLimit) : output;
+    };
+  // Chakra, V8
+  } else if ('0'[$SPLIT](undefined, 0)[LENGTH]) {
+    $split = function (separator, limit) {
+      return separator === undefined && limit === 0 ? [] : _split.call(this, separator, limit);
+    };
+  }
+  // 21.1.3.17 String.prototype.split(separator, limit)
+  return [function split(separator, limit) {
+    var O = defined(this);
+    var fn = separator == undefined ? undefined : separator[SPLIT];
+    return fn !== undefined ? fn.call(separator, O, limit) : $split.call(String(O), separator, limit);
+  }, $split];
+});
+
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(33);
+var global = __webpack_require__(2);
+var ctx = __webpack_require__(18);
+var classof = __webpack_require__(49);
+var $export = __webpack_require__(0);
+var isObject = __webpack_require__(4);
+var aFunction = __webpack_require__(10);
+var anInstance = __webpack_require__(39);
+var forOf = __webpack_require__(40);
+var speciesConstructor = __webpack_require__(58);
+var task = __webpack_require__(87).set;
+var microtask = __webpack_require__(88)();
+var newPromiseCapabilityModule = __webpack_require__(89);
+var perform = __webpack_require__(111);
+var promiseResolve = __webpack_require__(112);
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[__webpack_require__(5)('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value);
+            if (domain) domain.exit();
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
+        }
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = __webpack_require__(41)($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
+    },
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+__webpack_require__(42)($Promise, PROMISE);
+__webpack_require__(38)(PROMISE);
+Wrapper = __webpack_require__(21)[PROMISE];
+
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(55)(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
+
+
+/***/ }),
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var weak = __webpack_require__(117);
+var validate = __webpack_require__(45);
+var WEAK_SET = 'WeakSet';
+
+// 23.4 WeakSet Objects
+__webpack_require__(59)(WEAK_SET, function (get) {
+  return function WeakSet() { return get(this, arguments.length > 0 ? arguments[0] : undefined); };
+}, {
+  // 23.4.3.1 WeakSet.prototype.add(value)
+  add: function add(value) {
+    return weak.def(validate(this, WEAK_SET), value, true);
+  }
+}, weak, false, true);
+
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var $typed = __webpack_require__(60);
+var buffer = __webpack_require__(90);
+var anObject = __webpack_require__(1);
+var toAbsoluteIndex = __webpack_require__(35);
+var toLength = __webpack_require__(8);
+var isObject = __webpack_require__(4);
+var ArrayBuffer = __webpack_require__(2).ArrayBuffer;
+var speciesConstructor = __webpack_require__(58);
+var $ArrayBuffer = buffer.ArrayBuffer;
+var $DataView = buffer.DataView;
+var $isView = $typed.ABV && ArrayBuffer.isView;
+var $slice = $ArrayBuffer.prototype.slice;
+var VIEW = $typed.VIEW;
+var ARRAY_BUFFER = 'ArrayBuffer';
+
+$export($export.G + $export.W + $export.F * (ArrayBuffer !== $ArrayBuffer), { ArrayBuffer: $ArrayBuffer });
+
+$export($export.S + $export.F * !$typed.CONSTR, ARRAY_BUFFER, {
+  // 24.1.3.1 ArrayBuffer.isView(arg)
+  isView: function isView(it) {
+    return $isView && $isView(it) || isObject(it) && VIEW in it;
+  }
+});
+
+$export($export.P + $export.U + $export.F * __webpack_require__(3)(function () {
+  return !new $ArrayBuffer(2).slice(1, undefined).byteLength;
+}), ARRAY_BUFFER, {
+  // 24.1.4.3 ArrayBuffer.prototype.slice(start, end)
+  slice: function slice(start, end) {
+    if ($slice !== undefined && end === undefined) return $slice.call(anObject(this), start); // FF fix
+    var len = anObject(this).byteLength;
+    var first = toAbsoluteIndex(start, len);
+    var final = toAbsoluteIndex(end === undefined ? len : end, len);
+    var result = new (speciesConstructor(this, $ArrayBuffer))(toLength(final - first));
+    var viewS = new $DataView(this);
+    var viewT = new $DataView(result);
+    var index = 0;
+    while (first < final) {
+      viewT.setUint8(index++, viewS.getUint8(first++));
+    } return result;
+  }
+});
+
+__webpack_require__(38)(ARRAY_BUFFER);
+
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+$export($export.G + $export.W + $export.F * !__webpack_require__(60).ABV, {
+  DataView: __webpack_require__(90).DataView
+});
+
+
+/***/ }),
+/* 247 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Int8', 1, function (init) {
+  return function Int8Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Uint8', 1, function (init) {
+  return function Uint8Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Uint8', 1, function (init) {
+  return function Uint8ClampedArray(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+}, true);
+
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Int16', 2, function (init) {
+  return function Int16Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Uint16', 2, function (init) {
+  return function Uint16Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Int32', 4, function (init) {
+  return function Int32Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Uint32', 4, function (init) {
+  return function Uint32Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Float32', 4, function (init) {
+  return function Float32Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(27)('Float64', 8, function (init) {
+  return function Float64Array(data, byteOffset, length) {
+    return init(this, data, byteOffset, length);
+  };
+});
+
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
+var $export = __webpack_require__(0);
+var aFunction = __webpack_require__(10);
+var anObject = __webpack_require__(1);
+var rApply = (__webpack_require__(2).Reflect || {}).apply;
+var fApply = Function.apply;
+// MS Edge argumentsList argument is optional
+$export($export.S + $export.F * !__webpack_require__(3)(function () {
+  rApply(function () { /* empty */ });
+}), 'Reflect', {
+  apply: function apply(target, thisArgument, argumentsList) {
+    var T = aFunction(target);
+    var L = anObject(argumentsList);
+    return rApply ? rApply(T, thisArgument, L) : fApply.call(T, thisArgument, L);
+  }
+});
+
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
+var $export = __webpack_require__(0);
+var create = __webpack_require__(36);
+var aFunction = __webpack_require__(10);
+var anObject = __webpack_require__(1);
+var isObject = __webpack_require__(4);
+var fails = __webpack_require__(3);
+var bind = __webpack_require__(98);
+var rConstruct = (__webpack_require__(2).Reflect || {}).construct;
+
+// MS Edge supports only 2 arguments and argumentsList argument is optional
+// FF Nightly sets third argument as `new.target`, but does not create `this` from it
+var NEW_TARGET_BUG = fails(function () {
+  function F() { /* empty */ }
+  return !(rConstruct(function () { /* empty */ }, [], F) instanceof F);
+});
+var ARGS_BUG = !fails(function () {
+  rConstruct(function () { /* empty */ });
+});
+
+$export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
+  construct: function construct(Target, args /* , newTarget */) {
+    aFunction(Target);
+    anObject(args);
+    var newTarget = arguments.length < 3 ? Target : aFunction(arguments[2]);
+    if (ARGS_BUG && !NEW_TARGET_BUG) return rConstruct(Target, args, newTarget);
+    if (Target == newTarget) {
+      // w/o altered newTarget, optimization for 0-4 arguments
+      switch (args.length) {
+        case 0: return new Target();
+        case 1: return new Target(args[0]);
+        case 2: return new Target(args[0], args[1]);
+        case 3: return new Target(args[0], args[1], args[2]);
+        case 4: return new Target(args[0], args[1], args[2], args[3]);
+      }
+      // w/o altered newTarget, lot of arguments case
+      var $args = [null];
+      $args.push.apply($args, args);
+      return new (bind.apply(Target, $args))();
+    }
+    // with altered newTarget, not support built-in constructors
+    var proto = newTarget.prototype;
+    var instance = create(isObject(proto) ? proto : Object.prototype);
+    var result = Function.apply.call(Target, instance, args);
+    return isObject(result) ? result : instance;
+  }
+});
+
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
+var dP = __webpack_require__(7);
+var $export = __webpack_require__(0);
+var anObject = __webpack_require__(1);
+var toPrimitive = __webpack_require__(22);
+
+// MS Edge has broken Reflect.defineProperty - throwing instead of returning false
+$export($export.S + $export.F * __webpack_require__(3)(function () {
+  // eslint-disable-next-line no-undef
+  Reflect.defineProperty(dP.f({}, 1, { value: 1 }), 1, { value: 2 });
+}), 'Reflect', {
+  defineProperty: function defineProperty(target, propertyKey, attributes) {
+    anObject(target);
+    propertyKey = toPrimitive(propertyKey, true);
+    anObject(attributes);
+    try {
+      dP.f(target, propertyKey, attributes);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+});
+
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.4 Reflect.deleteProperty(target, propertyKey)
+var $export = __webpack_require__(0);
+var gOPD = __webpack_require__(16).f;
+var anObject = __webpack_require__(1);
+
+$export($export.S, 'Reflect', {
+  deleteProperty: function deleteProperty(target, propertyKey) {
+    var desc = gOPD(anObject(target), propertyKey);
+    return desc && !desc.configurable ? false : delete target[propertyKey];
+  }
+});
+
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 26.1.5 Reflect.enumerate(target)
+var $export = __webpack_require__(0);
+var anObject = __webpack_require__(1);
+var Enumerate = function (iterated) {
+  this._t = anObject(iterated); // target
+  this._i = 0;                  // next index
+  var keys = this._k = [];      // keys
+  var key;
+  for (key in iterated) keys.push(key);
+};
+__webpack_require__(78)(Enumerate, 'Object', function () {
+  var that = this;
+  var keys = that._k;
+  var key;
+  do {
+    if (that._i >= keys.length) return { value: undefined, done: true };
+  } while (!((key = keys[that._i++]) in that._t));
+  return { value: key, done: false };
+});
+
+$export($export.S, 'Reflect', {
+  enumerate: function enumerate(target) {
+    return new Enumerate(target);
+  }
+});
+
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.6 Reflect.get(target, propertyKey [, receiver])
+var gOPD = __webpack_require__(16);
+var getPrototypeOf = __webpack_require__(17);
+var has = __webpack_require__(11);
+var $export = __webpack_require__(0);
+var isObject = __webpack_require__(4);
+var anObject = __webpack_require__(1);
+
+function get(target, propertyKey /* , receiver */) {
+  var receiver = arguments.length < 3 ? target : arguments[2];
+  var desc, proto;
+  if (anObject(target) === receiver) return target[propertyKey];
+  if (desc = gOPD.f(target, propertyKey)) return has(desc, 'value')
+    ? desc.value
+    : desc.get !== undefined
+      ? desc.get.call(receiver)
+      : undefined;
+  if (isObject(proto = getPrototypeOf(target))) return get(proto, propertyKey, receiver);
+}
+
+$export($export.S, 'Reflect', { get: get });
+
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.7 Reflect.getOwnPropertyDescriptor(target, propertyKey)
+var gOPD = __webpack_require__(16);
+var $export = __webpack_require__(0);
+var anObject = __webpack_require__(1);
+
+$export($export.S, 'Reflect', {
+  getOwnPropertyDescriptor: function getOwnPropertyDescriptor(target, propertyKey) {
+    return gOPD.f(anObject(target), propertyKey);
+  }
+});
+
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.8 Reflect.getPrototypeOf(target)
+var $export = __webpack_require__(0);
+var getProto = __webpack_require__(17);
+var anObject = __webpack_require__(1);
+
+$export($export.S, 'Reflect', {
+  getPrototypeOf: function getPrototypeOf(target) {
+    return getProto(anObject(target));
+  }
+});
+
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.9 Reflect.has(target, propertyKey)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Reflect', {
+  has: function has(target, propertyKey) {
+    return propertyKey in target;
+  }
+});
+
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.10 Reflect.isExtensible(target)
+var $export = __webpack_require__(0);
+var anObject = __webpack_require__(1);
+var $isExtensible = Object.isExtensible;
+
+$export($export.S, 'Reflect', {
+  isExtensible: function isExtensible(target) {
+    anObject(target);
+    return $isExtensible ? $isExtensible(target) : true;
+  }
+});
+
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.11 Reflect.ownKeys(target)
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Reflect', { ownKeys: __webpack_require__(119) });
+
+
+/***/ }),
+/* 267 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.12 Reflect.preventExtensions(target)
+var $export = __webpack_require__(0);
+var anObject = __webpack_require__(1);
+var $preventExtensions = Object.preventExtensions;
+
+$export($export.S, 'Reflect', {
+  preventExtensions: function preventExtensions(target) {
+    anObject(target);
+    try {
+      if ($preventExtensions) $preventExtensions(target);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+});
+
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
+var dP = __webpack_require__(7);
+var gOPD = __webpack_require__(16);
+var getPrototypeOf = __webpack_require__(17);
+var has = __webpack_require__(11);
+var $export = __webpack_require__(0);
+var createDesc = __webpack_require__(31);
+var anObject = __webpack_require__(1);
+var isObject = __webpack_require__(4);
+
+function set(target, propertyKey, V /* , receiver */) {
+  var receiver = arguments.length < 4 ? target : arguments[3];
+  var ownDesc = gOPD.f(anObject(target), propertyKey);
+  var existingDescriptor, proto;
+  if (!ownDesc) {
+    if (isObject(proto = getPrototypeOf(target))) {
+      return set(proto, propertyKey, V, receiver);
+    }
+    ownDesc = createDesc(0);
+  }
+  if (has(ownDesc, 'value')) {
+    if (ownDesc.writable === false || !isObject(receiver)) return false;
+    existingDescriptor = gOPD.f(receiver, propertyKey) || createDesc(0);
+    existingDescriptor.value = V;
+    dP.f(receiver, propertyKey, existingDescriptor);
+    return true;
+  }
+  return ownDesc.set === undefined ? false : (ownDesc.set.call(receiver, V), true);
+}
+
+$export($export.S, 'Reflect', { set: set });
+
+
+/***/ }),
+/* 269 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 26.1.14 Reflect.setPrototypeOf(target, proto)
+var $export = __webpack_require__(0);
+var setProto = __webpack_require__(70);
+
+if (setProto) $export($export.S, 'Reflect', {
+  setPrototypeOf: function setPrototypeOf(target, proto) {
+    setProto.check(target, proto);
+    try {
+      setProto.set(target, proto);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+});
+
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/tc39/Array.prototype.includes
+var $export = __webpack_require__(0);
+var $includes = __webpack_require__(51)(true);
+
+$export($export.P, 'Array', {
+  includes: function includes(el /* , fromIndex = 0 */) {
+    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+__webpack_require__(30)('includes');
+
+
+/***/ }),
+/* 271 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatMap
+var $export = __webpack_require__(0);
+var flattenIntoArray = __webpack_require__(120);
+var toObject = __webpack_require__(9);
+var toLength = __webpack_require__(8);
+var aFunction = __webpack_require__(10);
+var arraySpeciesCreate = __webpack_require__(84);
+
+$export($export.P, 'Array', {
+  flatMap: function flatMap(callbackfn /* , thisArg */) {
+    var O = toObject(this);
+    var sourceLen, A;
+    aFunction(callbackfn);
+    sourceLen = toLength(O.length);
+    A = arraySpeciesCreate(O, 0);
+    flattenIntoArray(A, O, O, sourceLen, 0, 1, callbackfn, arguments[1]);
+    return A;
+  }
+});
+
+__webpack_require__(30)('flatMap');
+
+
+/***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/proposal-flatMap/#sec-Array.prototype.flatten
+var $export = __webpack_require__(0);
+var flattenIntoArray = __webpack_require__(120);
+var toObject = __webpack_require__(9);
+var toLength = __webpack_require__(8);
+var toInteger = __webpack_require__(24);
+var arraySpeciesCreate = __webpack_require__(84);
+
+$export($export.P, 'Array', {
+  flatten: function flatten(/* depthArg = 1 */) {
+    var depthArg = arguments[0];
+    var O = toObject(this);
+    var sourceLen = toLength(O.length);
+    var A = arraySpeciesCreate(O, 0);
+    flattenIntoArray(A, O, O, sourceLen, 0, depthArg === undefined ? 1 : toInteger(depthArg));
+    return A;
+  }
+});
+
+__webpack_require__(30)('flatten');
+
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/mathiasbynens/String.prototype.at
+var $export = __webpack_require__(0);
+var $at = __webpack_require__(76)(true);
+
+$export($export.P, 'String', {
+  at: function at(pos) {
+    return $at(this, pos);
+  }
+});
+
+
+/***/ }),
+/* 274 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/tc39/proposal-string-pad-start-end
+var $export = __webpack_require__(0);
+var $pad = __webpack_require__(121);
+var userAgent = __webpack_require__(91);
+
+// https://github.com/zloirock/core-js/issues/280
+$export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
+  padStart: function padStart(maxLength /* , fillString = ' ' */) {
+    return $pad(this, maxLength, arguments.length > 1 ? arguments[1] : undefined, true);
+  }
+});
+
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/tc39/proposal-string-pad-start-end
+var $export = __webpack_require__(0);
+var $pad = __webpack_require__(121);
+var userAgent = __webpack_require__(91);
+
+// https://github.com/zloirock/core-js/issues/280
+$export($export.P + $export.F * /Version\/10\.\d+(\.\d+)? Safari\//.test(userAgent), 'String', {
+  padEnd: function padEnd(maxLength /* , fillString = ' ' */) {
+    return $pad(this, maxLength, arguments.length > 1 ? arguments[1] : undefined, false);
+  }
+});
+
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/sebmarkbage/ecmascript-string-left-right-trim
+__webpack_require__(43)('trimLeft', function ($trim) {
+  return function trimLeft() {
+    return $trim(this, 1);
+  };
+}, 'trimStart');
+
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/sebmarkbage/ecmascript-string-left-right-trim
+__webpack_require__(43)('trimRight', function ($trim) {
+  return function trimRight() {
+    return $trim(this, 2);
+  };
+}, 'trimEnd');
+
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://tc39.github.io/String.prototype.matchAll/
+var $export = __webpack_require__(0);
+var defined = __webpack_require__(23);
+var toLength = __webpack_require__(8);
+var isRegExp = __webpack_require__(54);
+var getFlags = __webpack_require__(56);
+var RegExpProto = RegExp.prototype;
+
+var $RegExpStringIterator = function (regexp, string) {
+  this._r = regexp;
+  this._s = string;
+};
+
+__webpack_require__(78)($RegExpStringIterator, 'RegExp String', function next() {
+  var match = this._r.exec(this._s);
+  return { value: match, done: match === null };
+});
+
+$export($export.P, 'String', {
+  matchAll: function matchAll(regexp) {
+    defined(this);
+    if (!isRegExp(regexp)) throw TypeError(regexp + ' is not a regexp!');
+    var S = String(this);
+    var flags = 'flags' in RegExpProto ? String(regexp.flags) : getFlags.call(regexp);
+    var rx = new RegExp(regexp.source, ~flags.indexOf('g') ? flags : 'g' + flags);
+    rx.lastIndex = toLength(regexp.lastIndex);
+    return new $RegExpStringIterator(rx, S);
+  }
+});
+
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(66)('asyncIterator');
+
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(66)('observable');
+
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-object-getownpropertydescriptors
+var $export = __webpack_require__(0);
+var ownKeys = __webpack_require__(119);
+var toIObject = __webpack_require__(15);
+var gOPD = __webpack_require__(16);
+var createProperty = __webpack_require__(82);
+
+$export($export.S, 'Object', {
+  getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
+    var O = toIObject(object);
+    var getDesc = gOPD.f;
+    var keys = ownKeys(O);
+    var result = {};
+    var i = 0;
+    var key, desc;
+    while (keys.length > i) {
+      desc = getDesc(O, key = keys[i++]);
+      if (desc !== undefined) createProperty(result, key, desc);
+    }
+    return result;
+  }
+});
+
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-object-values-entries
+var $export = __webpack_require__(0);
+var $values = __webpack_require__(122)(false);
+
+$export($export.S, 'Object', {
+  values: function values(it) {
+    return $values(it);
+  }
+});
+
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-object-values-entries
+var $export = __webpack_require__(0);
+var $entries = __webpack_require__(122)(true);
+
+$export($export.S, 'Object', {
+  entries: function entries(it) {
+    return $entries(it);
+  }
+});
+
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var aFunction = __webpack_require__(10);
+var $defineProperty = __webpack_require__(7);
+
+// B.2.2.2 Object.prototype.__defineGetter__(P, getter)
+__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
+  __defineGetter__: function __defineGetter__(P, getter) {
+    $defineProperty.f(toObject(this), P, { get: aFunction(getter), enumerable: true, configurable: true });
+  }
+});
+
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var aFunction = __webpack_require__(10);
+var $defineProperty = __webpack_require__(7);
+
+// B.2.2.3 Object.prototype.__defineSetter__(P, setter)
+__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
+  __defineSetter__: function __defineSetter__(P, setter) {
+    $defineProperty.f(toObject(this), P, { set: aFunction(setter), enumerable: true, configurable: true });
+  }
+});
+
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var toPrimitive = __webpack_require__(22);
+var getPrototypeOf = __webpack_require__(17);
+var getOwnPropertyDescriptor = __webpack_require__(16).f;
+
+// B.2.2.4 Object.prototype.__lookupGetter__(P)
+__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
+  __lookupGetter__: function __lookupGetter__(P) {
+    var O = toObject(this);
+    var K = toPrimitive(P, true);
+    var D;
+    do {
+      if (D = getOwnPropertyDescriptor(O, K)) return D.get;
+    } while (O = getPrototypeOf(O));
+  }
+});
+
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $export = __webpack_require__(0);
+var toObject = __webpack_require__(9);
+var toPrimitive = __webpack_require__(22);
+var getPrototypeOf = __webpack_require__(17);
+var getOwnPropertyDescriptor = __webpack_require__(16).f;
+
+// B.2.2.5 Object.prototype.__lookupSetter__(P)
+__webpack_require__(6) && $export($export.P + __webpack_require__(61), 'Object', {
+  __lookupSetter__: function __lookupSetter__(P) {
+    var O = toObject(this);
+    var K = toPrimitive(P, true);
+    var D;
+    do {
+      if (D = getOwnPropertyDescriptor(O, K)) return D.set;
+    } while (O = getPrototypeOf(O));
+  }
+});
+
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var $export = __webpack_require__(0);
+
+$export($export.P + $export.R, 'Map', { toJSON: __webpack_require__(123)('Map') });
+
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/DavidBruant/Map-Set.prototype.toJSON
+var $export = __webpack_require__(0);
+
+$export($export.P + $export.R, 'Set', { toJSON: __webpack_require__(123)('Set') });
+
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-map.of
+__webpack_require__(62)('Map');
+
+
+/***/ }),
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.of
+__webpack_require__(62)('Set');
+
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.of
+__webpack_require__(62)('WeakMap');
+
+
+/***/ }),
+/* 293 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.of
+__webpack_require__(62)('WeakSet');
+
+
+/***/ }),
+/* 294 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-map.from
+__webpack_require__(63)('Map');
+
+
+/***/ }),
+/* 295 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-set.from
+__webpack_require__(63)('Set');
+
+
+/***/ }),
+/* 296 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakmap.from
+__webpack_require__(63)('WeakMap');
+
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://tc39.github.io/proposal-setmap-offrom/#sec-weakset.from
+__webpack_require__(63)('WeakSet');
+
+
+/***/ }),
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-global
+var $export = __webpack_require__(0);
+
+$export($export.G, { global: __webpack_require__(2) });
+
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-global
+var $export = __webpack_require__(0);
+
+$export($export.S, 'System', { global: __webpack_require__(2) });
+
+
+/***/ }),
+/* 300 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/ljharb/proposal-is-error
+var $export = __webpack_require__(0);
+var cof = __webpack_require__(19);
+
+$export($export.S, 'Error', {
+  isError: function isError(it) {
+    return cof(it) === 'Error';
+  }
+});
+
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  clamp: function clamp(x, lower, upper) {
+    return Math.min(upper, Math.max(lower, x));
+  }
+});
+
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { DEG_PER_RAD: Math.PI / 180 });
+
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+var RAD_PER_DEG = 180 / Math.PI;
+
+$export($export.S, 'Math', {
+  degrees: function degrees(radians) {
+    return radians * RAD_PER_DEG;
+  }
+});
+
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+var scale = __webpack_require__(125);
+var fround = __webpack_require__(105);
+
+$export($export.S, 'Math', {
+  fscale: function fscale(x, inLow, inHigh, outLow, outHigh) {
+    return fround(scale(x, inLow, inHigh, outLow, outHigh));
+  }
+});
+
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  iaddh: function iaddh(x0, x1, y0, y1) {
+    var $x0 = x0 >>> 0;
+    var $x1 = x1 >>> 0;
+    var $y0 = y0 >>> 0;
+    return $x1 + (y1 >>> 0) + (($x0 & $y0 | ($x0 | $y0) & ~($x0 + $y0 >>> 0)) >>> 31) | 0;
+  }
+});
+
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  isubh: function isubh(x0, x1, y0, y1) {
+    var $x0 = x0 >>> 0;
+    var $x1 = x1 >>> 0;
+    var $y0 = y0 >>> 0;
+    return $x1 - (y1 >>> 0) - ((~$x0 & $y0 | ~($x0 ^ $y0) & $x0 - $y0 >>> 0) >>> 31) | 0;
+  }
+});
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  imulh: function imulh(u, v) {
+    var UINT16 = 0xffff;
+    var $u = +u;
+    var $v = +v;
+    var u0 = $u & UINT16;
+    var v0 = $v & UINT16;
+    var u1 = $u >> 16;
+    var v1 = $v >> 16;
+    var t = (u1 * v0 >>> 0) + (u0 * v0 >>> 16);
+    return u1 * v1 + (t >> 16) + ((u0 * v1 >>> 0) + (t & UINT16) >> 16);
+  }
+});
+
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { RAD_PER_DEG: 180 / Math.PI });
+
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+var DEG_PER_RAD = Math.PI / 180;
+
+$export($export.S, 'Math', {
+  radians: function radians(degrees) {
+    return degrees * DEG_PER_RAD;
+  }
+});
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://rwaldron.github.io/proposal-math-extensions/
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { scale: __webpack_require__(125) });
+
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://gist.github.com/BrendanEich/4294d5c212a6d2254703
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', {
+  umulh: function umulh(u, v) {
+    var UINT16 = 0xffff;
+    var $u = +u;
+    var $v = +v;
+    var u0 = $u & UINT16;
+    var v0 = $v & UINT16;
+    var u1 = $u >>> 16;
+    var v1 = $v >>> 16;
+    var t = (u1 * v0 >>> 0) + (u0 * v0 >>> 16);
+    return u1 * v1 + (t >>> 16) + ((u0 * v1 >>> 0) + (t & UINT16) >>> 16);
+  }
+});
+
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// http://jfbastien.github.io/papers/Math.signbit.html
+var $export = __webpack_require__(0);
+
+$export($export.S, 'Math', { signbit: function signbit(x) {
+  // eslint-disable-next-line no-self-compare
+  return (x = +x) != x ? x : x == 0 ? 1 / x == Infinity : x > 0;
+} });
+
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// https://github.com/tc39/proposal-promise-finally
+
+var $export = __webpack_require__(0);
+var core = __webpack_require__(21);
+var global = __webpack_require__(2);
+var speciesConstructor = __webpack_require__(58);
+var promiseResolve = __webpack_require__(112);
+
+$export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
+  var C = speciesConstructor(this, core.Promise || global.Promise);
+  var isFunction = typeof onFinally == 'function';
+  return this.then(
+    isFunction ? function (x) {
+      return promiseResolve(C, onFinally()).then(function () { return x; });
+    } : onFinally,
+    isFunction ? function (e) {
+      return promiseResolve(C, onFinally()).then(function () { throw e; });
+    } : onFinally
+  );
+} });
+
+
+/***/ }),
+/* 314 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/tc39/proposal-promise-try
+var $export = __webpack_require__(0);
+var newPromiseCapability = __webpack_require__(89);
+var perform = __webpack_require__(111);
+
+$export($export.S, 'Promise', { 'try': function (callbackfn) {
+  var promiseCapability = newPromiseCapability.f(this);
+  var result = perform(callbackfn);
+  (result.e ? promiseCapability.reject : promiseCapability.resolve)(result.v);
+  return promiseCapability.promise;
+} });
+
+
+/***/ }),
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var toMetaKey = metadata.key;
+var ordinaryDefineOwnMetadata = metadata.set;
+
+metadata.exp({ defineMetadata: function defineMetadata(metadataKey, metadataValue, target, targetKey) {
+  ordinaryDefineOwnMetadata(metadataKey, metadataValue, anObject(target), toMetaKey(targetKey));
+} });
+
+
+/***/ }),
+/* 316 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var toMetaKey = metadata.key;
+var getOrCreateMetadataMap = metadata.map;
+var store = metadata.store;
+
+metadata.exp({ deleteMetadata: function deleteMetadata(metadataKey, target /* , targetKey */) {
+  var targetKey = arguments.length < 3 ? undefined : toMetaKey(arguments[2]);
+  var metadataMap = getOrCreateMetadataMap(anObject(target), targetKey, false);
+  if (metadataMap === undefined || !metadataMap['delete'](metadataKey)) return false;
+  if (metadataMap.size) return true;
+  var targetMetadata = store.get(target);
+  targetMetadata['delete'](targetKey);
+  return !!targetMetadata.size || store['delete'](target);
+} });
+
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var getPrototypeOf = __webpack_require__(17);
+var ordinaryHasOwnMetadata = metadata.has;
+var ordinaryGetOwnMetadata = metadata.get;
+var toMetaKey = metadata.key;
+
+var ordinaryGetMetadata = function (MetadataKey, O, P) {
+  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
+  if (hasOwn) return ordinaryGetOwnMetadata(MetadataKey, O, P);
+  var parent = getPrototypeOf(O);
+  return parent !== null ? ordinaryGetMetadata(MetadataKey, parent, P) : undefined;
+};
+
+metadata.exp({ getMetadata: function getMetadata(metadataKey, target /* , targetKey */) {
+  return ordinaryGetMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
+} });
+
+
+/***/ }),
+/* 318 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Set = __webpack_require__(115);
+var from = __webpack_require__(124);
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var getPrototypeOf = __webpack_require__(17);
+var ordinaryOwnMetadataKeys = metadata.keys;
+var toMetaKey = metadata.key;
+
+var ordinaryMetadataKeys = function (O, P) {
+  var oKeys = ordinaryOwnMetadataKeys(O, P);
+  var parent = getPrototypeOf(O);
+  if (parent === null) return oKeys;
+  var pKeys = ordinaryMetadataKeys(parent, P);
+  return pKeys.length ? oKeys.length ? from(new Set(oKeys.concat(pKeys))) : pKeys : oKeys;
+};
+
+metadata.exp({ getMetadataKeys: function getMetadataKeys(target /* , targetKey */) {
+  return ordinaryMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
+} });
+
+
+/***/ }),
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var ordinaryGetOwnMetadata = metadata.get;
+var toMetaKey = metadata.key;
+
+metadata.exp({ getOwnMetadata: function getOwnMetadata(metadataKey, target /* , targetKey */) {
+  return ordinaryGetOwnMetadata(metadataKey, anObject(target)
+    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
+} });
+
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var ordinaryOwnMetadataKeys = metadata.keys;
+var toMetaKey = metadata.key;
+
+metadata.exp({ getOwnMetadataKeys: function getOwnMetadataKeys(target /* , targetKey */) {
+  return ordinaryOwnMetadataKeys(anObject(target), arguments.length < 2 ? undefined : toMetaKey(arguments[1]));
+} });
+
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var getPrototypeOf = __webpack_require__(17);
+var ordinaryHasOwnMetadata = metadata.has;
+var toMetaKey = metadata.key;
+
+var ordinaryHasMetadata = function (MetadataKey, O, P) {
+  var hasOwn = ordinaryHasOwnMetadata(MetadataKey, O, P);
+  if (hasOwn) return true;
+  var parent = getPrototypeOf(O);
+  return parent !== null ? ordinaryHasMetadata(MetadataKey, parent, P) : false;
+};
+
+metadata.exp({ hasMetadata: function hasMetadata(metadataKey, target /* , targetKey */) {
+  return ordinaryHasMetadata(metadataKey, anObject(target), arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
+} });
+
+
+/***/ }),
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var ordinaryHasOwnMetadata = metadata.has;
+var toMetaKey = metadata.key;
+
+metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , targetKey */) {
+  return ordinaryHasOwnMetadata(metadataKey, anObject(target)
+    , arguments.length < 3 ? undefined : toMetaKey(arguments[2]));
+} });
+
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $metadata = __webpack_require__(28);
+var anObject = __webpack_require__(1);
+var aFunction = __webpack_require__(10);
+var toMetaKey = $metadata.key;
+var ordinaryDefineOwnMetadata = $metadata.set;
+
+$metadata.exp({ metadata: function metadata(metadataKey, metadataValue) {
+  return function decorator(target, targetKey) {
+    ordinaryDefineOwnMetadata(
+      metadataKey, metadataValue,
+      (targetKey !== undefined ? anObject : aFunction)(target),
+      toMetaKey(targetKey)
+    );
+  };
+} });
+
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/rwaldron/tc39-notes/blob/master/es6/2014-09/sept-25.md#510-globalasap-for-enqueuing-a-microtask
+var $export = __webpack_require__(0);
+var microtask = __webpack_require__(88)();
+var process = __webpack_require__(2).process;
+var isNode = __webpack_require__(19)(process) == 'process';
+
+$export($export.G, {
+  asap: function asap(fn) {
+    var domain = isNode && process.domain;
+    microtask(domain ? domain.bind(fn) : fn);
+  }
+});
+
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// https://github.com/zenparsing/es-observable
+var $export = __webpack_require__(0);
+var global = __webpack_require__(2);
+var core = __webpack_require__(21);
+var microtask = __webpack_require__(88)();
+var OBSERVABLE = __webpack_require__(5)('observable');
+var aFunction = __webpack_require__(10);
+var anObject = __webpack_require__(1);
+var anInstance = __webpack_require__(39);
+var redefineAll = __webpack_require__(41);
+var hide = __webpack_require__(12);
+var forOf = __webpack_require__(40);
+var RETURN = forOf.RETURN;
+
+var getMethod = function (fn) {
+  return fn == null ? undefined : aFunction(fn);
+};
+
+var cleanupSubscription = function (subscription) {
+  var cleanup = subscription._c;
+  if (cleanup) {
+    subscription._c = undefined;
+    cleanup();
+  }
+};
+
+var subscriptionClosed = function (subscription) {
+  return subscription._o === undefined;
+};
+
+var closeSubscription = function (subscription) {
+  if (!subscriptionClosed(subscription)) {
+    subscription._o = undefined;
+    cleanupSubscription(subscription);
+  }
+};
+
+var Subscription = function (observer, subscriber) {
+  anObject(observer);
+  this._c = undefined;
+  this._o = observer;
+  observer = new SubscriptionObserver(this);
+  try {
+    var cleanup = subscriber(observer);
+    var subscription = cleanup;
+    if (cleanup != null) {
+      if (typeof cleanup.unsubscribe === 'function') cleanup = function () { subscription.unsubscribe(); };
+      else aFunction(cleanup);
+      this._c = cleanup;
+    }
+  } catch (e) {
+    observer.error(e);
+    return;
+  } if (subscriptionClosed(this)) cleanupSubscription(this);
+};
+
+Subscription.prototype = redefineAll({}, {
+  unsubscribe: function unsubscribe() { closeSubscription(this); }
+});
+
+var SubscriptionObserver = function (subscription) {
+  this._s = subscription;
+};
+
+SubscriptionObserver.prototype = redefineAll({}, {
+  next: function next(value) {
+    var subscription = this._s;
+    if (!subscriptionClosed(subscription)) {
+      var observer = subscription._o;
+      try {
+        var m = getMethod(observer.next);
+        if (m) return m.call(observer, value);
+      } catch (e) {
+        try {
+          closeSubscription(subscription);
+        } finally {
+          throw e;
+        }
+      }
+    }
+  },
+  error: function error(value) {
+    var subscription = this._s;
+    if (subscriptionClosed(subscription)) throw value;
+    var observer = subscription._o;
+    subscription._o = undefined;
+    try {
+      var m = getMethod(observer.error);
+      if (!m) throw value;
+      value = m.call(observer, value);
+    } catch (e) {
+      try {
+        cleanupSubscription(subscription);
+      } finally {
+        throw e;
+      }
+    } cleanupSubscription(subscription);
+    return value;
+  },
+  complete: function complete(value) {
+    var subscription = this._s;
+    if (!subscriptionClosed(subscription)) {
+      var observer = subscription._o;
+      subscription._o = undefined;
+      try {
+        var m = getMethod(observer.complete);
+        value = m ? m.call(observer, value) : undefined;
+      } catch (e) {
+        try {
+          cleanupSubscription(subscription);
+        } finally {
+          throw e;
+        }
+      } cleanupSubscription(subscription);
+      return value;
+    }
+  }
+});
+
+var $Observable = function Observable(subscriber) {
+  anInstance(this, $Observable, 'Observable', '_f')._f = aFunction(subscriber);
+};
+
+redefineAll($Observable.prototype, {
+  subscribe: function subscribe(observer) {
+    return new Subscription(observer, this._f);
+  },
+  forEach: function forEach(fn) {
+    var that = this;
+    return new (core.Promise || global.Promise)(function (resolve, reject) {
+      aFunction(fn);
+      var subscription = that.subscribe({
+        next: function (value) {
+          try {
+            return fn(value);
+          } catch (e) {
+            reject(e);
+            subscription.unsubscribe();
+          }
+        },
+        error: reject,
+        complete: resolve
+      });
+    });
+  }
+});
+
+redefineAll($Observable, {
+  from: function from(x) {
+    var C = typeof this === 'function' ? this : $Observable;
+    var method = getMethod(anObject(x)[OBSERVABLE]);
+    if (method) {
+      var observable = anObject(method.call(x));
+      return observable.constructor === C ? observable : new C(function (observer) {
+        return observable.subscribe(observer);
+      });
+    }
+    return new C(function (observer) {
+      var done = false;
+      microtask(function () {
+        if (!done) {
+          try {
+            if (forOf(x, false, function (it) {
+              observer.next(it);
+              if (done) return RETURN;
+            }) === RETURN) return;
+          } catch (e) {
+            if (done) throw e;
+            observer.error(e);
+            return;
+          } observer.complete();
+        }
+      });
+      return function () { done = true; };
+    });
+  },
+  of: function of() {
+    for (var i = 0, l = arguments.length, items = new Array(l); i < l;) items[i] = arguments[i++];
+    return new (typeof this === 'function' ? this : $Observable)(function (observer) {
+      var done = false;
+      microtask(function () {
+        if (!done) {
+          for (var j = 0; j < items.length; ++j) {
+            observer.next(items[j]);
+            if (done) return;
+          } observer.complete();
+        }
+      });
+      return function () { done = true; };
+    });
+  }
+});
+
+hide($Observable.prototype, OBSERVABLE, function () { return this; });
+
+$export($export.G, { Observable: $Observable });
+
+__webpack_require__(38)('Observable');
+
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// ie9- setTimeout & setInterval additional parameters fix
+var global = __webpack_require__(2);
+var $export = __webpack_require__(0);
+var userAgent = __webpack_require__(91);
+var slice = [].slice;
+var MSIE = /MSIE .\./.test(userAgent); // <- dirty ie9- check
+var wrap = function (set) {
+  return function (fn, time /* , ...args */) {
+    var boundArgs = arguments.length > 2;
+    var args = boundArgs ? slice.call(arguments, 2) : false;
+    return set(boundArgs ? function () {
+      // eslint-disable-next-line no-new-func
+      (typeof fn == 'function' ? fn : Function(fn)).apply(this, args);
+    } : fn, time);
+  };
+};
+$export($export.G + $export.B + $export.F * MSIE, {
+  setTimeout: wrap(global.setTimeout),
+  setInterval: wrap(global.setInterval)
+});
+
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(0);
+var $task = __webpack_require__(87);
+$export($export.G + $export.B, {
+  setImmediate: $task.set,
+  clearImmediate: $task.clear
+});
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $iterators = __webpack_require__(86);
+var getKeys = __webpack_require__(34);
+var redefine = __webpack_require__(13);
+var global = __webpack_require__(2);
+var hide = __webpack_require__(12);
+var Iterators = __webpack_require__(44);
+var wks = __webpack_require__(5);
+var ITERATOR = wks('iterator');
+var TO_STRING_TAG = wks('toStringTag');
+var ArrayValues = Iterators.Array;
+
+var DOMIterables = {
+  CSSRuleList: true, // TODO: Not spec compliant, should be false.
+  CSSStyleDeclaration: false,
+  CSSValueList: false,
+  ClientRectList: false,
+  DOMRectList: false,
+  DOMStringList: false,
+  DOMTokenList: true,
+  DataTransferItemList: false,
+  FileList: false,
+  HTMLAllCollection: false,
+  HTMLCollection: false,
+  HTMLFormElement: false,
+  HTMLSelectElement: false,
+  MediaList: true, // TODO: Not spec compliant, should be false.
+  MimeTypeArray: false,
+  NamedNodeMap: false,
+  NodeList: true,
+  PaintRequestList: false,
+  Plugin: false,
+  PluginArray: false,
+  SVGLengthList: false,
+  SVGNumberList: false,
+  SVGPathSegList: false,
+  SVGPointList: false,
+  SVGStringList: false,
+  SVGTransformList: false,
+  SourceBufferList: false,
+  StyleSheetList: true, // TODO: Not spec compliant, should be false.
+  TextTrackCueList: false,
+  TextTrackList: false,
+  TouchList: false
+};
+
+for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
+  var NAME = collections[i];
+  var explicit = DOMIterables[NAME];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  var key;
+  if (proto) {
+    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
+    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+    Iterators[NAME] = ArrayValues;
+    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
+  }
+}
+
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/**
+ * Copyright (c) 2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * https://raw.github.com/facebook/regenerator/master/LICENSE file. An
+ * additional grant of patent rights can be found in the PATENTS file in
+ * the same directory.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration. If the Promise is rejected, however, the
+          // result for this iteration will be rejected with the same
+          // reason. Note that rejections of yielded Promises are not
+          // thrown back into the generator function, as is the case
+          // when an awaited Promise is rejected. This difference in
+          // behavior between yield and await is important, because it
+          // allows the consumer to decide what to do with the yielded
+          // rejection (swallow it and continue, manually .throw it back
+          // into the generator, abandon iteration, whatever). With
+          // await, by contrast, there is no opportunity to examine the
+          // rejection reason outside the generator function, so the
+          // only option is to throw it from the await expression, and
+          // let the generator function handle the exception.
+          result.value = unwrapped;
+          resolve(result);
+        }, reject);
+      }
+    }
+
+    if (typeof global.process === "object" && global.process.domain) {
+      invoke = global.process.domain.bind(invoke);
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // Among the various tricks for obtaining a reference to the global
+  // object, this seems to be the most reliable technique that does not
+  // use indirect eval (which violates Content Security Policy).
+  typeof global === "object" ? global :
+  typeof window === "object" ? window :
+  typeof self === "object" ? self : this
+);
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)))
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(331);
+module.exports = __webpack_require__(21).RegExp.escape;
+
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/benjamingr/RexExp.escape
+var $export = __webpack_require__(0);
+var $re = __webpack_require__(332)(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+
+$export($export.S, 'RegExp', { escape: function escape(it) { return $re(it); } });
+
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports) {
+
+module.exports = function (regExp, replace) {
+  var replacer = replace === Object(replace) ? function (part) {
+    return replace[part];
+  } : replace;
+  return function (it) {
+    return String(it).replace(regExp, replacer);
+  };
+};
+
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports) {
+
+/*!
+Copyright (C) 2013-2015 by Andrea Giammarchi - @WebReflection
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+(function(window){'use strict';
+  /* jshint loopfunc: true, noempty: false*/
+  // http://www.w3.org/TR/dom/#element
+
+  function createDocumentFragment() {
+    return document.createDocumentFragment();
+  }
+
+  function createElement(nodeName) {
+    return document.createElement(nodeName);
+  }
+
+  function enoughArguments(length, name) {
+    if (!length) throw new Error(
+      'Failed to construct ' +
+        name +
+      ': 1 argument required, but only 0 present.'
+    );
+  }
+
+  function mutationMacro(nodes) {
+    if (nodes.length === 1) {
+      return textNodeIfString(nodes[0]);
+    }
+    for (var
+      fragment = createDocumentFragment(),
+      list = slice.call(nodes),
+      i = 0; i < nodes.length; i++
+    ) {
+      fragment.appendChild(textNodeIfString(list[i]));
+    }
+    return fragment;
+  }
+
+  function textNodeIfString(node) {
+    return typeof node === 'string' ? document.createTextNode(node) : node;
+  }
+
+  for(var
+    head,
+    property,
+    TemporaryPrototype,
+    TemporaryTokenList,
+    wrapVerifyToken,
+    document = window.document,
+    hOP = Object.prototype.hasOwnProperty,
+    defineProperty = Object.defineProperty || function (object, property, descriptor) {
+      if (hOP.call(descriptor, 'value')) {
+        object[property] = descriptor.value;
+      } else {
+        if (hOP.call(descriptor, 'get'))
+          object.__defineGetter__(property, descriptor.get);
+        if (hOP.call(descriptor, 'set'))
+          object.__defineSetter__(property, descriptor.set);
+      }
+      return object;
+    },
+    indexOf = [].indexOf || function indexOf(value){
+      var length = this.length;
+      while(length--) {
+        if (this[length] === value) {
+          break;
+        }
+      }
+      return length;
+    },
+    // http://www.w3.org/TR/domcore/#domtokenlist
+    verifyToken = function (token) {
+      if (!token) {
+        throw 'SyntaxError';
+      } else if (spaces.test(token)) {
+        throw 'InvalidCharacterError';
+      }
+      return token;
+    },
+    DOMTokenList = function (node) {
+      var
+        noClassName = typeof node.className === 'undefined',
+        className = noClassName ?
+          (node.getAttribute('class') || '') : node.className,
+        isSVG = noClassName || typeof className === 'object',
+        value = (isSVG ?
+          (noClassName ? className : className.baseVal) :
+          className
+        ).replace(trim, '')
+      ;
+      if (value.length) {
+        properties.push.apply(
+          this,
+          value.split(spaces)
+        );
+      }
+      this._isSVG = isSVG;
+      this._ = node;
+    },
+    classListDescriptor = {
+      get: function get() {
+        return new DOMTokenList(this);
+      },
+      set: function(){}
+    },
+    trim = /^\s+|\s+$/g,
+    spaces = /\s+/,
+    SPACE = '\x20',
+    CLASS_LIST = 'classList',
+    toggle = function toggle(token, force) {
+      if (this.contains(token)) {
+        if (!force) {
+          // force is not true (either false or omitted)
+          this.remove(token);
+        }
+      } else if(force === undefined || force) {
+        force = true;
+        this.add(token);
+      }
+      return !!force;
+    },
+    DocumentFragmentPrototype = window.DocumentFragment && DocumentFragment.prototype,
+    Node = window.Node,
+    NodePrototype = (Node || Element).prototype,
+    CharacterData = window.CharacterData || Node,
+    CharacterDataPrototype = CharacterData && CharacterData.prototype,
+    DocumentType = window.DocumentType,
+    DocumentTypePrototype = DocumentType && DocumentType.prototype,
+    ElementPrototype = (window.Element || Node || window.HTMLElement).prototype,
+    HTMLSelectElement = window.HTMLSelectElement || createElement('select').constructor,
+    selectRemove = HTMLSelectElement.prototype.remove,
+    SVGElement = window.SVGElement,
+    properties = [
+      'matches', (
+        ElementPrototype.matchesSelector ||
+        ElementPrototype.webkitMatchesSelector ||
+        ElementPrototype.khtmlMatchesSelector ||
+        ElementPrototype.mozMatchesSelector ||
+        ElementPrototype.msMatchesSelector ||
+        ElementPrototype.oMatchesSelector ||
+        function matches(selector) {
+          var parentNode = this.parentNode;
+          return !!parentNode && -1 < indexOf.call(
+            parentNode.querySelectorAll(selector),
+            this
+          );
+        }
+      ),
+      'closest', function closest(selector) {
+        var parentNode = this, matches;
+        while (
+          // document has no .matches
+          (matches = parentNode && parentNode.matches) &&
+          !parentNode.matches(selector)
+        ) {
+          parentNode = parentNode.parentNode;
+        }
+        return matches ? parentNode : null;
+      },
+      'prepend', function prepend() {
+        var firstChild = this.firstChild,
+            node = mutationMacro(arguments);
+        if (firstChild) {
+          this.insertBefore(node, firstChild);
+        } else {
+          this.appendChild(node);
+        }
+      },
+      'append', function append() {
+        this.appendChild(mutationMacro(arguments));
+      },
+      'before', function before() {
+        var parentNode = this.parentNode;
+        if (parentNode) {
+          parentNode.insertBefore(
+            mutationMacro(arguments), this
+          );
+        }
+      },
+      'after', function after() {
+        var parentNode = this.parentNode,
+            nextSibling = this.nextSibling,
+            node = mutationMacro(arguments);
+        if (parentNode) {
+          if (nextSibling) {
+            parentNode.insertBefore(node, nextSibling);
+          } else {
+            parentNode.appendChild(node);
+          }
+        }
+      },
+      // WARNING - DEPRECATED - use .replaceWith() instead
+      'replace', function replace() {
+        this.replaceWith.apply(this, arguments);
+      },
+      'replaceWith', function replaceWith() {
+        var parentNode = this.parentNode;
+        if (parentNode) {
+          parentNode.replaceChild(
+            mutationMacro(arguments),
+            this
+          );
+        }
+      },
+      'remove', function remove() {
+        var parentNode = this.parentNode;
+        if (parentNode) {
+          parentNode.removeChild(this);
+        }
+      }
+    ],
+    slice = properties.slice,
+    i = properties.length; i; i -= 2
+  ) {
+    property = properties[i - 2];
+    if (!(property in ElementPrototype)) {
+      ElementPrototype[property] = properties[i - 1];
+    }
+    if (property === 'remove') {
+      // see https://github.com/WebReflection/dom4/issues/19
+      HTMLSelectElement.prototype[property] = function () {
+        return 0 < arguments.length ?
+          selectRemove.apply(this, arguments) :
+          ElementPrototype.remove.call(this);
+      };
+    }
+    // see https://github.com/WebReflection/dom4/issues/18
+    if (/^(?:before|after|replace|replaceWith|remove)$/.test(property)) {
+      if (CharacterData && !(property in CharacterDataPrototype)) {
+        CharacterDataPrototype[property] = properties[i - 1];
+      }
+      if (DocumentType && !(property in DocumentTypePrototype)) {
+        DocumentTypePrototype[property] = properties[i - 1];
+      }
+    }
+    // see https://github.com/WebReflection/dom4/pull/26
+    if (/^(?:append|prepend)$/.test(property)) {
+      if (DocumentFragmentPrototype) {
+        if (!(property in DocumentFragmentPrototype)) {
+          DocumentFragmentPrototype[property] = properties[i - 1];
+        }
+      } else {
+        try {
+          createDocumentFragment().constructor.prototype[property] = properties[i - 1];
+        } catch(o_O) {}
+      }
+    }
+  }
+
+  // most likely an IE9 only issue
+  // see https://github.com/WebReflection/dom4/issues/6
+  if (!createElement('a').matches('a')) {
+    ElementPrototype[property] = function(matches){
+      return function (selector) {
+        return matches.call(
+          this.parentNode ?
+            this :
+            createDocumentFragment().appendChild(this),
+          selector
+        );
+      };
+    }(ElementPrototype[property]);
+  }
+
+  // used to fix both old webkit and SVG
+  DOMTokenList.prototype = {
+    length: 0,
+    add: function add() {
+      for(var j = 0, token; j < arguments.length; j++) {
+        token = arguments[j];
+        if(!this.contains(token)) {
+          properties.push.call(this, property);
+        }
+      }
+      if (this._isSVG) {
+        this._.setAttribute('class', '' + this);
+      } else {
+        this._.className = '' + this;
+      }
+    },
+    contains: (function(indexOf){
+      return function contains(token) {
+        i = indexOf.call(this, property = verifyToken(token));
+        return -1 < i;
+      };
+    }([].indexOf || function (token) {
+      i = this.length;
+      while(i-- && this[i] !== token){}
+      return i;
+    })),
+    item: function item(i) {
+      return this[i] || null;
+    },
+    remove: function remove() {
+      for(var j = 0, token; j < arguments.length; j++) {
+        token = arguments[j];
+        if(this.contains(token)) {
+          properties.splice.call(this, i, 1);
+        }
+      }
+      if (this._isSVG) {
+        this._.setAttribute('class', '' + this);
+      } else {
+        this._.className = '' + this;
+      }
+    },
+    toggle: toggle,
+    toString: function toString() {
+      return properties.join.call(this, SPACE);
+    }
+  };
+
+  if (SVGElement && !(CLASS_LIST in SVGElement.prototype)) {
+    defineProperty(SVGElement.prototype, CLASS_LIST, classListDescriptor);
+  }
+
+  // http://www.w3.org/TR/dom/#domtokenlist
+  // iOS 5.1 has completely screwed this property
+  // classList in ElementPrototype is false
+  // but it's actually there as getter
+  if (!(CLASS_LIST in document.documentElement)) {
+    defineProperty(ElementPrototype, CLASS_LIST, classListDescriptor);
+  } else {
+    // iOS 5.1 and Nokia ASHA do not support multiple add or remove
+    // trying to detect and fix that in here
+    TemporaryTokenList = createElement('div')[CLASS_LIST];
+    TemporaryTokenList.add('a', 'b', 'a');
+    if ('a\x20b' != TemporaryTokenList) {
+      // no other way to reach original methods in iOS 5.1
+      TemporaryPrototype = TemporaryTokenList.constructor.prototype;
+      if (!('add' in TemporaryPrototype)) {
+        // ASHA double fails in here
+        TemporaryPrototype = window.TemporaryTokenList.prototype;
+      }
+      wrapVerifyToken = function (original) {
+        return function () {
+          var i = 0;
+          while (i < arguments.length) {
+            original.call(this, arguments[i++]);
+          }
+        };
+      };
+      TemporaryPrototype.add = wrapVerifyToken(TemporaryPrototype.add);
+      TemporaryPrototype.remove = wrapVerifyToken(TemporaryPrototype.remove);
+      // toggle is broken too ^_^ ... let's fix it
+      TemporaryPrototype.toggle = toggle;
+    }
+  }
+
+  if (!('contains' in NodePrototype)) {
+    defineProperty(NodePrototype, 'contains', {
+      value: function (el) {
+        while (el && el !== this) el = el.parentNode;
+        return this === el;
+      }
+    });
+  }
+
+  if (!('head' in document)) {
+    defineProperty(document, 'head', {
+      get: function () {
+        return head || (
+          head = document.getElementsByTagName('head')[0]
+        );
+      }
+    });
+  }
+
+  // requestAnimationFrame partial polyfill
+  (function () {
+    for (var
+      raf,
+      rAF = window.requestAnimationFrame,
+      cAF = window.cancelAnimationFrame,
+      prefixes = ['o', 'ms', 'moz', 'webkit'],
+      i = prefixes.length;
+      !cAF && i--;
+    ) {
+      rAF = rAF || window[prefixes[i] + 'RequestAnimationFrame'];
+      cAF = window[prefixes[i] + 'CancelAnimationFrame'] ||
+            window[prefixes[i] + 'CancelRequestAnimationFrame'];
+    }
+    if (!cAF) {
+      // some FF apparently implemented rAF but no cAF 
+      if (rAF) {
+        raf = rAF;
+        rAF = function (callback) {
+          var goOn = true;
+          raf(function () {
+            if (goOn) callback.apply(this, arguments);
+          });
+          return function () {
+            goOn = false;
+          };
+        };
+        cAF = function (id) {
+          id();
+        };
+      } else {
+        rAF = function (callback) {
+          return setTimeout(callback, 15, 15);
+        };
+        cAF = function (id) {
+          clearTimeout(id);
+        };
+      }
+    }
+    window.requestAnimationFrame = rAF;
+    window.cancelAnimationFrame = cAF;
+  }());
+
+  // http://www.w3.org/TR/dom/#customevent
+  try{new window.CustomEvent('?');}catch(o_O){
+    window.CustomEvent = function(
+      eventName,
+      defaultInitDict
+    ){
+
+      // the infamous substitute
+      function CustomEvent(type, eventInitDict) {
+        /*jshint eqnull:true */
+        var event = document.createEvent(eventName);
+        if (typeof type != 'string') {
+          throw new Error('An event name must be provided');
+        }
+        if (eventName == 'Event') {
+          event.initCustomEvent = initCustomEvent;
+        }
+        if (eventInitDict == null) {
+          eventInitDict = defaultInitDict;
+        }
+        event.initCustomEvent(
+          type,
+          eventInitDict.bubbles,
+          eventInitDict.cancelable,
+          eventInitDict.detail
+        );
+        return event;
+      }
+
+      // attached at runtime
+      function initCustomEvent(
+        type, bubbles, cancelable, detail
+      ) {
+        /*jshint validthis:true*/
+        this.initEvent(type, bubbles, cancelable);
+        this.detail = detail;
+      }
+
+      // that's it
+      return CustomEvent;
+    }(
+      // is this IE9 or IE10 ?
+      // where CustomEvent is there
+      // but not usable as construtor ?
+      window.CustomEvent ?
+        // use the CustomEvent interface in such case
+        'CustomEvent' : 'Event',
+        // otherwise the common compatible one
+      {
+        bubbles: false,
+        cancelable: false,
+        detail: null
+      }
+    );
+  }
+
+  // window.Event as constructor
+  try { new Event('_'); } catch (o_O) {
+    /* jshint -W022 */
+    o_O = (function ($Event) {
+      function Event(type, init) {
+        enoughArguments(arguments.length, 'Event');
+        var out = document.createEvent('Event');
+        if (!init) init = {};
+        out.initEvent(
+          type,
+          !!init.bubbles,
+          !!init.cancelable
+        );
+        return out;
+      }
+      Event.prototype = $Event.prototype;
+      return Event;
+    }(window.Event || function Event() {}));
+    defineProperty(window, 'Event', {value: o_O});
+    // Android 4 gotcha
+    if (Event !== o_O) Event = o_O;
+  }
+
+  // window.KeyboardEvent as constructor
+  try { new KeyboardEvent('_', {}); } catch (o_O) {
+    /* jshint -W022 */
+    o_O = (function ($KeyboardEvent) {
+      // code inspired by https://gist.github.com/termi/4654819
+      var
+        initType = 0,
+        defaults = {
+          char: '',
+          key: '',
+          location: 0,
+          ctrlKey: false,
+          shiftKey: false,
+          altKey: false,
+          metaKey: false,
+          altGraphKey: false,
+          repeat: false,
+          locale: navigator.language,
+          detail: 0,
+          bubbles: false,
+          cancelable: false,
+          keyCode: 0,
+          charCode: 0,
+          which: 0
+        },
+        eventType
+      ;
+      try {
+        var e = document.createEvent('KeyboardEvent');
+        e.initKeyboardEvent(
+          'keyup', false, false, window, '+', 3,
+          true, false, true, false, false
+        );
+        initType = (
+          (e.keyIdentifier || e.key) == '+' &&
+          (e.keyLocation || e.location) == 3
+        ) && (
+          e.ctrlKey ? e.altKey ? 1 : 3 : e.shiftKey ? 2 : 4
+        ) || 9;
+      } catch(o_O) {}
+      eventType = 0 < initType ? 'KeyboardEvent' : 'Event';
+
+      function getModifier(init) {
+        for (var
+          out = [],
+          keys = [
+            'ctrlKey',
+            'Control',
+            'shiftKey',
+            'Shift',
+            'altKey',
+            'Alt',
+            'metaKey',
+            'Meta',
+            'altGraphKey',
+            'AltGraph'
+          ],
+          i = 0; i < keys.length; i += 2
+        ) {
+          if (init[keys[i]])
+            out.push(keys[i + 1]);
+        }
+        return out.join(' ');
+      }
+
+      function withDefaults(target, source) {
+        for (var key in source) {
+          if (
+            source.hasOwnProperty(key) &&
+            !source.hasOwnProperty.call(target, key)
+          ) target[key] = source[key];
+        }
+        return target;
+      }
+
+      function withInitValues(key, out, init) {
+        try {
+          out[key] = init[key];
+        } catch(o_O) {}
+      }
+
+      function KeyboardEvent(type, init) {
+        enoughArguments(arguments.length, 'KeyboardEvent');
+        init = withDefaults(init || {}, defaults);
+        var
+          out = document.createEvent(eventType),
+          ctrlKey = init.ctrlKey,
+          shiftKey = init.shiftKey,
+          altKey = init.altKey,
+          metaKey = init.metaKey,
+          altGraphKey = init.altGraphKey,
+          modifiers = initType > 3 ? getModifier(init) : null,
+          key = String(init.key),
+          chr = String(init.char),
+          location = init.location,
+          keyCode = init.keyCode || (
+            (init.keyCode = key) &&
+            key.charCodeAt(0)
+          ) || 0,
+          charCode = init.charCode || (
+            (init.charCode = chr) &&
+            chr.charCodeAt(0)
+          ) || 0,
+          bubbles = init.bubbles,
+          cancelable = init.cancelable,
+          repeat = init.repeat,
+          locale = init.locale,
+          view = init.view || window,
+          args
+        ;
+        if (!init.which) init.which = init.keyCode;
+        if ('initKeyEvent' in out) {
+          out.initKeyEvent(
+            type, bubbles, cancelable, view,
+            ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode
+          );
+        } else if (0 < initType && 'initKeyboardEvent' in out) {
+          args = [type, bubbles, cancelable, view];
+          switch (initType) {
+            case 1:
+              args.push(key, location, ctrlKey, shiftKey, altKey, metaKey, altGraphKey);
+              break;
+            case 2:
+              args.push(ctrlKey, altKey, shiftKey, metaKey, keyCode, charCode);
+              break;
+            case 3:
+              args.push(key, location, ctrlKey, altKey, shiftKey, metaKey, altGraphKey);
+              break;
+            case 4:
+              args.push(key, location, modifiers, repeat, locale);
+              break;
+            default:
+              args.push(char, key, location, modifiers, repeat, locale);
+          }
+          out.initKeyboardEvent.apply(out, args);
+        } else {
+          out.initEvent(type, bubbles, cancelable);
+        }
+        for (key in out) {
+          if (defaults.hasOwnProperty(key) && out[key] !== init[key]) {
+            withInitValues(key, out, init);
+          }
+        }
+        return out;
+      }
+      KeyboardEvent.prototype = $KeyboardEvent.prototype;
+      return KeyboardEvent;
+    }(window.KeyboardEvent || function KeyboardEvent() {}));
+    defineProperty(window, 'KeyboardEvent', {value: o_O});
+    // Android 4 gotcha
+    if (KeyboardEvent !== o_O) KeyboardEvent = o_O;
+  }
+
+  // window.MouseEvent as constructor
+  try { new MouseEvent('_', {}); } catch (o_O) {
+    /* jshint -W022 */
+    o_O = (function ($MouseEvent) {
+      function MouseEvent(type, init) {
+        enoughArguments(arguments.length, 'MouseEvent');
+        var out = document.createEvent('MouseEvent');
+        if (!init) init = {};
+        out.initMouseEvent(
+          type,
+          !!init.bubbles,
+          !!init.cancelable,
+          init.view || window,
+          init.detail || 1,
+          init.screenX || 0,
+          init.screenY || 0,
+          init.clientX || 0,
+          init.clientY || 0,
+          !!init.ctrlKey,
+          !!init.altKey,
+          !!init.shiftKey,
+          !!init.metaKey,
+          init.button || 0,
+          init.relatedTarget || null
+        );
+        return out;
+      }
+      MouseEvent.prototype = $MouseEvent.prototype;
+      return MouseEvent;
+    }(window.MouseEvent || function MouseEvent() {}));
+    defineProperty(window, 'MouseEvent', {value: o_O});
+    // Android 4 gotcha
+    if (MouseEvent !== o_O) MouseEvent = o_O;
+  }
+
+  if (!document.querySelectorAll('*').forEach) {
+    (function () {
+      function patch(what) {
+        var querySelectorAll = what.querySelectorAll;
+        what.querySelectorAll = function qSA(css) {
+          var result = querySelectorAll.call(this, css);
+          result.forEach = Array.prototype.forEach;
+          return result;
+        };
+      }
+      patch(document);
+      patch(Element.prototype);
+    }());
+  }
+
+  try {
+    // https://drafts.csswg.org/selectors-4/#the-scope-pseudo
+    document.querySelector(':scope *');
+  } catch(o_O) {
+    (function () {
+      var dataScope = 'data-scope-' + (Math.random() * 1e9 >>> 0);
+      var proto = Element.prototype;
+      var querySelector = proto.querySelector;
+      var querySelectorAll = proto.querySelectorAll;
+      proto.querySelector = function qS(css) {
+        return find(this, querySelector, css);
+      };
+      proto.querySelectorAll = function qSA(css) {
+        return find(this, querySelectorAll, css);
+      };
+      function find(node, method, css) {
+        node.setAttribute(dataScope, null);
+        var result = method.call(
+          node,
+          css.replace(
+            /(^|,\s*)(:scope([ >]|$))/g,
+            function ($0, $1, $2, $3) {
+              return $1 + '[' + dataScope + ']' + ($3 || ' ');
+            }
+          )
+        );
+        node.removeAttribute(dataScope);
+        return result;
+      }
+    }());
+  }
+}(window));(function (global){'use strict';
+
+  // a WeakMap fallback for DOM nodes only used as key
+  var DOMMap = global.WeakMap || (function () {
+
+    var
+      counter = 0,
+      dispatched = false,
+      drop = false,
+      value
+    ;
+
+    function dispatch(key, ce, shouldDrop) {
+      drop = shouldDrop;
+      dispatched = false;
+      value = undefined;
+      key.dispatchEvent(ce);
+    }
+
+    function Handler(value) {
+      this.value = value;
+    }
+
+    Handler.prototype.handleEvent = function handleEvent(e) {
+      dispatched = true;
+      if (drop) {
+        e.currentTarget.removeEventListener(e.type, this, false);
+      } else {
+        value = this.value;
+      }
+    };
+
+    function DOMMap() {
+      counter++;  // make id clashing highly improbable
+      this.__ce__ = new Event(('@DOMMap:' + counter) + Math.random());
+    }
+
+    DOMMap.prototype = {
+      'constructor': DOMMap,
+      'delete': function del(key) {
+        return dispatch(key, this.__ce__, true), dispatched;
+      },
+      'get': function get(key) {
+        dispatch(key, this.__ce__, false);
+        var v = value;
+        value = undefined;
+        return v;
+      },
+      'has': function has(key) {
+        return dispatch(key, this.__ce__, false), dispatched;
+      },
+      'set': function set(key, value) {
+        dispatch(key, this.__ce__, true);
+        key.addEventListener(this.__ce__.type, new Handler(value), false);
+        return this;
+      },
+    };
+
+    return DOMMap;
+
+  }());
+
+  function Dict() {}
+  Dict.prototype = (Object.create || Object)(null);
+
+  // https://dom.spec.whatwg.org/#interface-eventtarget
+
+  function createEventListener(type, callback, options) {
+    function eventListener(e) {
+      if (eventListener.once) {
+        e.currentTarget.removeEventListener(
+          e.type,
+          callback,
+          eventListener
+        );
+        eventListener.removed = true;
+      }
+      if (eventListener.passive) {
+        e.preventDefault = createEventListener.preventDefault;
+      }
+      if (typeof eventListener.callback === 'function') {
+        /* jshint validthis: true */
+        eventListener.callback.call(this, e);
+      } else if (eventListener.callback) {
+        eventListener.callback.handleEvent(e);
+      }
+      if (eventListener.passive) {
+        delete e.preventDefault;
+      }
+    }
+    eventListener.type = type;
+    eventListener.callback = callback;
+    eventListener.capture = !!options.capture;
+    eventListener.passive = !!options.passive;
+    eventListener.once = !!options.once;
+    // currently pointless but specs say to use it, so ...
+    eventListener.removed = false;
+    return eventListener;
+  }
+
+  createEventListener.preventDefault = function preventDefault() {};
+
+  var
+    Event = global.CustomEvent,
+    dE = global.dispatchEvent,
+    aEL = global.addEventListener,
+    rEL = global.removeEventListener,
+    counter = 0,
+    increment = function () { counter++; },
+    indexOf = [].indexOf || function indexOf(value){
+      var length = this.length;
+      while(length--) {
+        if (this[length] === value) {
+          break;
+        }
+      }
+      return length;
+    },
+    getListenerKey = function (options) {
+      return ''.concat(
+        options.capture ? '1' : '0',
+        options.passive ? '1' : '0',
+        options.once ? '1' : '0'
+      );
+    },
+    augment
+  ;
+
+  try {
+    aEL('_', increment, {once: true});
+    dE(new Event('_'));
+    dE(new Event('_'));
+    rEL('_', increment, {once: true});
+  } catch(o_O) {}
+
+  if (counter !== 1) {
+    (function () {
+      var dm = new DOMMap();
+      function createAEL(aEL) {
+        return function addEventListener(type, handler, options) {
+          if (options && typeof options !== 'boolean') {
+            var
+              info = dm.get(this),
+              key = getListenerKey(options),
+              i, tmp, wrap
+            ;
+            if (!info) dm.set(this, (info = new Dict()));
+            if (!(type in info)) info[type] = {
+              handler: [],
+              wrap: []
+            };
+            tmp = info[type];
+            i = indexOf.call(tmp.handler, handler);
+            if (i < 0) {
+              i = tmp.handler.push(handler) - 1;
+              tmp.wrap[i] = (wrap = new Dict());
+            } else {
+              wrap = tmp.wrap[i];
+            }
+            if (!(key in wrap)) {
+              wrap[key] = createEventListener(type, handler, options);
+              aEL.call(this, type, wrap[key], wrap[key].capture);
+            }
+          } else {
+            aEL.call(this, type, handler, options);
+          }
+        };
+      }
+      function createREL(rEL) {
+        return function removeEventListener(type, handler, options) {
+          if (options && typeof options !== 'boolean') {
+            var
+              info = dm.get(this),
+              key, i, tmp, wrap
+            ;
+            if (info && (type in info)) {
+              tmp = info[type];
+              i = indexOf.call(tmp.handler, handler);
+              if (-1 < i) {
+                key = getListenerKey(options);
+                wrap = tmp.wrap[i];
+                if (key in wrap) {
+                  rEL.call(this, type, wrap[key], wrap[key].capture);
+                  delete wrap[key];
+                  // return if there are other wraps
+                  for (key in wrap) return;
+                  // otherwise remove all the things
+                  tmp.handler.splice(i, 1);
+                  tmp.wrap.splice(i, 1);
+                  // if there are no other handlers
+                  if (tmp.handler.length === 0)
+                    // drop the info[type] entirely
+                    delete info[type];
+                }
+              }
+            }
+          } else {
+            rEL.call(this, type, handler, options);
+          }
+        };
+      }
+
+      augment = function (Constructor) {
+        if (!Constructor) return;
+        var proto = Constructor.prototype;
+        proto.addEventListener = createAEL(proto.addEventListener);
+        proto.removeEventListener = createREL(proto.removeEventListener);
+      };
+
+      if (global.EventTarget) {
+        augment(EventTarget);
+      } else {
+        augment(global.Text);
+        augment(global.Element || global.HTMLElement);
+        augment(global.HTMLDocument);
+        augment(global.Window || {prototype:global});
+        augment(global.XMLHttpRequest);
+      }
+
+    }());
+  }
+
+}(self));
+
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Common = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+// import './Anims';
+// import './Header';
+
+
+var _objectFitImages = __webpack_require__(335);
+
+var _objectFitImages2 = _interopRequireDefault(_objectFitImages);
+
+__webpack_require__(336);
+
+__webpack_require__(337);
+
+__webpack_require__(340);
+
+__webpack_require__(342);
+
+__webpack_require__(343);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Common = exports.Common = function () {
+  /**
+   * Cache data, make preparations and initialize common scripts.
+   */
+  function Common() {
+    _classCallCheck(this, Common);
+
+    this.init();
+  }
+  /**
+   * Initialize common scripts.
+   */
+
+
+  _createClass(Common, [{
+    key: 'init',
+    value: function init() {
+      (0, _objectFitImages2.default)();
+    }
+  }]);
+
+  return Common;
+}();
+
+/** Export initialized common scripts by default */
+
+
+exports.default = new Common();
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*! npm.im/object-fit-images 3.2.3 */
+
+
+var OFI = 'bfred-it:object-fit-images';
+var propRegex = /(object-fit|object-position)\s*:\s*([-\w\s%]+)/g;
+var testImg = typeof Image === 'undefined' ? {style: {'object-position': 1}} : new Image();
+var supportsObjectFit = 'object-fit' in testImg.style;
+var supportsObjectPosition = 'object-position' in testImg.style;
+var supportsOFI = 'background-size' in testImg.style;
+var supportsCurrentSrc = typeof testImg.currentSrc === 'string';
+var nativeGetAttribute = testImg.getAttribute;
+var nativeSetAttribute = testImg.setAttribute;
+var autoModeEnabled = false;
+
+function createPlaceholder(w, h) {
+	return ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'%3E%3C/svg%3E");
+}
+
+function polyfillCurrentSrc(el) {
+	if (el.srcset && !supportsCurrentSrc && window.picturefill) {
+		var pf = window.picturefill._;
+		// parse srcset with picturefill where currentSrc isn't available
+		if (!el[pf.ns] || !el[pf.ns].evaled) {
+			// force synchronous srcset parsing
+			pf.fillImg(el, {reselect: true});
+		}
+
+		if (!el[pf.ns].curSrc) {
+			// force picturefill to parse srcset
+			el[pf.ns].supported = false;
+			pf.fillImg(el, {reselect: true});
+		}
+
+		// retrieve parsed currentSrc, if any
+		el.currentSrc = el[pf.ns].curSrc || el.src;
+	}
+}
+
+function getStyle(el) {
+	var style = getComputedStyle(el).fontFamily;
+	var parsed;
+	var props = {};
+	while ((parsed = propRegex.exec(style)) !== null) {
+		props[parsed[1]] = parsed[2];
+	}
+	return props;
+}
+
+function setPlaceholder(img, width, height) {
+	// Default: fill width, no height
+	var placeholder = createPlaceholder(width || 1, height || 0);
+
+	// Only set placeholder if it's different
+	if (nativeGetAttribute.call(img, 'src') !== placeholder) {
+		nativeSetAttribute.call(img, 'src', placeholder);
+	}
+}
+
+function onImageReady(img, callback) {
+	// naturalWidth is only available when the image headers are loaded,
+	// this loop will poll it every 100ms.
+	if (img.naturalWidth) {
+		callback(img);
+	} else {
+		setTimeout(onImageReady, 100, img, callback);
+	}
+}
+
+function fixOne(el) {
+	var style = getStyle(el);
+	var ofi = el[OFI];
+	style['object-fit'] = style['object-fit'] || 'fill'; // default value
+
+	// Avoid running where unnecessary, unless OFI had already done its deed
+	if (!ofi.img) {
+		// fill is the default behavior so no action is necessary
+		if (style['object-fit'] === 'fill') {
+			return;
+		}
+
+		// Where object-fit is supported and object-position isn't (Safari < 10)
+		if (
+			!ofi.skipTest && // unless user wants to apply regardless of browser support
+			supportsObjectFit && // if browser already supports object-fit
+			!style['object-position'] // unless object-position is used
+		) {
+			return;
+		}
+	}
+
+	// keep a clone in memory while resetting the original to a blank
+	if (!ofi.img) {
+		ofi.img = new Image(el.width, el.height);
+		ofi.img.srcset = nativeGetAttribute.call(el, "data-ofi-srcset") || el.srcset;
+		ofi.img.src = nativeGetAttribute.call(el, "data-ofi-src") || el.src;
+
+		// preserve for any future cloneNode calls
+		// https://github.com/bfred-it/object-fit-images/issues/53
+		nativeSetAttribute.call(el, "data-ofi-src", el.src);
+		if (el.srcset) {
+			nativeSetAttribute.call(el, "data-ofi-srcset", el.srcset);
+		}
+
+		setPlaceholder(el, el.naturalWidth || el.width, el.naturalHeight || el.height);
+
+		// remove srcset because it overrides src
+		if (el.srcset) {
+			el.srcset = '';
+		}
+		try {
+			keepSrcUsable(el);
+		} catch (err) {
+			if (window.console) {
+				console.warn('https://bit.ly/ofi-old-browser');
+			}
+		}
+	}
+
+	polyfillCurrentSrc(ofi.img);
+
+	el.style.backgroundImage = "url(\"" + ((ofi.img.currentSrc || ofi.img.src).replace(/"/g, '\\"')) + "\")";
+	el.style.backgroundPosition = style['object-position'] || 'center';
+	el.style.backgroundRepeat = 'no-repeat';
+	el.style.backgroundOrigin = 'content-box';
+
+	if (/scale-down/.test(style['object-fit'])) {
+		onImageReady(ofi.img, function () {
+			if (ofi.img.naturalWidth > el.width || ofi.img.naturalHeight > el.height) {
+				el.style.backgroundSize = 'contain';
+			} else {
+				el.style.backgroundSize = 'auto';
+			}
+		});
+	} else {
+		el.style.backgroundSize = style['object-fit'].replace('none', 'auto').replace('fill', '100% 100%');
+	}
+
+	onImageReady(ofi.img, function (img) {
+		setPlaceholder(el, img.naturalWidth, img.naturalHeight);
+	});
+}
+
+function keepSrcUsable(el) {
+	var descriptors = {
+		get: function get(prop) {
+			return el[OFI].img[prop ? prop : 'src'];
+		},
+		set: function set(value, prop) {
+			el[OFI].img[prop ? prop : 'src'] = value;
+			nativeSetAttribute.call(el, ("data-ofi-" + prop), value); // preserve for any future cloneNode
+			fixOne(el);
+			return value;
+		}
+	};
+	Object.defineProperty(el, 'src', descriptors);
+	Object.defineProperty(el, 'currentSrc', {
+		get: function () { return descriptors.get('currentSrc'); }
+	});
+	Object.defineProperty(el, 'srcset', {
+		get: function () { return descriptors.get('srcset'); },
+		set: function (ss) { return descriptors.set(ss, 'srcset'); }
+	});
+}
+
+function hijackAttributes() {
+	function getOfiImageMaybe(el, name) {
+		return el[OFI] && el[OFI].img && (name === 'src' || name === 'srcset') ? el[OFI].img : el;
+	}
+	if (!supportsObjectPosition) {
+		HTMLImageElement.prototype.getAttribute = function (name) {
+			return nativeGetAttribute.call(getOfiImageMaybe(this, name), name);
+		};
+
+		HTMLImageElement.prototype.setAttribute = function (name, value) {
+			return nativeSetAttribute.call(getOfiImageMaybe(this, name), name, String(value));
+		};
+	}
+}
+
+function fix(imgs, opts) {
+	var startAutoMode = !autoModeEnabled && !imgs;
+	opts = opts || {};
+	imgs = imgs || 'img';
+
+	if ((supportsObjectPosition && !opts.skipTest) || !supportsOFI) {
+		return false;
+	}
+
+	// use imgs as a selector or just select all images
+	if (imgs === 'img') {
+		imgs = document.getElementsByTagName('img');
+	} else if (typeof imgs === 'string') {
+		imgs = document.querySelectorAll(imgs);
+	} else if (!('length' in imgs)) {
+		imgs = [imgs];
+	}
+
+	// apply fix to all
+	for (var i = 0; i < imgs.length; i++) {
+		imgs[i][OFI] = imgs[i][OFI] || {
+			skipTest: opts.skipTest
+		};
+		fixOne(imgs[i]);
+	}
+
+	if (startAutoMode) {
+		document.body.addEventListener('load', function (e) {
+			if (e.target.tagName === 'IMG') {
+				fix(e.target, {
+					skipTest: opts.skipTest
+				});
+			}
+		}, true);
+		autoModeEnabled = true;
+		imgs = 'img'; // reset to a generic selector for watchMQ
+	}
+
+	// if requested, watch media queries for object-fit change
+	if (opts.watchMQ) {
+		window.addEventListener('resize', fix.bind(null, imgs, {
+			skipTest: opts.skipTest
+		}));
+	}
+}
+
+fix.supportsObjectFit = supportsObjectFit;
+fix.supportsObjectPosition = supportsObjectPosition;
+
+hijackAttributes();
+
+module.exports = fix;
+
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _helpers = __webpack_require__(46);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NoTouch = function () {
+  function NoTouch() {
+    _classCallCheck(this, NoTouch);
+
+    NoTouch.init();
+  }
+
+  _createClass(NoTouch, null, [{
+    key: 'init',
+    value: function init() {
+      var toggleNoTouch = function toggleNoTouch() {
+        if (_helpers.Resp.isDesk) {
+          _helpers.$body.addClass(_helpers.css.noTouch);
+        } else {
+          _helpers.$body.removeClass(_helpers.css.noTouch);
+        }
+      };
+
+      toggleNoTouch();
+      _helpers.$window.on('resize', (0, _helpers.debounce)(toggleNoTouch, this, 250));
+    }
+  }]);
+
+  return NoTouch;
+}();
+
+exports.default = new NoTouch();
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _scrollAnim = __webpack_require__(126);
+
+var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
+
+var _gsap = __webpack_require__(127);
+
+var _swiper = __webpack_require__(128);
+
+var _swiper2 = _interopRequireDefault(_swiper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FullSlider = function () {
+  function FullSlider(el) {
+    _classCallCheck(this, FullSlider);
+
+    this.el = document.querySelector(el);
+
+    this.init();
+  }
+
+  _createClass(FullSlider, [{
+    key: 'init',
+    value: function init() {
+      this.createSlider();
+      this.bindEvents();
+    }
+  }, {
+    key: 'bindEvents',
+    value: function bindEvents() {
+      var _this = this;
+
+      document.addEventListener('click', function (e) {
+        _this.clickToSlide(_this.slider);
+
+        // this.toggleMouseWheel(this.el, this.slider, e);
+      });
+    }
+  }, {
+    key: 'createSlider',
+    value: function createSlider() {
+
+      this.slider = new _swiper2.default(this.el, {
+        slidesPerView: 7.11,
+        simulateTouch: true,
+        loop: true,
+        centeredSlides: true,
+        speed: 500,
+        initialSlide: 3,
+        loopAdditionalSlides: 10,
+        keyboardControl: true,
+        breakpoints: {
+          1599: {
+            slidesPerView: 6.11
+          },
+          1199: {
+            slidesPerView: 3.11
+          },
+          767: {
+            slidesPerView: 1
+          }
+        }
+      });
+    }
+  }, {
+    key: 'clickToSlide',
+    value: function clickToSlide(slider) {
+      slider.on('click', function () {
+        var slideIdx = slider.clickedIndex;
+        slider.slideTo(slideIdx, 500);
+      });
+    }
+
+    // toggleMouseWheel(el, slider, event) {
+    //   const target = event.target.closest('.swiper-container');
+    //   target === el ? slider.mousewheel.enable() : slider.mousewheel.disable();
+    // }
+
+  }]);
+
+  return FullSlider;
+}();
+
+var teachersSlider = new FullSlider('.teachers__slider');
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * ScrollMagic v2.0.5 (2015-04-29)
+ * The javascript library for magical scroll interactions.
+ * (c) 2015 Jan Paepke (@janpaepke)
+ * Project Website: http://scrollmagic.io
+ * 
+ * @version 2.0.5
+ * @license Dual licensed under MIT license and GPL.
+ * @author Jan Paepke - e-mail@janpaepke.de
+ *
+ * @file ScrollMagic main library.
+ */
+/**
+ * @namespace ScrollMagic
+ */
+(function (root, factory) {
+	if (true) {
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		module.exports = factory();
+	} else {
+		// Browser global
+		root.ScrollMagic = factory();
+	}
+}(this, function () {
+	"use strict";
+
+	var ScrollMagic = function () {
+		_util.log(2, '(COMPATIBILITY NOTICE) -> As of ScrollMagic 2.0.0 you need to use \'new ScrollMagic.Controller()\' to create a new controller instance. Use \'new ScrollMagic.Scene()\' to instance a scene.');
+	};
+
+	ScrollMagic.version = "2.0.5";
+
+	// TODO: temporary workaround for chrome's scroll jitter bug
+	window.addEventListener("mousewheel", function () {});
+
+	// global const
+	var PIN_SPACER_ATTRIBUTE = "data-scrollmagic-pin-spacer";
+
+	/**
+	 * The main class that is needed once per scroll container.
+	 *
+	 * @class
+	 *
+	 * @example
+	 * // basic initialization
+	 * var controller = new ScrollMagic.Controller();
+	 *
+	 * // passing options
+	 * var controller = new ScrollMagic.Controller({container: "#myContainer", loglevel: 3});
+	 *
+	 * @param {object} [options] - An object containing one or more options for the controller.
+	 * @param {(string|object)} [options.container=window] - A selector, DOM object that references the main container for scrolling.
+	 * @param {boolean} [options.vertical=true] - Sets the scroll mode to vertical (`true`) or horizontal (`false`) scrolling.
+	 * @param {object} [options.globalSceneOptions={}] - These options will be passed to every Scene that is added to the controller using the addScene method. For more information on Scene options see {@link ScrollMagic.Scene}.
+	 * @param {number} [options.loglevel=2] Loglevel for debugging. Note that logging is disabled in the minified version of ScrollMagic.
+	 ** `0` => silent
+	 ** `1` => errors
+	 ** `2` => errors, warnings
+	 ** `3` => errors, warnings, debuginfo
+	 * @param {boolean} [options.refreshInterval=100] - Some changes don't call events by default, like changing the container size or moving a scene trigger element.  
+	 This interval polls these parameters to fire the necessary events.  
+	 If you don't use custom containers, trigger elements or have static layouts, where the positions of the trigger elements don't change, you can set this to 0 disable interval checking and improve performance.
+	 *
+	 */
+	ScrollMagic.Controller = function (options) {
+/*
+	 * ----------------------------------------------------------------
+	 * settings
+	 * ----------------------------------------------------------------
+	 */
+		var
+		NAMESPACE = 'ScrollMagic.Controller',
+			SCROLL_DIRECTION_FORWARD = 'FORWARD',
+			SCROLL_DIRECTION_REVERSE = 'REVERSE',
+			SCROLL_DIRECTION_PAUSED = 'PAUSED',
+			DEFAULT_OPTIONS = CONTROLLER_OPTIONS.defaults;
+
+/*
+	 * ----------------------------------------------------------------
+	 * private vars
+	 * ----------------------------------------------------------------
+	 */
+		var
+		Controller = this,
+			_options = _util.extend({}, DEFAULT_OPTIONS, options),
+			_sceneObjects = [],
+			_updateScenesOnNextCycle = false,
+			// can be boolean (true => all scenes) or an array of scenes to be updated
+			_scrollPos = 0,
+			_scrollDirection = SCROLL_DIRECTION_PAUSED,
+			_isDocument = true,
+			_viewPortSize = 0,
+			_enabled = true,
+			_updateTimeout, _refreshTimeout;
+
+/*
+	 * ----------------------------------------------------------------
+	 * private functions
+	 * ----------------------------------------------------------------
+	 */
+
+		/**
+		 * Internal constructor function of the ScrollMagic Controller
+		 * @private
+		 */
+		var construct = function () {
+			for (var key in _options) {
+				if (!DEFAULT_OPTIONS.hasOwnProperty(key)) {
+					log(2, "WARNING: Unknown option \"" + key + "\"");
+					delete _options[key];
+				}
+			}
+			_options.container = _util.get.elements(_options.container)[0];
+			// check ScrollContainer
+			if (!_options.container) {
+				log(1, "ERROR creating object " + NAMESPACE + ": No valid scroll container supplied");
+				throw NAMESPACE + " init failed."; // cancel
+			}
+			_isDocument = _options.container === window || _options.container === document.body || !document.body.contains(_options.container);
+			// normalize to window
+			if (_isDocument) {
+				_options.container = window;
+			}
+			// update container size immediately
+			_viewPortSize = getViewportSize();
+			// set event handlers
+			_options.container.addEventListener("resize", onChange);
+			_options.container.addEventListener("scroll", onChange);
+
+			_options.refreshInterval = parseInt(_options.refreshInterval) || DEFAULT_OPTIONS.refreshInterval;
+			scheduleRefresh();
+
+			log(3, "added new " + NAMESPACE + " controller (v" + ScrollMagic.version + ")");
+		};
+
+		/**
+		 * Schedule the next execution of the refresh function
+		 * @private
+		 */
+		var scheduleRefresh = function () {
+			if (_options.refreshInterval > 0) {
+				_refreshTimeout = window.setTimeout(refresh, _options.refreshInterval);
+			}
+		};
+
+		/**
+		 * Default function to get scroll pos - overwriteable using `Controller.scrollPos(newFunction)`
+		 * @private
+		 */
+		var getScrollPos = function () {
+			return _options.vertical ? _util.get.scrollTop(_options.container) : _util.get.scrollLeft(_options.container);
+		};
+
+		/**
+		 * Returns the current viewport Size (width vor horizontal, height for vertical)
+		 * @private
+		 */
+		var getViewportSize = function () {
+			return _options.vertical ? _util.get.height(_options.container) : _util.get.width(_options.container);
+		};
+
+		/**
+		 * Default function to set scroll pos - overwriteable using `Controller.scrollTo(newFunction)`
+		 * Make available publicly for pinned mousewheel workaround.
+		 * @private
+		 */
+		var setScrollPos = this._setScrollPos = function (pos) {
+			if (_options.vertical) {
+				if (_isDocument) {
+					window.scrollTo(_util.get.scrollLeft(), pos);
+				} else {
+					_options.container.scrollTop = pos;
+				}
+			} else {
+				if (_isDocument) {
+					window.scrollTo(pos, _util.get.scrollTop());
+				} else {
+					_options.container.scrollLeft = pos;
+				}
+			}
+		};
+
+		/**
+		 * Handle updates in cycles instead of on scroll (performance)
+		 * @private
+		 */
+		var updateScenes = function () {
+			if (_enabled && _updateScenesOnNextCycle) {
+				// determine scenes to update
+				var scenesToUpdate = _util.type.Array(_updateScenesOnNextCycle) ? _updateScenesOnNextCycle : _sceneObjects.slice(0);
+				// reset scenes
+				_updateScenesOnNextCycle = false;
+				var oldScrollPos = _scrollPos;
+				// update scroll pos now instead of onChange, as it might have changed since scheduling (i.e. in-browser smooth scroll)
+				_scrollPos = Controller.scrollPos();
+				var deltaScroll = _scrollPos - oldScrollPos;
+				if (deltaScroll !== 0) { // scroll position changed?
+					_scrollDirection = (deltaScroll > 0) ? SCROLL_DIRECTION_FORWARD : SCROLL_DIRECTION_REVERSE;
+				}
+				// reverse order of scenes if scrolling reverse
+				if (_scrollDirection === SCROLL_DIRECTION_REVERSE) {
+					scenesToUpdate.reverse();
+				}
+				// update scenes
+				scenesToUpdate.forEach(function (scene, index) {
+					log(3, "updating Scene " + (index + 1) + "/" + scenesToUpdate.length + " (" + _sceneObjects.length + " total)");
+					scene.update(true);
+				});
+				if (scenesToUpdate.length === 0 && _options.loglevel >= 3) {
+					log(3, "updating 0 Scenes (nothing added to controller)");
+				}
+			}
+		};
+
+		/**
+		 * Initializes rAF callback
+		 * @private
+		 */
+		var debounceUpdate = function () {
+			_updateTimeout = _util.rAF(updateScenes);
+		};
+
+		/**
+		 * Handles Container changes
+		 * @private
+		 */
+		var onChange = function (e) {
+			log(3, "event fired causing an update:", e.type);
+			if (e.type == "resize") {
+				// resize
+				_viewPortSize = getViewportSize();
+				_scrollDirection = SCROLL_DIRECTION_PAUSED;
+			}
+			// schedule update
+			if (_updateScenesOnNextCycle !== true) {
+				_updateScenesOnNextCycle = true;
+				debounceUpdate();
+			}
+		};
+
+		var refresh = function () {
+			if (!_isDocument) {
+				// simulate resize event. Only works for viewport relevant param (performance)
+				if (_viewPortSize != getViewportSize()) {
+					var resizeEvent;
+					try {
+						resizeEvent = new Event('resize', {
+							bubbles: false,
+							cancelable: false
+						});
+					} catch (e) { // stupid IE
+						resizeEvent = document.createEvent("Event");
+						resizeEvent.initEvent("resize", false, false);
+					}
+					_options.container.dispatchEvent(resizeEvent);
+				}
+			}
+			_sceneObjects.forEach(function (scene, index) { // refresh all scenes
+				scene.refresh();
+			});
+			scheduleRefresh();
+		};
+
+		/**
+		 * Send a debug message to the console.
+		 * provided publicly with _log for plugins
+		 * @private
+		 *
+		 * @param {number} loglevel - The loglevel required to initiate output for the message.
+		 * @param {...mixed} output - One or more variables that should be passed to the console.
+		 */
+		var log = this._log = function (loglevel, output) {
+			if (_options.loglevel >= loglevel) {
+				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ") ->");
+				_util.log.apply(window, arguments);
+			}
+		};
+		// for scenes we have getters for each option, but for the controller we don't, so we need to make it available externally for plugins
+		this._options = _options;
+
+		/**
+		 * Sort scenes in ascending order of their start offset.
+		 * @private
+		 *
+		 * @param {array} ScenesArray - an array of ScrollMagic Scenes that should be sorted
+		 * @return {array} The sorted array of Scenes.
+		 */
+		var sortScenes = function (ScenesArray) {
+			if (ScenesArray.length <= 1) {
+				return ScenesArray;
+			} else {
+				var scenes = ScenesArray.slice(0);
+				scenes.sort(function (a, b) {
+					return a.scrollOffset() > b.scrollOffset() ? 1 : -1;
+				});
+				return scenes;
+			}
+		};
+
+		/**
+		 * ----------------------------------------------------------------
+		 * public functions
+		 * ----------------------------------------------------------------
+		 */
+
+		/**
+		 * Add one ore more scene(s) to the controller.  
+		 * This is the equivalent to `Scene.addTo(controller)`.
+		 * @public
+		 * @example
+		 * // with a previously defined scene
+		 * controller.addScene(scene);
+		 *
+		 * // with a newly created scene.
+		 * controller.addScene(new ScrollMagic.Scene({duration : 0}));
+		 *
+		 * // adding multiple scenes
+		 * controller.addScene([scene, scene2, new ScrollMagic.Scene({duration : 0})]);
+		 *
+		 * @param {(ScrollMagic.Scene|array)} newScene - ScrollMagic Scene or Array of Scenes to be added to the controller.
+		 * @return {Controller} Parent object for chaining.
+		 */
+		this.addScene = function (newScene) {
+			if (_util.type.Array(newScene)) {
+				newScene.forEach(function (scene, index) {
+					Controller.addScene(scene);
+				});
+			} else if (newScene instanceof ScrollMagic.Scene) {
+				if (newScene.controller() !== Controller) {
+					newScene.addTo(Controller);
+				} else if (_sceneObjects.indexOf(newScene) < 0) {
+					// new scene
+					_sceneObjects.push(newScene); // add to array
+					_sceneObjects = sortScenes(_sceneObjects); // sort
+					newScene.on("shift.controller_sort", function () { // resort whenever scene moves
+						_sceneObjects = sortScenes(_sceneObjects);
+					});
+					// insert Global defaults.
+					for (var key in _options.globalSceneOptions) {
+						if (newScene[key]) {
+							newScene[key].call(newScene, _options.globalSceneOptions[key]);
+						}
+					}
+					log(3, "adding Scene (now " + _sceneObjects.length + " total)");
+				}
+			} else {
+				log(1, "ERROR: invalid argument supplied for '.addScene()'");
+			}
+			return Controller;
+		};
+
+		/**
+		 * Remove one ore more scene(s) from the controller.  
+		 * This is the equivalent to `Scene.remove()`.
+		 * @public
+		 * @example
+		 * // remove a scene from the controller
+		 * controller.removeScene(scene);
+		 *
+		 * // remove multiple scenes from the controller
+		 * controller.removeScene([scene, scene2, scene3]);
+		 *
+		 * @param {(ScrollMagic.Scene|array)} Scene - ScrollMagic Scene or Array of Scenes to be removed from the controller.
+		 * @returns {Controller} Parent object for chaining.
+		 */
+		this.removeScene = function (Scene) {
+			if (_util.type.Array(Scene)) {
+				Scene.forEach(function (scene, index) {
+					Controller.removeScene(scene);
+				});
+			} else {
+				var index = _sceneObjects.indexOf(Scene);
+				if (index > -1) {
+					Scene.off("shift.controller_sort");
+					_sceneObjects.splice(index, 1);
+					log(3, "removing Scene (now " + _sceneObjects.length + " left)");
+					Scene.remove();
+				}
+			}
+			return Controller;
+		};
+
+		/**
+		 * Update one ore more scene(s) according to the scroll position of the container.  
+		 * This is the equivalent to `Scene.update()`.  
+		 * The update method calculates the scene's start and end position (based on the trigger element, trigger hook, duration and offset) and checks it against the current scroll position of the container.  
+		 * It then updates the current scene state accordingly (or does nothing, if the state is already correct) – Pins will be set to their correct position and tweens will be updated to their correct progress.  
+		 * _**Note:** This method gets called constantly whenever Controller detects a change. The only application for you is if you change something outside of the realm of ScrollMagic, like moving the trigger or changing tween parameters._
+		 * @public
+		 * @example
+		 * // update a specific scene on next cycle
+		 * controller.updateScene(scene);
+		 *
+		 * // update a specific scene immediately
+		 * controller.updateScene(scene, true);
+		 *
+		 * // update multiple scenes scene on next cycle
+		 * controller.updateScene([scene1, scene2, scene3]);
+		 *
+		 * @param {ScrollMagic.Scene} Scene - ScrollMagic Scene or Array of Scenes that is/are supposed to be updated.
+		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle.  
+		 This is useful when changing multiple properties of the scene - this way it will only be updated once all new properties are set (updateScenes).
+		 * @return {Controller} Parent object for chaining.
+		 */
+		this.updateScene = function (Scene, immediately) {
+			if (_util.type.Array(Scene)) {
+				Scene.forEach(function (scene, index) {
+					Controller.updateScene(scene, immediately);
+				});
+			} else {
+				if (immediately) {
+					Scene.update(true);
+				} else if (_updateScenesOnNextCycle !== true && Scene instanceof ScrollMagic.Scene) { // if _updateScenesOnNextCycle is true, all connected scenes are already scheduled for update
+					// prep array for next update cycle
+					_updateScenesOnNextCycle = _updateScenesOnNextCycle || [];
+					if (_updateScenesOnNextCycle.indexOf(Scene) == -1) {
+						_updateScenesOnNextCycle.push(Scene);
+					}
+					_updateScenesOnNextCycle = sortScenes(_updateScenesOnNextCycle); // sort
+					debounceUpdate();
+				}
+			}
+			return Controller;
+		};
+
+		/**
+		 * Updates the controller params and calls updateScene on every scene, that is attached to the controller.  
+		 * See `Controller.updateScene()` for more information about what this means.  
+		 * In most cases you will not need this function, as it is called constantly, whenever ScrollMagic detects a state change event, like resize or scroll.  
+		 * The only application for this method is when ScrollMagic fails to detect these events.  
+		 * One application is with some external scroll libraries (like iScroll) that move an internal container to a negative offset instead of actually scrolling. In this case the update on the controller needs to be called whenever the child container's position changes.
+		 * For this case there will also be the need to provide a custom function to calculate the correct scroll position. See `Controller.scrollPos()` for details.
+		 * @public
+		 * @example
+		 * // update the controller on next cycle (saves performance due to elimination of redundant updates)
+		 * controller.update();
+		 *
+		 * // update the controller immediately
+		 * controller.update(true);
+		 *
+		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle (better performance)
+		 * @return {Controller} Parent object for chaining.
+		 */
+		this.update = function (immediately) {
+			onChange({
+				type: "resize"
+			}); // will update size and set _updateScenesOnNextCycle to true
+			if (immediately) {
+				updateScenes();
+			}
+			return Controller;
+		};
+
+		/**
+		 * Scroll to a numeric scroll offset, a DOM element, the start of a scene or provide an alternate method for scrolling.  
+		 * For vertical controllers it will change the top scroll offset and for horizontal applications it will change the left offset.
+		 * @public
+		 *
+		 * @since 1.1.0
+		 * @example
+		 * // scroll to an offset of 100
+		 * controller.scrollTo(100);
+		 *
+		 * // scroll to a DOM element
+		 * controller.scrollTo("#anchor");
+		 *
+		 * // scroll to the beginning of a scene
+		 * var scene = new ScrollMagic.Scene({offset: 200});
+		 * controller.scrollTo(scene);
+		 *
+		 * // define a new scroll position modification function (jQuery animate instead of jump)
+		 * controller.scrollTo(function (newScrollPos) {
+		 *	$("html, body").animate({scrollTop: newScrollPos});
+		 * });
+		 * controller.scrollTo(100); // call as usual, but the new function will be used instead
+		 *
+		 * // define a new scroll function with an additional parameter
+		 * controller.scrollTo(function (newScrollPos, message) {
+		 *  console.log(message);
+		 *	$(this).animate({scrollTop: newScrollPos});
+		 * });
+		 * // call as usual, but supply an extra parameter to the defined custom function
+		 * controller.scrollTo(100, "my message");
+		 *
+		 * // define a new scroll function with an additional parameter containing multiple variables
+		 * controller.scrollTo(function (newScrollPos, options) {
+		 *  someGlobalVar = options.a + options.b;
+		 *	$(this).animate({scrollTop: newScrollPos});
+		 * });
+		 * // call as usual, but supply an extra parameter containing multiple options
+		 * controller.scrollTo(100, {a: 1, b: 2});
+		 *
+		 * // define a new scroll function with a callback supplied as an additional parameter
+		 * controller.scrollTo(function (newScrollPos, callback) {
+		 *	$(this).animate({scrollTop: newScrollPos}, 400, "swing", callback);
+		 * });
+		 * // call as usual, but supply an extra parameter, which is used as a callback in the previously defined custom scroll function
+		 * controller.scrollTo(100, function() {
+		 *	console.log("scroll has finished.");
+		 * });
+		 *
+		 * @param {mixed} scrollTarget - The supplied argument can be one of these types:
+		 * 1. `number` -> The container will scroll to this new scroll offset.
+		 * 2. `string` or `object` -> Can be a selector or a DOM object.  
+		 *  The container will scroll to the position of this element.
+		 * 3. `ScrollMagic Scene` -> The container will scroll to the start of this scene.
+		 * 4. `function` -> This function will be used for future scroll position modifications.  
+		 *  This provides a way for you to change the behaviour of scrolling and adding new behaviour like animation. The function receives the new scroll position as a parameter and a reference to the container element using `this`.  
+		 *  It may also optionally receive an optional additional parameter (see below)  
+		 *  _**NOTE:**  
+		 *  All other options will still work as expected, using the new function to scroll._
+		 * @param {mixed} [additionalParameter] - If a custom scroll function was defined (see above 4.), you may want to supply additional parameters to it, when calling it. You can do this using this parameter – see examples for details. Please note, that this parameter will have no effect, if you use the default scrolling function.
+		 * @returns {Controller} Parent object for chaining.
+		 */
+		this.scrollTo = function (scrollTarget, additionalParameter) {
+			if (_util.type.Number(scrollTarget)) { // excecute
+				setScrollPos.call(_options.container, scrollTarget, additionalParameter);
+			} else if (scrollTarget instanceof ScrollMagic.Scene) { // scroll to scene
+				if (scrollTarget.controller() === Controller) { // check if the controller is associated with this scene
+					Controller.scrollTo(scrollTarget.scrollOffset(), additionalParameter);
+				} else {
+					log(2, "scrollTo(): The supplied scene does not belong to this controller. Scroll cancelled.", scrollTarget);
+				}
+			} else if (_util.type.Function(scrollTarget)) { // assign new scroll function
+				setScrollPos = scrollTarget;
+			} else { // scroll to element
+				var elem = _util.get.elements(scrollTarget)[0];
+				if (elem) {
+					// if parent is pin spacer, use spacer position instead so correct start position is returned for pinned elements.
+					while (elem.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) {
+						elem = elem.parentNode;
+					}
+
+					var
+					param = _options.vertical ? "top" : "left",
+						// which param is of interest ?
+						containerOffset = _util.get.offset(_options.container),
+						// container position is needed because element offset is returned in relation to document, not in relation to container.
+						elementOffset = _util.get.offset(elem);
+
+					if (!_isDocument) { // container is not the document root, so substract scroll Position to get correct trigger element position relative to scrollcontent
+						containerOffset[param] -= Controller.scrollPos();
+					}
+
+					Controller.scrollTo(elementOffset[param] - containerOffset[param], additionalParameter);
+				} else {
+					log(2, "scrollTo(): The supplied argument is invalid. Scroll cancelled.", scrollTarget);
+				}
+			}
+			return Controller;
+		};
+
+		/**
+		 * **Get** the current scrollPosition or **Set** a new method to calculate it.  
+		 * -> **GET**:
+		 * When used as a getter this function will return the current scroll position.  
+		 * To get a cached value use Controller.info("scrollPos"), which will be updated in the update cycle.  
+		 * For vertical controllers it will return the top scroll offset and for horizontal applications it will return the left offset.
+		 *
+		 * -> **SET**:
+		 * When used as a setter this method prodes a way to permanently overwrite the controller's scroll position calculation.  
+		 * A typical usecase is when the scroll position is not reflected by the containers scrollTop or scrollLeft values, but for example by the inner offset of a child container.  
+		 * Moving a child container inside a parent is a commonly used method for several scrolling frameworks, including iScroll.  
+		 * By providing an alternate calculation function you can make sure ScrollMagic receives the correct scroll position.  
+		 * Please also bear in mind that your function should return y values for vertical scrolls an x for horizontals.
+		 *
+		 * To change the current scroll position please use `Controller.scrollTo()`.
+		 * @public
+		 *
+		 * @example
+		 * // get the current scroll Position
+		 * var scrollPos = controller.scrollPos();
+		 *
+		 * // set a new scroll position calculation method
+		 * controller.scrollPos(function () {
+		 *	return this.info("vertical") ? -mychildcontainer.y : -mychildcontainer.x
+		 * });
+		 *
+		 * @param {function} [scrollPosMethod] - The function to be used for the scroll position calculation of the container.
+		 * @returns {(number|Controller)} Current scroll position or parent object for chaining.
+		 */
+		this.scrollPos = function (scrollPosMethod) {
+			if (!arguments.length) { // get
+				return getScrollPos.call(Controller);
+			} else { // set
+				if (_util.type.Function(scrollPosMethod)) {
+					getScrollPos = scrollPosMethod;
+				} else {
+					log(2, "Provided value for method 'scrollPos' is not a function. To change the current scroll position use 'scrollTo()'.");
+				}
+			}
+			return Controller;
+		};
+
+		/**
+		 * **Get** all infos or one in particular about the controller.
+		 * @public
+		 * @example
+		 * // returns the current scroll position (number)
+		 * var scrollPos = controller.info("scrollPos");
+		 *
+		 * // returns all infos as an object
+		 * var infos = controller.info();
+		 *
+		 * @param {string} [about] - If passed only this info will be returned instead of an object containing all.  
+		 Valid options are:
+		 ** `"size"` => the current viewport size of the container
+		 ** `"vertical"` => true if vertical scrolling, otherwise false
+		 ** `"scrollPos"` => the current scroll position
+		 ** `"scrollDirection"` => the last known direction of the scroll
+		 ** `"container"` => the container element
+		 ** `"isDocument"` => true if container element is the document.
+		 * @returns {(mixed|object)} The requested info(s).
+		 */
+		this.info = function (about) {
+			var values = {
+				size: _viewPortSize,
+				// contains height or width (in regard to orientation);
+				vertical: _options.vertical,
+				scrollPos: _scrollPos,
+				scrollDirection: _scrollDirection,
+				container: _options.container,
+				isDocument: _isDocument
+			};
+			if (!arguments.length) { // get all as an object
+				return values;
+			} else if (values[about] !== undefined) {
+				return values[about];
+			} else {
+				log(1, "ERROR: option \"" + about + "\" is not available");
+				return;
+			}
+		};
+
+		/**
+		 * **Get** or **Set** the current loglevel option value.
+		 * @public
+		 *
+		 * @example
+		 * // get the current value
+		 * var loglevel = controller.loglevel();
+		 *
+		 * // set a new value
+		 * controller.loglevel(3);
+		 *
+		 * @param {number} [newLoglevel] - The new loglevel setting of the Controller. `[0-3]`
+		 * @returns {(number|Controller)} Current loglevel or parent object for chaining.
+		 */
+		this.loglevel = function (newLoglevel) {
+			if (!arguments.length) { // get
+				return _options.loglevel;
+			} else if (_options.loglevel != newLoglevel) { // set
+				_options.loglevel = newLoglevel;
+			}
+			return Controller;
+		};
+
+		/**
+		 * **Get** or **Set** the current enabled state of the controller.  
+		 * This can be used to disable all Scenes connected to the controller without destroying or removing them.
+		 * @public
+		 *
+		 * @example
+		 * // get the current value
+		 * var enabled = controller.enabled();
+		 *
+		 * // disable the controller
+		 * controller.enabled(false);
+		 *
+		 * @param {boolean} [newState] - The new enabled state of the controller `true` or `false`.
+		 * @returns {(boolean|Controller)} Current enabled state or parent object for chaining.
+		 */
+		this.enabled = function (newState) {
+			if (!arguments.length) { // get
+				return _enabled;
+			} else if (_enabled != newState) { // set
+				_enabled = !! newState;
+				Controller.updateScene(_sceneObjects, true);
+			}
+			return Controller;
+		};
+
+		/**
+		 * Destroy the Controller, all Scenes and everything.
+		 * @public
+		 *
+		 * @example
+		 * // without resetting the scenes
+		 * controller = controller.destroy();
+		 *
+		 * // with scene reset
+		 * controller = controller.destroy(true);
+		 *
+		 * @param {boolean} [resetScenes=false] - If `true` the pins and tweens (if existent) of all scenes will be reset.
+		 * @returns {null} Null to unset handler variables.
+		 */
+		this.destroy = function (resetScenes) {
+			window.clearTimeout(_refreshTimeout);
+			var i = _sceneObjects.length;
+			while (i--) {
+				_sceneObjects[i].destroy(resetScenes);
+			}
+			_options.container.removeEventListener("resize", onChange);
+			_options.container.removeEventListener("scroll", onChange);
+			_util.cAF(_updateTimeout);
+			log(3, "destroyed " + NAMESPACE + " (reset: " + (resetScenes ? "true" : "false") + ")");
+			return null;
+		};
+
+		// INIT
+		construct();
+		return Controller;
+	};
+
+	// store pagewide controller options
+	var CONTROLLER_OPTIONS = {
+		defaults: {
+			container: window,
+			vertical: true,
+			globalSceneOptions: {},
+			loglevel: 2,
+			refreshInterval: 100
+		}
+	};
+/*
+ * method used to add an option to ScrollMagic Scenes.
+ */
+	ScrollMagic.Controller.addOption = function (name, defaultValue) {
+		CONTROLLER_OPTIONS.defaults[name] = defaultValue;
+	};
+	// instance extension function for plugins
+	ScrollMagic.Controller.extend = function (extension) {
+		var oldClass = this;
+		ScrollMagic.Controller = function () {
+			oldClass.apply(this, arguments);
+			this.$super = _util.extend({}, this); // copy parent state
+			return extension.apply(this, arguments) || this;
+		};
+		_util.extend(ScrollMagic.Controller, oldClass); // copy properties
+		ScrollMagic.Controller.prototype = oldClass.prototype; // copy prototype
+		ScrollMagic.Controller.prototype.constructor = ScrollMagic.Controller; // restore constructor
+	};
+
+
+	/**
+	 * A Scene defines where the controller should react and how.
+	 *
+	 * @class
+	 *
+	 * @example
+	 * // create a standard scene and add it to a controller
+	 * new ScrollMagic.Scene()
+	 *		.addTo(controller);
+	 *
+	 * // create a scene with custom options and assign a handler to it.
+	 * var scene = new ScrollMagic.Scene({
+	 * 		duration: 100,
+	 *		offset: 200,
+	 *		triggerHook: "onEnter",
+	 *		reverse: false
+	 * });
+	 *
+	 * @param {object} [options] - Options for the Scene. The options can be updated at any time.  
+	 Instead of setting the options for each scene individually you can also set them globally in the controller as the controllers `globalSceneOptions` option. The object accepts the same properties as the ones below.  
+	 When a scene is added to the controller the options defined using the Scene constructor will be overwritten by those set in `globalSceneOptions`.
+	 * @param {(number|function)} [options.duration=0] - The duration of the scene. 
+	 If `0` tweens will auto-play when reaching the scene start point, pins will be pinned indefinetly starting at the start position.  
+	 A function retuning the duration value is also supported. Please see `Scene.duration()` for details.
+	 * @param {number} [options.offset=0] - Offset Value for the Trigger Position. If no triggerElement is defined this will be the scroll distance from the start of the page, after which the scene will start.
+	 * @param {(string|object)} [options.triggerElement=null] - Selector or DOM object that defines the start of the scene. If undefined the scene will start right at the start of the page (unless an offset is set).
+	 * @param {(number|string)} [options.triggerHook="onCenter"] - Can be a number between 0 and 1 defining the position of the trigger Hook in relation to the viewport.  
+	 Can also be defined using a string:
+	 ** `"onEnter"` => `1`
+	 ** `"onCenter"` => `0.5`
+	 ** `"onLeave"` => `0`
+	 * @param {boolean} [options.reverse=true] - Should the scene reverse, when scrolling up?
+	 * @param {number} [options.loglevel=2] - Loglevel for debugging. Note that logging is disabled in the minified version of ScrollMagic.
+	 ** `0` => silent
+	 ** `1` => errors
+	 ** `2` => errors, warnings
+	 ** `3` => errors, warnings, debuginfo
+	 * 
+	 */
+	ScrollMagic.Scene = function (options) {
+
+/*
+	 * ----------------------------------------------------------------
+	 * settings
+	 * ----------------------------------------------------------------
+	 */
+
+		var
+		NAMESPACE = 'ScrollMagic.Scene',
+			SCENE_STATE_BEFORE = 'BEFORE',
+			SCENE_STATE_DURING = 'DURING',
+			SCENE_STATE_AFTER = 'AFTER',
+			DEFAULT_OPTIONS = SCENE_OPTIONS.defaults;
+
+/*
+	 * ----------------------------------------------------------------
+	 * private vars
+	 * ----------------------------------------------------------------
+	 */
+
+		var
+		Scene = this,
+			_options = _util.extend({}, DEFAULT_OPTIONS, options),
+			_state = SCENE_STATE_BEFORE,
+			_progress = 0,
+			_scrollOffset = {
+				start: 0,
+				end: 0
+			},
+			// reflects the controllers's scroll position for the start and end of the scene respectively
+			_triggerPos = 0,
+			_enabled = true,
+			_durationUpdateMethod, _controller;
+
+		/**
+		 * Internal constructor function of the ScrollMagic Scene
+		 * @private
+		 */
+		var construct = function () {
+			for (var key in _options) { // check supplied options
+				if (!DEFAULT_OPTIONS.hasOwnProperty(key)) {
+					log(2, "WARNING: Unknown option \"" + key + "\"");
+					delete _options[key];
+				}
+			}
+			// add getters/setters for all possible options
+			for (var optionName in DEFAULT_OPTIONS) {
+				addSceneOption(optionName);
+			}
+			// validate all options
+			validateOption();
+		};
+
+/*
+ * ----------------------------------------------------------------
+ * Event Management
+ * ----------------------------------------------------------------
+ */
+
+		var _listeners = {};
+		/**
+		 * Scene start event.  
+		 * Fires whenever the scroll position its the starting point of the scene.  
+		 * It will also fire when scrolling back up going over the start position of the scene. If you want something to happen only when scrolling down/right, use the scrollDirection parameter passed to the callback.
+		 *
+		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
+		 *
+		 * @event ScrollMagic.Scene#start
+		 *
+		 * @example
+		 * scene.on("start", function (event) {
+		 * 	console.log("Hit start point of scene.");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.progress - Reflects the current progress of the scene
+		 * @property {string} event.state - The current state of the scene `"BEFORE"` or `"DURING"`
+		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
+		 */
+		/**
+		 * Scene end event.  
+		 * Fires whenever the scroll position its the ending point of the scene.  
+		 * It will also fire when scrolling back up from after the scene and going over its end position. If you want something to happen only when scrolling down/right, use the scrollDirection parameter passed to the callback.
+		 *
+		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
+		 *
+		 * @event ScrollMagic.Scene#end
+		 *
+		 * @example
+		 * scene.on("end", function (event) {
+		 * 	console.log("Hit end point of scene.");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.progress - Reflects the current progress of the scene
+		 * @property {string} event.state - The current state of the scene `"DURING"` or `"AFTER"`
+		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
+		 */
+		/**
+		 * Scene enter event.  
+		 * Fires whenever the scene enters the "DURING" state.  
+		 * Keep in mind that it doesn't matter if the scene plays forward or backward: This event always fires when the scene enters its active scroll timeframe, regardless of the scroll-direction.
+		 *
+		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
+		 *
+		 * @event ScrollMagic.Scene#enter
+		 *
+		 * @example
+		 * scene.on("enter", function (event) {
+		 * 	console.log("Scene entered.");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.progress - Reflects the current progress of the scene
+		 * @property {string} event.state - The current state of the scene - always `"DURING"`
+		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
+		 */
+		/**
+		 * Scene leave event.  
+		 * Fires whenever the scene's state goes from "DURING" to either "BEFORE" or "AFTER".  
+		 * Keep in mind that it doesn't matter if the scene plays forward or backward: This event always fires when the scene leaves its active scroll timeframe, regardless of the scroll-direction.
+		 *
+		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
+		 *
+		 * @event ScrollMagic.Scene#leave
+		 *
+		 * @example
+		 * scene.on("leave", function (event) {
+		 * 	console.log("Scene left.");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.progress - Reflects the current progress of the scene
+		 * @property {string} event.state - The current state of the scene `"BEFORE"` or `"AFTER"`
+		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
+		 */
+		/**
+		 * Scene update event.  
+		 * Fires whenever the scene is updated (but not necessarily changes the progress).
+		 *
+		 * @event ScrollMagic.Scene#update
+		 *
+		 * @example
+		 * scene.on("update", function (event) {
+		 * 	console.log("Scene updated.");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.startPos - The starting position of the scene (in relation to the conainer)
+		 * @property {number} event.endPos - The ending position of the scene (in relation to the conainer)
+		 * @property {number} event.scrollPos - The current scroll position of the container
+		 */
+		/**
+		 * Scene progress event.  
+		 * Fires whenever the progress of the scene changes.
+		 *
+		 * For details on this event and the order in which it is fired, please review the {@link Scene.progress} method.
+		 *
+		 * @event ScrollMagic.Scene#progress
+		 *
+		 * @example
+		 * scene.on("progress", function (event) {
+		 * 	console.log("Scene progress changed to " + event.progress);
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {number} event.progress - Reflects the current progress of the scene
+		 * @property {string} event.state - The current state of the scene `"BEFORE"`, `"DURING"` or `"AFTER"`
+		 * @property {string} event.scrollDirection - Indicates which way we are scrolling `"PAUSED"`, `"FORWARD"` or `"REVERSE"`
+		 */
+		/**
+		 * Scene change event.  
+		 * Fires whenvever a property of the scene is changed.
+		 *
+		 * @event ScrollMagic.Scene#change
+		 *
+		 * @example
+		 * scene.on("change", function (event) {
+		 * 	console.log("Scene Property \"" + event.what + "\" changed to " + event.newval);
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {string} event.what - Indicates what value has been changed
+		 * @property {mixed} event.newval - The new value of the changed property
+		 */
+		/**
+		 * Scene shift event.  
+		 * Fires whenvever the start or end **scroll offset** of the scene change.
+		 * This happens explicitely, when one of these values change: `offset`, `duration` or `triggerHook`.
+		 * It will fire implicitly when the `triggerElement` changes, if the new element has a different position (most cases).
+		 * It will also fire implicitly when the size of the container changes and the triggerHook is anything other than `onLeave`.
+		 *
+		 * @event ScrollMagic.Scene#shift
+		 * @since 1.1.0
+		 *
+		 * @example
+		 * scene.on("shift", function (event) {
+		 * 	console.log("Scene moved, because the " + event.reason + " has changed.)");
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {string} event.reason - Indicates why the scene has shifted
+		 */
+		/**
+		 * Scene destroy event.  
+		 * Fires whenvever the scene is destroyed.
+		 * This can be used to tidy up custom behaviour used in events.
+		 *
+		 * @event ScrollMagic.Scene#destroy
+		 * @since 1.1.0
+		 *
+		 * @example
+		 * scene.on("enter", function (event) {
+		 *        // add custom action
+		 *        $("#my-elem").left("200");
+		 *      })
+		 *      .on("destroy", function (event) {
+		 *        // reset my element to start position
+		 *        if (event.reset) {
+		 *          $("#my-elem").left("0");
+		 *        }
+		 *      });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {boolean} event.reset - Indicates if the destroy method was called with reset `true` or `false`.
+		 */
+		/**
+		 * Scene add event.  
+		 * Fires when the scene is added to a controller.
+		 * This is mostly used by plugins to know that change might be due.
+		 *
+		 * @event ScrollMagic.Scene#add
+		 * @since 2.0.0
+		 *
+		 * @example
+		 * scene.on("add", function (event) {
+		 * 	console.log('Scene was added to a new controller.');
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 * @property {boolean} event.controller - The controller object the scene was added to.
+		 */
+		/**
+		 * Scene remove event.  
+		 * Fires when the scene is removed from a controller.
+		 * This is mostly used by plugins to know that change might be due.
+		 *
+		 * @event ScrollMagic.Scene#remove
+		 * @since 2.0.0
+		 *
+		 * @example
+		 * scene.on("remove", function (event) {
+		 * 	console.log('Scene was removed from its controller.');
+		 * });
+		 *
+		 * @property {object} event - The event Object passed to each callback
+		 * @property {string} event.type - The name of the event
+		 * @property {Scene} event.target - The Scene object that triggered this event
+		 */
+
+		/**
+		 * Add one ore more event listener.  
+		 * The callback function will be fired at the respective event, and an object containing relevant data will be passed to the callback.
+		 * @method ScrollMagic.Scene#on
+		 *
+		 * @example
+		 * function callback (event) {
+		 * 		console.log("Event fired! (" + event.type + ")");
+		 * }
+		 * // add listeners
+		 * scene.on("change update progress start end enter leave", callback);
+		 *
+		 * @param {string} names - The name or names of the event the callback should be attached to.
+		 * @param {function} callback - A function that should be executed, when the event is dispatched. An event object will be passed to the callback.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.on = function (names, callback) {
+			if (_util.type.Function(callback)) {
+				names = names.trim().split(' ');
+				names.forEach(function (fullname) {
+					var
+					nameparts = fullname.split('.'),
+						eventname = nameparts[0],
+						namespace = nameparts[1];
+					if (eventname != "*") { // disallow wildcards
+						if (!_listeners[eventname]) {
+							_listeners[eventname] = [];
+						}
+						_listeners[eventname].push({
+							namespace: namespace || '',
+							callback: callback
+						});
+					}
+				});
+			} else {
+				log(1, "ERROR when calling '.on()': Supplied callback for '" + names + "' is not a valid function!");
+			}
+			return Scene;
+		};
+
+		/**
+		 * Remove one or more event listener.
+		 * @method ScrollMagic.Scene#off
+		 *
+		 * @example
+		 * function callback (event) {
+		 * 		console.log("Event fired! (" + event.type + ")");
+		 * }
+		 * // add listeners
+		 * scene.on("change update", callback);
+		 * // remove listeners
+		 * scene.off("change update", callback);
+		 *
+		 * @param {string} names - The name or names of the event that should be removed.
+		 * @param {function} [callback] - A specific callback function that should be removed. If none is passed all callbacks to the event listener will be removed.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.off = function (names, callback) {
+			if (!names) {
+				log(1, "ERROR: Invalid event name supplied.");
+				return Scene;
+			}
+			names = names.trim().split(' ');
+			names.forEach(function (fullname, key) {
+				var
+				nameparts = fullname.split('.'),
+					eventname = nameparts[0],
+					namespace = nameparts[1] || '',
+					removeList = eventname === '*' ? Object.keys(_listeners) : [eventname];
+				removeList.forEach(function (remove) {
+					var
+					list = _listeners[remove] || [],
+						i = list.length;
+					while (i--) {
+						var listener = list[i];
+						if (listener && (namespace === listener.namespace || namespace === '*') && (!callback || callback == listener.callback)) {
+							list.splice(i, 1);
+						}
+					}
+					if (!list.length) {
+						delete _listeners[remove];
+					}
+				});
+			});
+			return Scene;
+		};
+
+		/**
+		 * Trigger an event.
+		 * @method ScrollMagic.Scene#trigger
+		 *
+		 * @example
+		 * this.trigger("change");
+		 *
+		 * @param {string} name - The name of the event that should be triggered.
+		 * @param {object} [vars] - An object containing info that should be passed to the callback.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.trigger = function (name, vars) {
+			if (name) {
+				var
+				nameparts = name.trim().split('.'),
+					eventname = nameparts[0],
+					namespace = nameparts[1],
+					listeners = _listeners[eventname];
+				log(3, 'event fired:', eventname, vars ? "->" : '', vars || '');
+				if (listeners) {
+					listeners.forEach(function (listener, key) {
+						if (!namespace || namespace === listener.namespace) {
+							listener.callback.call(Scene, new ScrollMagic.Event(eventname, listener.namespace, Scene, vars));
+						}
+					});
+				}
+			} else {
+				log(1, "ERROR: Invalid event name supplied.");
+			}
+			return Scene;
+		};
+
+		// set event listeners
+		Scene.on("change.internal", function (e) {
+			if (e.what !== "loglevel" && e.what !== "tweenChanges") { // no need for a scene update scene with these options...
+				if (e.what === "triggerElement") {
+					updateTriggerElementPosition();
+				} else if (e.what === "reverse") { // the only property left that may have an impact on the current scene state. Everything else is handled by the shift event.
+					Scene.update();
+				}
+			}
+		}).on("shift.internal", function (e) {
+			updateScrollOffset();
+			Scene.update(); // update scene to reflect new position
+		});
+
+		/**
+		 * Send a debug message to the console.
+		 * @private
+		 * but provided publicly with _log for plugins
+		 *
+		 * @param {number} loglevel - The loglevel required to initiate output for the message.
+		 * @param {...mixed} output - One or more variables that should be passed to the console.
+		 */
+		var log = this._log = function (loglevel, output) {
+			if (_options.loglevel >= loglevel) {
+				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ") ->");
+				_util.log.apply(window, arguments);
+			}
+		};
+
+		/**
+		 * Add the scene to a controller.  
+		 * This is the equivalent to `Controller.addScene(scene)`.
+		 * @method ScrollMagic.Scene#addTo
+		 *
+		 * @example
+		 * // add a scene to a ScrollMagic Controller
+		 * scene.addTo(controller);
+		 *
+		 * @param {ScrollMagic.Controller} controller - The controller to which the scene should be added.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.addTo = function (controller) {
+			if (!(controller instanceof ScrollMagic.Controller)) {
+				log(1, "ERROR: supplied argument of 'addTo()' is not a valid ScrollMagic Controller");
+			} else if (_controller != controller) {
+				// new controller
+				if (_controller) { // was associated to a different controller before, so remove it...
+					_controller.removeScene(Scene);
+				}
+				_controller = controller;
+				validateOption();
+				updateDuration(true);
+				updateTriggerElementPosition(true);
+				updateScrollOffset();
+				_controller.info("container").addEventListener('resize', onContainerResize);
+				controller.addScene(Scene);
+				Scene.trigger("add", {
+					controller: _controller
+				});
+				log(3, "added " + NAMESPACE + " to controller");
+				Scene.update();
+			}
+			return Scene;
+		};
+
+		/**
+		 * **Get** or **Set** the current enabled state of the scene.  
+		 * This can be used to disable this scene without removing or destroying it.
+		 * @method ScrollMagic.Scene#enabled
+		 *
+		 * @example
+		 * // get the current value
+		 * var enabled = scene.enabled();
+		 *
+		 * // disable the scene
+		 * scene.enabled(false);
+		 *
+		 * @param {boolean} [newState] - The new enabled state of the scene `true` or `false`.
+		 * @returns {(boolean|Scene)} Current enabled state or parent object for chaining.
+		 */
+		this.enabled = function (newState) {
+			if (!arguments.length) { // get
+				return _enabled;
+			} else if (_enabled != newState) { // set
+				_enabled = !! newState;
+				Scene.update(true);
+			}
+			return Scene;
+		};
+
+		/**
+		 * Remove the scene from the controller.  
+		 * This is the equivalent to `Controller.removeScene(scene)`.
+		 * The scene will not be updated anymore until you readd it to a controller.
+		 * To remove the pin or the tween you need to call removeTween() or removePin() respectively.
+		 * @method ScrollMagic.Scene#remove
+		 * @example
+		 * // remove the scene from its controller
+		 * scene.remove();
+		 *
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.remove = function () {
+			if (_controller) {
+				_controller.info("container").removeEventListener('resize', onContainerResize);
+				var tmpParent = _controller;
+				_controller = undefined;
+				tmpParent.removeScene(Scene);
+				Scene.trigger("remove");
+				log(3, "removed " + NAMESPACE + " from controller");
+			}
+			return Scene;
+		};
+
+		/**
+		 * Destroy the scene and everything.
+		 * @method ScrollMagic.Scene#destroy
+		 * @example
+		 * // destroy the scene without resetting the pin and tween to their initial positions
+		 * scene = scene.destroy();
+		 *
+		 * // destroy the scene and reset the pin and tween
+		 * scene = scene.destroy(true);
+		 *
+		 * @param {boolean} [reset=false] - If `true` the pin and tween (if existent) will be reset.
+		 * @returns {null} Null to unset handler variables.
+		 */
+		this.destroy = function (reset) {
+			Scene.trigger("destroy", {
+				reset: reset
+			});
+			Scene.remove();
+			Scene.off("*.*");
+			log(3, "destroyed " + NAMESPACE + " (reset: " + (reset ? "true" : "false") + ")");
+			return null;
+		};
+
+
+		/**
+		 * Updates the Scene to reflect the current state.  
+		 * This is the equivalent to `Controller.updateScene(scene, immediately)`.  
+		 * The update method calculates the scene's start and end position (based on the trigger element, trigger hook, duration and offset) and checks it against the current scroll position of the container.  
+		 * It then updates the current scene state accordingly (or does nothing, if the state is already correct) – Pins will be set to their correct position and tweens will be updated to their correct progress.
+		 * This means an update doesn't necessarily result in a progress change. The `progress` event will be fired if the progress has indeed changed between this update and the last.  
+		 * _**NOTE:** This method gets called constantly whenever ScrollMagic detects a change. The only application for you is if you change something outside of the realm of ScrollMagic, like moving the trigger or changing tween parameters._
+		 * @method ScrollMagic.Scene#update
+		 * @example
+		 * // update the scene on next tick
+		 * scene.update();
+		 *
+		 * // update the scene immediately
+		 * scene.update(true);
+		 *
+		 * @fires Scene.update
+		 *
+		 * @param {boolean} [immediately=false] - If `true` the update will be instant, if `false` it will wait until next update cycle (better performance).
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.update = function (immediately) {
+			if (_controller) {
+				if (immediately) {
+					if (_controller.enabled() && _enabled) {
+						var
+						scrollPos = _controller.info("scrollPos"),
+							newProgress;
+
+						if (_options.duration > 0) {
+							newProgress = (scrollPos - _scrollOffset.start) / (_scrollOffset.end - _scrollOffset.start);
+						} else {
+							newProgress = scrollPos >= _scrollOffset.start ? 1 : 0;
+						}
+
+						Scene.trigger("update", {
+							startPos: _scrollOffset.start,
+							endPos: _scrollOffset.end,
+							scrollPos: scrollPos
+						});
+
+						Scene.progress(newProgress);
+					} else if (_pin && _state === SCENE_STATE_DURING) {
+						updatePinState(true); // unpin in position
+					}
+				} else {
+					_controller.updateScene(Scene, false);
+				}
+			}
+			return Scene;
+		};
+
+		/**
+		 * Updates dynamic scene variables like the trigger element position or the duration.
+		 * This method is automatically called in regular intervals from the controller. See {@link ScrollMagic.Controller} option `refreshInterval`.
+		 * 
+		 * You can call it to minimize lag, for example when you intentionally change the position of the triggerElement.
+		 * If you don't it will simply be updated in the next refresh interval of the container, which is usually sufficient.
+		 *
+		 * @method ScrollMagic.Scene#refresh
+		 * @since 1.1.0
+		 * @example
+		 * scene = new ScrollMagic.Scene({triggerElement: "#trigger"});
+		 * 
+		 * // change the position of the trigger
+		 * $("#trigger").css("top", 500);
+		 * // immediately let the scene know of this change
+		 * scene.refresh();
+		 *
+		 * @fires {@link Scene.shift}, if the trigger element position or the duration changed
+		 * @fires {@link Scene.change}, if the duration changed
+		 *
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.refresh = function () {
+			updateDuration();
+			updateTriggerElementPosition();
+			// update trigger element position
+			return Scene;
+		};
+
+		/**
+		 * **Get** or **Set** the scene's progress.  
+		 * Usually it shouldn't be necessary to use this as a setter, as it is set automatically by scene.update().  
+		 * The order in which the events are fired depends on the duration of the scene:
+		 *  1. Scenes with `duration == 0`:  
+		 *  Scenes that have no duration by definition have no ending. Thus the `end` event will never be fired.  
+		 *  When the trigger position of the scene is passed the events are always fired in this order:  
+		 *  `enter`, `start`, `progress` when scrolling forward  
+		 *  and  
+		 *  `progress`, `start`, `leave` when scrolling in reverse
+		 *  2. Scenes with `duration > 0`:  
+		 *  Scenes with a set duration have a defined start and end point.  
+		 *  When scrolling past the start position of the scene it will fire these events in this order:  
+		 *  `enter`, `start`, `progress`  
+		 *  When continuing to scroll and passing the end point it will fire these events:  
+		 *  `progress`, `end`, `leave`  
+		 *  When reversing through the end point these events are fired:  
+		 *  `enter`, `end`, `progress`  
+		 *  And when continuing to scroll past the start position in reverse it will fire:  
+		 *  `progress`, `start`, `leave`  
+		 *  In between start and end the `progress` event will be called constantly, whenever the progress changes.
+		 * 
+		 * In short:  
+		 * `enter` events will always trigger **before** the progress update and `leave` envents will trigger **after** the progress update.  
+		 * `start` and `end` will always trigger at their respective position.
+		 * 
+		 * Please review the event descriptions for details on the events and the event object that is passed to the callback.
+		 * 
+		 * @method ScrollMagic.Scene#progress
+		 * @example
+		 * // get the current scene progress
+		 * var progress = scene.progress();
+		 *
+		 * // set new scene progress
+		 * scene.progress(0.3);
+		 *
+		 * @fires {@link Scene.enter}, when used as setter
+		 * @fires {@link Scene.start}, when used as setter
+		 * @fires {@link Scene.progress}, when used as setter
+		 * @fires {@link Scene.end}, when used as setter
+		 * @fires {@link Scene.leave}, when used as setter
+		 *
+		 * @param {number} [progress] - The new progress value of the scene `[0-1]`.
+		 * @returns {number} `get` -  Current scene progress.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+		this.progress = function (progress) {
+			if (!arguments.length) { // get
+				return _progress;
+			} else { // set
+				var
+				doUpdate = false,
+					oldState = _state,
+					scrollDirection = _controller ? _controller.info("scrollDirection") : 'PAUSED',
+					reverseOrForward = _options.reverse || progress >= _progress;
+				if (_options.duration === 0) {
+					// zero duration scenes
+					doUpdate = _progress != progress;
+					_progress = progress < 1 && reverseOrForward ? 0 : 1;
+					_state = _progress === 0 ? SCENE_STATE_BEFORE : SCENE_STATE_DURING;
+				} else {
+					// scenes with start and end
+					if (progress < 0 && _state !== SCENE_STATE_BEFORE && reverseOrForward) {
+						// go back to initial state
+						_progress = 0;
+						_state = SCENE_STATE_BEFORE;
+						doUpdate = true;
+					} else if (progress >= 0 && progress < 1 && reverseOrForward) {
+						_progress = progress;
+						_state = SCENE_STATE_DURING;
+						doUpdate = true;
+					} else if (progress >= 1 && _state !== SCENE_STATE_AFTER) {
+						_progress = 1;
+						_state = SCENE_STATE_AFTER;
+						doUpdate = true;
+					} else if (_state === SCENE_STATE_DURING && !reverseOrForward) {
+						updatePinState(); // in case we scrolled backwards mid-scene and reverse is disabled => update the pin position, so it doesn't move back as well.
+					}
+				}
+				if (doUpdate) {
+					// fire events
+					var
+					eventVars = {
+						progress: _progress,
+						state: _state,
+						scrollDirection: scrollDirection
+					},
+						stateChanged = _state != oldState;
+
+					var trigger = function (eventName) { // tmp helper to simplify code
+						Scene.trigger(eventName, eventVars);
+					};
+
+					if (stateChanged) { // enter events
+						if (oldState !== SCENE_STATE_DURING) {
+							trigger("enter");
+							trigger(oldState === SCENE_STATE_BEFORE ? "start" : "end");
+						}
+					}
+					trigger("progress");
+					if (stateChanged) { // leave events
+						if (_state !== SCENE_STATE_DURING) {
+							trigger(_state === SCENE_STATE_BEFORE ? "start" : "end");
+							trigger("leave");
+						}
+					}
+				}
+
+				return Scene;
+			}
+		};
+
+
+		/**
+		 * Update the start and end scrollOffset of the container.
+		 * The positions reflect what the controller's scroll position will be at the start and end respectively.
+		 * Is called, when:
+		 *   - Scene event "change" is called with: offset, triggerHook, duration 
+		 *   - scroll container event "resize" is called
+		 *   - the position of the triggerElement changes
+		 *   - the controller changes -> addTo()
+		 * @private
+		 */
+		var updateScrollOffset = function () {
+			_scrollOffset = {
+				start: _triggerPos + _options.offset
+			};
+			if (_controller && _options.triggerElement) {
+				// take away triggerHook portion to get relative to top
+				_scrollOffset.start -= _controller.info("size") * _options.triggerHook;
+			}
+			_scrollOffset.end = _scrollOffset.start + _options.duration;
+		};
+
+		/**
+		 * Updates the duration if set to a dynamic function.
+		 * This method is called when the scene is added to a controller and in regular intervals from the controller through scene.refresh().
+		 * 
+		 * @fires {@link Scene.change}, if the duration changed
+		 * @fires {@link Scene.shift}, if the duration changed
+		 *
+		 * @param {boolean} [suppressEvents=false] - If true the shift event will be suppressed.
+		 * @private
+		 */
+		var updateDuration = function (suppressEvents) {
+			// update duration
+			if (_durationUpdateMethod) {
+				var varname = "duration";
+				if (changeOption(varname, _durationUpdateMethod.call(Scene)) && !suppressEvents) { // set
+					Scene.trigger("change", {
+						what: varname,
+						newval: _options[varname]
+					});
+					Scene.trigger("shift", {
+						reason: varname
+					});
+				}
+			}
+		};
+
+		/**
+		 * Updates the position of the triggerElement, if present.
+		 * This method is called ...
+		 *  - ... when the triggerElement is changed
+		 *  - ... when the scene is added to a (new) controller
+		 *  - ... in regular intervals from the controller through scene.refresh().
+		 * 
+		 * @fires {@link Scene.shift}, if the position changed
+		 *
+		 * @param {boolean} [suppressEvents=false] - If true the shift event will be suppressed.
+		 * @private
+		 */
+		var updateTriggerElementPosition = function (suppressEvents) {
+			var
+			elementPos = 0,
+				telem = _options.triggerElement;
+			if (_controller && telem) {
+				var
+				controllerInfo = _controller.info(),
+					containerOffset = _util.get.offset(controllerInfo.container),
+					// container position is needed because element offset is returned in relation to document, not in relation to container.
+					param = controllerInfo.vertical ? "top" : "left"; // which param is of interest ?
+				// if parent is spacer, use spacer position instead so correct start position is returned for pinned elements.
+				while (telem.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) {
+					telem = telem.parentNode;
+				}
+
+				var elementOffset = _util.get.offset(telem);
+
+				if (!controllerInfo.isDocument) { // container is not the document root, so substract scroll Position to get correct trigger element position relative to scrollcontent
+					containerOffset[param] -= _controller.scrollPos();
+				}
+
+				elementPos = elementOffset[param] - containerOffset[param];
+			}
+			var changed = elementPos != _triggerPos;
+			_triggerPos = elementPos;
+			if (changed && !suppressEvents) {
+				Scene.trigger("shift", {
+					reason: "triggerElementPosition"
+				});
+			}
+		};
+
+		/**
+		 * Trigger a shift event, when the container is resized and the triggerHook is > 1.
+		 * @private
+		 */
+		var onContainerResize = function (e) {
+			if (_options.triggerHook > 0) {
+				Scene.trigger("shift", {
+					reason: "containerResize"
+				});
+			}
+		};
+
+		var _validate = _util.extend(SCENE_OPTIONS.validate, {
+			// validation for duration handled internally for reference to private var _durationMethod
+			duration: function (val) {
+				if (_util.type.String(val) && val.match(/^(\.|\d)*\d+%$/)) {
+					// percentage value
+					var perc = parseFloat(val) / 100;
+					val = function () {
+						return _controller ? _controller.info("size") * perc : 0;
+					};
+				}
+				if (_util.type.Function(val)) {
+					// function
+					_durationUpdateMethod = val;
+					try {
+						val = parseFloat(_durationUpdateMethod());
+					} catch (e) {
+						val = -1; // will cause error below
+					}
+				}
+				// val has to be float
+				val = parseFloat(val);
+				if (!_util.type.Number(val) || val < 0) {
+					if (_durationUpdateMethod) {
+						_durationUpdateMethod = undefined;
+						throw ["Invalid return value of supplied function for option \"duration\":", val];
+					} else {
+						throw ["Invalid value for option \"duration\":", val];
+					}
+				}
+				return val;
+			}
+		});
+
+		/**
+		 * Checks the validity of a specific or all options and reset to default if neccessary.
+		 * @private
+		 */
+		var validateOption = function (check) {
+			check = arguments.length ? [check] : Object.keys(_validate);
+			check.forEach(function (optionName, key) {
+				var value;
+				if (_validate[optionName]) { // there is a validation method for this option
+					try { // validate value
+						value = _validate[optionName](_options[optionName]);
+					} catch (e) { // validation failed -> reset to default
+						value = DEFAULT_OPTIONS[optionName];
+						var logMSG = _util.type.String(e) ? [e] : e;
+						if (_util.type.Array(logMSG)) {
+							logMSG[0] = "ERROR: " + logMSG[0];
+							logMSG.unshift(1); // loglevel 1 for error msg
+							log.apply(this, logMSG);
+						} else {
+							log(1, "ERROR: Problem executing validation callback for option '" + optionName + "':", e.message);
+						}
+					} finally {
+						_options[optionName] = value;
+					}
+				}
+			});
+		};
+
+		/**
+		 * Helper used by the setter/getters for scene options
+		 * @private
+		 */
+		var changeOption = function (varname, newval) {
+			var
+			changed = false,
+				oldval = _options[varname];
+			if (_options[varname] != newval) {
+				_options[varname] = newval;
+				validateOption(varname); // resets to default if necessary
+				changed = oldval != _options[varname];
+			}
+			return changed;
+		};
+
+		// generate getters/setters for all options
+		var addSceneOption = function (optionName) {
+			if (!Scene[optionName]) {
+				Scene[optionName] = function (newVal) {
+					if (!arguments.length) { // get
+						return _options[optionName];
+					} else {
+						if (optionName === "duration") { // new duration is set, so any previously set function must be unset
+							_durationUpdateMethod = undefined;
+						}
+						if (changeOption(optionName, newVal)) { // set
+							Scene.trigger("change", {
+								what: optionName,
+								newval: _options[optionName]
+							});
+							if (SCENE_OPTIONS.shifts.indexOf(optionName) > -1) {
+								Scene.trigger("shift", {
+									reason: optionName
+								});
+							}
+						}
+					}
+					return Scene;
+				};
+			}
+		};
+
+		/**
+		 * **Get** or **Set** the duration option value.
+		 * As a setter it also accepts a function returning a numeric value.  
+		 * This is particularly useful for responsive setups.
+		 *
+		 * The duration is updated using the supplied function every time `Scene.refresh()` is called, which happens periodically from the controller (see ScrollMagic.Controller option `refreshInterval`).  
+		 * _**NOTE:** Be aware that it's an easy way to kill performance, if you supply a function that has high CPU demand.  
+		 * Even for size and position calculations it is recommended to use a variable to cache the value. (see example)  
+		 * This counts double if you use the same function for multiple scenes._
+		 *
+		 * @method ScrollMagic.Scene#duration
+		 * @example
+		 * // get the current duration value
+		 * var duration = scene.duration();
+		 *
+		 * // set a new duration
+		 * scene.duration(300);
+		 *
+		 * // use a function to automatically adjust the duration to the window height.
+		 * var durationValueCache;
+		 * function getDuration () {
+		 *   return durationValueCache;
+		 * }
+		 * function updateDuration (e) {
+		 *   durationValueCache = window.innerHeight;
+		 * }
+		 * $(window).on("resize", updateDuration); // update the duration when the window size changes
+		 * $(window).triggerHandler("resize"); // set to initial value
+		 * scene.duration(getDuration); // supply duration method
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @fires {@link Scene.shift}, when used as setter
+		 * @param {(number|function)} [newDuration] - The new duration of the scene.
+		 * @returns {number} `get` -  Current scene duration.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** or **Set** the offset option value.
+		 * @method ScrollMagic.Scene#offset
+		 * @example
+		 * // get the current offset
+		 * var offset = scene.offset();
+		 *
+		 * // set a new offset
+		 * scene.offset(100);
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @fires {@link Scene.shift}, when used as setter
+		 * @param {number} [newOffset] - The new offset of the scene.
+		 * @returns {number} `get` -  Current scene offset.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** or **Set** the triggerElement option value.
+		 * Does **not** fire `Scene.shift`, because changing the trigger Element doesn't necessarily mean the start position changes. This will be determined in `Scene.refresh()`, which is automatically triggered.
+		 * @method ScrollMagic.Scene#triggerElement
+		 * @example
+		 * // get the current triggerElement
+		 * var triggerElement = scene.triggerElement();
+		 *
+		 * // set a new triggerElement using a selector
+		 * scene.triggerElement("#trigger");
+		 * // set a new triggerElement using a DOM object
+		 * scene.triggerElement(document.getElementById("trigger"));
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @param {(string|object)} [newTriggerElement] - The new trigger element for the scene.
+		 * @returns {(string|object)} `get` -  Current triggerElement.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** or **Set** the triggerHook option value.
+		 * @method ScrollMagic.Scene#triggerHook
+		 * @example
+		 * // get the current triggerHook value
+		 * var triggerHook = scene.triggerHook();
+		 *
+		 * // set a new triggerHook using a string
+		 * scene.triggerHook("onLeave");
+		 * // set a new triggerHook using a number
+		 * scene.triggerHook(0.7);
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @fires {@link Scene.shift}, when used as setter
+		 * @param {(number|string)} [newTriggerHook] - The new triggerHook of the scene. See {@link Scene} parameter description for value options.
+		 * @returns {number} `get` -  Current triggerHook (ALWAYS numerical).
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** or **Set** the reverse option value.
+		 * @method ScrollMagic.Scene#reverse
+		 * @example
+		 * // get the current reverse option
+		 * var reverse = scene.reverse();
+		 *
+		 * // set new reverse option
+		 * scene.reverse(false);
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @param {boolean} [newReverse] - The new reverse setting of the scene.
+		 * @returns {boolean} `get` -  Current reverse option value.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** or **Set** the loglevel option value.
+		 * @method ScrollMagic.Scene#loglevel
+		 * @example
+		 * // get the current loglevel
+		 * var loglevel = scene.loglevel();
+		 *
+		 * // set new loglevel
+		 * scene.loglevel(3);
+		 *
+		 * @fires {@link Scene.change}, when used as setter
+		 * @param {number} [newLoglevel] - The new loglevel setting of the scene. `[0-3]`
+		 * @returns {number} `get` -  Current loglevel.
+		 * @returns {Scene} `set` -  Parent object for chaining.
+		 */
+
+		/**
+		 * **Get** the associated controller.
+		 * @method ScrollMagic.Scene#controller
+		 * @example
+		 * // get the controller of a scene
+		 * var controller = scene.controller();
+		 *
+		 * @returns {ScrollMagic.Controller} Parent controller or `undefined`
+		 */
+		this.controller = function () {
+			return _controller;
+		};
+
+		/**
+		 * **Get** the current state.
+		 * @method ScrollMagic.Scene#state
+		 * @example
+		 * // get the current state
+		 * var state = scene.state();
+		 *
+		 * @returns {string} `"BEFORE"`, `"DURING"` or `"AFTER"`
+		 */
+		this.state = function () {
+			return _state;
+		};
+
+		/**
+		 * **Get** the current scroll offset for the start of the scene.  
+		 * Mind, that the scrollOffset is related to the size of the container, if `triggerHook` is bigger than `0` (or `"onLeave"`).  
+		 * This means, that resizing the container or changing the `triggerHook` will influence the scene's start offset.
+		 * @method ScrollMagic.Scene#scrollOffset
+		 * @example
+		 * // get the current scroll offset for the start and end of the scene.
+		 * var start = scene.scrollOffset();
+		 * var end = scene.scrollOffset() + scene.duration();
+		 * console.log("the scene starts at", start, "and ends at", end);
+		 *
+		 * @returns {number} The scroll offset (of the container) at which the scene will trigger. Y value for vertical and X value for horizontal scrolls.
+		 */
+		this.scrollOffset = function () {
+			return _scrollOffset.start;
+		};
+
+		/**
+		 * **Get** the trigger position of the scene (including the value of the `offset` option).  
+		 * @method ScrollMagic.Scene#triggerPosition
+		 * @example
+		 * // get the scene's trigger position
+		 * var triggerPosition = scene.triggerPosition();
+		 *
+		 * @returns {number} Start position of the scene. Top position value for vertical and left position value for horizontal scrolls.
+		 */
+		this.triggerPosition = function () {
+			var pos = _options.offset; // the offset is the basis
+			if (_controller) {
+				// get the trigger position
+				if (_options.triggerElement) {
+					// Element as trigger
+					pos += _triggerPos;
+				} else {
+					// return the height of the triggerHook to start at the beginning
+					pos += _controller.info("size") * Scene.triggerHook();
+				}
+			}
+			return pos;
+		};
+
+		var
+		_pin, _pinOptions;
+
+		Scene.on("shift.internal", function (e) {
+			var durationChanged = e.reason === "duration";
+			if ((_state === SCENE_STATE_AFTER && durationChanged) || (_state === SCENE_STATE_DURING && _options.duration === 0)) {
+				// if [duration changed after a scene (inside scene progress updates pin position)] or [duration is 0, we are in pin phase and some other value changed].
+				updatePinState();
+			}
+			if (durationChanged) {
+				updatePinDimensions();
+			}
+		}).on("progress.internal", function (e) {
+			updatePinState();
+		}).on("add.internal", function (e) {
+			updatePinDimensions();
+		}).on("destroy.internal", function (e) {
+			Scene.removePin(e.reset);
+		});
+		/**
+		 * Update the pin state.
+		 * @private
+		 */
+		var updatePinState = function (forceUnpin) {
+			if (_pin && _controller) {
+				var
+				containerInfo = _controller.info(),
+					pinTarget = _pinOptions.spacer.firstChild; // may be pin element or another spacer, if cascading pins
+				if (!forceUnpin && _state === SCENE_STATE_DURING) { // during scene or if duration is 0 and we are past the trigger
+					// pinned state
+					if (_util.css(pinTarget, "position") != "fixed") {
+						// change state before updating pin spacer (position changes due to fixed collapsing might occur.)
+						_util.css(pinTarget, {
+							"position": "fixed"
+						});
+						// update pin spacer
+						updatePinDimensions();
+					}
+
+					var
+					fixedPos = _util.get.offset(_pinOptions.spacer, true),
+						// get viewport position of spacer
+						scrollDistance = _options.reverse || _options.duration === 0 ? containerInfo.scrollPos - _scrollOffset.start // quicker
+						: Math.round(_progress * _options.duration * 10) / 10; // if no reverse and during pin the position needs to be recalculated using the progress
+					// add scrollDistance
+					fixedPos[containerInfo.vertical ? "top" : "left"] += scrollDistance;
+
+					// set new values
+					_util.css(_pinOptions.spacer.firstChild, {
+						top: fixedPos.top,
+						left: fixedPos.left
+					});
+				} else {
+					// unpinned state
+					var
+					newCSS = {
+						position: _pinOptions.inFlow ? "relative" : "absolute",
+						top: 0,
+						left: 0
+					},
+						change = _util.css(pinTarget, "position") != newCSS.position;
+
+					if (!_pinOptions.pushFollowers) {
+						newCSS[containerInfo.vertical ? "top" : "left"] = _options.duration * _progress;
+					} else if (_options.duration > 0) { // only concerns scenes with duration
+						if (_state === SCENE_STATE_AFTER && parseFloat(_util.css(_pinOptions.spacer, "padding-top")) === 0) {
+							change = true; // if in after state but havent updated spacer yet (jumped past pin)
+						} else if (_state === SCENE_STATE_BEFORE && parseFloat(_util.css(_pinOptions.spacer, "padding-bottom")) === 0) { // before
+							change = true; // jumped past fixed state upward direction
+						}
+					}
+					// set new values
+					_util.css(pinTarget, newCSS);
+					if (change) {
+						// update pin spacer if state changed
+						updatePinDimensions();
+					}
+				}
+			}
+		};
+
+		/**
+		 * Update the pin spacer and/or element size.
+		 * The size of the spacer needs to be updated whenever the duration of the scene changes, if it is to push down following elements.
+		 * @private
+		 */
+		var updatePinDimensions = function () {
+			if (_pin && _controller && _pinOptions.inFlow) { // no spacerresize, if original position is absolute
+				var
+				after = (_state === SCENE_STATE_AFTER),
+					before = (_state === SCENE_STATE_BEFORE),
+					during = (_state === SCENE_STATE_DURING),
+					vertical = _controller.info("vertical"),
+					pinTarget = _pinOptions.spacer.firstChild,
+					// usually the pined element but can also be another spacer (cascaded pins)
+					marginCollapse = _util.isMarginCollapseType(_util.css(_pinOptions.spacer, "display")),
+					css = {};
+
+				// set new size
+				// if relsize: spacer -> pin | else: pin -> spacer
+				if (_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) {
+					if (during) {
+						_util.css(_pin, {
+							"width": _util.get.width(_pinOptions.spacer)
+						});
+					} else {
+						_util.css(_pin, {
+							"width": "100%"
+						});
+					}
+				} else {
+					// minwidth is needed for cascaded pins.
+					css["min-width"] = _util.get.width(vertical ? _pin : pinTarget, true, true);
+					css.width = during ? css["min-width"] : "auto";
+				}
+				if (_pinOptions.relSize.height) {
+					if (during) {
+						// the only padding the spacer should ever include is the duration (if pushFollowers = true), so we need to substract that.
+						_util.css(_pin, {
+							"height": _util.get.height(_pinOptions.spacer) - (_pinOptions.pushFollowers ? _options.duration : 0)
+						});
+					} else {
+						_util.css(_pin, {
+							"height": "100%"
+						});
+					}
+				} else {
+					// margin is only included if it's a cascaded pin to resolve an IE9 bug
+					css["min-height"] = _util.get.height(vertical ? pinTarget : _pin, true, !marginCollapse); // needed for cascading pins
+					css.height = during ? css["min-height"] : "auto";
+				}
+
+				// add space for duration if pushFollowers is true
+				if (_pinOptions.pushFollowers) {
+					css["padding" + (vertical ? "Top" : "Left")] = _options.duration * _progress;
+					css["padding" + (vertical ? "Bottom" : "Right")] = _options.duration * (1 - _progress);
+				}
+				_util.css(_pinOptions.spacer, css);
+			}
+		};
+
+		/**
+		 * Updates the Pin state (in certain scenarios)
+		 * If the controller container is not the document and we are mid-pin-phase scrolling or resizing the main document can result to wrong pin positions.
+		 * So this function is called on resize and scroll of the document.
+		 * @private
+		 */
+		var updatePinInContainer = function () {
+			if (_controller && _pin && _state === SCENE_STATE_DURING && !_controller.info("isDocument")) {
+				updatePinState();
+			}
+		};
+
+		/**
+		 * Updates the Pin spacer size state (in certain scenarios)
+		 * If container is resized during pin and relatively sized the size of the pin might need to be updated...
+		 * So this function is called on resize of the container.
+		 * @private
+		 */
+		var updateRelativePinSpacer = function () {
+			if (_controller && _pin && // well, duh
+			_state === SCENE_STATE_DURING && // element in pinned state?
+			( // is width or height relatively sized, but not in relation to body? then we need to recalc.
+			((_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) && _util.get.width(window) != _util.get.width(_pinOptions.spacer.parentNode)) || (_pinOptions.relSize.height && _util.get.height(window) != _util.get.height(_pinOptions.spacer.parentNode)))) {
+				updatePinDimensions();
+			}
+		};
+
+		/**
+		 * Is called, when the mousewhel is used while over a pinned element inside a div container.
+		 * If the scene is in fixed state scroll events would be counted towards the body. This forwards the event to the scroll container.
+		 * @private
+		 */
+		var onMousewheelOverPin = function (e) {
+			if (_controller && _pin && _state === SCENE_STATE_DURING && !_controller.info("isDocument")) { // in pin state
+				e.preventDefault();
+				_controller._setScrollPos(_controller.info("scrollPos") - ((e.wheelDelta || e[_controller.info("vertical") ? "wheelDeltaY" : "wheelDeltaX"]) / 3 || -e.detail * 30));
+			}
+		};
+
+		/**
+		 * Pin an element for the duration of the tween.  
+		 * If the scene duration is 0 the element will only be unpinned, if the user scrolls back past the start position.  
+		 * Make sure only one pin is applied to an element at the same time.
+		 * An element can be pinned multiple times, but only successively.
+		 * _**NOTE:** The option `pushFollowers` has no effect, when the scene duration is 0._
+		 * @method ScrollMagic.Scene#setPin
+		 * @example
+		 * // pin element and push all following elements down by the amount of the pin duration.
+		 * scene.setPin("#pin");
+		 *
+		 * // pin element and keeping all following elements in their place. The pinned element will move past them.
+		 * scene.setPin("#pin", {pushFollowers: false});
+		 *
+		 * @param {(string|object)} element - A Selector targeting an element or a DOM object that is supposed to be pinned.
+		 * @param {object} [settings] - settings for the pin
+		 * @param {boolean} [settings.pushFollowers=true] - If `true` following elements will be "pushed" down for the duration of the pin, if `false` the pinned element will just scroll past them.  
+		 Ignored, when duration is `0`.
+		 * @param {string} [settings.spacerClass="scrollmagic-pin-spacer"] - Classname of the pin spacer element, which is used to replace the element.
+		 *
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.setPin = function (element, settings) {
+			var
+			defaultSettings = {
+				pushFollowers: true,
+				spacerClass: "scrollmagic-pin-spacer"
+			};
+			settings = _util.extend({}, defaultSettings, settings);
+
+			// validate Element
+			element = _util.get.elements(element)[0];
+			if (!element) {
+				log(1, "ERROR calling method 'setPin()': Invalid pin element supplied.");
+				return Scene; // cancel
+			} else if (_util.css(element, "position") === "fixed") {
+				log(1, "ERROR calling method 'setPin()': Pin does not work with elements that are positioned 'fixed'.");
+				return Scene; // cancel
+			}
+
+			if (_pin) { // preexisting pin?
+				if (_pin === element) {
+					// same pin we already have -> do nothing
+					return Scene; // cancel
+				} else {
+					// kill old pin
+					Scene.removePin();
+				}
+
+			}
+			_pin = element;
+
+			var
+			parentDisplay = _pin.parentNode.style.display,
+				boundsParams = ["top", "left", "bottom", "right", "margin", "marginLeft", "marginRight", "marginTop", "marginBottom"];
+
+			_pin.parentNode.style.display = 'none'; // hack start to force css to return stylesheet values instead of calculated px values.
+			var
+			inFlow = _util.css(_pin, "position") != "absolute",
+				pinCSS = _util.css(_pin, boundsParams.concat(["display"])),
+				sizeCSS = _util.css(_pin, ["width", "height"]);
+			_pin.parentNode.style.display = parentDisplay; // hack end.
+			if (!inFlow && settings.pushFollowers) {
+				log(2, "WARNING: If the pinned element is positioned absolutely pushFollowers will be disabled.");
+				settings.pushFollowers = false;
+			}
+			window.setTimeout(function () { // wait until all finished, because with responsive duration it will only be set after scene is added to controller
+				if (_pin && _options.duration === 0 && settings.pushFollowers) {
+					log(2, "WARNING: pushFollowers =", true, "has no effect, when scene duration is 0.");
+				}
+			}, 0);
+
+			// create spacer and insert
+			var
+			spacer = _pin.parentNode.insertBefore(document.createElement('div'), _pin),
+				spacerCSS = _util.extend(pinCSS, {
+					position: inFlow ? "relative" : "absolute",
+					boxSizing: "content-box",
+					mozBoxSizing: "content-box",
+					webkitBoxSizing: "content-box"
+				});
+
+			if (!inFlow) { // copy size if positioned absolutely, to work for bottom/right positioned elements.
+				_util.extend(spacerCSS, _util.css(_pin, ["width", "height"]));
+			}
+
+			_util.css(spacer, spacerCSS);
+			spacer.setAttribute(PIN_SPACER_ATTRIBUTE, "");
+			_util.addClass(spacer, settings.spacerClass);
+
+			// set the pin Options
+			_pinOptions = {
+				spacer: spacer,
+				relSize: { // save if size is defined using % values. if so, handle spacer resize differently...
+					width: sizeCSS.width.slice(-1) === "%",
+					height: sizeCSS.height.slice(-1) === "%",
+					autoFullWidth: sizeCSS.width === "auto" && inFlow && _util.isMarginCollapseType(pinCSS.display)
+				},
+				pushFollowers: settings.pushFollowers,
+				inFlow: inFlow,
+				// stores if the element takes up space in the document flow
+			};
+
+			if (!_pin.___origStyle) {
+				_pin.___origStyle = {};
+				var
+				pinInlineCSS = _pin.style,
+					copyStyles = boundsParams.concat(["width", "height", "position", "boxSizing", "mozBoxSizing", "webkitBoxSizing"]);
+				copyStyles.forEach(function (val) {
+					_pin.___origStyle[val] = pinInlineCSS[val] || "";
+				});
+			}
+
+			// if relative size, transfer it to spacer and make pin calculate it...
+			if (_pinOptions.relSize.width) {
+				_util.css(spacer, {
+					width: sizeCSS.width
+				});
+			}
+			if (_pinOptions.relSize.height) {
+				_util.css(spacer, {
+					height: sizeCSS.height
+				});
+			}
+
+			// now place the pin element inside the spacer	
+			spacer.appendChild(_pin);
+			// and set new css
+			_util.css(_pin, {
+				position: inFlow ? "relative" : "absolute",
+				margin: "auto",
+				top: "auto",
+				left: "auto",
+				bottom: "auto",
+				right: "auto"
+			});
+
+			if (_pinOptions.relSize.width || _pinOptions.relSize.autoFullWidth) {
+				_util.css(_pin, {
+					boxSizing: "border-box",
+					mozBoxSizing: "border-box",
+					webkitBoxSizing: "border-box"
+				});
+			}
+
+			// add listener to document to update pin position in case controller is not the document.
+			window.addEventListener('scroll', updatePinInContainer);
+			window.addEventListener('resize', updatePinInContainer);
+			window.addEventListener('resize', updateRelativePinSpacer);
+			// add mousewheel listener to catch scrolls over fixed elements
+			_pin.addEventListener("mousewheel", onMousewheelOverPin);
+			_pin.addEventListener("DOMMouseScroll", onMousewheelOverPin);
+
+			log(3, "added pin");
+
+			// finally update the pin to init
+			updatePinState();
+
+			return Scene;
+		};
+
+		/**
+		 * Remove the pin from the scene.
+		 * @method ScrollMagic.Scene#removePin
+		 * @example
+		 * // remove the pin from the scene without resetting it (the spacer is not removed)
+		 * scene.removePin();
+		 *
+		 * // remove the pin from the scene and reset the pin element to its initial position (spacer is removed)
+		 * scene.removePin(true);
+		 *
+		 * @param {boolean} [reset=false] - If `false` the spacer will not be removed and the element's position will not be reset.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.removePin = function (reset) {
+			if (_pin) {
+				if (_state === SCENE_STATE_DURING) {
+					updatePinState(true); // force unpin at position
+				}
+				if (reset || !_controller) { // if there's no controller no progress was made anyway...
+					var pinTarget = _pinOptions.spacer.firstChild; // usually the pin element, but may be another spacer (cascaded pins)...
+					if (pinTarget.hasAttribute(PIN_SPACER_ATTRIBUTE)) { // copy margins to child spacer
+						var
+						style = _pinOptions.spacer.style,
+							values = ["margin", "marginLeft", "marginRight", "marginTop", "marginBottom"];
+						margins = {};
+						values.forEach(function (val) {
+							margins[val] = style[val] || "";
+						});
+						_util.css(pinTarget, margins);
+					}
+					_pinOptions.spacer.parentNode.insertBefore(pinTarget, _pinOptions.spacer);
+					_pinOptions.spacer.parentNode.removeChild(_pinOptions.spacer);
+					if (!_pin.parentNode.hasAttribute(PIN_SPACER_ATTRIBUTE)) { // if it's the last pin for this element -> restore inline styles
+						// TODO: only correctly set for first pin (when cascading) - how to fix?
+						_util.css(_pin, _pin.___origStyle);
+						delete _pin.___origStyle;
+					}
+				}
+				window.removeEventListener('scroll', updatePinInContainer);
+				window.removeEventListener('resize', updatePinInContainer);
+				window.removeEventListener('resize', updateRelativePinSpacer);
+				_pin.removeEventListener("mousewheel", onMousewheelOverPin);
+				_pin.removeEventListener("DOMMouseScroll", onMousewheelOverPin);
+				_pin = undefined;
+				log(3, "removed pin (reset: " + (reset ? "true" : "false") + ")");
+			}
+			return Scene;
+		};
+
+
+		var
+		_cssClasses, _cssClassElems = [];
+
+		Scene.on("destroy.internal", function (e) {
+			Scene.removeClassToggle(e.reset);
+		});
+		/**
+		 * Define a css class modification while the scene is active.  
+		 * When the scene triggers the classes will be added to the supplied element and removed, when the scene is over.
+		 * If the scene duration is 0 the classes will only be removed if the user scrolls back past the start position.
+		 * @method ScrollMagic.Scene#setClassToggle
+		 * @example
+		 * // add the class 'myclass' to the element with the id 'my-elem' for the duration of the scene
+		 * scene.setClassToggle("#my-elem", "myclass");
+		 *
+		 * // add multiple classes to multiple elements defined by the selector '.classChange'
+		 * scene.setClassToggle(".classChange", "class1 class2 class3");
+		 *
+		 * @param {(string|object)} element - A Selector targeting one or more elements or a DOM object that is supposed to be modified.
+		 * @param {string} classes - One or more Classnames (separated by space) that should be added to the element during the scene.
+		 *
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.setClassToggle = function (element, classes) {
+			var elems = _util.get.elements(element);
+			if (elems.length === 0 || !_util.type.String(classes)) {
+				log(1, "ERROR calling method 'setClassToggle()': Invalid " + (elems.length === 0 ? "element" : "classes") + " supplied.");
+				return Scene;
+			}
+			if (_cssClassElems.length > 0) {
+				// remove old ones
+				Scene.removeClassToggle();
+			}
+			_cssClasses = classes;
+			_cssClassElems = elems;
+			Scene.on("enter.internal_class leave.internal_class", function (e) {
+				var toggle = e.type === "enter" ? _util.addClass : _util.removeClass;
+				_cssClassElems.forEach(function (elem, key) {
+					toggle(elem, _cssClasses);
+				});
+			});
+			return Scene;
+		};
+
+		/**
+		 * Remove the class binding from the scene.
+		 * @method ScrollMagic.Scene#removeClassToggle
+		 * @example
+		 * // remove class binding from the scene without reset
+		 * scene.removeClassToggle();
+		 *
+		 * // remove class binding and remove the changes it caused
+		 * scene.removeClassToggle(true);
+		 *
+		 * @param {boolean} [reset=false] - If `false` and the classes are currently active, they will remain on the element. If `true` they will be removed.
+		 * @returns {Scene} Parent object for chaining.
+		 */
+		this.removeClassToggle = function (reset) {
+			if (reset) {
+				_cssClassElems.forEach(function (elem, key) {
+					_util.removeClass(elem, _cssClasses);
+				});
+			}
+			Scene.off("start.internal_class end.internal_class");
+			_cssClasses = undefined;
+			_cssClassElems = [];
+			return Scene;
+		};
+
+		// INIT
+		construct();
+		return Scene;
+	};
+
+	// store pagewide scene options
+	var SCENE_OPTIONS = {
+		defaults: {
+			duration: 0,
+			offset: 0,
+			triggerElement: undefined,
+			triggerHook: 0.5,
+			reverse: true,
+			loglevel: 2
+		},
+		validate: {
+			offset: function (val) {
+				val = parseFloat(val);
+				if (!_util.type.Number(val)) {
+					throw ["Invalid value for option \"offset\":", val];
+				}
+				return val;
+			},
+			triggerElement: function (val) {
+				val = val || undefined;
+				if (val) {
+					var elem = _util.get.elements(val)[0];
+					if (elem) {
+						val = elem;
+					} else {
+						throw ["Element defined in option \"triggerElement\" was not found:", val];
+					}
+				}
+				return val;
+			},
+			triggerHook: function (val) {
+				var translate = {
+					"onCenter": 0.5,
+					"onEnter": 1,
+					"onLeave": 0
+				};
+				if (_util.type.Number(val)) {
+					val = Math.max(0, Math.min(parseFloat(val), 1)); //  make sure its betweeen 0 and 1
+				} else if (val in translate) {
+					val = translate[val];
+				} else {
+					throw ["Invalid value for option \"triggerHook\": ", val];
+				}
+				return val;
+			},
+			reverse: function (val) {
+				return !!val; // force boolean
+			},
+			loglevel: function (val) {
+				val = parseInt(val);
+				if (!_util.type.Number(val) || val < 0 || val > 3) {
+					throw ["Invalid value for option \"loglevel\":", val];
+				}
+				return val;
+			}
+		},
+		// holder for  validation methods. duration validation is handled in 'getters-setters.js'
+		shifts: ["duration", "offset", "triggerHook"],
+		// list of options that trigger a `shift` event
+	};
+/*
+ * method used to add an option to ScrollMagic Scenes.
+ * TODO: DOC (private for dev)
+ */
+	ScrollMagic.Scene.addOption = function (name, defaultValue, validationCallback, shifts) {
+		if (!(name in SCENE_OPTIONS.defaults)) {
+			SCENE_OPTIONS.defaults[name] = defaultValue;
+			SCENE_OPTIONS.validate[name] = validationCallback;
+			if (shifts) {
+				SCENE_OPTIONS.shifts.push(name);
+			}
+		} else {
+			ScrollMagic._util.log(1, "[static] ScrollMagic.Scene -> Cannot add Scene option '" + name + "', because it already exists.");
+		}
+	};
+	// instance extension function for plugins
+	// TODO: DOC (private for dev)
+	ScrollMagic.Scene.extend = function (extension) {
+		var oldClass = this;
+		ScrollMagic.Scene = function () {
+			oldClass.apply(this, arguments);
+			this.$super = _util.extend({}, this); // copy parent state
+			return extension.apply(this, arguments) || this;
+		};
+		_util.extend(ScrollMagic.Scene, oldClass); // copy properties
+		ScrollMagic.Scene.prototype = oldClass.prototype; // copy prototype
+		ScrollMagic.Scene.prototype.constructor = ScrollMagic.Scene; // restore constructor
+	};
+
+
+	/**
+	 * TODO: DOCS (private for dev)
+	 * @class
+	 * @private
+	 */
+
+	ScrollMagic.Event = function (type, namespace, target, vars) {
+		vars = vars || {};
+		for (var key in vars) {
+			this[key] = vars[key];
+		}
+		this.type = type;
+		this.target = this.currentTarget = target;
+		this.namespace = namespace || '';
+		this.timeStamp = this.timestamp = Date.now();
+		return this;
+	};
+
+/*
+ * TODO: DOCS (private for dev)
+ */
+
+	var _util = ScrollMagic._util = (function (window) {
+		var U = {},
+			i;
+
+		/**
+		 * ------------------------------
+		 * internal helpers
+		 * ------------------------------
+		 */
+
+		// parse float and fall back to 0.
+		var floatval = function (number) {
+			return parseFloat(number) || 0;
+		};
+		// get current style IE safe (otherwise IE would return calculated values for 'auto')
+		var _getComputedStyle = function (elem) {
+			return elem.currentStyle ? elem.currentStyle : window.getComputedStyle(elem);
+		};
+
+		// get element dimension (width or height)
+		var _dimension = function (which, elem, outer, includeMargin) {
+			elem = (elem === document) ? window : elem;
+			if (elem === window) {
+				includeMargin = false;
+			} else if (!_type.DomElement(elem)) {
+				return 0;
+			}
+			which = which.charAt(0).toUpperCase() + which.substr(1).toLowerCase();
+			var dimension = (outer ? elem['offset' + which] || elem['outer' + which] : elem['client' + which] || elem['inner' + which]) || 0;
+			if (outer && includeMargin) {
+				var style = _getComputedStyle(elem);
+				dimension += which === 'Height' ? floatval(style.marginTop) + floatval(style.marginBottom) : floatval(style.marginLeft) + floatval(style.marginRight);
+			}
+			return dimension;
+		};
+		// converts 'margin-top' into 'marginTop'
+		var _camelCase = function (str) {
+			return str.replace(/^[^a-z]+([a-z])/g, '$1').replace(/-([a-z])/g, function (g) {
+				return g[1].toUpperCase();
+			});
+		};
+
+		/**
+		 * ------------------------------
+		 * external helpers
+		 * ------------------------------
+		 */
+
+		// extend obj – same as jQuery.extend({}, objA, objB)
+		U.extend = function (obj) {
+			obj = obj || {};
+			for (i = 1; i < arguments.length; i++) {
+				if (!arguments[i]) {
+					continue;
+				}
+				for (var key in arguments[i]) {
+					if (arguments[i].hasOwnProperty(key)) {
+						obj[key] = arguments[i][key];
+					}
+				}
+			}
+			return obj;
+		};
+
+		// check if a css display type results in margin-collapse or not
+		U.isMarginCollapseType = function (str) {
+			return ["block", "flex", "list-item", "table", "-webkit-box"].indexOf(str) > -1;
+		};
+
+		// implementation of requestAnimationFrame
+		// based on https://gist.github.com/paulirish/1579671
+		var
+		lastTime = 0,
+			vendors = ['ms', 'moz', 'webkit', 'o'];
+		var _requestAnimationFrame = window.requestAnimationFrame;
+		var _cancelAnimationFrame = window.cancelAnimationFrame;
+		// try vendor prefixes if the above doesn't work
+		for (i = 0; !_requestAnimationFrame && i < vendors.length; ++i) {
+			_requestAnimationFrame = window[vendors[i] + 'RequestAnimationFrame'];
+			_cancelAnimationFrame = window[vendors[i] + 'CancelAnimationFrame'] || window[vendors[i] + 'CancelRequestAnimationFrame'];
+		}
+
+		// fallbacks
+		if (!_requestAnimationFrame) {
+			_requestAnimationFrame = function (callback) {
+				var
+				currTime = new Date().getTime(),
+					timeToCall = Math.max(0, 16 - (currTime - lastTime)),
+					id = window.setTimeout(function () {
+						callback(currTime + timeToCall);
+					}, timeToCall);
+				lastTime = currTime + timeToCall;
+				return id;
+			};
+		}
+		if (!_cancelAnimationFrame) {
+			_cancelAnimationFrame = function (id) {
+				window.clearTimeout(id);
+			};
+		}
+		U.rAF = _requestAnimationFrame.bind(window);
+		U.cAF = _cancelAnimationFrame.bind(window);
+
+		var
+		loglevels = ["error", "warn", "log"],
+			console = window.console || {};
+
+		console.log = console.log ||
+		function () {}; // no console log, well - do nothing then...
+		// make sure methods for all levels exist.
+		for (i = 0; i < loglevels.length; i++) {
+			var method = loglevels[i];
+			if (!console[method]) {
+				console[method] = console.log; // prefer .log over nothing
+			}
+		}
+		U.log = function (loglevel) {
+			if (loglevel > loglevels.length || loglevel <= 0) loglevel = loglevels.length;
+			var now = new Date(),
+				time = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + ":" + ("00" + now.getMilliseconds()).slice(-3),
+				method = loglevels[loglevel - 1],
+				args = Array.prototype.splice.call(arguments, 1),
+				func = Function.prototype.bind.call(console[method], console);
+			args.unshift(time);
+			func.apply(console, args);
+		};
+
+		/**
+		 * ------------------------------
+		 * type testing
+		 * ------------------------------
+		 */
+
+		var _type = U.type = function (v) {
+			return Object.prototype.toString.call(v).replace(/^\[object (.+)\]$/, "$1").toLowerCase();
+		};
+		_type.String = function (v) {
+			return _type(v) === 'string';
+		};
+		_type.Function = function (v) {
+			return _type(v) === 'function';
+		};
+		_type.Array = function (v) {
+			return Array.isArray(v);
+		};
+		_type.Number = function (v) {
+			return !_type.Array(v) && (v - parseFloat(v) + 1) >= 0;
+		};
+		_type.DomElement = function (o) {
+			return (
+			typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+			o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string");
+		};
+
+		/**
+		 * ------------------------------
+		 * DOM Element info
+		 * ------------------------------
+		 */
+		// always returns a list of matching DOM elements, from a selector, a DOM element or an list of elements or even an array of selectors
+		var _get = U.get = {};
+		_get.elements = function (selector) {
+			var arr = [];
+			if (_type.String(selector)) {
+				try {
+					selector = document.querySelectorAll(selector);
+				} catch (e) { // invalid selector
+					return arr;
+				}
+			}
+			if (_type(selector) === 'nodelist' || _type.Array(selector)) {
+				for (var i = 0, ref = arr.length = selector.length; i < ref; i++) { // list of elements
+					var elem = selector[i];
+					arr[i] = _type.DomElement(elem) ? elem : _get.elements(elem); // if not an element, try to resolve recursively
+				}
+			} else if (_type.DomElement(selector) || selector === document || selector === window) {
+				arr = [selector]; // only the element
+			}
+			return arr;
+		};
+		// get scroll top value
+		_get.scrollTop = function (elem) {
+			return (elem && typeof elem.scrollTop === 'number') ? elem.scrollTop : window.pageYOffset || 0;
+		};
+		// get scroll left value
+		_get.scrollLeft = function (elem) {
+			return (elem && typeof elem.scrollLeft === 'number') ? elem.scrollLeft : window.pageXOffset || 0;
+		};
+		// get element height
+		_get.width = function (elem, outer, includeMargin) {
+			return _dimension('width', elem, outer, includeMargin);
+		};
+		// get element width
+		_get.height = function (elem, outer, includeMargin) {
+			return _dimension('height', elem, outer, includeMargin);
+		};
+
+		// get element position (optionally relative to viewport)
+		_get.offset = function (elem, relativeToViewport) {
+			var offset = {
+				top: 0,
+				left: 0
+			};
+			if (elem && elem.getBoundingClientRect) { // check if available
+				var rect = elem.getBoundingClientRect();
+				offset.top = rect.top;
+				offset.left = rect.left;
+				if (!relativeToViewport) { // clientRect is by default relative to viewport...
+					offset.top += _get.scrollTop();
+					offset.left += _get.scrollLeft();
+				}
+			}
+			return offset;
+		};
+
+		/**
+		 * ------------------------------
+		 * DOM Element manipulation
+		 * ------------------------------
+		 */
+
+		U.addClass = function (elem, classname) {
+			if (classname) {
+				if (elem.classList) elem.classList.add(classname);
+				else elem.className += ' ' + classname;
+			}
+		};
+		U.removeClass = function (elem, classname) {
+			if (classname) {
+				if (elem.classList) elem.classList.remove(classname);
+				else elem.className = elem.className.replace(new RegExp('(^|\\b)' + classname.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+			}
+		};
+		// if options is string -> returns css value
+		// if options is array -> returns object with css value pairs
+		// if options is object -> set new css values
+		U.css = function (elem, options) {
+			if (_type.String(options)) {
+				return _getComputedStyle(elem)[_camelCase(options)];
+			} else if (_type.Array(options)) {
+				var
+				obj = {},
+					style = _getComputedStyle(elem);
+				options.forEach(function (option, key) {
+					obj[option] = style[_camelCase(option)];
+				});
+				return obj;
+			} else {
+				for (var option in options) {
+					var val = options[option];
+					if (val == parseFloat(val)) { // assume pixel for seemingly numerical values
+						val += 'px';
+					}
+					elem.style[_camelCase(option)] = val;
+				}
+			}
+		};
+
+		return U;
+	}(window || {}));
+
+	ScrollMagic.Scene.prototype.addIndicators = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling addIndicators() due to missing Plugin \'debug.addIndicators\'. Please make sure to include plugins/debug.addIndicators.js');
+		return this;
+	}
+	ScrollMagic.Scene.prototype.removeIndicators = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeIndicators() due to missing Plugin \'debug.addIndicators\'. Please make sure to include plugins/debug.addIndicators.js');
+		return this;
+	}
+	ScrollMagic.Scene.prototype.setTween = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling setTween() due to missing Plugin \'animation.gsap\'. Please make sure to include plugins/animation.gsap.js');
+		return this;
+	}
+	ScrollMagic.Scene.prototype.removeTween = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeTween() due to missing Plugin \'animation.gsap\'. Please make sure to include plugins/animation.gsap.js');
+		return this;
+	}
+	ScrollMagic.Scene.prototype.setVelocity = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling setVelocity() due to missing Plugin \'animation.velocity\'. Please make sure to include plugins/animation.velocity.js');
+		return this;
+	}
+	ScrollMagic.Scene.prototype.removeVelocity = function () {
+		ScrollMagic._util.log(1, '(ScrollMagic.Scene) -> ERROR calling removeVelocity() due to missing Plugin \'animation.velocity\'. Please make sure to include plugins/animation.velocity.js');
+		return this;
+	}
+
+	return ScrollMagic;
+}));
+
+/***/ }),
 /* 339 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -28602,7 +28610,7 @@ Swiper.use(components);
 /* unused harmony export touchmove */
 /* unused harmony export resize */
 /* unused harmony export scroll */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ssr_window__ = __webpack_require__(129);
 /**
  * Dom7 2.0.5
  * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
@@ -29959,7 +29967,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 __webpack_require__(341);
 
-var _helpers = __webpack_require__(49);
+var _helpers = __webpack_require__(46);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30707,7 +30715,7 @@ var ContactMap = function () {
   function ContactMap() {
     _classCallCheck(this, ContactMap);
 
-    this.block = document.querySelector('.contact');
+    this.block = document.querySelector('.contact-map');
 
     if (!this.block) return;
 
@@ -30736,7 +30744,7 @@ var ContactMap = function () {
         controls: []
       });
 
-      var balloonLayout = ymaps.templateLayoutFactory.createClass('<div class="contact__map-content">\n         <div>\n         <img src="">\n        </div>\n        <p>\u0410\u0437\u043E\u0432\u0441\u043A\u0430\u044F \u0443\u043B\u0438\u0446\u0430, 15</p>\n      </div>');
+      var balloonLayout = ymaps.templateLayoutFactory.createClass('<div class="contact-map__content">\n        <p>\u0410\u0437\u043E\u0432\u0441\u043A\u0430\u044F \u0443\u043B\u0438\u0446\u0430, 15</p>\n      </div>');
 
       var officePlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], { name: 'suka' }, {
         iconColor: 'red',
@@ -30745,7 +30753,7 @@ var ContactMap = function () {
         balloonPanelMaxMapArea: 0,
         hideIconOnBalloonOpen: false,
         balloonCloseButton: false,
-        balloonOffset: [3, -40]
+        balloonOffset: [70, 7]
       });
 
       map.behaviors.disable('scrollZoom');
@@ -30769,6 +30777,118 @@ exports.default = new ContactMap();
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _scrollAnim = __webpack_require__(126);
+
+var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
+
+var _gsap = __webpack_require__(127);
+
+var _helpers = __webpack_require__(46);
+
+var _swiper = __webpack_require__(128);
+
+var _swiper2 = _interopRequireDefault(_swiper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Benefits = function () {
+  function Benefits() {
+    _classCallCheck(this, Benefits);
+
+    this.block = document.querySelector('.benefits');
+    if (!this.block) return;
+
+    this.inner = this.block.querySelector('.benefits__inner');
+    this.items = this.block.querySelectorAll('.benefits__item');
+
+    this.init();
+  }
+
+  _createClass(Benefits, [{
+    key: 'init',
+    value: function init() {
+      if (!_helpers.Resp.isDesk) {
+        this.prepareSlider();
+        this.createSlider();
+      }
+    }
+  }, {
+    key: 'prepareSlider',
+    value: function prepareSlider() {
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        var container = document.createElement('div');
+
+        container.classList.add('swiper-container');
+        _this.inner.before(container);
+        container.append(_this.inner);
+        _this.inner.classList.add('swiper-wrapper');
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = _this.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            item.classList.add('swiper-slide');
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        resolve();
+      });
+    }
+  }, {
+    key: 'createSlider',
+    value: function createSlider() {
+      this.slider = new _swiper2.default(this.inner.parentElement, {
+        slidesPerView: 3,
+        loop: true,
+        speed: 500,
+        breakpoints: {
+          767: {
+            slidesPerView: 1
+          }
+        }
+      });
+    }
+  }]);
+
+  return Benefits;
+}();
+
+exports.default = new Benefits();
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.PublicAPI = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
@@ -30778,7 +30898,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @module PublicAPI
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _Timer = __webpack_require__(344);
+var _Timer = __webpack_require__(345);
 
 var _Timer2 = _interopRequireDefault(_Timer);
 
@@ -30819,7 +30939,7 @@ var PublicAPI = exports.PublicAPI = function () {
 exports.default = window.PublicAPI = PublicAPI;
 
 /***/ }),
-/* 344 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30899,7 +31019,7 @@ var Timer = exports.Timer = function Timer() {
 exports.default = new Timer();
 
 /***/ }),
-/* 345 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30915,7 +31035,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @module Home
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _helpers = __webpack_require__(49);
+var _helpers = __webpack_require__(46);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30968,119 +31088,6 @@ var Home = function () {
 }();
 
 exports.default = Home;
-
-/***/ }),
-/* 346 */,
-/* 347 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _scrollAnim = __webpack_require__(335);
-
-var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
-
-var _gsap = __webpack_require__(337);
-
-var _helpers = __webpack_require__(49);
-
-var _swiper = __webpack_require__(338);
-
-var _swiper2 = _interopRequireDefault(_swiper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Benefits = function () {
-  function Benefits() {
-    _classCallCheck(this, Benefits);
-
-    this.block = document.querySelector('.benefits');
-    this.inner = this.block.querySelector('.benefits__inner');
-    this.items = this.block.querySelectorAll('.benefits__item');
-
-    if (!this.block) return;
-    this.init();
-  }
-
-  _createClass(Benefits, [{
-    key: 'init',
-    value: function init() {
-      if (!_helpers.Resp.isDesk) {
-        this.prepareSlider();
-        this.createSlider();
-      }
-    }
-  }, {
-    key: 'prepareSlider',
-    value: function prepareSlider() {
-      var _this = this;
-
-      return new Promise(function (resolve) {
-        var container = document.createElement('div');
-
-        container.classList.add('swiper-container');
-        _this.inner.before(container);
-        container.append(_this.inner);
-        _this.inner.classList.add('swiper-wrapper');
-
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = _this.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
-            item.classList.add('swiper-slide');
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
-        resolve();
-      });
-    }
-  }, {
-    key: 'createSlider',
-    value: function createSlider() {
-      this.slider = new _swiper2.default(this.inner.parentElement, {
-        slidesPerView: 3,
-        loop: true,
-        speed: 500,
-        breakpoints: {
-          767: {
-            slidesPerView: 1,
-            spaceBetween: 0
-          }
-        }
-      });
-    }
-  }]);
-
-  return Benefits;
-}();
-
-exports.default = new Benefits();
 
 /***/ })
 /******/ ]);
