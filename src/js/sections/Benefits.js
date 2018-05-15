@@ -3,7 +3,7 @@ import {
   TimelineMax
 } from 'gsap';
 import { Resp } from '../modules/dev/_helpers';
-import Swiper from 'swiper';
+import Swiper from '../modules/dep/swiper.min';
 
 class Benefits {
   constructor() {

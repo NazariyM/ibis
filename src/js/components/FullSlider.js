@@ -2,7 +2,7 @@ import ScrollAnim from '../modules/dev/animation/scrollAnim';
 import {
   TimelineMax
 } from 'gsap';
-import Swiper from 'swiper';
+import Swiper from '../modules/dep/swiper.min';
 
 class FullSlider {
 

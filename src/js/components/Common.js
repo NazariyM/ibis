@@ -1,5 +1,6 @@
 import objectFitImages from 'object-fit-images';
 import './NoTouch';
+import { $body, detectIE } from '../modules/dev/_helpers';
 
 // import './Anims';
 import './Header';
@@ -14,12 +15,20 @@ export class Common {
    */
   constructor() {
     this.init();
+
   }
   /**
    * Initialize common scripts.
    */
   init() {
     objectFitImages();
+    this.detectIE();
+  }
+
+  detectIE() {
+    if (detectIE()) {
+      $body.addClass('ie');
+    }
   }
 }
 
