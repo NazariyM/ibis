@@ -72,6 +72,13 @@
       </div>
       <div class="header__bot">
         <div class="header__bot-container container">
+          <div class="header__nav-line">
+            <button class="header__nav-toggle" type="button">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
           <nav class="header__nav">
             <ul>
               <li>
@@ -263,21 +270,314 @@
     <main class="content">
       <!--begin contacts-->
       <section class="contacts">
-        <div class="contacts__map-wrap">
-          <div class="contacts__map contact-map" id="contact-map"></div>
-        </div>
-        <div class="contacts__container container">
-          <div class="section-title contacts__section-title">
-            <div class="section-title__top">
-              <h2>Наши контакты</h2>
-            </div>
-            <div class="section-title__back">
-              <h2>Our contacts</h2>
+        <div class="contacts__bg" style="background-image: url(static/img/bg/contacts_bg.jpg)"></div>
+        <div class="contacts__inner">
+          <div class="contacts__map-wrap">
+            <div class="contacts__map contact-map" id="contact-map"></div>
+          </div>
+          <div class="contacts__container container">
+            <div class="contacts__content">
+              <div class="section-title contacts__section-title">
+                <div class="section-title__top">
+                  <h2>Наши контакты</h2>
+                </div>
+                <div class="section-title__back">
+                  <h2>Our contacts</h2>
+                </div>
+              </div>
+              <div class="contacts__address">
+                <div class="contacts__item">
+                  <div class="contacts__item-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11" height="14" viewbox="0 0 11 14">
+                      <defs>
+                        <path id="yyoya" d="M398.74 554.17c0 1.69-1.46 3.05-3.24 3.05-1.78 0-3.24-1.36-3.24-3.05 0-1.68 1.46-3.04 3.24-3.04 1.78 0 3.24 1.36 3.24 3.04zm-.88 0c0-1.22-1.06-2.22-2.36-2.22-1.3 0-2.37 1-2.37 2.22 0 1.23 1.07 2.23 2.37 2.23s2.36-1 2.36-2.23zm3.13 0c0 1.64-1.48 4.1-2.35 5.41-.58.86-1.2 1.68-1.74 2.32-.88 1-1.17 1.1-1.4 1.1-.23 0-.54-.1-1.41-1.1a23.5 23.5 0 0 1-1.74-2.32c-.87-1.31-2.34-3.76-2.34-5.4 0-2.86 2.46-5.18 5.49-5.18 3.03 0 5.49 2.32 5.49 5.17zm-.87 0c0-2.4-2.07-4.35-4.62-4.35-2.55 0-4.62 1.96-4.62 4.35 0 1.02.76 2.76 2.08 4.78a15.73 15.73 0 0 0 2.53 3.18c.38-.3 1.42-1.46 2.54-3.19 1.33-2.02 2.09-3.76 2.09-4.77z"></path>
+                      </defs>
+                      <g>
+                        <g transform="translate(-390 -549)">
+                          <use xlink:href="#yyoya"></use>
+                        </g>
+                      </g>
+                    </svg>
+                    <h6>Наш адрес:</h6>
+                  </div>
+                  <div class="contacts__item-data">
+                    <p>г. Москва, м.Каховская, ул Азовская д.15</p>
+                  </div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contacts__item-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" viewbox="0 0 12 12">
+                      <defs>
+                        <path id="i3jfa" d="M396 629a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"></path>
+                        <path id="i3jfb" d="M396 632v3h3"></path>
+                        <clippath id="i3jfc">
+                          <use fill="#fff" xlink:href="#i3jfa"></use>
+                        </clippath>
+                        <clippath id="i3jfd">
+                          <use fill="#fff" xlink:href="#i3jfb"></use>
+                        </clippath>
+                      </defs>
+                      <g>
+                        <g transform="translate(-390 -629)">
+                          <use fill="#fff" fill-opacity="0" stroke="#01010c" stroke-miterlimit="50" stroke-width="2" clip-path="url(&quot;#i3jfc&quot;)" xlink:href="#i3jfa"></use>
+                        </g>
+                        <g transform="translate(-390 -629)">
+                          <use fill="#fff" fill-opacity="0" stroke="#01010c" stroke-miterlimit="50" stroke-width="2" clip-path="url(&quot;#i3jfd&quot;)" xlink:href="#i3jfb"></use>
+                        </g>
+                      </g>
+                    </svg>
+                    <h6>Режим работы:</h6>
+                  </div>
+                  <div class="contacts__item-data">
+                    <p>Пн - Пт с 9:00 до 18:00
+                      <i>|</i>
+                      <mark>Сб - Вс ­ выходной</mark>
+                    </p>
+                  </div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contacts__item-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="13" height="13" viewbox="0 0 13 13">
+                      <defs>
+                        <path id="4f11a" d="M401.61 717.69c-.38.47-.9 1.12-2.36 1.3h-.27c-.75 0-3.41-.24-6.54-3.38-2.8-2.82-3.77-4.8-3.35-6.88a4.04 4.04 0 0 1 1.28-2.33c.26-.26.6-.4.98-.4.36 0 .7.14.95.4l1.87 1.88a1.4 1.4 0 0 1-.02 1.96l-.73.73c.31.58.75 1.33 1.53 2.12a8.9 8.9 0 0 0 2.1 1.54l.73-.73a1.4 1.4 0 0 1 1-.42c.36 0 .7.14.95.4l1.88 1.88c.5.5.5 1.31 0 1.93zm-.57-1.36l-1.88-1.89a.53.53 0 0 0-.38-.15.6.6 0 0 0-.43.18l-.77.78a.64.64 0 0 1-.5.23.73.73 0 0 1-.34-.1c-.62-.34-1.46-.81-2.36-1.72-.9-.9-1.37-1.76-1.72-2.38a.67.67 0 0 1 .08-.77l.01-.01.83-.83c.23-.24.24-.6.02-.82l-1.87-1.89a.53.53 0 0 0-.38-.15.6.6 0 0 0-.43.18l-.02.02-.03.02c-.03.02-.72.57-.99 1.86-.36 1.77.55 3.55 3.13 6.15 2.9 2.92 5.3 3.15 5.97 3.15h.18c1.13-.14 1.47-.56 1.83-1.01.19-.24.29-.6.05-.85zm-4.53-8.8a.4.4 0 0 1 .45-.35 4.6 4.6 0 0 1 3.86 3.9.4.4 0 0 1-.37.45h-.04a.4.4 0 0 1-.4-.36 3.81 3.81 0 0 0-3.15-3.19.4.4 0 0 1-.35-.44zm-.38 1.7a.4.4 0 0 1 .45-.35 3.2 3.2 0 0 1 2.6 2.63.4.4 0 0 1-.4.45.4.4 0 0 1-.4-.36 2.4 2.4 0 0 0-.66-1.25 2.38 2.38 0 0 0-1.23-.67.4.4 0 0 1-.36-.45z"></path>
+                      </defs>
+                      <g>
+                        <g transform="translate(-389 -706)">
+                          <use xlink:href="#4f11a"></use>
+                        </g>
+                      </g>
+                    </svg>
+                    <h6>Телефоны:</h6>
+                  </div>
+                  <div class="contacts__item-data">
+                    <p>
+                      <a href="tel:84991106410">8 (499) 110 64 10</a>
+                      <i>|</i>
+                      <a href="tel:88002006940">8 (800) 200 69 40</a>
+                      <span>(звонок бесплатный)</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contacts__item-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="11" viewbox="0 0 14 11">
+                      <defs>
+                        <path id="ozf0a" d="M404 788.77v7.46c0 .98-.77 1.77-1.71 1.77H391.7c-.94 0-1.71-.8-1.71-1.77v-7.46c0-.98.77-1.77 1.71-1.77h10.58c.94 0 1.71.8 1.71 1.77zm-.78 7.46v-7.46a.95.95 0 0 0-.93-.96H391.7a.95.95 0 0 0-.93.96v7.46c0 .53.42.96.93.96h10.58c.51 0 .93-.43.93-.96zm-.95-.45c.15.15.16.4.01.57a.39.39 0 0 1-.55.01l-3.48-3.41-.98.9a.38.38 0 0 1-.52 0l-.95-.87-3.5 3.38a.38.38 0 0 1-.56-.02.41.41 0 0 1 .02-.57l3.45-3.34-3.46-3.2a.41.41 0 0 1-.04-.56c.15-.17.4-.19.56-.04l3.75 3.47a.56.56 0 0 1 .07.06l.92.85 4.72-4.37c.16-.15.4-.14.55.03.15.16.13.42-.03.57l-3.42 3.17z"></path>
+                      </defs>
+                      <g>
+                        <g transform="translate(-390 -787)">
+                          <use xlink:href="#ozf0a"></use>
+                        </g>
+                      </g>
+                    </svg>
+                    <h6>Электронный адрес:</h6>
+                  </div>
+                  <div class="contacts__item-data">
+                    <a href="mailto:8info@ibis.ru">8info@ibis.ru</a>
+                  </div>
+                </div>
+                <div class="contacts__item">
+                  <div class="contacts__item-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" viewbox="0 0 17 17">
+                      <defs>
+                        <path id="s7dia" d="M401.9 865.77c.08.08.1.21.05.32l-4.9 9.89a.28.28 0 0 1-.53-.1l-.52-4.23-4.48-.75a.28.28 0 0 1-.07-.54l10.13-4.65c.1-.05.24-.03.32.06zm-.81.79l-8.57 3.93 3.79.63c.12.02.22.12.23.25l.42 3.5zm4.91 3.94a8.5 8.5 0 0 1-17 0 8.5 8.5 0 0 1 17 0zm-.57 0a7.94 7.94 0 0 0-15.86 0 7.94 7.94 0 0 0 15.86 0z"></path>
+                      </defs>
+                      <g>
+                        <g transform="translate(-389 -862)">
+                          <use xlink:href="#s7dia"></use>
+                        </g>
+                        <g transform="translate(-389 -862)">
+                          <use xlink:href="#s7dia"></use>
+                        </g>
+                      </g>
+                    </svg>
+                    <h6>GPS­координаты:</h6>
+                  </div>
+                  <div class="contacts__item-data">
+                    <p>55.681732, 37.865220</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <!--end contacts-->
+      <!--begin about-->
+      <section class="about" style="background-image: url(static/img/bg/about_bg.jpg)">
+        <div class="about__container container">
+          <div class="about__title">
+            <h3>Наш центр расположен в одном из современных районов Москвы, всего в 600 метрах от станции метро Каховская.</h3>
+          </div>
+          <div class="about__pictures">
+            <div class="about__pictures-item">
+              <img src="static/img/content/about-1.jpg" alt="image" title="" />
+            </div>
+            <div class="about__pictures-item">
+              <img src="static/img/content/about-2.jpg" alt="image" title="" />
+            </div>
+          </div>
+          <div class="about__requisites">
+            <div class="section-title about__section-title">
+              <div class="section-title__top">
+                <h2>Реквизиты организации</h2>
+              </div>
+              <div class="section-title__back">
+                <h2>Requisites</h2>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Полное наименование:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>Общество с ограниченной ответственностью «ИБИС»</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Адрес юридический:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>117452, г. Москва, ул. Азовская, д.15, помещение I</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Адрес почтовый:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>117452, г. Москва, ул. Азовская, д.15, помещение I</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Банковские реквизиты:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>ИНН: 7727295543</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>КПП:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>772701001</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>ОГРН:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>1167746659354</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>ОКПО:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>03517755</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>ОКАТО:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>45293562000</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Наименование банка:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>АО «Тинькофф Банк», г. Москва </p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>Р/счет:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>­40702810110000017646</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>К/счет:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>­30101810145250000974</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>ИНН:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>7710140679</p>
+              </div>
+            </div>
+            <div class="about__requisites-item">
+              <div class="about__requisites-item-title">
+                <p>БИК:</p>
+              </div>
+              <div class="about__requisites-item-descr">
+                <p>044525974</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--end about-->
+      <!--begin cost-contact-->
+      <section class="cost-contact cost-contact_contacts" style="background-image: url(static/img/bg/cost-contact_bg.jpg)">
+        <div class="cost-contact__container container">
+          <div class="cost-contact__inner">
+            <div class="section-title cost-contact__section-title">
+              <div class="section-title__top">
+                <h2>Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку</h2>
+              </div>
+              <div class="section-title__back">
+                <h2>Cost of education</h2>
+              </div>
+            </div>
+            <div class="cost-contact__form-wrap">
+              <form class="cost-form cost-form_map" action="#!" method="POST">
+                <div class="cost-form__row">
+                  <div class="cost-form__field">
+                    <input class="cost-form__input input" type="text" placeholder="Телефон" name="" required="required" />
+                  </div>
+                  <div class="cost-form__field">
+                    <input class="cost-form__submit btn btn_yellow submit" type="submit" value="Узнать стоимость" />
+                  </div>
+                </div>
+                <div class="cost-form__agree">
+                  <div class="check-box">
+                    <input id="cost-agree" type="checkbox" name="" />
+                    <label for="cost-agree">
+                      <div class="check-box__square">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="405.272px" height="405.272px" viewbox="0 0 405.272 405.272" style="enable-background:new 0 0 405.272 405.272;"
+                          xml:space="preserve">
+                          <g>
+                            <path d="M393.401,124.425L179.603,338.208c-15.832,15.835-41.514,15.835-57.361,0L11.878,227.836								c-15.838-15.835-15.838-41.52,0-57.358c15.841-15.841,41.521-15.841,57.355-0.006l81.698,81.699L336.037,67.064								c15.841-15.841,41.523-15.829,57.358,0C409.23,82.902,409.23,108.578,393.401,124.425z"></path>
+                          </g>
+                        </svg>
+                      </div>
+                      <p>Нажимая на кнопку я даю свое согласие на обработку персональных данных и соглашаюсь с условиями политики конфиденциальности</p>
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--end cost-contact-->
     </main>
     <!--begin footer-->
     <footer class="footer">

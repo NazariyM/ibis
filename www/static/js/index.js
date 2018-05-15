@@ -25300,7 +25300,6 @@ exports.Common = undefined;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 // import './Anims';
-// import './Header';
 
 
 var _objectFitImages = __webpack_require__(335);
@@ -25308,6 +25307,8 @@ var _objectFitImages = __webpack_require__(335);
 var _objectFitImages2 = _interopRequireDefault(_objectFitImages);
 
 __webpack_require__(336);
+
+__webpack_require__(347);
 
 __webpack_require__(337);
 
@@ -30709,6 +30710,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _helpers = __webpack_require__(46);
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ContactMap = function () {
@@ -30759,6 +30762,10 @@ var ContactMap = function () {
       map.behaviors.disable('scrollZoom');
       map.geoObjects.add(officePlace);
       officePlace.balloon.open();
+
+      if (!_helpers.Resp.isDesk) {
+        map.setCenter([55.65647806907896, 37.599039999999995]);
+      }
     }
   }]);
 
@@ -31088,6 +31095,71 @@ var Home = function () {
 }();
 
 exports.default = Home;
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HeaderAPI = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _gsap = __webpack_require__(127);
+
+var _helpers = __webpack_require__(46);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Header = function () {
+  function Header() {
+    _classCallCheck(this, Header);
+
+    this.$nav = $('.header__nav');
+    this.$navBtn = $('.header__nav-toggle');
+
+    this.init();
+  }
+
+  _createClass(Header, [{
+    key: 'init',
+    value: function init() {
+      this.bindEvents();
+
+      if (!_helpers.Resp.isDesk) {
+        this.toggleNav();
+      }
+    }
+  }, {
+    key: 'bindEvents',
+    value: function bindEvents() {
+      this.show();
+    }
+  }, {
+    key: 'show',
+    value: function show() {
+      _gsap.TweenMax.to(_helpers.$header, .7, { y: 0, delay: .5 });
+    }
+  }, {
+    key: 'toggleNav',
+    value: function toggleNav() {
+      var _this = this;
+      this.$navBtn.on('click tap', function () {
+        $(this).toggleClass(_helpers.css.active);
+        _this.$nav.slideToggle();
+      });
+    }
+  }]);
+
+  return Header;
+}();
+
+var HeaderAPI = exports.HeaderAPI = new Header();
 
 /***/ })
 /******/ ]);

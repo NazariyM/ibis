@@ -475,10 +475,12 @@
          margin-bottom: 35px
 
 .cost-contact
+   $parent: &
    position: relative
    height: 588px
    padding-top: 53px
    overflow: hidden
+   +cover
    +sm
       height: auto
       padding: 50px 0
@@ -496,12 +498,19 @@
       max-width: 830px
       +md
          max-width: 500px
+      #{$parent}_contacts &
+         +md
+            max-width: 600px
+            margin: 0 auto
       
    &__section-title
       margin-bottom: 142px
       text-align: left
       +md
          margin-bottom: 25px
+      #{$parent}_contacts &
+         +md
+            text-align: center
       &::after
          top: 20px
          left: 0
@@ -533,6 +542,10 @@
       .check-box__square
          +md
             margin-right: 15px
+            
+      #{$parent}_contacts &
+         +md
+            margin: 0 auto
       
 .contact-map
    +coverdiv

@@ -8,14 +8,174 @@ block main
 	main.content
 		//begin contacts
 		+b.SECTION.contacts
-			+e.map-wrap
-				+e.map.contact-map#contact-map
+			+e.bg(style='background-image: url(static/img/bg/contacts_bg.jpg)')
+			+e.inner
 
-			+e.container.container
-				+b.section-title.contacts__section-title
-					+e.top
-						h2 Наши контакты
-					+e.back
-						h2 Our contacts
+				+e.map-wrap
+					+e.map.contact-map#contact-map
 
+				+e.container.container
+					+e.content
+						+b.section-title.contacts__section-title
+							+e.top
+								h2 Наши контакты
+							+e.back
+								h2 Our contacts
+						+e.address
+							+e.item
+								+e.item-title
+									svg(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='11', height='14', viewbox='0 0 11 14')
+										defs
+											path#yyoya(d='M398.74 554.17c0 1.69-1.46 3.05-3.24 3.05-1.78 0-3.24-1.36-3.24-3.05 0-1.68 1.46-3.04 3.24-3.04 1.78 0 3.24 1.36 3.24 3.04zm-.88 0c0-1.22-1.06-2.22-2.36-2.22-1.3 0-2.37 1-2.37 2.22 0 1.23 1.07 2.23 2.37 2.23s2.36-1 2.36-2.23zm3.13 0c0 1.64-1.48 4.1-2.35 5.41-.58.86-1.2 1.68-1.74 2.32-.88 1-1.17 1.1-1.4 1.1-.23 0-.54-.1-1.41-1.1a23.5 23.5 0 0 1-1.74-2.32c-.87-1.31-2.34-3.76-2.34-5.4 0-2.86 2.46-5.18 5.49-5.18 3.03 0 5.49 2.32 5.49 5.17zm-.87 0c0-2.4-2.07-4.35-4.62-4.35-2.55 0-4.62 1.96-4.62 4.35 0 1.02.76 2.76 2.08 4.78a15.73 15.73 0 0 0 2.53 3.18c.38-.3 1.42-1.46 2.54-3.19 1.33-2.02 2.09-3.76 2.09-4.77z')
+										g
+											g(transform='translate(-390 -549)')
+												use(xlink:href='#yyoya')
+
+									h6 Наш адрес:
+								+e.item-data
+									p г. Москва, м.Каховская, ул Азовская д.15
+
+							+e.item
+								+e.item-title
+									svg(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='12', height='12', viewbox='0 0 12 12')
+										defs
+											path#i3jfa(d='M396 629a6 6 0 1 1 0 12 6 6 0 0 1 0-12z')
+											path#i3jfb(d='M396 632v3h3')
+											clippath#i3jfc
+												use(fill='#fff', xlink:href='#i3jfa')
+											clippath#i3jfd
+												use(fill='#fff', xlink:href='#i3jfb')
+										g
+											g(transform='translate(-390 -629)')
+												use(fill='#fff', fill-opacity='0', stroke='#01010c', stroke-miterlimit='50', stroke-width='2', clip-path='url("#i3jfc")', xlink:href='#i3jfa')
+											g(transform='translate(-390 -629)')
+												use(fill='#fff', fill-opacity='0', stroke='#01010c', stroke-miterlimit='50', stroke-width='2', clip-path='url("#i3jfd")', xlink:href='#i3jfb')
+
+									h6 Режим работы:
+								+e.item-data
+									p Пн - Пт с 9:00 до 18:00
+										i |
+										mark Сб - Вс ­ выходной
+
+							+e.item
+								+e.item-title
+									svg(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='13', height='13', viewbox='0 0 13 13')
+										defs
+											path#4f11a(d='M401.61 717.69c-.38.47-.9 1.12-2.36 1.3h-.27c-.75 0-3.41-.24-6.54-3.38-2.8-2.82-3.77-4.8-3.35-6.88a4.04 4.04 0 0 1 1.28-2.33c.26-.26.6-.4.98-.4.36 0 .7.14.95.4l1.87 1.88a1.4 1.4 0 0 1-.02 1.96l-.73.73c.31.58.75 1.33 1.53 2.12a8.9 8.9 0 0 0 2.1 1.54l.73-.73a1.4 1.4 0 0 1 1-.42c.36 0 .7.14.95.4l1.88 1.88c.5.5.5 1.31 0 1.93zm-.57-1.36l-1.88-1.89a.53.53 0 0 0-.38-.15.6.6 0 0 0-.43.18l-.77.78a.64.64 0 0 1-.5.23.73.73 0 0 1-.34-.1c-.62-.34-1.46-.81-2.36-1.72-.9-.9-1.37-1.76-1.72-2.38a.67.67 0 0 1 .08-.77l.01-.01.83-.83c.23-.24.24-.6.02-.82l-1.87-1.89a.53.53 0 0 0-.38-.15.6.6 0 0 0-.43.18l-.02.02-.03.02c-.03.02-.72.57-.99 1.86-.36 1.77.55 3.55 3.13 6.15 2.9 2.92 5.3 3.15 5.97 3.15h.18c1.13-.14 1.47-.56 1.83-1.01.19-.24.29-.6.05-.85zm-4.53-8.8a.4.4 0 0 1 .45-.35 4.6 4.6 0 0 1 3.86 3.9.4.4 0 0 1-.37.45h-.04a.4.4 0 0 1-.4-.36 3.81 3.81 0 0 0-3.15-3.19.4.4 0 0 1-.35-.44zm-.38 1.7a.4.4 0 0 1 .45-.35 3.2 3.2 0 0 1 2.6 2.63.4.4 0 0 1-.4.45.4.4 0 0 1-.4-.36 2.4 2.4 0 0 0-.66-1.25 2.38 2.38 0 0 0-1.23-.67.4.4 0 0 1-.36-.45z')
+										g
+											g(transform='translate(-389 -706)')
+												use(xlink:href='#4f11a')
+
+									h6 Телефоны:
+								+e.item-data
+									p
+										a(href='tel:84991106410') 8 (499) 110 64 10
+										i |
+										a(href='tel:88002006940') 8 (800) 200 69 40
+										span (звонок бесплатный)
+
+							+e.item
+								+e.item-title
+									svg(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='14', height='11', viewbox='0 0 14 11')
+										defs
+											path#ozf0a(d='M404 788.77v7.46c0 .98-.77 1.77-1.71 1.77H391.7c-.94 0-1.71-.8-1.71-1.77v-7.46c0-.98.77-1.77 1.71-1.77h10.58c.94 0 1.71.8 1.71 1.77zm-.78 7.46v-7.46a.95.95 0 0 0-.93-.96H391.7a.95.95 0 0 0-.93.96v7.46c0 .53.42.96.93.96h10.58c.51 0 .93-.43.93-.96zm-.95-.45c.15.15.16.4.01.57a.39.39 0 0 1-.55.01l-3.48-3.41-.98.9a.38.38 0 0 1-.52 0l-.95-.87-3.5 3.38a.38.38 0 0 1-.56-.02.41.41 0 0 1 .02-.57l3.45-3.34-3.46-3.2a.41.41 0 0 1-.04-.56c.15-.17.4-.19.56-.04l3.75 3.47a.56.56 0 0 1 .07.06l.92.85 4.72-4.37c.16-.15.4-.14.55.03.15.16.13.42-.03.57l-3.42 3.17z')
+										g
+											g(transform='translate(-390 -787)')
+												use(xlink:href='#ozf0a')
+
+									h6 Электронный адрес:
+								+e.item-data
+									a(href='mailto:8info@ibis.ru') 8info@ibis.ru
+
+							+e.item
+								+e.item-title
+									svg(xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='17', height='17', viewbox='0 0 17 17')
+										defs
+											path#s7dia(d='M401.9 865.77c.08.08.1.21.05.32l-4.9 9.89a.28.28 0 0 1-.53-.1l-.52-4.23-4.48-.75a.28.28 0 0 1-.07-.54l10.13-4.65c.1-.05.24-.03.32.06zm-.81.79l-8.57 3.93 3.79.63c.12.02.22.12.23.25l.42 3.5zm4.91 3.94a8.5 8.5 0 0 1-17 0 8.5 8.5 0 0 1 17 0zm-.57 0a7.94 7.94 0 0 0-15.86 0 7.94 7.94 0 0 0 15.86 0z')
+										g
+											g(transform='translate(-389 -862)')
+												use(xlink:href='#s7dia')
+											g(transform='translate(-389 -862)')
+												use(xlink:href='#s7dia')
+
+									h6 GPS­координаты:
+								+e.item-data
+									p 55.681732, 37.865220
 		//end contacts
+
+		//begin about
+		+b.SECTION.about(style='background-image: url(static/img/bg/about_bg.jpg)')
+			+e.container.container
+				+e.title
+					h3 Наш центр расположен в одном из современных районов Москвы, всего в 600 метрах от станции метро Каховская.
+				+e.pictures
+					+e.pictures-item
+						+e.IMG(src='static/img/content/about-1.jpg' alt='image')
+					+e.pictures-item
+						+e.IMG(src='static/img/content/about-2.jpg' alt='image')
+
+				+e.requisites
+					+b.section-title.about__section-title
+						+e.top
+							h2 Реквизиты организации
+						+e.back
+							h2 Requisites
+
+					-
+						titleList = [
+						'Полное наименование:',
+						'Адрес юридический:',
+						'Адрес почтовый:',
+						'Банковские реквизиты:',
+						'КПП:',
+						'ОГРН:',
+						'ОКПО:',
+						'ОКАТО:',
+						'Наименование банка:',
+						'Р/счет:',
+						'К/счет:',
+						'ИНН:',
+						'БИК:'
+						]
+
+					-
+						descrList = [
+						'Общество с ограниченной ответственностью «ИБИС»',
+						'117452, г. Москва, ул. Азовская, д.15, помещение I',
+						'117452, г. Москва, ул. Азовская, д.15, помещение I',
+						'ИНН: 7727295543',
+						'772701001',
+						'1167746659354',
+						'03517755',
+						'45293562000',
+						'АО «Тинькофф Банк», г. Москва ',
+						'­40702810110000017646',
+						'­30101810145250000974',
+						'7710140679',
+						'044525974'
+						]
+
+					mixin reqItem(index)
+						+e.requisites-item
+							+e.requisites-item-title
+								p= titleList[index]
+							+e.requisites-item-descr
+								p= descrList[index]
+
+					each el, index in titleList
+						+reqItem(index)
+		//end about
+
+		//begin cost-contact
+		+b.SECTION.cost-contact._contacts(style='background-image: url(static/img/bg/cost-contact_bg.jpg)')
+			+e.container.container
+				+e.inner
+					+b.section-title.cost-contact__section-title
+						+e.top
+							h2 Узнайте стоимость обучения прямо сейчас и получите Сертификат на скидку
+						+e.back
+							h2 Cost of education
+
+					+e.form-wrap
+						+cost-form('_map', 'Узнать стоимость', 'Телефон')
+		//end cost-contact

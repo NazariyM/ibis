@@ -2,7 +2,7 @@ import objectFitImages from 'object-fit-images';
 import './NoTouch';
 
 // import './Anims';
-// import './Header';
+import './Header';
 import './FullSlider';
 import './Dot';
 import './ContactMap';

@@ -1,9 +1,151 @@
 .contacts
    position: relative
-   min-height: 644px
+   margin-top: -100px
+   padding-top: 165px
+   overflow: hidden
+   
+   &__container
+      pointer-events: none
+      
+   &__inner
+      position: relative
+      padding: 70px 0
+      +md
+         padding: 20px 0
+   &__bg
+      height: 165px
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      +cover
    &__section-title
+      margin-bottom: 10px
       text-align: left
+      &::after
+         display: none
       
    &__map-wrap
       +coverdiv
+      +md
+         position: relative
+         top: auto
+         left: auto
+         right: auto
+         bottom: auto
+         height: 400px
+         margin-bottom: 30px
+      +sm
+         height: 300px
    
+   &__content
+      pointer-events: auto
+      max-width: 680px
+      padding: 15px 20px 30px
+      border-radius: 5px
+      background: rgba($white, .8)
+      box-shadow: 0 0 15px rgba($gray, .5)
+      +md
+         max-width: none
+      a
+         +trs
+         +sm
+            display: block
+         .no-touch &:hover
+            color: #994e92
+   &__item
+      &:not(:last-child)
+         margin-bottom: 20px
+      &-title
+         display: flex
+         align-items: center
+         svg
+            margin-right: 10px
+         
+      &-data
+         +f('os', 600)
+         mark
+            background: transparent
+            color: #ff3333
+            +f('os', 400)
+            +sm
+               display: block
+         i
+            font-style: normal
+            +sm
+               display: none
+         span
+            +f('os', 400)
+            
+.about
+   padding: 80px 0 75px
+   +cover
+   +sm
+      padding: 50px 0
+   
+   &__title
+      position: relative
+      margin-bottom: 40px
+      padding-top: 53px
+      +f('os', 600, 30, 40)
+      text-align: center
+      +sm
+         padding-top: 30px
+         margin-bottom: 30px
+         font-size: 22px
+         line-height: 30px
+      &::before
+         position: absolute
+         top: 0
+         left: 50%
+         margin-left: -56px
+         width: 112px
+         height: 1px
+         background: #292929
+         content: ''
+         
+   &__section-title
+      margin-bottom: 38px
+         
+   &__pictures
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      margin: 0 -15px 40px
+      +md
+         flex-direction: column
+         max-width: 555px
+         margin: 0 auto 40px
+      &-item
+         flex: 0 1 50%
+         padding: 0 15px
+         margin-bottom: 30px
+         height: 327px
+         +cover-img
+         +md
+            flex: 0 1 auto
+            width: 100%
+            padding: 0
+         +sm
+            height: 200px
+   
+   &__requisites
+      &-item
+         display: flex
+         padding: 10px 0 9px
+         border-bottom: 1px solid #e3e3e5
+         +sm
+            flex-direction: column
+         &-title
+            flex: 0 0 294px
+            padding-right: 20px
+            +f('os', 600)
+            +sm
+               flex: 0 1 auto
+               width: 100%
+               padding-right: 0
+         &-descr
+            flex: 1 1 auto
+            +sm
+               flex: 0 1 auto
+               width: 100%

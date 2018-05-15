@@ -1,3 +1,5 @@
+import { Resp } from '../modules/dev/_helpers';
+
 class ContactMap {
   constructor() {
     this.block = document.querySelector('.contact-map');
@@ -42,6 +44,10 @@ class ContactMap {
     map.behaviors.disable('scrollZoom');
     map.geoObjects.add(officePlace);
     officePlace.balloon.open();
+
+    if (!Resp.isDesk) {
+      map.setCenter([55.65647806907896, 37.599039999999995]);
+    }
   }
 
 }

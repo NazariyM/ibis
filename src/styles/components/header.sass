@@ -8,7 +8,7 @@
       padding: 21px 0 33px
       background: $white
       +md
-         padding: 20px 0 10px
+         padding: 15px 0 10px
       +sm
          padding: 10px 0
    
@@ -172,10 +172,17 @@
    
    &__bot
       padding-top: 25px
+      +md
+         padding: 15px 0
+         box-shadow: 0 5px 7px rgba(141, 69, 142, 0.34)
+         background: #a06396 linear-gradient(45deg, rgba(62, 19, 116, 0.59) 0%, rgba(164, 34, 143, 0.59) 100%)
+         +clr
       
    &__nav
       +md
          display: none
+         clear: both
+         margin-top: 15px
       ul
          display: flex
          margin: 0 -5px
@@ -183,11 +190,13 @@
             flex-direction: column
          li
             padding: 0 5px
-            
             &:nth-child(1)
                flex: 0 0 98px
                +md
                   flex: 0 1 auto
+            &:not(:last-child)
+               +md
+                  margin-bottom: 2px
    
             a
                position: relative
@@ -203,8 +212,10 @@
                text-align: center
                +trs
                +md
-                  padding: 13px 20px
                   height: auto
+                  padding: 10px 20px
+                  font-size: 14px
+                  line-height: 18px
                &::after
                   transform: scaleY(0)
                   transform-origin: 0 0
@@ -262,3 +273,40 @@
       &-icon-1
          text
             +f('os', 600, 13)
+            
+      &-line
+         display: none
+         +md
+            display: block
+            +clr
+      
+   &__nav-toggle
+      float: right
+      background: #FFFFFF
+      width: 32px
+      height: 32px
+      border-radius: 3px
+      box-sizing: border-box
+      padding: 9px 6px
+      cursor: pointer
+      user-select: none
+      &.is-active span
+         &:first-child
+            -webkit-transform: translateY(6px) rotate(45deg)
+            transform: translateY(6px) rotate(45deg)
+         &:nth-child(2)
+            opacity: 0
+         &:last-child
+            -webkit-transform: translateY(-6px) rotate(-45deg)
+            transform: translateY(-6px) rotate(-45deg)
+      span
+         display: block
+         background: #994e92
+         width: 20px
+         height: 2px
+         border-radius: 3px
+         -webkit-transform-origin: center
+         transform-origin: center
+         transition: 0.3s ease
+         &:nth-child(2)
+            margin: 4px 0
