@@ -1,25 +1,49 @@
 .header
    position: relative
    z-index: 10
-   &__top
-      background: $white
-      &-container
-         display: flex
-         align-items: center
-         
+   
    &__row
    
    &__top
       padding: 21px 0 33px
+      background: $white
+      +md
+         padding: 20px 0 10px
+      +sm
+         padding: 10px 0
+   
+      &-container
+         display: flex
+         align-items: center
+         +md
+            justify-content: space-between
+         +sm
+            position: relative
+            flex-direction: column
+            align-items: flex-end
+      
    &__logo
       display: flex
       align-items: center
       flex: 0 0 278px
-   
+      +md
+         flex: 0 0 250px
+      +sm
+         position: absolute
+         top: 8px
+         left: 15px
+         flex: 0 1 auto
+         width: 130px
+         
       &-img
          flex: 0 0 110px
          width: 110px
-         height: 109px
+         +md
+            flex: 0 0 80px
+            width: 80px
+         +sm
+            flex: 0 0 40px
+            width: 80px
          
       &-title
          flex: 0 0 180px
@@ -27,23 +51,68 @@
          padding-left: 21px
          border-left: 1px solid #959595
          +f('os', 600, 20, 25)
-         
+         +md
+            display: flex
+            align-items: center
+            flex: 0 0 150px
+            height: 46px
+            margin: -5px 0 0 10px
+            padding-left: 10px
+            font-size: 15px
+            line-height: 20px
+         +sm
+            flex: 0 1 auto
+            height: auto
+            margin: 0 0 0 6px
+            padding: 0 0 0 6px
+            font-size: 12px
+            line-height: 14px
+   
    &__info
       padding: 0 16px
+      +sm
+         padding: 0
       &:nth-child(1)
          flex: 0 0 252px
+         +md
+            display: none
          p
             +f('os', 600, 20)
       &:nth-child(2)
          flex: 0 0 220px
+         +md
+            display: flex
+            flex: 0 1 auto
          p
             font-size: 14px
+            +md
+               font-size: 13px
+               text-align: center
+            +sm
+               display: none
             
       &-wrap
          display: flex
          flex: 0 0 480px
          margin-left: auto
-         
+         +md
+            position: relative
+            flex: 0 1 auto
+            margin-left: 0
+            &::before
+               left: 0
+            &::after
+               right: 0
+            &::after, &::before
+               position: absolute
+               top: 0
+               width: 1px
+               height: 46px
+               background: #959595
+               content: ''
+               +sm
+                  display: none
+   
       &-title
          display: inline-flex
          align-items: center
@@ -51,6 +120,13 @@
          padding-bottom: 12px
          +f('os', 600, 16)
          border-bottom: 1px solid #959595
+         +md
+            margin: 0 15px 0 0
+            padding-bottom: 0
+            border-bottom: 0
+            font-size: 15px
+         +sm
+            display: none
          &_font
             +f('os', 400)
    
@@ -63,29 +139,54 @@
       a
          +f('os', 600, 20)
          +trs
+         +md
+            font-size: 16px
+            line-height: 20px
+         +sm
+            font-size: 15px
          .no-touch &:hover
             color: #994e92
+            
+      &-data
+         +sm
+            margin-bottom: 6px
          
    &__request
       padding-left: 35px
       flex: 0 0 290px
       border-left: 1px solid $gray
+      +md
+         flex: 0 1 auto
+         padding-left: 15px
+         border-left: 0
       &-btn
          width: 100%
-         
+         +md
+            padding: 10px
+            min-width: 0
+            font-size: 12px
+            line-height: 16px
+         +sm
+            padding: 10px
+            font-size: 11px
+   
    &__bot
       padding-top: 25px
       
    &__nav
+      display: none
       ul
          display: flex
          margin: 0 -5px
+         +md
+            flex-direction: column
          li
-            //flex: 0 1 auto
             padding: 0 5px
             
             &:nth-child(1)
                flex: 0 0 98px
+               +md
+                  flex: 0 1 auto
    
             a
                position: relative
@@ -100,6 +201,9 @@
                text-transform: uppercase
                text-align: center
                +trs
+               +md
+                  padding: 13px 20px
+                  height: auto
                &::after
                   transform: scaleY(0)
                   transform-origin: 0 0
@@ -110,7 +214,9 @@
                   background: #a06396 linear-gradient(45deg, rgba(62, 19, 116, 0.59) 0%, rgba(164, 34, 143, 0.59) 100%)
                   content: ''
                   transition: .3s ease
-                  
+                  +md
+                     height: 100%
+   
                &:hover
                   color: $white
                   &::after
@@ -134,6 +240,8 @@
                      transition: .3s ease
                      transform-origin: 0 0
                      transform: scaleY(0)
+                     +md
+                        display: none
                      &::after
                         position: absolute
                         top: 0
@@ -148,6 +256,7 @@
                svg
                   position: relative
                   z-index: 2
+                  top: 6px
       
       &-icon-1
          text

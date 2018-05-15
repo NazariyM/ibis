@@ -2,28 +2,43 @@
    padding: 72px 0
    background: #f5f5f5
    text-align: center
+   +sm
+      padding: 50px 0
    
    &__section-title
       margin-bottom: 25px
+      +md
+         margin-bottom: 55px
+      +sm
+         margin-bottom: 30px
       .section-title__top
          left: -10px
          bottom: 15px
+         +md
+            bottom: -20px
    
    &__inner
       display: flex
-      margin: 0 -15px 50px
-      
+      flex-wrap: wrap
+      justify-content: center
+      margin: 0 -15px 20px
+      +sm
+         margin: 0
    &__item
       $parent: &
       position: relative
       flex: 0 0 calc(33.33333% - 30px)
-      min-height: 498px
-      margin: 0 15px
+      min-width: 350px
+      margin: 0 15px 30px
       background: #fff
       box-shadow: 0 2px 5px rgba(79, 79, 79, 0.36)
       overflow: hidden
       cursor: default
       +trs
+      +sm
+         min-width: 0
+         flex: 1 1 auto
+         margin: 0 0 30px
       &::after
          position: absolute
          top: 100%
@@ -50,6 +65,8 @@
          color: $white
          text-transform: uppercase
          +f('os', 400, 18)
+         +sm
+            font-size: 16px
          #{$parent}_1 &
             background-color: #3d1275
          #{$parent}_2 &
@@ -61,6 +78,9 @@
          padding: 15px 10px
          text-align: center
          +f('yes', null, 40, 55)
+         +sm
+            font-size: 32px
+            line-height: 40px
          #{$parent}_1 &
             background: rgba(#3d1275, .2)
          #{$parent}_2 &
@@ -69,7 +89,9 @@
             background: rgba(#a4228f, .2)
             
       &-list
-         padding: 20px 30px
+         padding: 20px 30px 25px
          text-align: left
-         
+         +sm
+            padding: 20px 20px 25px
+   
    &__price-btn

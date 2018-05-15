@@ -231,7 +231,7 @@ block main
 		include ../components/teachers
 
 		//begin first-step
-		+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
+		//+b.SECTION.first-step(style='background-image: url(static/img/bg/first-step_bg.jpg)')
 			+e.container.container
 				+b.section-title.first-step__section-title
 					+e.top
@@ -241,11 +241,10 @@ block main
 
 				+e.form-wrap
 					+order-form('_first-step', null, 'Ваше имя', 'Ваш e-mail', 'Телефон')
-
 		//end first-step
 
 		//begin reviews
-		+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
+		//+b.SECTION.reviews(style='background-image: url(static/img/bg/reviews_bg.jpg)')
 			+e.container.container
 				+b.section-title.reviews__section-title
 					+e.top

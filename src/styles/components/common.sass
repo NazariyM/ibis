@@ -42,6 +42,8 @@ body
       height: 1px
       background: #292929
       content: ''
+      +sm
+         display: none
    
    &__top
       position: absolute
@@ -50,10 +52,23 @@ body
       bottom: 20px
       z-index: 1
       +f('yes', 400, 45, 50)
+      +md
+         bottom: -20px
+      +sm
+         position: static
+         font-size: 40px
+         line-height: 35px
+         
    &__back
       padding-top: 5px
       +f('yes', 400, 94, 115)
       color: rgba($black, .07)
+      +md
+         padding-top: 20px
+         line-height: 60px
+         font-size: 65px
+      +sm
+         display: none
 
 // buttons
 .btn
@@ -67,7 +82,10 @@ body
    border-radius: 3px
    transition: .3s ease
    +trs
-   
+   +sm
+      padding: 11px 20px
+      font-size: 14px
+      line-height: 20px
    &_yellow
       color: $black
       background-color: $yellow
@@ -85,46 +103,20 @@ body
       min-width: 262px
       padding: 30px 20px 32px
       font-size: 18px
-      
+      +sm
+         padding: 15px 20px
+   
    &_long
       min-width: 300px
       padding: 13px 25px
+      +sm
+         min-width: 290px
    
    &.submit
       padding: 13px 15px
       border-radius: 3px !important
-
-// slider
-.slider
-   display: none
-   &.slick-initialized
-      display: block
-   
-   &__btn
-      position: absolute
-      top: 50%
-      z-index: 1
-      margin-top: -20px
-      outline: 0
-      border: 0
-      padding: 0
-      .no-touch &:hover svg
-         fill: red
-      &.slick-disabled
-         svg
-            fill: #c5c5c5
-         .no-touch &:hover svg
-            fill: #c5c5c5
-      
-      svg
-         width: 21px
-         height: 40px
-         fill: #000
-         +trs
-      &_prev
-         left: 0
-      &_next
-         right: 0
+      +sm
+         padding: 11px 15px
 
 // forms
 .input
@@ -137,6 +129,9 @@ body
    +trs
    +f('os', 400, 16)
    line-height: 1
+   +sm
+      font-size: 14px
+      padding: 9px 16px
    &:focus
       border-color: $yellow
 

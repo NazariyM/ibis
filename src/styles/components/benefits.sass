@@ -2,24 +2,48 @@
    position: relative
    background-color: $yellow
    background-image: linear-gradient(45deg, rgba(240, 126, 1, 0.3) 0%, rgba(255, 225, 59, 0.3) 100%)
-   
+   &__container
+      +md
+         position: relative
+         &::before, &::after
+            position: absolute
+            top: 0
+            z-index: 10
+            width: 3px
+            height: 100%
+            background: #ffff00
+            content: ''
+            +sm
+               display: none
+         &::before
+            left: 15px
+         &::after
+            right: 15px
+            content: ''
    &__section-title
       pointer-events: none
       position: absolute
       top: 70px
       left: 0
       right: 0
-      z-index: 1
+      z-index: 11
       margin-bottom: 30px
+      .section-title__top
+         +md
+            bottom: -20px
       .section-title__back
          margin-top: -4px
          padding-top: 0
          color: rgba(#ffff00, .2)
+         +md
+            margin-top: 0
+            padding-top: 20px
    
    &__inner
       display: flex
       margin: 0 -15px
-      
+      +md
+         margin: 0
    &__item
       position: relative
       display: flex
@@ -31,6 +55,14 @@
       border-right: 1px solid #ffff00
       cursor: default
       transition: .4s ease
+      +md
+         flex: 0 0 auto
+         padding: 55px 0 40px
+         height: 385px
+      +sm
+         border-right: 0
+         height: 360px
+         padding: 35px 0
       &::after
          position: absolute
          top: 100%
@@ -42,22 +74,50 @@
          box-shadow: 0 4px 5px rgba(79, 79, 79, 0.3)
          transition: .4s ease
          content: ''
+         +md
+            display: none
+         +sm
+            display: block
+            top: 0
+            height: 100%
+            right: auto
+            border-radius: 0
+            width: 2px
+            background: #ffff00
+            box-shadow: none
+            z-index: 15
+      &::before
+         +sm
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            width: 2px
+            z-index: 15
+            background: #ffff00
+            content: ''
+         
       &:first-child
          border-left: 1px solid #ffff00
+         +sm
+            border-left: 0
          
-      &:hover
+      .no-touch &:hover
          background: $white
          &::after
             height: 18px
          svg
             fill: $yellow
             transform: scale(2)
-   
       &-text
          position: relative
          text-align: center
          height: 100px
          margin-bottom: 48px
+         +md
+            padding: 0 10px
+         +sm
+            margin-bottom: 35px
          &::after
             position: absolute
             bottom: -20px

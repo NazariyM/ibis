@@ -1,13 +1,16 @@
 .screen
    position: relative
    margin-top: -36px
-   padding: 0 0 65px
+   padding: 100px 0 65px
+   +md
+      padding: 50px 0 25px
    
    &__inner
       position: relative
       display: flex
       justify-content: space-between
-      padding: 100px 0 0
+      +sm
+         flex-direction: column
    
    &__bg
       position: absolute
@@ -21,17 +24,31 @@
       margin-bottom: 28px
       font-size: 50px
       line-height: 50px
-   
+      +md
+         font-size: 42px
+         line-height: 44px
+      +sm
+         margin-bottom: 20px
+         font-size: 34px
+         line-height: 32px
+         
    &__text
       position: relative
       z-index: 2
-      flex: 0 0 420px
-      padding: 15px 0 0
+      flex: 0 1 420px
+      padding: 15px 15px 0 0
+      +sm
+         flex: 0 1 auto
+         margin-bottom: 25px
+         padding: 0
+         text-align: center
    
    &__form-wrap
       position: relative
       z-index: 2
       flex: 0 0 360px
+      +sm
+         flex: 0 1 auto
       
    &__img
       bottom: -18px
@@ -41,9 +58,19 @@
       +ratio(680, 473)
       position: absolute
       +cover
+      +md
+         margin-left: -400px
+      +sm
+         display: none
+         
+   //&__more-link
+      +sm
+         padding: 10px 20px
 
 .classes-age
-   padding: 0 0 70px
+   padding: 0 0 40px
+   +sm
+      padding: 30px 0
    
    &__section-title
       margin-bottom: 25px
@@ -55,14 +82,17 @@
          
    &__inner
       display: flex
+      flex-wrap: wrap
+      justify-content: center
       margin: 0 -15px
    
    &__item
       $parent: &
       flex: 0 0 calc(25% - 30px)
-      margin: 0 15px
+      margin: 0 15px 30px
       width: calc(25% - 30px)
       height: 263px
+      min-width: 262px
       +cover
       overflow: hidden
       border-radius: 3px
@@ -70,7 +100,7 @@
       cursor: default
       +md
          cursor: pointer
-      .no-touch &:hover
+      &:hover
          #{$parent}-content
             transform: translateY(0)
          #{$parent}-content::before
@@ -135,10 +165,22 @@
 .classes-lang
    padding: 70px 0 40px
    background: #f5f5f5
+   +sm
+      padding: 50px 0 30px
    &__section-title
       margin-bottom: 23px
+      +md
+         margin-bottom: 40px
+      +sm
+         margin-bottom: 30px
+      .section-title__back
+         +md
+            padding-top: 20px
       .section-title__top
          bottom: 15px
+         +md
+            bottom: -15px
+            
    &__inner
       display: flex
       justify-content: center
@@ -153,10 +195,13 @@
       justify-content: center
       flex: 0 0 calc(25% - 30px)
       width: calc(25% - 30px)
+      min-width: 262px
       margin: 0 15px 30px
       height: 120px
       +cover
-      
+      +sm
+         margin: 0 15px 20px
+         
       &:hover
          &::before
             opacity: 1
@@ -196,6 +241,11 @@
    padding: 85px 0 120px
    box-shadow: 0 2px 5px rgba(79, 79, 79, 0.15)
    text-align: center
+   +md
+      padding: 70px 0 80px
+   +sm
+      padding: 50px 0 60px
+   
    &__bg
       +coverdiv
       z-index: -1
@@ -205,23 +255,45 @@
    &__section-title
       max-width: 800px
       margin: 0 auto 80px
+      +md
+         margin: 0 auto 110px
+      +sm
+         margin: 0 auto 50px
       .section-title__top
          bottom: -33px
+         +md
+            bottom: -75px
+         +sm
+            line-height: 40px
       .section-title__back
          padding-top: 0
          margin-top: -10px
+         +md
+            padding-top: 10px
+            margin-top: 0
          
 .about-counts
    position: relative
    padding: 70px 0 50px
    overflow: hidden
    background: #f5f5f5
-   
+   +sm
+      padding: 50px 0 20px
+      
    &__container
       z-index: 1
    
    &__section-title
       margin-bottom: 50px
+      +md
+         margin-bottom: 70px
+      +sm
+         margin-bottom: 40px
+      .section-title__top
+         +md
+            bottom: -20px
+         +sm
+            font-size: 36px
    
    &__inner
       display: flex
@@ -233,20 +305,34 @@
       flex: 0 1 50%
       padding: 0 15px 100px
       font-size: 0
+      +md
+         padding: 0 15px 60px
+      +sm
+         display: flex
+         flex-direction: column
+         align-items: center
+         flex: 1 1 auto
       &-number
          position: relative
          display: inline-block
          vertical-align: middle
+         +sm
+            margin-bottom: 45px
          span
             color: transparent
             background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.7) 0%, rgba(164, 34, 143, 1) 100%)
             -webkit-background-clip: text
             +f('yes', 400, 80, 80)
+            +md
+               font-size: 40px
+               line-height: 40px
             &:nth-child(2)
                position: absolute
                top: 90%
                left: 0
                min-width: 210px
+               +md
+                  min-width: 110px
                &::after
                   +coverdiv
                   background-image: linear-gradient(to top, #f5f5f5 12%, #f5f5f5ad 60%, transparent)
@@ -264,6 +350,16 @@
          vertical-align: middle
          padding-left: 36px
          width: 62%
+         +md
+            position: relative
+            z-index: 1
+            width: 70%
+            padding-left: 46px
+         +sm
+            width: 100%
+            padding-left: 0
+            text-align: center
+            
          &_sm
             width: 50%
          &_lg
@@ -271,6 +367,9 @@
          p
             font-size: 19px
             line-height: 35px
+            +md
+               font-size: 16px
+               line-height: 25px
             
    &__circle
       position: absolute
@@ -279,7 +378,8 @@
       transform: translate(-50%, -50%)
       border-radius: 50%
       border: 1px solid rgba($gray, .8)
-      
+      +md
+         border-color: rgba($gray, .4)
       &_1
          width: 358px
          height: 358px

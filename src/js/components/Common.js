@@ -6,6 +6,7 @@ import './NoTouch';
 import './Slider';
 import './Dot';
 import './ContactMap';
+import '../sections/Benefits';
 
 export class Common {
   /**

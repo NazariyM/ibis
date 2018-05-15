@@ -10563,6 +10563,8 @@ __webpack_require__(340);
 
 __webpack_require__(342);
 
+__webpack_require__(347);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30966,6 +30968,119 @@ var Home = function () {
 }();
 
 exports.default = Home;
+
+/***/ }),
+/* 346 */,
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _scrollAnim = __webpack_require__(335);
+
+var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
+
+var _gsap = __webpack_require__(337);
+
+var _helpers = __webpack_require__(49);
+
+var _swiper = __webpack_require__(338);
+
+var _swiper2 = _interopRequireDefault(_swiper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Benefits = function () {
+  function Benefits() {
+    _classCallCheck(this, Benefits);
+
+    this.block = document.querySelector('.benefits');
+    this.inner = this.block.querySelector('.benefits__inner');
+    this.items = this.block.querySelectorAll('.benefits__item');
+
+    if (!this.block) return;
+    this.init();
+  }
+
+  _createClass(Benefits, [{
+    key: 'init',
+    value: function init() {
+      if (!_helpers.Resp.isDesk) {
+        this.prepareSlider();
+        this.createSlider();
+      }
+    }
+  }, {
+    key: 'prepareSlider',
+    value: function prepareSlider() {
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        var container = document.createElement('div');
+
+        container.classList.add('swiper-container');
+        _this.inner.before(container);
+        container.append(_this.inner);
+        _this.inner.classList.add('swiper-wrapper');
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = _this.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            item.classList.add('swiper-slide');
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        resolve();
+      });
+    }
+  }, {
+    key: 'createSlider',
+    value: function createSlider() {
+      this.slider = new _swiper2.default(this.inner.parentElement, {
+        slidesPerView: 3,
+        loop: true,
+        speed: 500,
+        breakpoints: {
+          767: {
+            slidesPerView: 1,
+            spaceBetween: 0
+          }
+        }
+      });
+    }
+  }]);
+
+  return Benefits;
+}();
+
+exports.default = new Benefits();
 
 /***/ })
 /******/ ]);
