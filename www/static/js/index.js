@@ -1094,6 +1094,78 @@ module.exports = {
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var META = __webpack_require__(33)('meta');
+var isObject = __webpack_require__(4);
+var has = __webpack_require__(11);
+var setDesc = __webpack_require__(7).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(3)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.3.31 Array.prototype[@@unscopables]
+var UNSCOPABLES = __webpack_require__(5)('unscopables');
+var ArrayProto = Array.prototype;
+if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(12)(ArrayProto, UNSCOPABLES, {});
+module.exports = function (key) {
+  ArrayProto[UNSCOPABLES][key] = true;
+};
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -1493,78 +1565,6 @@ var detectIE = exports.detectIE = function detectIE() {
 	// other browser
 	return false;
 };
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var META = __webpack_require__(33)('meta');
-var isObject = __webpack_require__(4);
-var has = __webpack_require__(11);
-var setDesc = __webpack_require__(7).f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__webpack_require__(3)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 22.1.3.31 Array.prototype[@@unscopables]
-var UNSCOPABLES = __webpack_require__(5)('unscopables');
-var ArrayProto = Array.prototype;
-if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(12)(ArrayProto, UNSCOPABLES, {});
-module.exports = function (key) {
-  ArrayProto[UNSCOPABLES][key] = true;
-};
-
 
 /***/ }),
 /* 32 */
@@ -2053,7 +2053,7 @@ var global = __webpack_require__(2);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(13);
 var redefineAll = __webpack_require__(42);
-var meta = __webpack_require__(30);
+var meta = __webpack_require__(29);
 var forOf = __webpack_require__(41);
 var anInstance = __webpack_require__(40);
 var isObject = __webpack_require__(4);
@@ -2658,7 +2658,7 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(31);
+var addToUnscopables = __webpack_require__(30);
 var step = __webpack_require__(110);
 var Iterators = __webpack_require__(45);
 var toIObject = __webpack_require__(15);
@@ -11606,7 +11606,7 @@ var $iterDefine = __webpack_require__(77);
 var step = __webpack_require__(110);
 var setSpecies = __webpack_require__(39);
 var DESCRIPTORS = __webpack_require__(6);
-var fastKey = __webpack_require__(30).fastKey;
+var fastKey = __webpack_require__(29).fastKey;
 var validate = __webpack_require__(46);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
 
@@ -11770,7 +11770,7 @@ module.exports = __webpack_require__(59)(SET, function (get) {
 
 var each = __webpack_require__(26)(0);
 var redefine = __webpack_require__(13);
-var meta = __webpack_require__(30);
+var meta = __webpack_require__(29);
 var assign = __webpack_require__(98);
 var weak = __webpack_require__(118);
 var isObject = __webpack_require__(4);
@@ -11835,7 +11835,7 @@ if (fails(function () { return new $WeakMap().set((Object.freeze || Object)(tmp)
 "use strict";
 
 var redefineAll = __webpack_require__(42);
-var getWeak = __webpack_require__(30).getWeak;
+var getWeak = __webpack_require__(29).getWeak;
 var anObject = __webpack_require__(1);
 var isObject = __webpack_require__(4);
 var anInstance = __webpack_require__(40);
@@ -12111,7 +12111,7 @@ var _Scrollmagic = __webpack_require__(338);
 
 var _Scrollmagic2 = _interopRequireDefault(_Scrollmagic);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12270,13 +12270,13 @@ __webpack_require__(332);
 
 __webpack_require__(333);
 
-__webpack_require__(343);
+__webpack_require__(342);
 
-var _Home = __webpack_require__(345);
+var _Home = __webpack_require__(344);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12546,7 +12546,7 @@ var has = __webpack_require__(11);
 var DESCRIPTORS = __webpack_require__(6);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(13);
-var META = __webpack_require__(30).KEY;
+var META = __webpack_require__(29).KEY;
 var $fails = __webpack_require__(3);
 var shared = __webpack_require__(50);
 var setToStringTag = __webpack_require__(43);
@@ -12884,7 +12884,7 @@ __webpack_require__(25)('getOwnPropertyNames', function () {
 
 // 19.1.2.5 Object.freeze(O)
 var isObject = __webpack_require__(4);
-var meta = __webpack_require__(30).onFreeze;
+var meta = __webpack_require__(29).onFreeze;
 
 __webpack_require__(25)('freeze', function ($freeze) {
   return function freeze(it) {
@@ -12899,7 +12899,7 @@ __webpack_require__(25)('freeze', function ($freeze) {
 
 // 19.1.2.17 Object.seal(O)
 var isObject = __webpack_require__(4);
-var meta = __webpack_require__(30).onFreeze;
+var meta = __webpack_require__(29).onFreeze;
 
 __webpack_require__(25)('seal', function ($seal) {
   return function seal(it) {
@@ -12914,7 +12914,7 @@ __webpack_require__(25)('seal', function ($seal) {
 
 // 19.1.2.15 Object.preventExtensions(O)
 var isObject = __webpack_require__(4);
-var meta = __webpack_require__(30).onFreeze;
+var meta = __webpack_require__(29).onFreeze;
 
 __webpack_require__(25)('preventExtensions', function ($preventExtensions) {
   return function preventExtensions(it) {
@@ -14559,7 +14559,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'Array', { copyWithin: __webpack_require__(109) });
 
-__webpack_require__(31)('copyWithin');
+__webpack_require__(30)('copyWithin');
 
 
 /***/ }),
@@ -14571,7 +14571,7 @@ var $export = __webpack_require__(0);
 
 $export($export.P, 'Array', { fill: __webpack_require__(85) });
 
-__webpack_require__(31)('fill');
+__webpack_require__(30)('fill');
 
 
 /***/ }),
@@ -14592,7 +14592,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(31)(KEY);
+__webpack_require__(30)(KEY);
 
 
 /***/ }),
@@ -14613,7 +14613,7 @@ $export($export.P + $export.F * forced, 'Array', {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
 });
-__webpack_require__(31)(KEY);
+__webpack_require__(30)(KEY);
 
 
 /***/ }),
@@ -15644,7 +15644,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(31)('includes');
+__webpack_require__(30)('includes');
 
 
 /***/ }),
@@ -15673,7 +15673,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(31)('flatMap');
+__webpack_require__(30)('flatMap');
 
 
 /***/ }),
@@ -15701,7 +15701,7 @@ $export($export.P, 'Array', {
   }
 });
 
-__webpack_require__(31)('flatten');
+__webpack_require__(30)('flatten');
 
 
 /***/ }),
@@ -18589,6 +18589,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 // import './Anims';
 
+// import './ContactsMap';
+
 
 var _objectFitImages = __webpack_require__(334);
 
@@ -18596,7 +18598,7 @@ var _objectFitImages2 = _interopRequireDefault(_objectFitImages);
 
 __webpack_require__(335);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 __webpack_require__(336);
 
@@ -18605,8 +18607,6 @@ __webpack_require__(337);
 __webpack_require__(339);
 
 __webpack_require__(341);
-
-__webpack_require__(342);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18900,7 +18900,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -18948,7 +18948,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _gsap = __webpack_require__(92);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -18965,7 +18965,7 @@ var Header = function () {
   _createClass(Header, [{
     key: 'init',
     value: function init() {
-      this.bindEvents();
+      // this.bindEvents();
 
       if (!_helpers.Resp.isDesk) {
         this.toggleNav();
@@ -21897,7 +21897,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 __webpack_require__(340);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22639,90 +22639,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _helpers = __webpack_require__(29);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ContactMap = function () {
-  function ContactMap() {
-    _classCallCheck(this, ContactMap);
-
-    this.block = document.querySelector('.contact-map');
-
-    if (!this.block) return;
-
-    this.init();
-  }
-
-  _createClass(ContactMap, [{
-    key: 'init',
-    value: function init() {
-      var _this = this;
-
-      var ready = new Promise(function (resolve) {
-        resolve(ymaps.ready());
-      });
-
-      ready.then(function () {
-        ymaps.ready(_this.createMap());
-      });
-    }
-  }, {
-    key: 'createMap',
-    value: function createMap() {
-      var map = new ymaps.Map('contact-map', {
-        center: [55.65642954351157, 37.594330040969844],
-        zoom: 17,
-        controls: []
-      });
-
-      var balloonLayout = ymaps.templateLayoutFactory.createClass('<div class="contact-map__content">\n        <p>\u0410\u0437\u043E\u0432\u0441\u043A\u0430\u044F \u0443\u043B\u0438\u0446\u0430, 15</p>\n      </div>');
-
-      var officePlace = new ymaps.Placemark([55.65647806907896, 37.599039999999995], { name: 'suka' }, {
-        iconColor: 'red',
-        balloonContentLayout: balloonLayout,
-        balloonShadow: false,
-        balloonPanelMaxMapArea: 0,
-        hideIconOnBalloonOpen: false,
-        balloonCloseButton: false,
-        balloonOffset: [70, 7]
-      });
-
-      map.behaviors.disable('scrollZoom');
-      map.geoObjects.add(officePlace);
-      officePlace.balloon.open();
-
-      if (!_helpers.Resp.isDesk) {
-        map.setCenter([55.65647806907896, 37.599039999999995]);
-      }
-    }
-  }]);
-
-  return ContactMap;
-}();
-
-exports.default = new ContactMap();
-
-/***/ }),
-/* 342 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _scrollAnim = __webpack_require__(127);
 
 var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
 
 var _gsap = __webpack_require__(92);
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 var _swiper = __webpack_require__(128);
 
@@ -22816,7 +22739,7 @@ var Benefits = function () {
 exports.default = new Benefits();
 
 /***/ }),
-/* 343 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22834,7 +22757,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @module PublicAPI
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _Timer = __webpack_require__(344);
+var _Timer = __webpack_require__(343);
 
 var _Timer2 = _interopRequireDefault(_Timer);
 
@@ -22875,7 +22798,7 @@ var PublicAPI = exports.PublicAPI = function () {
 exports.default = window.PublicAPI = PublicAPI;
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22955,7 +22878,7 @@ var Timer = exports.Timer = function Timer() {
 exports.default = new Timer();
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22971,7 +22894,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @module Home
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
-var _helpers = __webpack_require__(29);
+var _helpers = __webpack_require__(31);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

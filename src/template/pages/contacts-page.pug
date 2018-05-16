@@ -3,16 +3,17 @@ extends ../extend/default
 block variables
 	-title = 'Страница контактов';
 	-contactMap = true;
+	-headerBotClass = '_has-bg';
+	-headerBotBg = 'background-image: url(static/img/bg/header-bot_bg.jpg)';
 
 block main
 	main.content
 		//begin contacts
 		+b.SECTION.contacts
-			+e.bg(style='background-image: url(static/img/bg/contacts_bg.jpg)')
 			+e.inner
 
 				+e.map-wrap
-					+e.map.contact-map#contact-map
+					+e.map.contacts-map#contacts-map
 
 				+e.container.container
 					+e.content
@@ -103,19 +104,20 @@ block main
 									p 55.681732, 37.865220
 		//end contacts
 
-		//begin about
-		+b.SECTION.about(style='background-image: url(static/img/bg/about_bg.jpg)')
+		//begin requisites
+		+b.SECTION.requisites(style='background-image: url(static/img/bg/requisites_bg.jpg)')
 			+e.container.container
-				+e.title
-					h3 Наш центр расположен в одном из современных районов Москвы, всего в 600 метрах от станции метро Каховская.
-				+e.pictures
-					+e.pictures-item
-						+e.IMG(src='static/img/content/about-1.jpg' alt='image')
-					+e.pictures-item
-						+e.IMG(src='static/img/content/about-2.jpg' alt='image')
+				+e.location
+					+e.location-title
+						h3 Наш центр расположен в одном из современных районов Москвы, всего в 600 метрах от станции метро Каховская.
+					+e.location-images
+						+e.location-img
+							+e.IMG(src='static/img/content/requisites-1.jpg' alt='image')
+						+e.location-img
+							+e.IMG(src='static/img/content/requisites-2.jpg' alt='image')
 
-				+e.requisites
-					+b.section-title.about__section-title
+				+e.inner
+					+b.section-title.requisites__section-title
 						+e.top
 							h2 Реквизиты организации
 						+e.back
@@ -164,7 +166,7 @@ block main
 
 					each el, index in titleList
 						+reqItem(index)
-		//end about
+		//end requisites
 
 		//begin cost-contact
 		+b.SECTION.cost-contact._contacts(style='background-image: url(static/img/bg/cost-contact_bg.jpg)')

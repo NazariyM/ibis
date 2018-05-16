@@ -1,8 +1,8 @@
 import { Resp } from '../modules/dev/_helpers';
 
-class ContactMap {
+class ContactsMap {
   constructor() {
-    this.block = document.querySelector('.contact-map');
+    this.block = document.querySelector('.contacts-map');
 
     if (!this.block) return;
 
@@ -20,7 +20,7 @@ class ContactMap {
   }
 
   createMap() {
-    const map = new ymaps.Map('contact-map', {
+    const map = new ymaps.Map('contacts-map', {
       center: [55.65642954351157, 37.594330040969844],
       zoom: 17,
       controls: []
@@ -52,4 +52,4 @@ class ContactMap {
 
 }
 
-export default new ContactMap();
+export default new ContactsMap();

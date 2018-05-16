@@ -1,7 +1,5 @@
 .contacts
    position: relative
-   margin-top: -100px
-   padding-top: 165px
    overflow: hidden
    
    &__container
@@ -77,46 +75,42 @@
          span
             +f('os', 400)
             
-.about
+.requisites
    padding: 80px 0 75px
    +cover
    +sm
       padding: 50px 0
-   
-   &__title
-      position: relative
-      margin-bottom: 40px
-      padding-top: 53px
-      +f('os', 600, 30, 40)
-      text-align: center
-      +sm
-         padding-top: 30px
-         margin-bottom: 30px
-         font-size: 22px
-         line-height: 30px
-      &::before
-         position: absolute
-         top: 0
-         left: 50%
-         margin-left: -56px
-         width: 112px
-         height: 1px
-         background: #292929
-         content: ''
-         
-   &__section-title
-      margin-bottom: 38px
-         
-   &__pictures
-      display: flex
-      flex-wrap: wrap
-      justify-content: center
-      margin: 0 -15px 40px
-      +md
-         flex-direction: column
-         max-width: 555px
-         margin: 0 auto 40px
-      &-item
+   &__location
+      &-title
+         position: relative
+         margin-bottom: 40px
+         padding-top: 53px
+         +f('os', 600, 30, 40)
+         text-align: center
+         +sm
+            padding-top: 30px
+            margin-bottom: 30px
+            font-size: 22px
+            line-height: 30px
+         &::before
+            position: absolute
+            top: 0
+            left: 50%
+            margin-left: -56px
+            width: 112px
+            height: 1px
+            background: #292929
+            content: ''
+      &-images
+         display: flex
+         flex-wrap: wrap
+         justify-content: center
+         margin: 0 -15px 40px
+         +md
+            flex-direction: column
+            max-width: 555px
+            margin: 0 auto 40px
+      &-img
          flex: 0 1 50%
          padding: 0 15px
          margin-bottom: 30px
@@ -129,7 +123,9 @@
             padding: 0
          +sm
             height: 200px
-   
+            
+   &__section-title
+      margin-bottom: 38px
    &__requisites
       &-item
          display: flex

@@ -6,7 +6,7 @@ import { $body, detectIE } from '../modules/dev/_helpers';
 import './Header';
 import './FullSlider';
 import './Dot';
-import './ContactMap';
+// import './ContactsMap';
 import '../sections/Benefits';
 
 export class Common {

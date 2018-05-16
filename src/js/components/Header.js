@@ -1,11 +1,8 @@
 import { TweenMax } from 'gsap';
 import {
-  $body,
   $header,
-  $window,
-  throttle,
   css,
-  Resp, $scrolledElements
+  Resp
 } from '../modules/dev/_helpers';
 
 class Header {
@@ -17,7 +14,7 @@ class Header {
   }
 
   init() {
-    this.bindEvents();
+    // this.bindEvents();
 
     if (!Resp.isDesk) {
       this.toggleNav();

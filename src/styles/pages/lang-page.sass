@@ -1,6 +1,8 @@
 .lang-screen
    position: relative
    margin-top: -100px
+   +md
+      margin-top: 0
    &__bg
       position: absolute
       top: 0
@@ -13,9 +15,9 @@
       padding: 95px 0 0
       height: 420px
       +md
-         padding: 165px 0 0
+         padding: 155px 0 0
       +sm
-         padding: 110px 0 50px
+         padding: 60px 0
          height: auto
    
    &__text
@@ -96,7 +98,7 @@
                   background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.41) 0%, rgba(164, 34, 143, 0.41) 100%)
                   transition: .4s ease
                   content: ''
-               .no-touch &:hover
+               &:hover
                   color: $white
                   box-shadow: 0 6px 9px rgba(141, 69, 142, 0.5)
                   border-radius: 3px

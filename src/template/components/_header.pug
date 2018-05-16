@@ -39,7 +39,7 @@
 			+e.request
 				+e.A.request-btn.btn._yellow._lg(href='#!') Заявка на обучение
 
-	+e.bot
+	+e.bot(class= headerBotClass ? headerBotClass : '' style= headerBotBg || '')
 		+e.bot-container.container
 			+e.nav-line
 				+e.BUTTON(type='button').nav-toggle
@@ -48,10 +48,9 @@
 					span
 
 			+e.NAV.nav
-
 				ul
 					li
-						a(href='https://css-tricks.com/')
+						a(href='#!')
 							span О НАС
 							span
 								svg(class='header__nav-icon-1' xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', width='61', height='98', viewbox='0 0 61 98')
@@ -171,6 +170,4 @@
 									g
 										g(transform='translate(-1443 -259)')
 											use(xlink:href='#qjjia')
-
-
 //end header
