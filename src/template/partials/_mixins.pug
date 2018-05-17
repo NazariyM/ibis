@@ -43,7 +43,7 @@ mixin cost-form(classMod, btnText, ...formText)
 
 // title
 mixin title(classMod, titleTop, titleBack)
-	+b.section-title
+	+b.section-title(class= classMod)
 		+e.top
 			h2= titleTop
 		+e.back

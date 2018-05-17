@@ -1,0 +1,25 @@
+.c-tabs
+   $parent: &
+   &__nav
+      margin-bottom: 40px
+   &__for
+      position: relative
+   &__btn
+      &.is-active a
+         color: $white
+         box-shadow: 0 6px 9px rgba(141, 69, 142, 0.5)
+         border-radius: 3px
+         border-color: #a06396
+         &::after
+            opacity: 1
+   
+   &__tab
+      display: none
+      
+      &:first-child
+         display: block
+      
+      &-inner
+         display: flex
+         flex-wrap: wrap
+         margin: 0 -15px

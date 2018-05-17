@@ -138,3 +138,60 @@
          fill: #994e92
          transition: opacity .25s ease, transform .3s ease
          
+.nav-links
+   $parent: &
+   ul
+      display: flex
+      flex-wrap: wrap
+      margin: 0 -5px
+      li
+         padding: 0 5px 10px
+         text-align: center
+         +sm
+            width: 100%
+            flex: 1 1 auto
+            
+         a
+            position: relative
+            display: block
+            padding: 11px 5px
+            border-radius: 3px
+            border: 1px solid #a2a2a2
+            font-size: 15px
+            transition: .4s ease
+            +sm
+               padding: 8px 5px
+            &::after
+               opacity: 0
+               pointer-events: none
+               +coverdiv
+               background-color: #a06396
+               background-image: linear-gradient(45deg, rgba(62, 19, 116, 0.41) 0%, rgba(164, 34, 143, 0.41) 100%)
+               transition: .4s ease
+               content: ''
+            &:hover
+               color: $white
+               box-shadow: 0 6px 9px rgba(141, 69, 142, 0.5)
+               border-radius: 3px
+               border-color: #a06396
+               &::after
+                  opacity: 1
+            span
+               position: relative
+               z-index: 1
+               
+   &_tabs
+      ul li
+         flex: 1 1 33.33333%
+         
+   &_lang-screen
+      ul
+         li
+            flex: 1 1 auto
+         &:nth-last-of-type(1),
+         &:nth-last-of-type(2),
+         &:nth-last-of-type(3)
+            flex: 1 1 33.33333%
+            +sm
+               width: 100%
+               flex: 1 1 auto

@@ -1,1 +1,91 @@
 .about
+   padding: 70px 0 65px
+   background: #f5f5f5
+   &__top-container
+      padding: 0 15px 25px
+   &__top-img
+      position: relative
+      height: 512px
+      +cover
+      &::after
+         +coverdiv
+         background: rgba(#ff7e00, .2)
+         content: ''
+         
+   &__why
+      padding: 68px 0 0
+      &-title
+         position: relative
+         padding: 55px 0 0
+         margin: 0 0 10px
+         +f('os', 600, 28, 40)
+         text-align: center
+         &::before
+            position: absolute
+            top: 0
+            left: 50%
+            width: 114px
+            height: 1px
+            margin-left: -57px
+            background: #292929
+            content: ''
+      
+      &-descr
+         text-align: center
+         font-size: 20px
+      
+      &-row
+         display: flex
+         flex-wrap: wrap
+         max-width: 930px
+         margin: 77px auto 35px
+      &-item
+         display: flex
+         align-items: center
+         flex: 0 1 50%
+         padding: 0 15px
+         &:nth-child(2) ~ &
+            padding: 30px 15px 0
+         svg
+            flex-shrink: 0
+      &-text
+         padding-left: 30px
+         line-height: 28px
+         font-style: italic
+         
+.license
+   padding: 70px 0 65px
+   &__section-title
+      margin-bottom: 25px
+      
+   &__images
+      display: flex
+      margin: 0 auto 40px
+      max-width: 878px
+      &-inner
+      &-item
+         margin: 0 15px
+         flex: 0 0 calc(33.333333% - 30px)
+         +ratio(262, 377)
+         +cover
+         
+   &__text
+      line-height: 28px
+      p
+         margin-bottom: 28px
+         
+      ul
+         li
+            position: relative
+            padding-left: 30px
+            &::before
+               position: absolute
+               top: 6px
+               left: 0
+               width: 16px
+               height: 16px
+               border-radius: 50%
+               background-color: $yellow
+               content: ''
+            &:not(:last-child)
+               margin-bottom: 28px

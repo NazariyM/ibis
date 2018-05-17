@@ -6,6 +6,7 @@ import { $body, detectIE } from '../modules/dev/_helpers';
 import './Header';
 import './FullSlider';
 import './Dot';
+import './CTabs';
 // import './ContactsMap';
 import '../sections/Benefits';
 

@@ -1,6 +1,6 @@
 import { TweenMax } from 'gsap';
 import {
-  $header,
+  $window,
   css,
   Resp
 } from '../modules/dev/_helpers';
@@ -14,7 +14,7 @@ class Header {
   }
 
   init() {
-    // this.bindEvents();
+    this.bindEvents();
 
     if (!Resp.isDesk) {
       this.toggleNav();
@@ -22,11 +22,7 @@ class Header {
   }
 
   bindEvents() {
-    this.show();
-  }
-
-  show() {
-    TweenMax.to($header, .7, { y: 0, delay: .5 });
+    this.onResize();
   }
 
   toggleNav() {
@@ -34,6 +30,17 @@ class Header {
     this.$navBtn.on('click tap', function () {
       $(this).toggleClass(css.active);
       _this.$nav.slideToggle();
+    });
+  }
+
+  onResize() {
+    $window.on('resize', () => {
+      if (!Resp.isDesk) {
+        this.$navBtn.removeClass(css.active);
+        this.$nav.slideUp(function () {
+          $(this).removeAttr('style');
+        });
+      }
     });
   }
 
