@@ -7,6 +7,7 @@ import './Header';
 import './FullSlider';
 import './Dot';
 import './CTabs';
+import './TeachersModal';
 // import './ContactsMap';
 import '../sections/Benefits';
 

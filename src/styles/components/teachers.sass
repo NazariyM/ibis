@@ -1,6 +1,12 @@
 .teachers
+   $parent: &
    background: #f5f5f5
    text-align: center
+   &_tabs
+      padding: 70px 0 94px
+      +sm
+         padding: 40px 0 50px
+         
    &__container
       margin: 0 auto 20px
       +md
@@ -11,6 +17,13 @@
    &__section-title
       .section-title__top
          left: 8px
+      
+      #{$parent}_tabs &
+         margin-bottom: 22px
+         +md
+            margin-bottom: 50px
+         +sm
+            margin-bottom: 20px
    
    &__slider
       margin: 0 0 50px
@@ -118,8 +131,194 @@
                line-height: 24px
       
    &__item
-      flex: 0 1 33.33333%
-      min-width: 360px
-      padding: 0 15px
+      $parent: &
+      position: relative
+      flex: 0 1 calc(33.33333% - 30px)
+      min-width: 350px
+      max-width: 360px
+      margin: 0 15px
+      cursor: default
+      +md
+         flex: 0 1 calc(50% - 30px)
+      +sm
+         flex: 0 1 auto
+         width: 100%
+         min-width: 0
+         padding-bottom: 20px
+      &::after
+         pointer-events: none
+         position: absolute
+         top: 20px
+         left: 20px
+         right: 20px
+         bottom: -30px
+         border: 2px solid rgba(#2e194c, .2)
+         content: ''
+         +sm
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+         
+      &:hover #{$parent}-img
+         box-shadow: 0 22px 35px rgba(#454545, .26)
       &:nth-child(3) ~ &
-         padding-top: 30px
+         margin-top: 60px
+      &:nth-child(2) ~ &
+         +md
+            margin-top: 60px
+      &:nth-child(1) ~ &
+         +sm
+            margin-top: 25px
+         
+      &-img
+         position: relative
+         height: 442px
+         +cover-img
+         transition: .3s ease
+         +sm
+            height: 400px
+            z-index: 2
+   
+      &-title
+         position: absolute
+         bottom: 0
+         left: 0
+         right: 0
+         overflow: hidden
+         padding: 33px 10px 34px
+         text-align: center
+         +f('yes', 30, 30, 34)
+         +sm
+            padding: 23px 10px 15px
+            font-size: 26px
+            line-height: 30px
+         &::after
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            height: 100%
+            border-radius: 100% 100% 0 0
+            background-color: rgba($yellow, .9)
+            content: ''
+         h4
+            position: relative
+            z-index: 1
+            
+      &-content
+         padding: 0 0 105px
+         +sm
+            padding: 0 0 60px
+      &-text
+         padding: 43px 38px 0 46px
+         font-style: italic
+         font-size: 15px
+         line-height: 28px
+         text-align: left
+         +sm
+            padding: 25px 20px 0 20px
+            line-height: 24px
+            font-size: 14px
+      &-btn
+         position: absolute
+         left: 50%
+         bottom: 0
+         z-index: 2
+         margin-left: -140px
+         max-width: 280px
+         width: 100%
+         padding: 13px 5px
+         box-shadow: 0 12px 24px rgba(122, 103, 0, 0.21)
+         +sm
+            bottom: 20px
+            padding: 11px 5px
+            max-width: 250px
+            margin-left: -125px
+         &:hover
+            box-shadow: none
+         
+      &-icon
+         position: absolute
+         +sm
+            width: 18px
+            height: 18px
+         &_top
+            top: 450px
+            left: 50px
+            +sm
+               top: 361px
+               left: 10px
+         &_bot
+            right: 40px
+            bottom: 60px
+            transform: rotate(180deg)
+            +sm
+               right: 10px
+               bottom: 70px
+   
+   &__modal
+      display: none
+      max-width: 970px
+      padding: 20px 0 0 25px
+      line-height: 28px
+      background: transparent
+      &-inner
+         padding: 0 30px 30px 30px
+         background: $white
+      &-top
+         display: flex
+         margin-bottom: 25px
+      &-img
+         margin: -17px 0 0 -55px
+         flex: 0 0 360px
+         height: 442px
+         box-shadow: 0 22px 35px rgba(#454545, .26)
+         +cover-img
+      &-text
+         padding: 58px 0 0 36px
+         
+      &-title
+         margin-bottom: 15px
+         +f('yes', null, 30, 30)
+         
+      p
+         &:not(:last-child)
+            margin-bottom: 20px
+         
+// fb settings
+.fancybox-close-small
+   top: -9px
+   padding: 0
+   width: 30px
+   height: 30px
+   &:hover svg
+      stroke: $yellow
+   svg
+      stroke-width: 2px
+      stroke: $white
+      opacity: 1
+      +trs
+            
+.fancybox-button, .fancybox-button:link, .fancybox-button:visited
+   color: $white
+   
+.fancybox-button
+   background: 0
+   padding: 0!important
+   width: 24px!important
+   height: 48px!important
+   &:hover
+      color: $yellow
+   svg
+      width: 24px
+      height: 48px
+      
+.fancybox-navigation .fancybox-button--arrow_left
+   left: 11.5%
+   opacity: 1!important
+   visibility: visible!important
+.fancybox-navigation .fancybox-button--arrow_right
+   right: 11.5%
+   opacity: 1!important
+   visibility: visible!important

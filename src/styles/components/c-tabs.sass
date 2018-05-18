@@ -1,18 +1,23 @@
 .c-tabs
    $parent: &
    &__nav
-      margin-bottom: 40px
+      margin-bottom: 45px
+      +sm
+         margin-bottom: 15px
    &__for
       position: relative
    &__btn
       &.is-active a
+         pointer-events: none
          color: $white
          box-shadow: 0 6px 9px rgba(141, 69, 142, 0.5)
          border-radius: 3px
          border-color: #a06396
          &::after
             opacity: 1
-   
+      a
+         +sm
+            font-size: 14px!important
    &__tab
       display: none
       
@@ -23,3 +28,5 @@
          display: flex
          flex-wrap: wrap
          margin: 0 -15px
+         +md
+            justify-content: center
