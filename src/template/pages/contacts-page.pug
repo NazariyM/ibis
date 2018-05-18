@@ -112,9 +112,11 @@ block main
 						h3 Наш центр расположен в одном из современных районов Москвы, всего в 600 метрах от станции метро Каховская.
 					+e.location-images
 						+e.location-img
-							+e.IMG(src='static/img/content/requisites-1.jpg' alt='image')
+							+e.A(data-fancybox='office' href='static/img/content/office-1.jpg')
+								+e.IMG(src='static/img/content/office-1_sm.jpg' alt='office')
 						+e.location-img
-							+e.IMG(src='static/img/content/requisites-2.jpg' alt='image')
+							+e.A(data-fancybox='office' href='static/img/content/office-2.jpg')
+								+e.IMG(src='static/img/content/office-2_sm.jpg' alt='office')
 
 				+e.inner
 					+b.section-title.requisites__section-title

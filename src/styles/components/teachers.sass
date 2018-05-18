@@ -263,62 +263,112 @@
       padding: 20px 0 0 25px
       line-height: 28px
       background: transparent
+      +md
+         max-width: 740px
+      +sm
+         padding: 0
+   
       &-inner
          padding: 0 30px 30px 30px
          background: $white
+         +md
+            padding: 0 20px 30px 20px
+         +sm
+            padding: 32px 15px 20px
       &-top
-         display: flex
-         margin-bottom: 25px
+         margin-bottom: 5px
+         +clr
       &-img
-         margin: -17px 0 0 -55px
-         flex: 0 0 360px
+         float: left
+         width: 360px
          height: 442px
+         margin: -17px 36px 26px -55px
          box-shadow: 0 22px 35px rgba(#454545, .26)
          +cover-img
+         +md
+            width: 300px
+            height: 372px
+            margin: -17px 25px 25px -55px
+         +sm
+            float: none
+            max-width: 360px
+            width: 100%
+            height: 410px
+            margin: 0 auto
+   
       &-text
-         padding: 58px 0 0 36px
-         
+         padding: 58px 0 0
+         +md
+            padding: 25px 0 0 25px
+         +sm
+            padding: 25px 0 0
+   
       &-title
          margin-bottom: 15px
          +f('yes', null, 30, 30)
+         +sm
+            font-size: 24px
          
       p
+         +md
+            font-size: 15px
+            line-height: 24px
+         +sm
+            font-size: 14px
+            line-height: 22px
          &:not(:last-child)
             margin-bottom: 20px
-         
-// fb settings
-.fancybox-close-small
-   top: -9px
-   padding: 0
-   width: 30px
-   height: 30px
-   &:hover svg
-      stroke: $yellow
-   svg
-      stroke-width: 2px
-      stroke: $white
-      opacity: 1
-      +trs
-            
-.fancybox-button, .fancybox-button:link, .fancybox-button:visited
-   color: $white
+            +sm
+               margin-bottom: 10px
    
-.fancybox-button
-   background: 0
-   padding: 0!important
-   width: 24px!important
-   height: 48px!important
-   &:hover
-      color: $yellow
-   svg
-      width: 24px
-      height: 48px
+// fb settings
+[data-page='teachers']
+   .fancybox-close-small
+      top: -9px
+      padding: 0
+      width: 30px
+      height: 30px
+      +sm
+         top: 2px
+      &:hover svg
+         stroke: $yellow
+      svg
+         stroke-width: 2px
+         stroke: $white
+         opacity: 1
+         +trs
+         +sm
+            stroke: $black
+         
+   .fancybox-button, .fancybox-button:link, .fancybox-button:visited
+      color: $white
       
-.fancybox-navigation .fancybox-button--arrow_left
-   left: 11.5%
-   opacity: 1!important
-   visibility: visible!important
-.fancybox-navigation .fancybox-button--arrow_right
-   right: 11.5%
-   opacity: 1!important
-   visibility: visible!important
+   .fancybox-button
+      background: 0
+      padding: 0!important
+      width: 24px!important
+      height: 48px!important
+      +md
+         top: calc(100% - 70px) !important
+      &:hover
+         color: $yellow
+      svg
+         width: 24px
+         height: 48px
+         
+   .fancybox-navigation .fancybox-button--arrow_left
+      left: 11.5%
+      opacity: 1!important
+      visibility: visible!important
+      
+   .fancybox-navigation .fancybox-button--arrow_right
+      right: 11.5%
+      opacity: 1!important
+      visibility: visible!important
+      
+   .fancybox-infobar
+      display: none !important
+
+   .fancybox-navigation
+      +sm
+         display: none !important

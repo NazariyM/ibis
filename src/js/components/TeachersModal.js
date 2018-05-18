@@ -1,6 +1,6 @@
 import fancybox from '@fancyapps/fancybox';
 
-$('[data-fancybox]').fancybox({
+$('[data-fancybox="teachers"]').fancybox({
   btnTpl: {
     arrowLeft:
     `<a data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}" href="javascript:;">

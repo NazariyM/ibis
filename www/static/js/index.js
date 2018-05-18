@@ -28240,7 +28240,7 @@ var _fancybox2 = _interopRequireDefault(_fancybox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-$('[data-fancybox]').fancybox({
+$('[data-fancybox="teachers"]').fancybox({
     btnTpl: {
         arrowLeft: '<a data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}" href="javascript:;">\n      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="48"\n           viewBox="0 0 24 48">\n          <defs>\n              <path id="qlcya" d="M412.89 1495L389 1471l23.89-24"/>\n              <clipPath id="qlcyb">\n                  <use fill="#fff" xlink:href="#qlcya"/>\n              </clipPath>\n          </defs>\n          <g>\n              <g transform="translate(-389 -1447)">\n                  <use fill="#fff" fill-opacity="0" stroke="#fff" stroke-miterlimit="50" stroke-width="6"\n                       clip-path="url(&quot;#qlcyb&quot;)" xlink:href="#qlcya"/>\n              </g>\n          </g>\n      </svg>\n    </a>',
 

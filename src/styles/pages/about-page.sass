@@ -1,25 +1,45 @@
 .about
    padding: 70px 0 65px
    background: #f5f5f5
+   +sm
+      padding: 40px 0 50px
    &__top-container
       padding: 0 15px 25px
+      +md
+         padding: 0 15px 50px
+      +sm
+         padding: 0 15px 30px
    &__top-img
       position: relative
       height: 512px
       +cover
+      +md
+         height: 330px
+      +sm
+         height: 230px
       &::after
          +coverdiv
          background: rgba(#ff7e00, .2)
          content: ''
          
    &__why
-      padding: 68px 0 0
+      padding: 68px 15px 0
+      +sm
+         padding: 35px 15px 0
       &-title
          position: relative
          padding: 55px 0 0
          margin: 0 0 10px
          +f('os', 600, 28, 40)
          text-align: center
+         +md
+            padding: 25px 0 0
+            font-size: 24px
+            line-height: 34px
+         +sm
+            padding: 15px 0 0
+            font-size: 17px
+            line-height: 24px
          &::before
             position: absolute
             top: 0
@@ -33,51 +53,114 @@
       &-descr
          text-align: center
          font-size: 20px
+         +md
+            font-size: 18px
+         +sm
+            font-size: 15px
+            
       
       &-row
          display: flex
          flex-wrap: wrap
          max-width: 930px
          margin: 77px auto 35px
+         +md
+            margin: 45px auto 35px
+         +sm
+            margin: 35px auto
       &-item
          display: flex
          align-items: center
          flex: 0 1 50%
          padding: 0 15px
+         +sm
+            flex: 0 1 auto
+            width: 100%
+            padding: 0
+         &:nth-child(1) ~ &
+            +sm
+               padding: 30px 15px 0
          &:nth-child(2) ~ &
             padding: 30px 15px 0
          svg
             flex-shrink: 0
+            +sm
+               width: 50px
+               height: 50px
       &-text
          padding-left: 30px
          line-height: 28px
          font-style: italic
+         +sm
+            padding-left: 20px
+            font-size: 15px
+            line-height: 24px
          
 .license
    padding: 70px 0 65px
+   +sm
+      padding: 50px 0
    &__section-title
       margin-bottom: 25px
+      +md
+         margin-bottom: 50px
+      +sm
+         margin-bottom: 30px
+      .section-title__top
+         +sm
+            font-size: 31px
       
    &__images
       display: flex
       margin: 0 auto 40px
       max-width: 878px
+      +sm
+         align-items: center
+         flex-direction: column
+         margin: 0 auto 30px
       &-inner
       &-item
+         position: relative
          margin: 0 15px
-         flex: 0 0 calc(33.333333% - 30px)
+         flex: 0 1 calc(33.333333% - 30px)
          +ratio(262, 377)
          +cover
-         
+         .no-touch &:hover::after
+            opacity: 1
+         &::after
+            +trs
+            opacity: 0
+            +coverdiv
+            background: rgba(#763a83, .5)
+            content: ''
+         +sm
+            max-width: 290px
+            flex: 0 1 auto
+            width: 100%
+            margin: 0
+         &:not(:last-child)
+            +sm
+               margin: 0 0 30px
+               
+         &-additional
+            display: none
    &__text
       line-height: 28px
       p
          margin-bottom: 28px
-         
+         +sm
+            margin-bottom: 20px
+            line-height: 24px
+            font-size: 15px
+   
       ul
          li
             position: relative
             padding-left: 30px
+            +sm
+               padding-left: 20px
+               line-height: 24px
+               font-size: 15px
             &::before
                position: absolute
                top: 6px
@@ -87,5 +170,9 @@
                border-radius: 50%
                background-color: $yellow
                content: ''
+               +sm
+                  left: -2px
+                  width: 12px
+                  height: 12px
             &:not(:last-child)
                margin-bottom: 28px

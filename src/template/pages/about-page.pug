@@ -57,10 +57,10 @@ block main
 				+title('__section-title', 'Лицензии на образовательную деятельность', 'Licenses for teaching')
 
 				+e.images
-					-img = 0
-					while img < 3
-						+e.images-item(style='background-image: url(static/img/content/license.jpg)')
-						-img++
+					+e.A.images-item(href='static/img/content/license-1.jpg' data-fancybox="license-1" style=`background-image: url(static/img/content/license-1_sm.jpg)`)
+					+e.A.images-item-additional(href='static/img/content/license-1_entry.jpg' data-fancybox="license-1")
+					+e.A.images-item(href='static/img/content/license-2.jpg' data-fancybox="license-2" style=`background-image: url(static/img/content/license-2_sm.jpg)`)
+					+e.A.images-item(href='static/img/content/license-3.jpg' data-fancybox="license-3" style=`background-image: url(static/img/content/license-3_sm.jpg)`)
 
 				+e.text
 					p Кто преподает в лингвистическом клубе «IBIS»? Наши преподаватели — высококлассные профессионалы, которые обладают знаниями из разных областей, талантом и чутким сердцем. У нас работают как русскоязычные специалисты, так и иностранцы-носители языка. Подробнее о наших преподавателях.
