@@ -12270,9 +12270,9 @@ __webpack_require__(332);
 
 __webpack_require__(333);
 
-__webpack_require__(343);
+__webpack_require__(345);
 
-var _Home = __webpack_require__(345);
+var _Home = __webpack_require__(347);
 
 var _Home2 = _interopRequireDefault(_Home);
 
@@ -18608,9 +18608,9 @@ __webpack_require__(339);
 
 __webpack_require__(341);
 
-__webpack_require__(347);
-
 __webpack_require__(342);
+
+__webpack_require__(344);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22768,323 +22768,22 @@ $tabs.each(function (index, el) {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _fancybox = __webpack_require__(343);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _scrollAnim = __webpack_require__(93);
-
-var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
-
-var _gsap = __webpack_require__(64);
-
-var _helpers = __webpack_require__(29);
-
-var _swiper = __webpack_require__(128);
-
-var _swiper2 = _interopRequireDefault(_swiper);
+var _fancybox2 = _interopRequireDefault(_fancybox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+$('[data-fancybox="teachers"]').fancybox({
+    btnTpl: {
+        arrowLeft: '<a data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}" href="javascript:;">\n      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="48"\n           viewBox="0 0 24 48">\n          <defs>\n              <path id="qlcya" d="M412.89 1495L389 1471l23.89-24"/>\n              <clipPath id="qlcyb">\n                  <use fill="#fff" xlink:href="#qlcya"/>\n              </clipPath>\n          </defs>\n          <g>\n              <g transform="translate(-389 -1447)">\n                  <use fill="#fff" fill-opacity="0" stroke="#fff" stroke-miterlimit="50" stroke-width="6"\n                       clip-path="url(&quot;#qlcyb&quot;)" xlink:href="#qlcya"/>\n              </g>\n          </g>\n      </svg>\n    </a>',
 
-var Benefits = function () {
-  function Benefits() {
-    _classCallCheck(this, Benefits);
-
-    this.block = document.querySelector('.benefits');
-    if (!this.block) return;
-
-    this.inner = this.block.querySelector('.benefits__inner');
-    this.items = this.block.querySelectorAll('.benefits__item');
-
-    this.init();
-  }
-
-  _createClass(Benefits, [{
-    key: 'init',
-    value: function init() {
-      if (!_helpers.Resp.isDesk) {
-        this.prepareSlider();
-        this.createSlider();
-      }
+        arrowRight: '<a data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}" href="javascript:;">\n      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="48"\n     viewBox="0 0 24 48">\n    <defs>\n        <path id="s2n3a" d="M1506 1447l24 24-24 24"/>\n        <clipPath id="s2n3b">\n            <use fill="#fff" xlink:href="#s2n3a"/>\n        </clipPath>\n    </defs>\n    <g>\n        <g transform="translate(-1506 -1447)">\n            <use fill="#fff" fill-opacity="0" stroke="#fff" stroke-miterlimit="50" stroke-width="6"\n                 clip-path="url(&quot;#s2n3b&quot;)" xlink:href="#s2n3a"/>\n        </g>\n    </g>\n</svg>\n    </a>'
     }
-  }, {
-    key: 'prepareSlider',
-    value: function prepareSlider() {
-      var _this = this;
-
-      return new Promise(function (resolve) {
-        var container = document.createElement('div');
-
-        container.classList.add('swiper-container');
-        _this.inner.before(container);
-        container.append(_this.inner);
-        _this.inner.classList.add('swiper-wrapper');
-
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = _this.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
-            item.classList.add('swiper-slide');
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
-        resolve();
-      });
-    }
-  }, {
-    key: 'createSlider',
-    value: function createSlider() {
-      this.slider = new _swiper2.default(this.inner.parentElement, {
-        slidesPerView: 3,
-        loop: true,
-        speed: 500,
-        breakpoints: {
-          767: {
-            slidesPerView: 1
-          }
-        }
-      });
-    }
-  }]);
-
-  return Benefits;
-}();
-
-exports.default = new Benefits();
+});
 
 /***/ }),
 /* 343 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PublicAPI = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Website's public API (example).
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Make some functions and methods accessible in global scope.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module PublicAPI
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-var _Timer = __webpack_require__(344);
-
-var _Timer2 = _interopRequireDefault(_Timer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var PublicAPI = exports.PublicAPI = function () {
-  function PublicAPI() {
-    _classCallCheck(this, PublicAPI);
-  }
-
-  _createClass(PublicAPI, null, [{
-    key: 'Timer',
-
-    /**
-     * Some of 'Timer' module public methods.
-     *
-     * PublicAPI.timer.init() - initialize timer
-     * PublicAPI.timer.stop() - stop timer
-     *
-     * @return {{init: Function, stop: Function}}
-     */
-    get: function get() {
-      return {
-        init: _Timer2.default.startTimer.bind(_Timer2.default),
-        stop: _Timer2.default.stopTimer.bind(_Timer2.default)
-      };
-    }
-  }]);
-
-  return PublicAPI;
-}();
-
-/** Expose Public API */
-
-
-exports.default = window.PublicAPI = PublicAPI;
-
-/***/ }),
-/* 344 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * Example component (delete on prod)
- *
- * @module Timer
- */
-
-var Timer = exports.Timer = function Timer() {
-  var _this = this;
-
-  _classCallCheck(this, Timer);
-
-  this._counter = 1;
-  this._timerInterval = null;
-
-  this.setTimer = function (time) {
-    _this._counter = time;
-  };
-
-  this.startTimer = function () {
-    _this._timerInterval = setInterval(function () {
-      return console.log("Timer: " + _this._counter++);
-    }, 1000);
-  };
-
-  this.stopTimer = function () {
-    clearInterval(_this._timerInterval);
-  };
-}
-/**
- * @private
- * @type {Number}
- */
-
-
-/**
- * @private
- * @type {Null|Number}
- */
-
-
-/**
- * Set current time
- *
- * @public
- * @this Timer
- * @param {Number} time
- */
-
-
-/**
- * Start countdown
- *
- * @public
- * @this Timer
- */
-
-
-/**
- * Stop countdown
- *
- * @public
- * @this Timer
- */
-;
-
-exports.default = new Timer();
-
-/***/ }),
-/* 345 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Home page scripts.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module Home
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-var _helpers = __webpack_require__(29);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Home = function () {
-  /**
-   * Cache data, make preparations and initialize page scripts.
-   */
-  function Home() {
-    _classCallCheck(this, Home);
-
-    this.message = function () {
-      var message = 'Home page scripts initialized on';
-
-      if (_helpers.Resp.isDesk) {
-        return message + ' Desktop';
-      } else if (_helpers.Resp.isTablet) {
-        return message + ' Tablet';
-      } else if (_helpers.Resp.isMobile) {
-        return message + ' Mobile';
-      }
-    }();
-
-    // initialize after construction
-    this.init();
-  }
-
-  /**
-   * Example method.
-   */
-
-
-  _createClass(Home, [{
-    key: 'example',
-    value: function example() {
-      console.log(this.message);
-    }
-  }, {
-    key: 'init',
-
-
-    /**
-     * Initialize Home page scripts.
-     */
-    value: function init() {
-      this.example();
-    }
-  }]);
-
-  return Home;
-}();
-
-exports.default = Home;
-
-/***/ }),
-/* 346 */
 /***/ (function(module, exports) {
 
 // ==================================================
@@ -28228,25 +27927,326 @@ exports.default = Home;
 
 
 /***/ }),
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _scrollAnim = __webpack_require__(93);
+
+var _scrollAnim2 = _interopRequireDefault(_scrollAnim);
+
+var _gsap = __webpack_require__(64);
+
+var _helpers = __webpack_require__(29);
+
+var _swiper = __webpack_require__(128);
+
+var _swiper2 = _interopRequireDefault(_swiper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Benefits = function () {
+  function Benefits() {
+    _classCallCheck(this, Benefits);
+
+    this.block = document.querySelector('.benefits');
+    if (!this.block) return;
+
+    this.inner = this.block.querySelector('.benefits__inner');
+    this.items = this.block.querySelectorAll('.benefits__item');
+
+    this.init();
+  }
+
+  _createClass(Benefits, [{
+    key: 'init',
+    value: function init() {
+      if (!_helpers.Resp.isDesk) {
+        this.prepareSlider();
+        this.createSlider();
+      }
+    }
+  }, {
+    key: 'prepareSlider',
+    value: function prepareSlider() {
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        var container = document.createElement('div');
+
+        container.classList.add('swiper-container');
+        _this.inner.before(container);
+        container.append(_this.inner);
+        _this.inner.classList.add('swiper-wrapper');
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = _this.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            item.classList.add('swiper-slide');
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        resolve();
+      });
+    }
+  }, {
+    key: 'createSlider',
+    value: function createSlider() {
+      this.slider = new _swiper2.default(this.inner.parentElement, {
+        slidesPerView: 3,
+        loop: true,
+        speed: 500,
+        breakpoints: {
+          767: {
+            slidesPerView: 1
+          }
+        }
+      });
+    }
+  }]);
+
+  return Benefits;
+}();
+
+exports.default = new Benefits();
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PublicAPI = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Website's public API (example).
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Make some functions and methods accessible in global scope.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module PublicAPI
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+var _Timer = __webpack_require__(346);
+
+var _Timer2 = _interopRequireDefault(_Timer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PublicAPI = exports.PublicAPI = function () {
+  function PublicAPI() {
+    _classCallCheck(this, PublicAPI);
+  }
+
+  _createClass(PublicAPI, null, [{
+    key: 'Timer',
+
+    /**
+     * Some of 'Timer' module public methods.
+     *
+     * PublicAPI.timer.init() - initialize timer
+     * PublicAPI.timer.stop() - stop timer
+     *
+     * @return {{init: Function, stop: Function}}
+     */
+    get: function get() {
+      return {
+        init: _Timer2.default.startTimer.bind(_Timer2.default),
+        stop: _Timer2.default.stopTimer.bind(_Timer2.default)
+      };
+    }
+  }]);
+
+  return PublicAPI;
+}();
+
+/** Expose Public API */
+
+
+exports.default = window.PublicAPI = PublicAPI;
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Example component (delete on prod)
+ *
+ * @module Timer
+ */
+
+var Timer = exports.Timer = function Timer() {
+  var _this = this;
+
+  _classCallCheck(this, Timer);
+
+  this._counter = 1;
+  this._timerInterval = null;
+
+  this.setTimer = function (time) {
+    _this._counter = time;
+  };
+
+  this.startTimer = function () {
+    _this._timerInterval = setInterval(function () {
+      return console.log("Timer: " + _this._counter++);
+    }, 1000);
+  };
+
+  this.stopTimer = function () {
+    clearInterval(_this._timerInterval);
+  };
+}
+/**
+ * @private
+ * @type {Number}
+ */
+
+
+/**
+ * @private
+ * @type {Null|Number}
+ */
+
+
+/**
+ * Set current time
+ *
+ * @public
+ * @this Timer
+ * @param {Number} time
+ */
+
+
+/**
+ * Start countdown
+ *
+ * @public
+ * @this Timer
+ */
+
+
+/**
+ * Stop countdown
+ *
+ * @public
+ * @this Timer
+ */
+;
+
+exports.default = new Timer();
+
+/***/ }),
 /* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _fancybox = __webpack_require__(346);
-
-var _fancybox2 = _interopRequireDefault(_fancybox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-$('[data-fancybox="teachers"]').fancybox({
-    btnTpl: {
-        arrowLeft: '<a data-fancybox-prev class="fancybox-button fancybox-button--arrow_left" title="{{PREV}}" href="javascript:;">\n      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="48"\n           viewBox="0 0 24 48">\n          <defs>\n              <path id="qlcya" d="M412.89 1495L389 1471l23.89-24"/>\n              <clipPath id="qlcyb">\n                  <use fill="#fff" xlink:href="#qlcya"/>\n              </clipPath>\n          </defs>\n          <g>\n              <g transform="translate(-389 -1447)">\n                  <use fill="#fff" fill-opacity="0" stroke="#fff" stroke-miterlimit="50" stroke-width="6"\n                       clip-path="url(&quot;#qlcyb&quot;)" xlink:href="#qlcya"/>\n              </g>\n          </g>\n      </svg>\n    </a>',
-
-        arrowRight: '<a data-fancybox-next class="fancybox-button fancybox-button--arrow_right" title="{{NEXT}}" href="javascript:;">\n      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="48"\n     viewBox="0 0 24 48">\n    <defs>\n        <path id="s2n3a" d="M1506 1447l24 24-24 24"/>\n        <clipPath id="s2n3b">\n            <use fill="#fff" xlink:href="#s2n3a"/>\n        </clipPath>\n    </defs>\n    <g>\n        <g transform="translate(-1506 -1447)">\n            <use fill="#fff" fill-opacity="0" stroke="#fff" stroke-miterlimit="50" stroke-width="6"\n                 clip-path="url(&quot;#s2n3b&quot;)" xlink:href="#s2n3a"/>\n        </g>\n    </g>\n</svg>\n    </a>'
-    }
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Home page scripts.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @module Home
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+var _helpers = __webpack_require__(29);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Home = function () {
+  /**
+   * Cache data, make preparations and initialize page scripts.
+   */
+  function Home() {
+    _classCallCheck(this, Home);
+
+    this.message = function () {
+      var message = 'Home page scripts initialized on';
+
+      if (_helpers.Resp.isDesk) {
+        return message + ' Desktop';
+      } else if (_helpers.Resp.isTablet) {
+        return message + ' Tablet';
+      } else if (_helpers.Resp.isMobile) {
+        return message + ' Mobile';
+      }
+    }();
+
+    // initialize after construction
+    this.init();
+  }
+
+  /**
+   * Example method.
+   */
+
+
+  _createClass(Home, [{
+    key: 'example',
+    value: function example() {
+      console.log(this.message);
+    }
+  }, {
+    key: 'init',
+
+
+    /**
+     * Initialize Home page scripts.
+     */
+    value: function init() {
+      this.example();
+    }
+  }]);
+
+  return Home;
+}();
+
+exports.default = Home;
 
 /***/ })
 /******/ ]);

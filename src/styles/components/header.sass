@@ -189,12 +189,12 @@
          display: none
          clear: both
          margin-top: 15px
-      ul
+      > ul
          display: flex
          margin: 0 -5px
          +md
             flex-direction: column
-         li
+         > li
             padding: 0 5px
             &:nth-child(1)
                flex: 0 0 98px
@@ -204,7 +204,7 @@
                +md
                   margin-bottom: 2px
    
-            a
+            > a
                position: relative
                display: flex
                align-items: center
@@ -281,6 +281,13 @@
                   position: relative
                   z-index: 2
                   top: 6px
+                  
+            > ul
+               position: absolute
+               top: 100%
+               left: 0
+               background: #fff
+      
       
       &-icon-1
          text
@@ -292,33 +299,48 @@
             display: block
             +clr
       
-   &__nav-toggle
-      float: right
-      background: #FFFFFF
-      width: 32px
-      height: 32px
-      border-radius: 3px
-      box-sizing: border-box
-      padding: 9px 6px
-      cursor: pointer
-      user-select: none
-      &.is-active span
-         &:first-child
-            -webkit-transform: translateY(6px) rotate(45deg)
-            transform: translateY(6px) rotate(45deg)
-         &:nth-child(2)
-            opacity: 0
-         &:last-child
-            -webkit-transform: translateY(-6px) rotate(-45deg)
-            transform: translateY(-6px) rotate(-45deg)
-      span
-         display: block
-         background: #994e92
-         width: 20px
-         height: 2px
+      &-toggle
+         float: right
+         background: #FFFFFF
+         width: 32px
+         height: 32px
          border-radius: 3px
-         -webkit-transform-origin: center
-         transform-origin: center
-         transition: 0.3s ease
-         &:nth-child(2)
-            margin: 4px 0
+         box-sizing: border-box
+         padding: 9px 6px
+         cursor: pointer
+         user-select: none
+         &.is-active span
+            &:first-child
+               -webkit-transform: translateY(6px) rotate(45deg)
+               transform: translateY(6px) rotate(45deg)
+            &:nth-child(2)
+               opacity: 0
+            &:last-child
+               -webkit-transform: translateY(-6px) rotate(-45deg)
+               transform: translateY(-6px) rotate(-45deg)
+         span
+            display: block
+            background: #994e92
+            width: 20px
+            height: 2px
+            border-radius: 3px
+            -webkit-transform-origin: center
+            transform-origin: center
+            transition: 0.3s ease
+            &:nth-child(2)
+               margin: 4px 0
+               
+      &-entry
+         position: absolute
+         left: 0
+         right: 0
+         display: flex
+         padding: 50px 22px 40px 40px
+         background: $white
+         > ul
+            flex: 0 0 355px
+         &-content
+            flex: 0 0 740px
+            padding: 0 15px
+         &-img
+         &-text
