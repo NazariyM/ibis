@@ -107,12 +107,16 @@
       &:hover
          #{$parent}-content
             transform: translateY(0)
+            +md
+               background: rgba($yellow, .9)
          #{$parent}-content::before
             opacity: 1
          #{$parent}-content::after
             width: 1000%
             transform: translate(-50%, -40px)
             background: rgba($yellow, .9)
+            +md
+               display: none
       
       &-content
          transform: translate3d(0, 57%, 0)
