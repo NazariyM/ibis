@@ -18984,7 +18984,6 @@ var Header = function () {
     key: 'bindEvents',
     value: function bindEvents() {
       this.initDropdown();
-      this.onResize();
     }
   }, {
     key: 'toggleNav',
@@ -19026,20 +19025,6 @@ var Header = function () {
         $siblingItems.find(_this2.dropdown).slideUp();
 
         $siblingItems.removeClass(_helpers.css.active);
-      });
-    }
-  }, {
-    key: 'onResize',
-    value: function onResize() {
-      var _this3 = this;
-
-      _helpers.$window.on('resize', function () {
-        if (!_helpers.Resp.isDesk) {
-          _this3.$navBtn.removeClass(_helpers.css.active);
-          _this3.$nav.slideUp(function () {
-            $(this).removeAttr('style');
-          });
-        }
       });
     }
   }]);
