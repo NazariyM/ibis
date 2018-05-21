@@ -18960,8 +18960,12 @@ var Header = function () {
   function Header() {
     _classCallCheck(this, Header);
 
-    this.$nav = $('.header__nav');
-    this.$navBtn = $('.header__nav-toggle');
+    this.$header = _helpers.$header;
+    this.$nav = this.$header.find('.header__nav');
+    this.$navBtn = this.$header.find('.header__nav-line');
+    this.dropdown = this.$header.find('.header__nav-drop');
+    this.dropdownList = this.$header.find('.header__nav-drop').find('ul');
+    this.dropdownContent = this.$header.find('.header__nav-drop-content');
 
     this.init();
   }
@@ -18973,11 +18977,13 @@ var Header = function () {
 
       if (!_helpers.Resp.isDesk) {
         this.toggleNav();
+        this.mobileDropToggling();
       }
     }
   }, {
     key: 'bindEvents',
     value: function bindEvents() {
+      this.initDropdown();
       this.onResize();
     }
   }, {
@@ -18985,19 +18991,52 @@ var Header = function () {
     value: function toggleNav() {
       var _this = this;
       this.$navBtn.on('click tap', function () {
-        $(this).toggleClass(_helpers.css.active);
+        $(this).find('button').toggleClass(_helpers.css.active);
         _this.$nav.slideToggle();
+      });
+    }
+  }, {
+    key: 'initDropdown',
+    value: function initDropdown() {
+      var _this = this;
+
+      this.dropdownList.each(function (i, el) {
+        var $el = $(el);
+
+        $el.find('li').each(function (i) {
+          $(this).hover(function () {
+            $(this).closest(_this.dropdown).find(_this.dropdownContent).removeClass(_helpers.css.active).eq(i).addClass(_helpers.css.active);
+          });
+        });
+      });
+    }
+  }, {
+    key: 'mobileDropToggling',
+    value: function mobileDropToggling() {
+      var _this2 = this;
+
+      var $mobBtn = this.$nav.find('ul > li');
+
+      $mobBtn.on('click', function (e) {
+        var $target = $(e.target);
+        var $siblingItems = $target.closest('li').siblings();
+
+        $target.addClass(_helpers.css.active).find(_this2.dropdown).slideToggle();
+
+        $siblingItems.find(_this2.dropdown).slideUp();
+
+        $siblingItems.removeClass(_helpers.css.active);
       });
     }
   }, {
     key: 'onResize',
     value: function onResize() {
-      var _this2 = this;
+      var _this3 = this;
 
       _helpers.$window.on('resize', function () {
         if (!_helpers.Resp.isDesk) {
-          _this2.$navBtn.removeClass(_helpers.css.active);
-          _this2.$nav.slideUp(function () {
+          _this3.$navBtn.removeClass(_helpers.css.active);
+          _this3.$nav.slideUp(function () {
             $(this).removeAttr('style');
           });
         }
