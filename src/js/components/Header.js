@@ -29,7 +29,6 @@ class Header {
 
   bindEvents() {
     this.initDropdown();
-    this.onResize();
   }
 
   toggleNav() {
@@ -71,17 +70,6 @@ class Header {
         .slideUp();
 
       $siblingItems.removeClass(css.active);
-    });
-  }
-
-  onResize() {
-    $window.on('resize', () => {
-      if (!Resp.isDesk) {
-        this.$navBtn.removeClass(css.active);
-        this.$nav.slideUp(function () {
-          $(this).removeAttr('style');
-        });
-      }
     });
   }
 
